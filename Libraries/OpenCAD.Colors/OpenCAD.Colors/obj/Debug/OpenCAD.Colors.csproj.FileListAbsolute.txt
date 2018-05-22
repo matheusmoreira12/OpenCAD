@@ -1,0 +1,2 @@
+C:\Users\Matheus Moreira\source\repos\OpenCAD\Libraries\OpenCAD.Colors\OpenCAD.Colors\obj\Debug\OpenCAD.Colors.csprojResolveAssemblyReference.cache
+C:\Users\Matheus Moreira\source\repos\OpenCAD\Libraries\OpenCAD.Colors\OpenCAD.Colors\obj\Debug\OpenCAD.Colors.csproj.CoreCompileInputs.cache

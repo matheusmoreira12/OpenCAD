@@ -1,0 +1,19 @@
+﻿<Window x:Class="WpfAppLibraryTest.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfAppLibraryTest"
+        xmlns:opencad="clr-namespace:OpenCAD.UserInterface;assembly=OpenCADUserInterface"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <opencad:LayerDisplayDataGrid>
+            <opencad:LayerDisplayDataGrid.Items>
+                <opencad:LayerDisplayLayerInfo LayerColor="Green" LayerVisible="True" LayerLabel="Top Layer"/>
+                <opencad:LayerDisplayLayerInfo LayerColor="DarkRed" LayerVisible="True" LayerLabel="Bottom Layer"/>
+            </opencad:LayerDisplayDataGrid.Items>
+        </opencad:LayerDisplayDataGrid>
+        <opencad:ColorPickerSwatch A="1" R="1" G=".5" B=".5"></opencad:ColorPickerSwatch>
+    </Grid>
+</Window>
