@@ -1,2 +1,9 @@
 C:\Users\Matheus Moreira\source\repos\OpenCAD\Libraries\OpenCAD.Colors\OpenCAD.Colors\obj\Debug\OpenCAD.Colors.csprojResolveAssemblyReference.cache
 C:\Users\Matheus Moreira\source\repos\OpenCAD\Libraries\OpenCAD.Colors\OpenCAD.Colors\obj\Debug\OpenCAD.Colors.csproj.CoreCompileInputs.cache
+C:\Users\Matheus Moreira\source\repos\OpenCAD\Libraries\OpenCAD.Colors\OpenCAD.Colors\bin\Debug\OpenCAD.Colors.dll
+C:\Users\Matheus Moreira\source\repos\OpenCAD\Libraries\OpenCAD.Colors\OpenCAD.Colors\bin\Debug\OpenCAD.Colors.pdb
+C:\Users\Matheus Moreira\source\repos\OpenCAD\Libraries\OpenCAD.Colors\OpenCAD.Colors\bin\Debug\System.ValueTuple.dll
+C:\Users\Matheus Moreira\source\repos\OpenCAD\Libraries\OpenCAD.Colors\OpenCAD.Colors\bin\Debug\System.ValueTuple.xml
+C:\Users\Matheus Moreira\source\repos\OpenCAD\Libraries\OpenCAD.Colors\OpenCAD.Colors\obj\Debug\OpenCAD.Colors.csproj.CopyComplete
+C:\Users\Matheus Moreira\source\repos\OpenCAD\Libraries\OpenCAD.Colors\OpenCAD.Colors\obj\Debug\OpenCAD.Colors.dll
+C:\Users\Matheus Moreira\source\repos\OpenCAD\Libraries\OpenCAD.Colors\OpenCAD.Colors\obj\Debug\OpenCAD.Colors.pdb

@@ -1,6 +1,9 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\Libraries",
+    "\\Libraries\\OpenCAD.OpenCADFormat"
   ],
+  "SelectedNode": "\\Libraries\\OpenCAD.OpenCADFormat",
   "PreviewInSolutionExplorer": false
 }
