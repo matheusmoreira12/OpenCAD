@@ -2,8 +2,15 @@
   "ExpandedNodes": [
     "",
     "\\Libraries",
-    "\\Libraries\\OpenCAD.OpenCADFormat"
+    "\\Libraries\\OpenCAD.OpenCADFormat",
+    "\\Libraries\\OpenCAD.OpenCADFormat\\OpenCAD.OpenCADFormat.DataStrings",
+    "\\Libraries\\OpenCAD.OpenCADFormat\\OpenCAD.OpenCADFormat.DataStrings\\OpenCAD.OpenCADFormat.DataStrings",
+    "\\Libraries\\OpenCAD.OpenCADFormat\\OpenCAD.OpenCADFormat.DataStrings\\OpenCAD.OpenCADFormat.DataStrings\\Properties",
+    "\\Libraries\\OpenCAD.OpenCADFormat\\OpenCAD.OpenCADFormat.Libraries",
+    "\\Libraries\\OpenCAD.OpenCADFormat\\OpenCAD.OpenCADFormat.Libraries\\OpenCAD.OpenCADFormat.Libraries",
+    "\\Tests\\Libraries",
+    "\\Tests\\Libraries\\OpenCAD.UserInterface"
   ],
-  "SelectedNode": "\\Libraries\\OpenCAD.OpenCADFormat",
+  "SelectedNode": "\\Libraries\\OpenCAD.OpenCADFormat\\OpenCAD.OpenCADFormat.DataStrings\\OpenCAD.OpenCADFormat.DataStrings\\Properties\\AssemblyInfo.cs",
   "PreviewInSolutionExplorer": false
 }
