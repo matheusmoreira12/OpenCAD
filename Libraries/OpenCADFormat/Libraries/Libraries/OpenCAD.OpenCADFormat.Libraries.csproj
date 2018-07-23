@@ -31,7 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="OpenCAD.OpenCADFormat.SchematicCapture">
-      <HintPath>..\..\OpenCAD.OpenCADFormat.SchematicCapture\OpenCAD.OpenCADFormat.SchematicCapture\bin\Debug\OpenCAD.OpenCADFormat.SchematicCapture.dll</HintPath>
+      <HintPath>..\..\SchematicCapture\SchematicCapture\bin\Release\OpenCAD.OpenCADFormat.SchematicCapture.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

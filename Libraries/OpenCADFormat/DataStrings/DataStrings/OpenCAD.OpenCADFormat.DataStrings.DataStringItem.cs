@@ -1,78 +1,11 @@
 ﻿using OpenCAD.OpenCADFormat.DataConversion;
 using OpenCAD.Utils;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using System.Numerics;
-
-using OpenCAD.OpenCADFormat.DataTypes;
 
 namespace OpenCAD.OpenCADFormat.DataStrings
 {
-    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Struct, AllowMultiple = false)]
-    public sealed class MainContextAttribute : Attribute
-    {
-    }
-
-    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Struct, AllowMultiple = false)]
-    public sealed class AnyFunctionAttribute : Attribute
-    {
-        public string[] FunctionNames;
-
-        public AnyFunctionAttribute() { }
-        public AnyFunctionAttribute(params string[] functionNames)
-        {
-            FunctionNames = functionNames;
-        }
-    }
-
-    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Struct, AllowMultiple = false)]
-    public sealed class FunctionAttribute : Attribute
-    {
-        public string FunctionName;
-
-        public FunctionAttribute(string functionName)
-        {
-            FunctionName = functionName;
-        }
-    }
-
-    [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property, AllowMultiple = false)]
-    public sealed class FunctionItemAttribute : Attribute
-    {
-        public Type TargetType;
-
-        public FunctionItemAttribute(Type targetType)
-        {
-            TargetType = targetType;
-        }
-    }
-
-    [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property, AllowMultiple = false)]
-    public sealed class StringLiteralAttribute : Attribute
-    {
-    }
-
-    [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property, AllowMultiple = false)]
-    public sealed class FloatLiteralAttribute : Attribute
-    {
-    }
-
-    [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property, AllowMultiple = false)]
-    public sealed class IntegerLiteralAttribute : Attribute
-    {
-    }
-
-    [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property, AllowMultiple = false)]
-    public sealed class BinaryLiteralAttribute : Attribute
-    {
-        public DataStringLiteralBinaryRepresentation OriginalRepresentation = DataStringLiteralBinaryRepresentation.Binary;
-    }
-
     public abstract class DataStringItem
     {
         #region String Reading/Writing
@@ -290,9 +223,9 @@ namespace OpenCAD.OpenCADFormat.DataStrings
             if (StringUtils.ReadDecimalString(scanner, out decimalStr, out isFloatingPoint, out hasExponent))
             {
                 if (isFloatingPoint)
-                    item = new DataStringLiteralFloatingPoint(BigFloat.Parse(decimalStr, Conventions.STANDARD_CULTURE));
+                    item = new DataStringLiteralFloatingPoint(double.Parse(decimalStr, Conventions.STANDARD_CULTURE));
                 else
-                    item = new DataStringLiteralInteger(BigInteger.Parse(decimalStr, Conventions.STANDARD_CULTURE));
+                    item = new DataStringLiteralInteger(int.Parse(decimalStr, Conventions.STANDARD_CULTURE));
 
                 return true;
             }
@@ -314,9 +247,9 @@ namespace OpenCAD.OpenCADFormat.DataStrings
         }
         #endregion
 
-        public BigFloat Value { get; private set; }
+        public double Value { get; private set; }
 
-        public DataStringLiteralFloatingPoint(BigFloat value) : base()
+        public DataStringLiteralFloatingPoint(double value) : base()
         {
             Value = value;
         }
@@ -331,12 +264,61 @@ namespace OpenCAD.OpenCADFormat.DataStrings
         }
         #endregion
 
-        public BigInteger Value { get; private set; }
+        public int Value { get; private set; }
 
-        public DataStringLiteralInteger(BigInteger value) : base()
+        public DataStringLiteralInteger(int value) : base()
         {
             Value = value;
         }
+    }
+
+    public class DataStringLooseDataset : DataStringItem
+    {
+        #region String Reading/Writing
+        internal static new bool ReadFromString(StringScanner scanner, out DataStringItem item)
+        {
+            using (var token = scanner.SaveIndex())
+            {
+                if (scanner.CurrentChar == GlobalConsts.LOOSE_DATASET_OPENING_CHAR)
+                {
+                    scanner.Increment();
+
+                    item = new DataStringLooseDataset();
+                    item.Items.AddRange(DataStringItemCollection.ReadFromString(scanner).ToList());
+
+                    if (scanner.CurrentChar == GlobalConsts.LOOSE_DATASET_CLOSING_CHAR)
+                    {
+                        scanner.Increment();
+                        return true;
+                    }
+                }
+
+                scanner.RestoreIndex(token);
+                item = null;
+                return false;
+            }
+        }
+
+        public override string ToString()
+        {
+            StringWriter writer = new StringWriter("");
+            WriteToString(writer);
+
+            return writer.Content;
+        }
+
+        internal override void WriteToString(StringWriter writer)
+        {
+            writer.Content += GlobalConsts.LOOSE_DATASET_OPENING_CHAR;
+
+            Items.WriteToString(writer);
+
+            writer.Content += GlobalConsts.LOOSE_DATASET_CLOSING_CHAR;
+        }
+        #endregion
+
+        public DataStringLooseDataset() : base() { }
+        public DataStringLooseDataset(IEnumerable<DataStringItem> items) : base(items) { }
     }
 
     public class DataStringFunction : DataStringItem
@@ -364,6 +346,7 @@ namespace OpenCAD.OpenCADFormat.DataStrings
                         }
                     }
                 }
+
 
                 scanner.RestoreIndex(token);
                 item = null;

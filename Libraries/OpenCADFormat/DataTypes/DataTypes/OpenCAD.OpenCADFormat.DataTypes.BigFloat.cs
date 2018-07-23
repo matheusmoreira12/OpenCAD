@@ -37,19 +37,19 @@ namespace OpenCAD.OpenCADFormat.DataTypes
             }
         }
 
-
-        //constructors
-        public BigFloat()
-        {
-            numerator = BigInteger.Zero;
-            denominator = BigInteger.One;
-        }
-        public BigFloat(string value)
+        private BigFloat(string value)
         {
             BigFloat bf = Parse(value);
             this.numerator = bf.numerator;
             this.denominator = bf.denominator;
         }
+
+        public BigFloat()
+        {
+            numerator = BigInteger.Zero;
+            denominator = BigInteger.One;
+        }
+
         public BigFloat(BigInteger numerator, BigInteger denominator)
         {
             this.numerator = numerator;
@@ -57,11 +57,13 @@ namespace OpenCAD.OpenCADFormat.DataTypes
                 throw new ArgumentException("denominator equals 0");
             this.denominator = BigInteger.Abs(denominator);
         }
+
         public BigFloat(BigInteger value)
         {
             numerator = value;
             denominator = BigInteger.One;
         }
+
         public BigFloat(BigFloat value)
         {
             if (Equals(value, null))
@@ -76,21 +78,25 @@ namespace OpenCAD.OpenCADFormat.DataTypes
                 denominator = value.denominator;
             }
         }
+
         public BigFloat(ulong value)
         {
             numerator = new BigInteger(value);
             denominator = BigInteger.One;
         }
+
         public BigFloat(long value)
         {
             numerator = new BigInteger(value);
             denominator = BigInteger.One;
         }
+
         public BigFloat(uint value)
         {
             numerator = new BigInteger(value);
             denominator = BigInteger.One;
         }
+
         public BigFloat(int value)
         {
             numerator = new BigInteger(value);

@@ -30,6 +30,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="OpenCAD.OpenCADFormat.CoordinateSystem">
+      <HintPath>..\..\CoordinateSystem\OpenCAD.OpenCADFormat.CoordinateSystem\bin\Release\OpenCAD.OpenCADFormat.CoordinateSystem.dll</HintPath>
+    </Reference>
+    <Reference Include="OpenCAD.OpenCADFormat.Measures">
+      <HintPath>..\..\Measures\Measures\bin\Release\OpenCAD.OpenCADFormat.Measures.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -41,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="OpenCAD.OpenCADFormat.SchematicCapture.cs" />
+    <Compile Include="OpenCAD.OpenCADFormat.SchematicCapture.Drawing.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

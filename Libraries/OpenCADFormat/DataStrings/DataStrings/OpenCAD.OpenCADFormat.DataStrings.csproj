@@ -36,15 +36,11 @@
     <Reference Include="OpenCAD.OpenCADFormat.DataConversion">
       <HintPath>..\..\DataConversion\DataConversion\bin\Release\OpenCAD.OpenCADFormat.DataConversion.dll</HintPath>
     </Reference>
-    <Reference Include="OpenCAD.OpenCADFormat.DataTypes">
-      <HintPath>..\..\DataTypes\DataTypes\bin\Release\OpenCAD.OpenCADFormat.DataTypes.dll</HintPath>
-    </Reference>
     <Reference Include="OpenCAD.Utils">
       <HintPath>..\..\..\Utils\Utils\bin\Release\OpenCAD.Utils.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Numerics" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -53,7 +49,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="OpenCAD.OpenCADFormat.DataStrings.cs" />
+    <Compile Include="OpenCAD.OpenCADFormat.DataStrings.Attributes.cs" />
+    <Compile Include="OpenCAD.OpenCADFormat.DataStrings.DataStringItem.cs" />
     <Compile Include="OpenCAD.OpenCADFormat.DataStrings.Encoding.cs" />
     <Compile Include="OpenCAD.OpenCADFormat.DataStrings.Exceptions.cs" />
     <Compile Include="OpenCAD.OpenCADFormat.DataStrings.GlobalConsts.cs" />

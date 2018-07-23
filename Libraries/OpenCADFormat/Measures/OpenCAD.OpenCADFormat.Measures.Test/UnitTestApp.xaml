@@ -1,0 +1,8 @@
+﻿<Application
+    x:Class="OpenCAD.OpenCADFormat.Measures.Test.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:OpenCAD.OpenCADFormat.Measures.Test"
+    RequestedTheme="Light">
+
+</Application>

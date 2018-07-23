@@ -23,7 +23,7 @@ namespace OpenCAD.OpenCADFormat.Libraries
                 public ParameterList Parameters;
 
                 [XmlElement]
-                public SchematicCapture Symbol;
+                public SchematicCapture.SchematicCapture Symbol;
 
                 public Part()
                 {

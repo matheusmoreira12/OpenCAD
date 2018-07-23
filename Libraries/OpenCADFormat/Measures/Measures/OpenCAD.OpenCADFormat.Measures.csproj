@@ -33,9 +33,6 @@
     <Reference Include="OpenCAD.OpenCADFormat.Conventions">
       <HintPath>..\..\Conventions\OpenCAD.OpenCADFormat.Conventions\bin\Release\OpenCAD.OpenCADFormat.Conventions.dll</HintPath>
     </Reference>
-    <Reference Include="OpenCAD.OpenCADFormat.DataTypes">
-      <HintPath>..\..\DataTypes\DataTypes\bin\Release\OpenCAD.OpenCADFormat.DataTypes.dll</HintPath>
-    </Reference>
     <Reference Include="OpenCAD.Utils">
       <HintPath>..\..\..\Utils\Utils\bin\Release\OpenCAD.Utils.dll</HintPath>
     </Reference>

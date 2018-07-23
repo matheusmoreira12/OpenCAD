@@ -1,16 +1,8 @@
 {
   "ExpandedNodes": [
     "",
-    "\\Libraries",
-    "\\Libraries\\OpenCAD.OpenCADFormat",
-    "\\Libraries\\OpenCAD.OpenCADFormat\\OpenCAD.OpenCADFormat.DataStrings",
-    "\\Libraries\\OpenCAD.OpenCADFormat\\OpenCAD.OpenCADFormat.DataStrings\\OpenCAD.OpenCADFormat.DataStrings",
-    "\\Libraries\\OpenCAD.OpenCADFormat\\OpenCAD.OpenCADFormat.DataStrings\\OpenCAD.OpenCADFormat.DataStrings\\Properties",
-    "\\Libraries\\OpenCAD.OpenCADFormat\\OpenCAD.OpenCADFormat.Libraries",
-    "\\Libraries\\OpenCAD.OpenCADFormat\\OpenCAD.OpenCADFormat.Libraries\\OpenCAD.OpenCADFormat.Libraries",
-    "\\Tests\\Libraries",
-    "\\Tests\\Libraries\\OpenCAD.UserInterface"
+    "\\Libraries"
   ],
-  "SelectedNode": "\\Libraries\\OpenCAD.OpenCADFormat\\OpenCAD.OpenCADFormat.DataStrings\\OpenCAD.OpenCADFormat.DataStrings\\Properties\\AssemblyInfo.cs",
+  "SelectedNode": "\\Libraries\\Colors",
   "PreviewInSolutionExplorer": false
 }

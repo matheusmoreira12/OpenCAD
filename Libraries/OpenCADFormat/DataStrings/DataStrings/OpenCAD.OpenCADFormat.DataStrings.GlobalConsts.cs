@@ -22,6 +22,8 @@ namespace OpenCAD.OpenCADFormat.DataStrings
         public const char SEPARATOR_CHARACTER = ';';
         public const char FUNC_PARAMS_OPENING_CHAR = '(';
         public const char FUNC_PARAMS_CLOSING_CHAR = ')';
+        public const char LOOSE_DATASET_OPENING_CHAR = '{';
+        public const char LOOSE_DATASET_CLOSING_CHAR = '}';
         public const char PARAM_NAME_SEPARATOR_CHAR = ':';
         public const char STRING_ENCLOSING_CHAR = '\'';
     }

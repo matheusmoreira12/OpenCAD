@@ -1,41 +1,55 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml;
-using System.Xml.Schema;
-using System.Xml.Serialization;
-
-using OpenCAD.OpenCADFormat.Measures;
-using OpenCAD.OpenCADFormat.DataStrings;
+﻿using OpenCAD.OpenCADFormat.Measures;
 
 namespace OpenCAD.OpenCADFormat.CoordinateSystem
 {
-    [Function("point")]
     public struct Point
     {
-        [StringLiteral]
-        public IMeasurement<Measures.Quantities.Length> X;
-        [StringLiteral]
-        public IMeasurement<Measures.Quantities.Length> Y;
+        public IMeasurement<Measures.Quantities.Length> X { get; private set; }
+        public IMeasurement<Measures.Quantities.Length> Y { get; private set; }
+
+        public Point(IMeasurement<Measures.Quantities.Length> x, IMeasurement<Measures.Quantities.Length> y)
+        {
+            X = x;
+            Y = y;
+        }
     }
 
-    [Function("size")]
     public struct Size
     {
-        [StringLiteral]
-        public IMeasurement<Measures.Quantities.Length> Width;
-        [StringLiteral]
-        public IMeasurement<Measures.Quantities.Length> Height;
+        public IMeasurement<Measures.Quantities.Length> Width { get; private set; }
+        public IMeasurement<Measures.Quantities.Length> Height { get; private set; }
+
+        public Size(IMeasurement<Measures.Quantities.Length> width, IMeasurement<Measures.Quantities.Length> height)
+        {
+            Width = width;
+            Height = height;
+        }
     }
 
-    [Function("transform")]
-    public class Transform
+    public abstract class Transform
     {
-        [StringLiteral]
-        public Point Translation;
-        [StringLiteral]
-        public IMeasurement<Measures.Quantities.PlaneAngle> Rotation;
+
+    }
+
+    public class TranslateTransform
+    {
+        public Point Offset { get; private set; }
+
+        public TranslateTransform(Point offset)
+        {
+            Offset = offset;
+        }
+    }
+
+    public class RotateTransform
+    {
+        public Point Center { get; private set; }
+        public IMeasurement<Measures.Quantities.PlaneAngle> Angle { get; private set; }
+
+        public RotateTransform(Point center, IMeasurement<Measures.Quantities.PlaneAngle> angle)
+        {
+            Center = center;
+            Angle = angle;
+        }
     }
 }

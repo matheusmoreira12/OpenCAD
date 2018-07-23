@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-
-using System.Numerics;
 using System.Reflection;
 using System.Collections;
 
-using OpenCAD.OpenCADFormat.DataTypes;
 using OpenCAD.OpenCADFormat.DataConversion;
 using OpenCAD.OpenCADFormat.DataStrings.Exceptions;
 
@@ -58,7 +55,7 @@ namespace OpenCAD.OpenCADFormat.DataStrings.Encoding
                 fieldIsMarkedAsFloatLiteral = Attribute.IsDefined(targetMember, typeof(FloatLiteralAttribute)),
                 fieldIsMarkedAsIntegerLiteral = Attribute.IsDefined(targetMember, typeof(IntegerLiteralAttribute)),
                 fieldIsMarkedAsStringLiteral = Attribute.IsDefined(targetMember, typeof(StringLiteralAttribute)),
-                fieldIsMarkedAsFunction = Attribute.IsDefined(targetMember, typeof(FunctionAttribute));
+                fieldIsMarkedAsFunction = Attribute.IsDefined(targetMember, typeof(FunctionItemAttribute));
 
             if (fieldIsMarkedAsBinaryLiteral)
             {
@@ -100,27 +97,23 @@ namespace OpenCAD.OpenCADFormat.DataStrings.Encoding
 
         private DataStringLiteralFloatingPoint encodeAsFloatLiteral(object value)
         {
-            BigFloat fieldAsBigFloat;
-
-            if (ObjectConversion.TryConvertTo(value, out fieldAsBigFloat))
-                return new DataStringLiteralFloatingPoint(fieldAsBigFloat);
+            if (value is double)
+                return new DataStringLiteralFloatingPoint((double)value);
 
             return null;
         }
 
         private DataStringLiteralInteger encodeAsIntegerLiteral(object value)
         {
-            BigInteger? fieldAsBigInteger;
-
-            if (ObjectConversion.TryConvertTo(value, out fieldAsBigInteger))
-                return new DataStringLiteralInteger((BigInteger)fieldAsBigInteger);
+            if (value is int)
+                return new DataStringLiteralInteger((int)value);
 
             return null;
         }
 
         private DataStringLiteralString encodeAsStringLiteral(object value)
         {
-            return new DataStringLiteralString($"{value}");
+            return new DataStringLiteralString(value?.ToString());
         }
 
         private string resolveFunctionName(Type targetType)
@@ -139,7 +132,7 @@ namespace OpenCAD.OpenCADFormat.DataStrings.Encoding
 
         private DataStringFunction encodeAsFunction(object target, Type targetType)
         {
-            if (targetType.IsInstanceOfType(target))
+            if (targetType == null || targetType.IsInstanceOfType(target))
             {
                 string functionName = resolveFunctionName(target.GetType());
 

@@ -3,60 +3,56 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
-using OpenCAD.OpenCADFormat.DataTypes;
-
 namespace OpenCAD.OpenCADFormat.Measures
 {
     public interface IUnit<M> where M : IPhysicalQuantity, new()
     {
-        string Symbol { get; }
         Quantity<M> Quantity { get; }
+        string Symbol { get; }
+        string UISymbol { get; }
     }
 
+    /// <summary>
+    /// Represents a metric unit.
+    /// </summary>
+    /// <typeparam name="M">The physical quantity being measured.</typeparam>
     public sealed class Unit<M> : IUnit<M> where M : IPhysicalQuantity, new()
     {
-        public string Symbol { get; private set; }
-        public Quantity<M> Quantity { get; private set; }
-
-        public Unit(string symbol, BigFloat standardAmount)
+        /// <summary>
+        /// Creates a new metric unit from the specified standard amount.
+        /// </summary>
+        /// <param name="standardAmount">The standard amount.</param>
+        /// <param name="symbol">The symbol used internally.</param>
+        /// <param name="uiSymbol">The symbol used in the UI.</param>
+        public Unit(double standardAmount, string symbol, string uiSymbol = null)
         {
-            Symbol = symbol;
             Quantity = new Quantity<M>(standardAmount);
-        }
-
-        public Unit(string symbol, BigFloat conversionFactor, IUnit<M> originalUnit)
-        {
             Symbol = symbol;
-            Quantity = new Quantity<M>(originalUnit.Quantity.StandardAmount * conversionFactor);
-        }
-    }
-
-    public sealed class UnitCollection<M> : ReadOnlyCollection<IUnit<M>> where M : IPhysicalQuantity, new()
-    {
-        public IUnit<M> FindBySymbol(string symbol)
-        {
-            foreach (var unit in this)
-                if (unit.Symbol == symbol)
-                    return unit;
-
-            throw new ArgumentOutOfRangeException($"Could not find by symbol. No unit matches the symbol \"{symbol}\".");
+            UISymbol = uiSymbol ?? symbol;
         }
 
-        public bool TryFindBySymbol(string symbol, out IUnit<M> result)
-        {
-            try
-            {
-                result = FindBySymbol(symbol);
-                return true;
-            }
-            catch
-            {
-                result = null;
-                return false;
-            }
-        }
+        /// <summary>
+        /// Creates a new metric unit from an existing metric unit, and a conversion factor.
+        /// </summary>
+        /// <param name="conversionFactor">The conversion factor.</param>
+        /// <param name="originalUnit">The original unit.</param>
+        /// <param name="symbol">The symbol used internally.</param>
+        /// <param name="uiSymbol">The symbol used in the UI.</param>
+        public Unit(double conversionFactor, IUnit<M> originalUnit, string symbol, string uiSymbol = null) :
+            this(originalUnit.Quantity.StandardAmount * conversionFactor, symbol, uiSymbol)
+        { }
 
-        public UnitCollection(IList<IUnit<M>> original) : base(original) { }
-        public UnitCollection(IEnumerable<IUnit<M>> original) : base(original.ToList()) { }
+        /// <summary>
+        /// Gets the quantity represented by this metric unit.
+        /// </summary>
+        public Quantity<M> Quantity { get; private set; }
+        /// <summary>
+        /// Gets the symbol used internally.
+        /// </summary>
+        public string Symbol { get; private set; }
+        /// <summary>
+        /// Gets the symbol used in the UI.
+        /// </summary>
+        public string UISymbol { get; private set; }
     }
 }

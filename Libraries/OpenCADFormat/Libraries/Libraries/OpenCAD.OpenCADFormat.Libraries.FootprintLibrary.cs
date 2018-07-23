@@ -20,8 +20,8 @@ namespace OpenCAD.OpenCADFormat.Libraries
             [XmlArrayItem(ElementName = "Parameter")]
             public ParameterList Parameters;
 
-            [XmlElement]
-            public BoardLayout Layout;
+            /*[XmlElement]
+            public BoardLayout Layout;*/
         }
 
         [XmlArray]
