@@ -9,22 +9,19 @@ namespace OpenCAD.OpenCADFormat.Measures
         where M : IPhysicalQuantity, new()
     {
         public static Measurement<M> Add(Measurement<M> a, Measurement<M> b) => new Measurement<M>(a.Amount
-            + ConvertAmountTo(b.Amount, b.PrefixedUnit, a.PrefixedUnit), a.PrefixedUnit);
+            + ConvertAmountTo(b.Amount, b.Unit, a.Unit), a.Unit);
         public static Measurement<M> Subtract(Measurement<M> a, Measurement<M> b) => new Measurement<M>(a.Amount
-            - ConvertAmountTo(b.Amount, b.PrefixedUnit, a.PrefixedUnit), a.PrefixedUnit);
+            - ConvertAmountTo(b.Amount, b.Unit, a.Unit), a.Unit);
         public static Measurement<M> Multiply(Measurement<M> a, double b) => new Measurement<M>(a.Amount * b,
-            a.PrefixedUnit);
+            a.Unit);
         public static Measurement<M> Divide(Measurement<M> a, double b) => new Measurement<M>(a.Amount / b,
-            a.PrefixedUnit);
+            a.Unit);
         public static double Divide(Measurement<M> a, Measurement<M> b) => a.Amount
-            / ConvertAmountTo(b.Amount, a.PrefixedUnit, a.PrefixedUnit);
+            / ConvertAmountTo(b.Amount, a.Unit, a.Unit);
         public static Measurement<M> Modulus(Measurement<M> a, double b) => new Measurement<M>(a.Amount % b,
-            a.PrefixedUnit);
+            a.Unit);
         public static Measurement<M> Modulus(Measurement<M> a, Measurement<M> b) => new Measurement<M>(a.Amount
-            % ConvertAmountTo(b.Amount, a.PrefixedUnit, a.PrefixedUnit), a.PrefixedUnit);
-
-        public static double AsDouble(Measurement<M> value) => value.Amount * value.PrefixedUnit.Unit.Quantity
-            .StandardAmount;
+            % ConvertAmountTo(b.Amount, a.Unit, a.Unit), a.Unit);
 
         public static Measurement<M> operator +(Measurement<M> a, Measurement<M> b) => Add(a, b);
         public static Measurement<M> operator -(Measurement<M> a, Measurement<M> b) => Subtract(a, b);
@@ -54,62 +51,54 @@ namespace OpenCAD.OpenCADFormat.Measures
 
             string symbol = value.Remove(0, amountStr.Length);
 
-            PrefixedUnit<M>[] supportedUnits = Utils.GetSupportedPrefixedUnits<M>().ToArray();
+            IUnit<M>[] supportedUnits = Utils.GetSupportedUnits<M>().ToArray();
 
-            PrefixedUnit<M> unit = supportedUnits.First(u => $"{u.Prefix?.Symbol}{u.Unit.Symbol}" == symbol);
+            IUnit<M> unit = supportedUnits.First(u => u.Symbol == symbol);
 
             return new Measurement<M>(amount, unit);
         }
 
-        public static double ConvertAmountTo(double inAmount, PrefixedUnit<M> inPrefixedUnit, PrefixedUnit<M> outPrefixedUnit)
+        public static double ConvertAmountTo(double inAmount, IUnit<M> inUnit, IUnit<M> outUnit)
         {
-            return new Measurement<M>(inAmount, inPrefixedUnit).ConvertTo(outPrefixedUnit).Amount;
+            return new Measurement<M>(inAmount, inUnit).ConvertTo(outUnit).Amount;
         }
 
-        public Measurement(double amount, Unit<M> unit, IMetricPrefix prefix = null)
+        public Measurement(double amount, IUnit<M> unit, IMetricPrefix prefix)
         {
             if (unit == null)
                 throw new ArgumentNullException("unit");
+            if (prefix == null)
+                throw new ArgumentNullException("prefix");
 
             Amount = amount;
-            PrefixedUnit = new PrefixedUnit<M>(unit, prefix);
+            Unit = new PrefixedUnit<M>(unit ?? throw new ArgumentNullException("unit"),
+                prefix);
         }
 
-        public Measurement(double amount, PrefixedUnit<M> prefixedUnit)
+        public Measurement(double amount, IUnit<M> unit)
         {
             Amount = amount;
-            PrefixedUnit = prefixedUnit ?? throw new ArgumentNullException("prefixedUnit");
+            Unit = unit ?? throw new ArgumentNullException("unit");
         }
 
-        public override string ToString() => $"{Amount.ToString(Conventions.STANDARD_CULTURE)}{PrefixedUnit}";
-        public string ToUIString() => $"{Amount.ToString(Conventions.STANDARD_CULTURE)}{PrefixedUnit?.ToUIString()}";
+        public override string ToString() => $"{Amount.ToString(Conventions.STANDARD_CULTURE)}{Unit.Symbol}";
+        public string ToUIString() => $"{Amount.ToString(Conventions.STANDARD_CULTURE)}{Unit.UISymbol}";
 
-        public Measurement<M> ConvertTo(PrefixedUnit<M> outPrefixedUnit)
-        {
-            if (outPrefixedUnit == null)
-                throw new ArgumentNullException("outPrefixedUnit");
+        public Measurement<M> ConvertTo(IUnit<M> outUnit) => new Measurement<M>(Utils.ConvertAmount(this
+            , outUnit), outUnit);
 
-            return new Measurement<M>(Utils.ConvertAmount(this, outPrefixedUnit), outPrefixedUnit);
-        }
-
-        public Measurement<M> ConvertTo(Unit<M> outUnit, IMetricPrefix outPrefix = null)
-        {
-            if (outUnit == null)
-                throw new ArgumentNullException("outUnit");
-
-            return ConvertTo(new PrefixedUnit<M>(outUnit, outPrefix));
-        }
+        public double GetAbsoluteAmount() => Utils.GetAbsoluteAmount<M>(this);
 
         #region IComparable Interface
-        public int CompareTo(Measurement<M> other) => Comparer<double>.Default.Compare(AsDouble(this),
-            AsDouble(other));
+        public int CompareTo(Measurement<M> other) => Comparer<double>.Default.Compare(GetAbsoluteAmount(),
+            other.GetAbsoluteAmount());
         #endregion
 
         #region IEquatable Interface
-        public bool Equals(Measurement<M> other) => AsDouble(this) == AsDouble(other);
+        public bool Equals(Measurement<M> other) => GetAbsoluteAmount() == other.GetAbsoluteAmount();
         #endregion
 
         public double Amount { get; set; }
-        public PrefixedUnit<M> PrefixedUnit { get; private set; }
+        public IUnit<M> Unit { get; private set; }
     }
 }

@@ -2,18 +2,24 @@
 
 namespace OpenCAD.OpenCADFormat.Measures
 {
-    public sealed class PrefixedUnit<M> where M : IPhysicalQuantity, new()
+    public sealed class PrefixedUnit<M>: IUnit<M> where M : IPhysicalQuantity, new()
     {
-        public Unit<M> Unit { get; private set; }
+        public IUnit<M> BaseUnit { get; private set; }
         public IMetricPrefix Prefix { get; private set; }
+        public bool IsPrefixable => false;
+        public string Symbol => $"{Prefix.Symbol}{BaseUnit.Symbol}";
+        public string UISymbol => $"{Prefix.UISymbol}{BaseUnit.UISymbol}";
 
-        public PrefixedUnit(Unit<M> unit, IMetricPrefix prefix)
+        public double StandardAmount => BaseUnit.StandardAmount * Prefix.Multiplier;
+
+        public PrefixedUnit(IUnit<M> baseUnit, IMetricPrefix prefix)
         {
-            Unit = unit ?? throw new ArgumentNullException("unit");
-            Prefix = prefix;
-        }
+            if (!baseUnit.IsPrefixable)
+                throw new InvalidOperationException("Unable to create a prefixed unit from a base unit that does not " +
+                    "accept prefixes.");
 
-        public override string ToString() => $"{Prefix}{Unit}";
-        public string ToUIString() => $"{Prefix?.ToUIString()}{Unit.ToUIString()}";
+            BaseUnit = baseUnit ?? throw new ArgumentNullException("baseUnit");
+            Prefix = prefix ?? throw new ArgumentNullException("prefix");
+        }
     }
 }

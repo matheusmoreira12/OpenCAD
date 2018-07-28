@@ -46,10 +46,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="OpenCAD.OpenCADFormat.Measures.Complements.cs" />
     <Compile Include="OpenCAD.OpenCADFormat.Measures.Measurement.cs" />
     <Compile Include="OpenCAD.OpenCADFormat.Measures.MetricPrefixes.cs" />
     <Compile Include="OpenCAD.OpenCADFormat.Measures.PrefixedUnit.cs" />
-    <Compile Include="OpenCAD.OpenCADFormat.Measures.Quantities.cs" />
+    <Compile Include="OpenCAD.OpenCADFormat.Measures.PhysicalQuantity.cs" />
     <Compile Include="OpenCAD.OpenCADFormat.Measures.Unit.cs" />
     <Compile Include="OpenCAD.OpenCADFormat.Measures.Utils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

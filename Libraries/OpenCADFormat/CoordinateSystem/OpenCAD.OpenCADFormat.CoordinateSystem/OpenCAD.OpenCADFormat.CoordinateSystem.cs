@@ -5,10 +5,10 @@ namespace OpenCAD.OpenCADFormat.CoordinateSystem
 {
     public struct Point
     {
-        public static Size Subtract(Point a, Point b) => new Size(a.X.Subtract(b.X), a.Y.Subtract(b.Y));
-        public static Size Subtract(Point a, Size b) => new Size(a.X.Subtract(b.Width), a.Y.Subtract(b.Height));
-        public static Point Add(Point a, Point b) => new Point(a.X.Add(b.X), a.Y.Add(b.Y));
-        public static Point Add(Point a, Size b) => new Point(a.X.Add(b.Width), a.Y.Add(b.Height));
+        public static Size Subtract(Point a, Point b) => new Size(a.X - b.X, a.Y - b.Y);
+        public static Size Subtract(Point a, Size b) => new Size(a.X - b.Width, a.Y - b.Height);
+        public static Point Add(Point a, Point b) => new Point(a.X + b.X, a.Y + b.Y);
+        public static Point Add(Point a, Size b) => new Point(a.X + b.Width, a.Y + b.Height);
         public static (double dx, double dy) Divide(Point a, Size b) => (a.X / b.Width, a.Y / b.Width);
 
         public static Size operator -(Point a, Point b) => Subtract(a, b);
@@ -17,19 +17,21 @@ namespace OpenCAD.OpenCADFormat.CoordinateSystem
         public static Point operator +(Point a, Size b) => Add(a, b);
         public static (double dx, double dy) operator /(Point a, Size b) => Divide(a, b);
 
-        public static Measurement<Measures.Quantities.Length> Distance(Point a, Point b,
-            PrefixedUnit<Measures.Quantities.Length> unit)
+        public static Measurement<Measures.Quantities.Length> Distance(Point a, Point b)
         {
-            Size difference = (a - b).ConvertTo(unit);
-            double distance = Math.Sqrt(Math.Pow(difference.Width.Amount, 2) + Math.Pow(difference.Height.Amount, 2));
+            Size difference = (a - b);
 
-            return new Measurement<Measures.Quantities.Length>(distance, unit);
+            double distance = Math.Sqrt(Math.Pow(difference.Width.GetAbsoluteAmount(), 2)
+                + Math.Pow(difference.Height.GetAbsoluteAmount(), 2));
+
+            return new Measurement<Measures.Quantities.Length>(distance, null);
         }
 
         public static Measurement<Measures.Quantities.PlaneAngle> Angle(Point a, Point b)
         {
-            var difference = (a - b);
-            double angleRad = Math.Atan2(difference.Width.AsDouble(), difference.Height.AsDouble());
+            Size difference = (a - b).ConvertTo(null);
+
+            double angleRad = Math.Atan2(difference.Width.Amount, difference.Height.Amount);
 
             return new Measurement<Measures.Quantities.PlaneAngle>(angleRad, Measures.Quantities.PlaneAngle.Radian);
         }

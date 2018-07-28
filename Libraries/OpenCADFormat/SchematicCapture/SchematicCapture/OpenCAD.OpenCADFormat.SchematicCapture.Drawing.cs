@@ -24,17 +24,22 @@ namespace OpenCAD.OpenCADFormat.SchematicCapture.Drawing
         public Point Center;
         public Measurement<Measures.Quantities.Length> Radius;
 
-        public Measurement<Measures.Quantities.PlaneAngle> StartAngle;
-        public Measurement<Measures.Quantities.PlaneAngle> SweepAngle;
-        
-        private Measurement<Measures.Quantities.Length> calculateRadius(Point start, Point end, 
-            Point center, PrefixedUnit<Measures.Quantities.Length> unit)
+        private Measurement<Measures.Quantities.PlaneAngle> calculateStartAngle(Point start, Point center)
+            => Point.Angle(start, center);
+        private Measurement<Measures.Quantities.PlaneAngle> calculateSweepAngle(Point end, Point center
+            , Measurement<Measures.Quantities.PlaneAngle> startAngle) => Point.Angle(end, center) - startAngle;
+
+        private Measurement<Measures.Quantities.Length> calculateRadius(Point start, Point end,
+            Point center)
         {
-            var radius0 = Point.Distance(start, Center, unit);
-            var radius1 = Point.Distance(end, Center, unit);
+            var radius0 = Point.Distance(start, Center);
+            var radius1 = Point.Distance(end, Center);
 
             return radius0 > radius1 ? radius0 : radius1;
         }
+
+        public Measurement<Measures.Quantities.PlaneAngle> StartAngle;
+        public Measurement<Measures.Quantities.PlaneAngle> SweepAngle;        
 
         public Arc(Point center, Measurement<Measures.Quantities.Length> radius, 
             Measurement<Measures.Quantities.PlaneAngle> startAngle, 
