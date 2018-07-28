@@ -3,26 +3,17 @@ using System.Linq;
 
 namespace OpenCAD.OpenCADFormat.Measures
 {
-
     public static class Utils
     {
-        internal static double GetMetricPrefixValue(IMetricPrefix prefix)
-        {
-            return prefix == null ? 1 : prefix.Multiplier;
-        }
+        internal static double GetMetricPrefixValue(IMetricPrefix prefix) => prefix == null ? 1 : prefix.Multiplier;
 
-        internal static double GetAbsoluteAmount<M>(IMeasurement<M> measurement) where M : IPhysicalQuantity, new()
-        {
-            return GetMetricPrefixValue(measurement.PrefixedUnit.Prefix) * measurement.PrefixedUnit.Unit.Quantity.StandardAmount
+        internal static double GetAbsoluteAmount<M>(Measurement<M> measurement) where M : IPhysicalQuantity, new() =>
+            GetMetricPrefixValue(measurement.PrefixedUnit.Prefix) * measurement.PrefixedUnit.Unit.Quantity.StandardAmount
                 * measurement.Amount;
-        }
 
-        internal static double ConvertAmount<M>(IMeasurement<M> measurement, IPrefixedUnit<M> outPrefixedUnit)
-             where M : IPhysicalQuantity, new()
-        {
-            return GetAbsoluteAmount(measurement) / outPrefixedUnit.Unit.Quantity.StandardAmount /
-                GetMetricPrefixValue(outPrefixedUnit.Prefix);
-        }
+        internal static double ConvertAmount<M>(Measurement<M> measurement, PrefixedUnit<M> outPrefixedUnit)
+             where M : IPhysicalQuantity, new() => GetAbsoluteAmount(measurement)
+            / outPrefixedUnit.Unit.Quantity.StandardAmount / GetMetricPrefixValue(outPrefixedUnit.Prefix);
 
         private static IEnumerable<U> getAllSupportedMatchingFields<T, U>(System.Reflection.BindingFlags? bindingAttr = null)
         {
@@ -32,14 +23,14 @@ namespace OpenCAD.OpenCADFormat.Measures
             {
                 object value = field.GetValue(null);
 
-                if (field.FieldType.IsEquivalentTo(typeof (U)))
+                if (field.FieldType.IsEquivalentTo(typeof(U)))
                     yield return (U)value;
             }
         }
 
-        public static IEnumerable<IUnit<M>> GetSupportedUnits<M>() where M : IPhysicalQuantity, new()
+        public static IEnumerable<Unit<M>> GetSupportedUnits<M>() where M : IPhysicalQuantity, new()
         {
-            return getAllSupportedMatchingFields<M, IUnit<M>>(System.Reflection.BindingFlags.Static | 
+            return getAllSupportedMatchingFields<M, Unit<M>>(System.Reflection.BindingFlags.Static |
                 System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.GetField);
         }
 
@@ -49,7 +40,7 @@ namespace OpenCAD.OpenCADFormat.Measures
                 System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.GetField);
         }
 
-        public static IEnumerable<IPrefixedUnit<M>> GetSupportedPrefixedUnits<M>() where M : IPhysicalQuantity, new()
+        public static IEnumerable<PrefixedUnit<M>> GetSupportedPrefixedUnits<M>() where M : IPhysicalQuantity, new()
         {
             var supportedUnits = GetSupportedUnits<M>();
             var metricPrefixes = GetSupportedMetricPrefixes();
@@ -63,7 +54,7 @@ namespace OpenCAD.OpenCADFormat.Measures
             }
         }
 
-        public static string ToString<M>(IMeasurement<M> measurement) where M : IPhysicalQuantity, new()
+        public static string ToString<M>(Measurement<M> measurement) where M : IPhysicalQuantity, new()
         {
             return $"{measurement.Amount}{measurement.PrefixedUnit.ToString()}";
         }

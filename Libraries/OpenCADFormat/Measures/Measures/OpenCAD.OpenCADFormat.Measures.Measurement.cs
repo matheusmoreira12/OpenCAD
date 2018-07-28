@@ -5,26 +5,34 @@ using System.Linq;
 
 namespace OpenCAD.OpenCADFormat.Measures
 {
-    public interface IMeasurement<M> where M : IPhysicalQuantity, new()
+    public sealed class Measurement<M> : IComparable where M : IPhysicalQuantity, new()
     {
-        double Amount { get; }
-        IPrefixedUnit<M> PrefixedUnit { get; }
+        public static Measurement<M> Add(Measurement<M> a, Measurement<M> b) => new Measurement<M>(a.Amount
+            + ConvertAmountTo(b.Amount, b.PrefixedUnit, a.PrefixedUnit), a.PrefixedUnit);
+        public static Measurement<M> Subtract(Measurement<M> a, Measurement<M> b) => new Measurement<M>(a.Amount
+            - ConvertAmountTo(b.Amount, b.PrefixedUnit, a.PrefixedUnit), a.PrefixedUnit);
+        public static Measurement<M> Multiply(Measurement<M> a, double b) => new Measurement<M>(a.Amount * b,
+            a.PrefixedUnit);
+        public static Measurement<M> Divide(Measurement<M> a, double b) => new Measurement<M>(a.Amount / b,
+            a.PrefixedUnit);
+        public static double Divide(Measurement<M> a, Measurement<M> b) => a.Amount
+            / ConvertAmountTo(b.Amount, a.PrefixedUnit, a.PrefixedUnit);
+        public static Measurement<M> Modulus(Measurement<M> a, double b) => new Measurement<M>(a.Amount % b,
+            a.PrefixedUnit);
+        public static Measurement<M> Modulus(Measurement<M> a, Measurement<M> b) => new Measurement<M>(a.Amount
+            % ConvertAmountTo(b.Amount, a.PrefixedUnit, a.PrefixedUnit), a.PrefixedUnit);
 
-        IMeasurement<M> ConvertTo(IUnit<M> outUnit, IMetricPrefix outPrefix = null);
-        IMeasurement<M> ConvertTo(IPrefixedUnit<M> outPrefixedUnit);
-    }
+        public static double AsDouble(Measurement<M> value) => value.Amount * value.PrefixedUnit.Unit.Quantity
+            .StandardAmount;
 
-    /// <summary>
-    /// Represents a physical measurement in a specific metric unit.
-    /// </summary>
-    /// <typeparam name="M">The physical quantity being measured.</typeparam>
-    public sealed class Measurement<M> : IMeasurement<M> where M : IPhysicalQuantity, new()
-    {
-        /// <summary>
-        /// Parses a string representation into a new measurement.
-        /// </summary>
-        /// <param name="value">The string representation.</param>
-        /// <returns>The new measurement.</returns>
+        public static Measurement<M> operator +(Measurement<M> a, Measurement<M> b) => Add(a, b);
+        public static Measurement<M> operator -(Measurement<M> a, Measurement<M> b) => Subtract(a, b);
+        public static Measurement<M> operator *(Measurement<M> a, double b) => Multiply(a, b);
+        public static Measurement<M> operator /(Measurement<M> a, double b) => Divide(a, b);
+        public static double operator /(Measurement<M> a, Measurement<M> b) => Divide(a, b);
+        public static Measurement<M> operator %(Measurement<M> a, double b) => Modulus(a, b);
+        public static Measurement<M> operator %(Measurement<M> a, Measurement<M> b) => Modulus(a, b);
+
         public static Measurement<M> Parse(string value)
         {
             bool isFloatingPoint,
@@ -42,32 +50,19 @@ namespace OpenCAD.OpenCADFormat.Measures
 
             string symbol = value.Remove(0, amountStr.Length);
 
-            IPrefixedUnit<M>[] supportedUnits = Utils.GetSupportedPrefixedUnits<M>().ToArray();
+            PrefixedUnit<M>[] supportedUnits = Utils.GetSupportedPrefixedUnits<M>().ToArray();
 
-            IPrefixedUnit<M> unit = supportedUnits.First(u => $"{u.Prefix?.Symbol}{u.Unit.Symbol}" == symbol);
+            PrefixedUnit<M> unit = supportedUnits.First(u => $"{u.Prefix?.Symbol}{u.Unit.Symbol}" == symbol);
 
             return new Measurement<M>(amount, unit);
         }
 
-        /// <summary>
-        /// Converts only the amount, from the specified input unit to the specified output unit.
-        /// </summary>
-        /// <param name="inAmount">The amount of the input unit.</param>
-        /// <param name="inPrefixedUnit">The input unit and prefix.</param>
-        /// <param name="outPrefixedUnit">The output unit and prefix.</param>
-        /// <returns></returns>
-        public static double ConvertAmountTo(double inAmount, IPrefixedUnit<M> inPrefixedUnit, IPrefixedUnit<M> outPrefixedUnit)
+        public static double ConvertAmountTo(double inAmount, PrefixedUnit<M> inPrefixedUnit, PrefixedUnit<M> outPrefixedUnit)
         {
             return new Measurement<M>(inAmount, inPrefixedUnit).ConvertTo(outPrefixedUnit).Amount;
         }
 
-        /// <summary>
-        /// Creates a new measurement from the specified amount, in the specified unit, with the specified prefix.
-        /// </summary>
-        /// <param name="amount">The amount.</param>
-        /// <param name="unit">The unit.</param>
-        /// <param name="prefix">The prefix.</param>
-        public Measurement(double amount, IUnit<M> unit, IMetricPrefix prefix = null)
+        public Measurement(double amount, Unit<M> unit, IMetricPrefix prefix = null)
         {
             if (unit == null)
                 throw new ArgumentNullException("unit");
@@ -76,40 +71,16 @@ namespace OpenCAD.OpenCADFormat.Measures
             PrefixedUnit = new PrefixedUnit<M>(unit, prefix);
         }
 
-        /// <summary>
-        /// Creates a new measurement from the specified amount, in the specified prefixed unit.
-        /// </summary>
-        /// <param name="amount">The amount.</param>
-        /// <param name="prefix">The prefixed unit.</param>
-        public Measurement(double amount, IPrefixedUnit<M> prefixedUnit)
+        public Measurement(double amount, PrefixedUnit<M> prefixedUnit)
         {
             Amount = amount;
             PrefixedUnit = prefixedUnit ?? throw new ArgumentNullException("prefixedUnit");
         }
 
-        /// <summary>
-        /// Returns a string that represents the current physical measurement.
-        /// </summary>
-        public override string ToString()
-        {
-            return $"{Amount.ToString(Conventions.STANDARD_CULTURE)}{PrefixedUnit.Prefix?.Symbol}{PrefixedUnit.Unit.Symbol}";
-        }
+        public override string ToString() => $"{Amount.ToString(Conventions.STANDARD_CULTURE)}{PrefixedUnit}";
+        public string ToUIString() => $"{Amount.ToString(Conventions.STANDARD_CULTURE)}{PrefixedUnit?.ToUIString()}";
 
-        /// <summary>
-        /// Gets the amount represented by this physical measurement.
-        /// </summary>
-        public double Amount { get; set; }
-        /// <summary>
-        /// Gets the metric unit in which the amount is being expressed.
-        /// </summary>
-        public IPrefixedUnit<M> PrefixedUnit { get; private set; }
-
-        /// <summary>
-        /// Converts the measurement to the specified prefixed unit.
-        /// </summary>
-        /// <param name="outPrefixedUnit">The output unit and prefix.</param>
-        /// <returns>The new measurement in the specified prefixed unit.</returns>
-        public IMeasurement<M> ConvertTo(IPrefixedUnit<M> outPrefixedUnit)
+        public Measurement<M> ConvertTo(PrefixedUnit<M> outPrefixedUnit)
         {
             if (outPrefixedUnit == null)
                 throw new ArgumentNullException("outPrefixedUnit");
@@ -117,17 +88,26 @@ namespace OpenCAD.OpenCADFormat.Measures
             return new Measurement<M>(Utils.ConvertAmount(this, outPrefixedUnit), outPrefixedUnit);
         }
 
-        /// <summary>
-        /// Converts the measurement to the specified unit, with no prefix.
-        /// </summary>
-        /// <param name="outPrefixedUnit">The output unit.</param>
-        /// <returns>The new measurement in the specified unit.</returns>
-        public IMeasurement<M> ConvertTo(IUnit<M> outUnit, IMetricPrefix outPrefix = null)
+        public Measurement<M> ConvertTo(Unit<M> outUnit, IMetricPrefix outPrefix = null)
         {
             if (outUnit == null)
                 throw new ArgumentNullException("outUnit");
 
             return ConvertTo(new PrefixedUnit<M>(outUnit, outPrefix));
         }
+
+        public double AsDouble() => AsDouble(this);
+
+        int IComparable.CompareTo(object obj)
+        {
+            var measurement = obj as Measurement<M>;
+            if (measurement == null)
+                throw new ArgumentException("obj");
+
+            return Comparer<double>.Default.Compare(AsDouble(this), AsDouble(measurement));
+        }
+
+        public double Amount { get; set; }
+        public PrefixedUnit<M> PrefixedUnit { get; private set; }
     }
 }

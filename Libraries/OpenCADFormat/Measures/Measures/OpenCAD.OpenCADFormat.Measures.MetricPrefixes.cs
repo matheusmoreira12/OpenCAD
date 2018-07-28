@@ -5,6 +5,9 @@
         double Multiplier { get; }
         string Symbol { get; }
         string UISymbol { get; }
+
+        string ToString();
+        string ToUIString();
     }
 
     public sealed class MetricPrefix : IMetricPrefix
@@ -19,6 +22,9 @@
             Symbol = symbol;
             UISymbol = uiSymbol ?? symbol;
         }
+
+        public string ToUIString() => UISymbol;
+        public override string ToString() => Symbol;
     }
 
     public sealed class MetricPrefixes
