@@ -9,7 +9,7 @@ namespace OpenCAD.OpenCADFormat.SchematicCapture.Drawing
     public enum FontWeight { Lighter, Light, Normal, Bold, Bolder }
 
     public class Font
-    {
+    { 
         public string EmbeddedFontID;
         public FontWeight Weight;
         public Measurement<Measures.Quantities.Length> Height;
@@ -23,8 +23,18 @@ namespace OpenCAD.OpenCADFormat.SchematicCapture.Drawing
     {
         public Point Center;
         public Measurement<Measures.Quantities.Length> Radius;
+
         public Measurement<Measures.Quantities.PlaneAngle> StartAngle;
         public Measurement<Measures.Quantities.PlaneAngle> SweepAngle;
+        
+        private Measurement<Measures.Quantities.Length> calculateRadius(Point start, Point end, 
+            Point center, PrefixedUnit<Measures.Quantities.Length> unit)
+        {
+            var radius0 = Point.Distance(start, Center, unit);
+            var radius1 = Point.Distance(end, Center, unit);
+
+            return radius0 > radius1 ? radius0 : radius1;
+        }
 
         public Arc(Point center, Measurement<Measures.Quantities.Length> radius, 
             Measurement<Measures.Quantities.PlaneAngle> startAngle, 
@@ -46,12 +56,6 @@ namespace OpenCAD.OpenCADFormat.SchematicCapture.Drawing
             Control = control;
         }
 
-        public ToArc()
-        {
-            var unit = Measures.Quantities.Length.Meter;
-            var length = Start.Distance(End, unit);
-        }
-
         public Point Start;
         public Point End;
         public Point Control;
@@ -59,20 +63,6 @@ namespace OpenCAD.OpenCADFormat.SchematicCapture.Drawing
 
     public class ArcCentered : Shape
     {
-        public Arc ToArc()
-        {
-            var unit = Measures.Quantities.Length.Meter;
-
-            var radius0 = Start.Distance(Center, unit);
-            var radius1 = End.Distance(Center, unit);
-            var radius = radius0 > radius1 ? radius0 : radius1;
-
-            var startAngle = Start.Angle(Center);
-            var sweepAngle = Point.Angle(End, Center, Start);
-
-            return new Arc(Center, radius, startAngle, sweepAngle);
-        }
-
         public Point Start;
         public Point End;
         public Point Center;

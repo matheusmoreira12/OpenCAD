@@ -5,7 +5,8 @@ using System.Linq;
 
 namespace OpenCAD.OpenCADFormat.Measures
 {
-    public sealed class Measurement<M> : IComparable where M : IPhysicalQuantity, new()
+    public sealed class Measurement<M> : IComparable<Measurement<M>>, IEquatable<Measurement<M>>
+        where M : IPhysicalQuantity, new()
     {
         public static Measurement<M> Add(Measurement<M> a, Measurement<M> b) => new Measurement<M>(a.Amount
             + ConvertAmountTo(b.Amount, b.PrefixedUnit, a.PrefixedUnit), a.PrefixedUnit);
@@ -32,6 +33,9 @@ namespace OpenCAD.OpenCADFormat.Measures
         public static double operator /(Measurement<M> a, Measurement<M> b) => Divide(a, b);
         public static Measurement<M> operator %(Measurement<M> a, double b) => Modulus(a, b);
         public static Measurement<M> operator %(Measurement<M> a, Measurement<M> b) => Modulus(a, b);
+
+        public static bool operator >(Measurement<M> a, Measurement<M> b) => a.CompareTo(b) > 0;
+        public static bool operator <(Measurement<M> a, Measurement<M> b) => a.CompareTo(b) < 0;
 
         public static Measurement<M> Parse(string value)
         {
@@ -96,16 +100,14 @@ namespace OpenCAD.OpenCADFormat.Measures
             return ConvertTo(new PrefixedUnit<M>(outUnit, outPrefix));
         }
 
-        public double AsDouble() => AsDouble(this);
+        #region IComparable Interface
+        public int CompareTo(Measurement<M> other) => Comparer<double>.Default.Compare(AsDouble(this),
+            AsDouble(other));
+        #endregion
 
-        int IComparable.CompareTo(object obj)
-        {
-            var measurement = obj as Measurement<M>;
-            if (measurement == null)
-                throw new ArgumentException("obj");
-
-            return Comparer<double>.Default.Compare(AsDouble(this), AsDouble(measurement));
-        }
+        #region IEquatable Interface
+        public bool Equals(Measurement<M> other) => AsDouble(this) == AsDouble(other);
+        #endregion
 
         public double Amount { get; set; }
         public PrefixedUnit<M> PrefixedUnit { get; private set; }
