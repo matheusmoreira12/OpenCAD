@@ -18,9 +18,9 @@ namespace OpenCAD.OpenCADFormat.Measures
             a.Unit);
         public static double Divide(Measurement<M> a, Measurement<M> b) => a.Amount
             / ConvertAmountTo(b.Amount, a.Unit, a.Unit);
-        public static Measurement<M> Modulus(Measurement<M> a, double b) => new Measurement<M>(a.Amount % b,
+        public static Measurement<M> Remainder(Measurement<M> a, double b) => new Measurement<M>(a.Amount % b,
             a.Unit);
-        public static Measurement<M> Modulus(Measurement<M> a, Measurement<M> b) => new Measurement<M>(a.Amount
+        public static Measurement<M> Remainder(Measurement<M> a, Measurement<M> b) => new Measurement<M>(a.Amount
             % ConvertAmountTo(b.Amount, a.Unit, a.Unit), a.Unit);
 
         public static Measurement<M> operator +(Measurement<M> a, Measurement<M> b) => Add(a, b);
@@ -28,8 +28,8 @@ namespace OpenCAD.OpenCADFormat.Measures
         public static Measurement<M> operator *(Measurement<M> a, double b) => Multiply(a, b);
         public static Measurement<M> operator /(Measurement<M> a, double b) => Divide(a, b);
         public static double operator /(Measurement<M> a, Measurement<M> b) => Divide(a, b);
-        public static Measurement<M> operator %(Measurement<M> a, double b) => Modulus(a, b);
-        public static Measurement<M> operator %(Measurement<M> a, Measurement<M> b) => Modulus(a, b);
+        public static Measurement<M> operator %(Measurement<M> a, double b) => Remainder(a, b);
+        public static Measurement<M> operator %(Measurement<M> a, Measurement<M> b) => Remainder(a, b);
 
         public static bool operator >(Measurement<M> a, Measurement<M> b) => a.CompareTo(b) > 0;
         public static bool operator <(Measurement<M> a, Measurement<M> b) => a.CompareTo(b) < 0;

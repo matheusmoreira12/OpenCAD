@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27428.2043
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenCAD.UserInterface", "UserInterface\OpenCAD.UserInterface.csproj", "{154A01A5-ACD3-4074-8FD2-EAC4FBAF7637}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenCADFormat", "OpenCADFormat.csproj", "{95780AE9-5548-4AD5-999F-37BB23231BC3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{154A01A5-ACD3-4074-8FD2-EAC4FBAF7637}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{154A01A5-ACD3-4074-8FD2-EAC4FBAF7637}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{154A01A5-ACD3-4074-8FD2-EAC4FBAF7637}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{154A01A5-ACD3-4074-8FD2-EAC4FBAF7637}.Release|Any CPU.Build.0 = Release|Any CPU
+		{95780AE9-5548-4AD5-999F-37BB23231BC3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95780AE9-5548-4AD5-999F-37BB23231BC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95780AE9-5548-4AD5-999F-37BB23231BC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95780AE9-5548-4AD5-999F-37BB23231BC3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {583EFE68-A819-4F03-A657-F735180A6BEC}
+		SolutionGuid = {32ED0DEE-6FF0-40E0-A20C-CD2F2C1CC3AA}
 	EndGlobalSection
 EndGlobal

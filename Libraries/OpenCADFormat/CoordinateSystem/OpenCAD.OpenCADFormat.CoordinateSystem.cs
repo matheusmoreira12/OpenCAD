@@ -17,21 +17,22 @@ namespace OpenCAD.OpenCADFormat.CoordinateSystem
         public static Point operator +(Point a, Size b) => Add(a, b);
         public static (double dx, double dy) operator /(Point a, Size b) => Divide(a, b);
 
-        public static Measurement<Measures.Quantities.Length> Distance(Point a, Point b)
+        public static Measurement<Measures.Quantities.Length> Distance(Point a, Point b, 
+            IUnit<Measures.Quantities.Length> outUnit)
         {
-            Size difference = (a - b);
+            Size difference = (a - b).ConvertTo(outUnit);
 
-            double distance = Math.Sqrt(Math.Pow(difference.Width.GetAbsoluteAmount(), 2)
-                + Math.Pow(difference.Height.GetAbsoluteAmount(), 2));
+            double distance = Math.Sqrt(Math.Pow(difference.Width.Amount, 2)
+                + Math.Pow(difference.Height.Amount, 2));
 
-            return new Measurement<Measures.Quantities.Length>(distance, null);
+            return new Measurement<Measures.Quantities.Length>(distance, outUnit);
         }
 
         public static Measurement<Measures.Quantities.PlaneAngle> Angle(Point a, Point b)
         {
-            Size difference = (a - b).ConvertTo(null);
+            Size difference = (a - b);
 
-            double angleRad = Math.Atan2(difference.Width.Amount, difference.Height.Amount);
+            double angleRad = Math.Atan2(difference.Width.GetAbsoluteAmount(), difference.Height.GetAbsoluteAmount());
 
             return new Measurement<Measures.Quantities.PlaneAngle>(angleRad, Measures.Quantities.PlaneAngle.Radian);
         }
@@ -44,6 +45,9 @@ namespace OpenCAD.OpenCADFormat.CoordinateSystem
             X = x;
             Y = y;
         }
+
+        public Size ConvertTo(IUnit<Measures.Quantities.Length> unit) => new Size(X.ConvertTo(unit),
+            Y.ConvertTo(unit));
 
         public Measurement<Measures.Quantities.Length> X { get; set; }
         public Measurement<Measures.Quantities.Length> Y { get; set; }
@@ -65,10 +69,8 @@ namespace OpenCAD.OpenCADFormat.CoordinateSystem
             Height = height;
         }
 
-        public Size ConvertTo(Unit<Measures.Quantities.Length> unit) => new Size(Width.ConvertTo(unit),
+        public Size ConvertTo(IUnit<Measures.Quantities.Length> unit) => new Size(Width.ConvertTo(unit),
             Height.ConvertTo(unit));
-        public Size ConvertTo(PrefixedUnit<Measures.Quantities.Length> prefixedUnit) =>
-            new Size(Width.ConvertTo(prefixedUnit), Height.ConvertTo(prefixedUnit));
 
         public Measurement<Measures.Quantities.Length> Width { get; set; }
         public Measurement<Measures.Quantities.Length> Height { get; set; }

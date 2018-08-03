@@ -12,7 +12,7 @@ namespace OpenCAD.OpenCADFormat.Measures
 
         internal static double ConvertAmount<M>(Measurement<M> measurement, IUnit<M> outUnit)
              where M : IPhysicalQuantity, new() => GetAbsoluteAmount(measurement)
-            / measurement.Unit.StandardAmount;
+            / outUnit.StandardAmount;
 
         private static IEnumerable<U> getAllSupportedMatchingFields<T, U>(System.Reflection.BindingFlags? bindingAttr = null)
         {

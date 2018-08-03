@@ -32,8 +32,9 @@ namespace OpenCAD.OpenCADFormat.SchematicCapture.Drawing
         private Measurement<Measures.Quantities.Length> calculateRadius(Point start, Point end,
             Point center)
         {
-            var radius0 = Point.Distance(start, Center);
-            var radius1 = Point.Distance(end, Center);
+            var unit = Measures.Quantities.Length.Meter;
+            var radius0 = Point.Distance(start, Center, unit);
+            var radius1 = Point.Distance(end, Center, unit);
 
             return radius0 > radius1 ? radius0 : radius1;
         }
