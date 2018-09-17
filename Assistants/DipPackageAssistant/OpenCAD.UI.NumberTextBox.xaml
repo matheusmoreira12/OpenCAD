@@ -1,0 +1,18 @@
+﻿<TextBox x:Class="OpenCAD.UI.NumberTextBox"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:OpenCAD.UI"
+             xmlns:validationRules="clr-namespace:OpenCAD.UI.ValidationRules"
+             mc:Ignorable="d"
+             Name="numberTextBox"
+             d:DesignHeight="21" d:DesignWidth="60">
+    <TextBox.Text>
+        <Binding ElementName="numberTextBox" Path="Value" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+            <Binding.ValidationRules>
+                <validationRules:NumericValidationRule/>
+            </Binding.ValidationRules>
+        </Binding>
+    </TextBox.Text>
+</TextBox>

@@ -1,0 +1,23 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:OpenCAD.UI"
+                    xmlns:measures="clr-namespace:OpenCAD.OpenCADFormat.Measures;assembly=OpenCAD.OpenCADFormat">
+
+    <DataTemplate x:Key="MeasuresUnitDataTemplate" DataType="{x:Type measures:Unit}">
+        <TextBlock Text="{Binding UISymbol}"/>
+    </DataTemplate>
+
+    <DataTemplate x:Key="MeasuresMetricPrefixDataTemplate" DataType="{x:Type measures:MetricPrefix}">
+        <TextBlock Text="{Binding UISymbol}"/>
+    </DataTemplate>
+
+    <DataTemplate x:Key="MeasuresMeasurementDataTemplate" DataType="{x:Type measures:Measurement}">
+        <WrapPanel>
+            <TextBlock Text="{Binding Amount}"/>
+            <TextBlock Text="{Binding Prefix.UISymbol}"
+                       FontWeight="Bold"/>
+            <TextBlock Text="{Binding Unit.UISymbol}"
+                       FontWeight="Bold"/>
+        </WrapPanel>
+    </DataTemplate>
+</ResourceDictionary>
