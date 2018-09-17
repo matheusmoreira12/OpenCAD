@@ -60,6 +60,9 @@
     <Compile Include="DataStrings\OpenCAD.OpenCADFormat.DataStrings.ExtensionMethods.cs" />
     <Compile Include="DataStrings\OpenCAD.OpenCADFormat.DataStrings.GlobalConsts.cs" />
     <Compile Include="DataStrings\OpenCAD.OpenCADFormat.DataStrings.Utils.cs" />
+    <Compile Include="Drawing\OpenCAD.OpenCADFormat.Drawing.Font.cs" />
+    <Compile Include="Drawing\OpenCAD.OpenCADFormat.Drawing.Text.cs" />
+    <Compile Include="Drawing\OpenCAD.OpenCADFormat.Drawing.TextElementCollection.cs" />
     <Compile Include="Libraries\Libraries\obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
     <Compile Include="Libraries\Libraries\obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
     <Compile Include="Libraries\Libraries\obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
@@ -75,11 +78,10 @@
     <Compile Include="Measures\OpenCAD.OpenCADFormat.Measures.Measurement.cs" />
     <Compile Include="Measures\OpenCAD.OpenCADFormat.Measures.MetricPrefixes.cs" />
     <Compile Include="Measures\OpenCAD.OpenCADFormat.Measures.PhysicalQuantity.cs" />
-    <Compile Include="Measures\OpenCAD.OpenCADFormat.Measures.PrefixedUnit.cs" />
     <Compile Include="Measures\OpenCAD.OpenCADFormat.Measures.Unit.cs" />
     <Compile Include="Measures\OpenCAD.OpenCADFormat.Measures.Utils.cs" />
     <Compile Include="SchematicCapture\OpenCAD.OpenCADFormat.SchematicCapture.cs" />
-    <Compile Include="SchematicCapture\OpenCAD.OpenCADFormat.SchematicCapture.Drawing.cs" />
+    <Compile Include="Drawing\OpenCAD.OpenCADFormat.Drawing.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Libraries\Libraries\bin\Debug\OpenCAD.OpenCADFormat.Libraries.dll" />

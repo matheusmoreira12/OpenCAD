@@ -3,60 +3,44 @@ using System.Linq;
 
 namespace OpenCAD.OpenCADFormat.Measures
 {
-    public static class Utils
+    static class Utils
     {
-        internal static double GetMetricPrefixValue(IMetricPrefix prefix) => prefix == null ? 1 : prefix.Multiplier;
+        public static double GetMetricPrefixValue(MetricPrefix prefix) => prefix == null ? 1 : prefix.Multiplier;
 
-        internal static double GetAbsoluteAmount<M>(Measurement<M> measurement) where M : IPhysicalQuantity, new()
+        public static double GetAbsoluteAmount(Measurement measurement)
             => measurement.Unit.StandardAmount * measurement.Amount;
 
-        internal static double ConvertAmount<M>(Measurement<M> measurement, IUnit<M> outUnit)
-             where M : IPhysicalQuantity, new() => GetAbsoluteAmount(measurement)
+        public static double ConvertAmount(Measurement measurement, Unit outUnit) => GetAbsoluteAmount(measurement)
             / outUnit.StandardAmount;
 
-        private static IEnumerable<U> getAllSupportedMatchingFields<T, U>(System.Reflection.BindingFlags? bindingAttr = null)
+        public static IEnumerable<(Unit, MetricPrefix)> GetSupportedUnitsAndPrefixes()
         {
-            var fields = typeof(T).GetFields(bindingAttr ?? 0);
-
-            foreach (var field in fields)
+            foreach (var unit in Units.SupportedUnits)
             {
-                object value = field.GetValue(null);
+                yield return (unit, null);
 
-                if (field.FieldType.IsEquivalentTo(typeof(U)))
-                    yield return (U)value;
+                if (unit.IsMetric)
+                    foreach (var prefix in MetricPrefixes.SupportedPrefixes)
+                        yield return (unit, prefix);
             }
         }
 
-        public static IEnumerable<IMetricPrefix> GetSupportedMetricPrefixes()
+        public static (Unit, MetricPrefix) ParseUnitAndPrefix(string value)
         {
-            return getAllSupportedMatchingFields<MetricPrefixes, IMetricPrefix>(System.Reflection.BindingFlags.Static |
-                System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.GetField);
-        }
+            IEnumerable<(Unit, MetricPrefix)> supportedUnitsAndPrefixes = GetSupportedUnitsAndPrefixes();
 
-        private static IEnumerable<IUnit<M>> getSupportedUnits<M>() where M : IPhysicalQuantity, new()
-        {
-            return getAllSupportedMatchingFields<M, IUnit<M>>(System.Reflection.BindingFlags.Static |
-                System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.GetField);
-        }
-
-        public static IEnumerable<IUnit<M>> GetSupportedUnits<M>() where M : IPhysicalQuantity, new()
-        {
-            var supportedUnits = getSupportedUnits<M>();
-            var metricPrefixes = GetSupportedMetricPrefixes();
-
-            foreach (var unit in supportedUnits)
+            foreach (var unitAndPrefix in supportedUnitsAndPrefixes)
             {
-                yield return unit;
+                Unit unit; MetricPrefix prefix;
 
-                if (unit.IsPrefixable)
-                    foreach (var prefix in metricPrefixes)
-                        yield return new PrefixedUnit<M>(unit, prefix);
+                (unit, prefix) = unitAndPrefix;
+
+                if ($"{prefix?.Symbol}{unit.Symbol}" == value)
+                    return unitAndPrefix;
             }
-        }
 
-        public static string ToString<M>(Measurement<M> measurement) where M : IPhysicalQuantity, new()
-        {
-            return $"{measurement.Amount}{measurement.Unit.ToString()}";
+            throw new KeyNotFoundException("Unable to parse unit and prefix. The provided unit/prefix string" +
+                " has no matches.");
         }
     }
 }

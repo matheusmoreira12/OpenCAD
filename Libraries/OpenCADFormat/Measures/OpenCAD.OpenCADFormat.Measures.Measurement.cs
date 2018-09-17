@@ -5,36 +5,54 @@ using System.Linq;
 
 namespace OpenCAD.OpenCADFormat.Measures
 {
-    public sealed class Measurement<M> : IComparable<Measurement<M>>, IEquatable<Measurement<M>>
-        where M : IPhysicalQuantity, new()
+    public class Measurement : IComparable<Measurement>, IEquatable<Measurement>
     {
-        public static Measurement<M> Add(Measurement<M> a, Measurement<M> b) => new Measurement<M>(a.Amount
-            + ConvertAmountTo(b.Amount, b.Unit, a.Unit), a.Unit);
-        public static Measurement<M> Subtract(Measurement<M> a, Measurement<M> b) => new Measurement<M>(a.Amount
-            - ConvertAmountTo(b.Amount, b.Unit, a.Unit), a.Unit);
-        public static Measurement<M> Multiply(Measurement<M> a, double b) => new Measurement<M>(a.Amount * b,
-            a.Unit);
-        public static Measurement<M> Divide(Measurement<M> a, double b) => new Measurement<M>(a.Amount / b,
-            a.Unit);
-        public static double Divide(Measurement<M> a, Measurement<M> b) => a.Amount
-            / ConvertAmountTo(b.Amount, a.Unit, a.Unit);
-        public static Measurement<M> Remainder(Measurement<M> a, double b) => new Measurement<M>(a.Amount % b,
-            a.Unit);
-        public static Measurement<M> Remainder(Measurement<M> a, Measurement<M> b) => new Measurement<M>(a.Amount
-            % ConvertAmountTo(b.Amount, a.Unit, a.Unit), a.Unit);
+        public static Measurement Add(Measurement a, Measurement b) => new Measurement(a.Amount
+            + Utils.ConvertAmount(b, a.Unit), a.Unit);
+        public static Measurement Subtract(Measurement a, Measurement b) => new Measurement(a.Amount
+            - Utils.ConvertAmount(b, a.Unit), a.Unit);
+        public static Measurement Negate(Measurement a) => new Measurement(-a.Amount, a.Unit);
+        public static Measurement Multiply(Measurement a, double b) => new Measurement(a.Amount * b, a.Unit);
+        public static Measurement Divide(Measurement a, double b) => new Measurement(a.Amount / b, a.Unit);
+        public static double Divide(Measurement a, Measurement b) => a.Amount / Utils.ConvertAmount(b, a.Unit);
+        public static Measurement Remainder(Measurement a, double b) => new Measurement(a.Amount % b, a.Unit);
+        public static Measurement Remainder(Measurement a, Measurement b) => new Measurement(a.Amount
+            % Utils.ConvertAmount(b, a.Unit), a.Unit);
 
-        public static Measurement<M> operator +(Measurement<M> a, Measurement<M> b) => Add(a, b);
-        public static Measurement<M> operator -(Measurement<M> a, Measurement<M> b) => Subtract(a, b);
-        public static Measurement<M> operator *(Measurement<M> a, double b) => Multiply(a, b);
-        public static Measurement<M> operator /(Measurement<M> a, double b) => Divide(a, b);
-        public static double operator /(Measurement<M> a, Measurement<M> b) => Divide(a, b);
-        public static Measurement<M> operator %(Measurement<M> a, double b) => Remainder(a, b);
-        public static Measurement<M> operator %(Measurement<M> a, Measurement<M> b) => Remainder(a, b);
+        public static Measurement operator +(Measurement a, Measurement b) => Add(a, b);
+        public static Measurement operator -(Measurement a, Measurement b) => Subtract(a, b);
+        public static Measurement operator -(Measurement a) => Negate(a);
+        public static Measurement operator *(Measurement a, double b) => Multiply(a, b);
+        public static Measurement operator /(Measurement a, double b) => Divide(a, b);
+        public static double operator /(Measurement a, Measurement b) => Divide(a, b);
+        public static Measurement operator %(Measurement a, double b) => Remainder(a, b);
+        public static Measurement operator %(Measurement a, Measurement b) => Remainder(a, b);
 
-        public static bool operator >(Measurement<M> a, Measurement<M> b) => a.CompareTo(b) > 0;
-        public static bool operator <(Measurement<M> a, Measurement<M> b) => a.CompareTo(b) < 0;
+        public static bool operator ==(Measurement a, Measurement b) => a.Equals(b);
+        public static bool operator !=(Measurement a, Measurement b) => !(a == b);
 
-        public static Measurement<M> Parse(string value)
+        public static bool operator >(Measurement a, Measurement b) => (a as IComparable<Measurement>).CompareTo(b) > 0;
+        public static bool operator <(Measurement a, Measurement b) => (a as IComparable<Measurement>).CompareTo(b) < 0;
+
+        int IComparable<Measurement>.CompareTo(Measurement other)
+        {
+            if (other.Unit.PhysicalQuantity != Unit.PhysicalQuantity)
+                throw new InvalidOperationException("Cannot compare measurements. Measured physical quantities " +
+                    "don't match.");
+
+            return Comparer<double>.Default.Compare(GetAbsoluteAmount(), other.GetAbsoluteAmount());
+        }
+
+        bool IEquatable<Measurement>.Equals(Measurement other)
+        {
+            if (other.Unit.PhysicalQuantity != Unit.PhysicalQuantity)
+                throw new InvalidOperationException("Cannot equate measurements. Measured physical quantities " +
+                    "don't match.");
+
+            return GetAbsoluteAmount() == other.GetAbsoluteAmount();
+        }
+
+        public static Measurement Parse(string value)
         {
             bool isFloatingPoint,
                 hasExponent;
@@ -51,54 +69,46 @@ namespace OpenCAD.OpenCADFormat.Measures
 
             string symbol = value.Remove(0, amountStr.Length);
 
-            IUnit<M>[] supportedUnits = Utils.GetSupportedUnits<M>().ToArray();
+            Unit unit; MetricPrefix prefix;
 
-            IUnit<M> unit = supportedUnits.First(u => u.Symbol == symbol);
+            (unit, prefix) = Utils.ParseUnitAndPrefix(symbol);
 
-            return new Measurement<M>(amount, unit);
+            return new Measurement(amount, unit, prefix);
         }
 
-        public static double ConvertAmountTo(double inAmount, IUnit<M> inUnit, IUnit<M> outUnit)
-        {
-            return new Measurement<M>(inAmount, inUnit).ConvertTo(outUnit).Amount;
-        }
-
-        public Measurement(double amount, IUnit<M> unit, IMetricPrefix prefix)
-        {
-            if (unit == null)
-                throw new ArgumentNullException("unit");
-            if (prefix == null)
-                throw new ArgumentNullException("prefix");
-
-            Amount = amount;
-            Unit = new PrefixedUnit<M>(unit ?? throw new ArgumentNullException("unit"),
-                prefix);
-        }
-
-        public Measurement(double amount, IUnit<M> unit)
+        public Measurement(double amount, Unit unit, MetricPrefix prefix = null)
         {
             Amount = amount;
             Unit = unit ?? throw new ArgumentNullException("unit");
+            Prefix = prefix;
         }
 
-        public override string ToString() => $"{Amount.ToString(Conventions.STANDARD_CULTURE)}{Unit.Symbol}";
-        public string ToUIString() => $"{Amount.ToString(Conventions.STANDARD_CULTURE)}{Unit.UISymbol}";
+        public override string ToString() => $"{Amount.ToString(Conventions.STANDARD_CULTURE)}{Prefix?.Symbol}{Unit.Symbol}";
+        public string ToUIString() => $"{Amount.ToString(Conventions.STANDARD_CULTURE)}{Prefix?.UISymbol}{Unit.UISymbol}";
 
-        public Measurement<M> ConvertTo(IUnit<M> outUnit) => new Measurement<M>(Utils.ConvertAmount(this
-            , outUnit), outUnit);
+        public Measurement ConvertToUnit(Unit outUnit)
+        {
+            if (outUnit.PhysicalQuantity != Unit.PhysicalQuantity)
+                throw new InvalidOperationException("Cannot convert measurement to the specified unit. " +
+                    "Units have mismatched physical quantities.");
 
-        public double GetAbsoluteAmount() => Utils.GetAbsoluteAmount<M>(this);
+            return new Measurement(Utils.ConvertAmount(this, outUnit), outUnit);
+        }
 
-        #region IComparable Interface
-        public int CompareTo(Measurement<M> other) => Comparer<double>.Default.Compare(GetAbsoluteAmount(),
-            other.GetAbsoluteAmount());
-        #endregion
+        public override bool Equals(object obj)
+        {
+            return base.Equals(obj);
+        }
 
-        #region IEquatable Interface
-        public bool Equals(Measurement<M> other) => GetAbsoluteAmount() == other.GetAbsoluteAmount();
-        #endregion
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
+        public double GetAbsoluteAmount() => Utils.GetAbsoluteAmount(this);
 
         public double Amount { get; set; }
-        public IUnit<M> Unit { get; private set; }
+        public Unit Unit { get; private set; }
+        public MetricPrefix Prefix { get; private set; }
     }
 }

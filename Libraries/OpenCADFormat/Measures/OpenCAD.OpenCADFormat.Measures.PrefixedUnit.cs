@@ -2,24 +2,32 @@
 
 namespace OpenCAD.OpenCADFormat.Measures
 {
-    public sealed class PrefixedUnit<M>: IUnit<M> where M : IPhysicalQuantity, new()
+    public struct PrefixedUnit : IUnit
     {
-        public IUnit<M> BaseUnit { get; private set; }
-        public IMetricPrefix Prefix { get; private set; }
-        public bool IsPrefixable => false;
-        public string Symbol => $"{Prefix.Symbol}{BaseUnit.Symbol}";
-        public string UISymbol => $"{Prefix.UISymbol}{BaseUnit.UISymbol}";
-
-        public double StandardAmount => BaseUnit.StandardAmount * Prefix.Multiplier;
-
-        public PrefixedUnit(IUnit<M> baseUnit, IMetricPrefix prefix)
+        public PrefixedUnit(IUnit baseUnit, MetricPrefix prefix)
         {
-            if (!baseUnit.IsPrefixable)
-                throw new InvalidOperationException("Unable to create a prefixed unit from a base unit that does not " +
-                    "accept prefixes.");
+            if (!baseUnit.IsMetric)
+                throw new InvalidOperationException("Unable to create prefixed unit. The specified base unit is" +
+                    " not metric.");
 
             BaseUnit = baseUnit ?? throw new ArgumentNullException("baseUnit");
             Prefix = prefix ?? throw new ArgumentNullException("prefix");
+
+            PhysicalQuantity.AddUnit(this);
         }
+
+        public PhysicalQuantity PhysicalQuantity => BaseUnit.PhysicalQuantity;
+
+        public bool IsMetric => false;
+
+        public string Symbol => $"{Prefix.Symbol}{BaseUnit.Symbol}";
+
+        public string UISymbol => $"{Prefix.UISymbol}{BaseUnit.UISymbol}";
+
+        public IUnit BaseUnit { get; private set; }
+
+        public MetricPrefix Prefix { get; private set; }
+
+        public double StandardAmount => BaseUnit.StandardAmount * Prefix.Multiplier;
     }
 }

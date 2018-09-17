@@ -1,79 +1,81 @@
-﻿using OpenCAD.OpenCADFormat.Measures;
-using System;
+﻿using System;
+using System.Collections.Generic;
+
+using OpenCAD.OpenCADFormat.Measures;
 
 namespace OpenCAD.OpenCADFormat.CoordinateSystem
 {
     public struct Point
     {
         public static Size Subtract(Point a, Point b) => new Size(a.X - b.X, a.Y - b.Y);
-        public static Size Subtract(Point a, Size b) => new Size(a.X - b.Width, a.Y - b.Height);
+        public static Point Subtract(Point a, Size b) => new Point(a.X - b.Width, a.Y - b.Height);
+        public static Point Negate(Point a) => new Point(-a.X, -a.Y);
         public static Point Add(Point a, Point b) => new Point(a.X + b.X, a.Y + b.Y);
         public static Point Add(Point a, Size b) => new Point(a.X + b.Width, a.Y + b.Height);
-        public static (double dx, double dy) Divide(Point a, Size b) => (a.X / b.Width, a.Y / b.Width);
+        public static Point Divide(Point a, double b) => new Point(a.X / b, a.Y / b);
 
         public static Size operator -(Point a, Point b) => Subtract(a, b);
-        public static Size operator -(Point a, Size b) => Subtract(a, b);
+        public static Point operator -(Point a, Size b) => Subtract(a, b);
+        public static Point operator -(Point a) => Negate(a);
         public static Point operator +(Point a, Point b) => Add(a, b);
         public static Point operator +(Point a, Size b) => Add(a, b);
-        public static (double dx, double dy) operator /(Point a, Size b) => Divide(a, b);
+        public static Point operator /(Point a, double b) => Divide(a, b);
 
-        public static Measurement<Measures.Quantities.Length> Distance(Point a, Point b, 
-            IUnit<Measures.Quantities.Length> outUnit)
+        public static Measurement Distance(Point a, Point b, Unit outUnit)
         {
             Size difference = (a - b).ConvertTo(outUnit);
 
             double distance = Math.Sqrt(Math.Pow(difference.Width.Amount, 2)
                 + Math.Pow(difference.Height.Amount, 2));
 
-            return new Measurement<Measures.Quantities.Length>(distance, outUnit);
+            return new Measurement(distance, outUnit);
         }
 
-        public static Measurement<Measures.Quantities.PlaneAngle> Angle(Point a, Point b)
+        public static Measurement Angle(Point a, Point b)
         {
             Size difference = (a - b);
 
             double angleRad = Math.Atan2(difference.Width.GetAbsoluteAmount(), difference.Height.GetAbsoluteAmount());
 
-            return new Measurement<Measures.Quantities.PlaneAngle>(angleRad, Measures.Quantities.PlaneAngle.Radian);
+            return new Measurement(angleRad, Units.PlaneAngle.Radian);
         }
 
-        public static Measurement<Measures.Quantities.PlaneAngle> Angle(Point a, Point o, Point b) =>
+        public static Measurement Angle(Point a, Point o, Point b) =>
             Angle(a, o) + Angle(o, b);
 
-        public Point(Measurement<Measures.Quantities.Length> x, Measurement<Measures.Quantities.Length> y)
+        public Point(Measurement x, Measurement y)
         {
             X = x;
             Y = y;
         }
 
-        public Size ConvertTo(IUnit<Measures.Quantities.Length> unit) => new Size(X.ConvertTo(unit),
-            Y.ConvertTo(unit));
+        public Size ConvertTo(Unit unit) => new Size(X.ConvertToUnit(unit), Y.ConvertToUnit(unit));
 
-        public Measurement<Measures.Quantities.Length> X { get; set; }
-        public Measurement<Measures.Quantities.Length> Y { get; set; }
+        public Measurement X { get; set; }
+        public Measurement Y { get; set; }
     }
 
     public struct Size
     {
         public static Size Add(Size a, Size b) => new Size(a.Width + b.Width, a.Height + b.Height);
         public static Size Subtract(Size a, Size b) => new Size(a.Width - b.Width, a.Height - b.Height);
-        public static (double dx, double dy) Divide(Size a, Size b) => (a.Width / b.Width, a.Height / b.Height);
+        public static Size Divide(Size a, double b) => new Size(a.Width / b, a.Height / b);
 
         public static Size operator +(Size a, Size b) => Add(a, b);
         public static Size operator -(Size a, Size b) => Subtract(a, b);
-        public static (double dx, double dy) operator /(Size a, Size b) => Divide(a, b);
+        public static Size operator /(Size a, double b) => Divide(a, b);
 
-        public Size(Measurement<Measures.Quantities.Length> width, Measurement<Measures.Quantities.Length> height)
+        public Size(Measurement width, Measurement height)
         {
             Width = width;
             Height = height;
         }
 
-        public Size ConvertTo(IUnit<Measures.Quantities.Length> unit) => new Size(Width.ConvertTo(unit),
-            Height.ConvertTo(unit));
+        public Size ConvertTo(Unit unit) => new Size(Width.ConvertToUnit(unit),
+            Height.ConvertToUnit(unit));
 
-        public Measurement<Measures.Quantities.Length> Width { get; set; }
-        public Measurement<Measures.Quantities.Length> Height { get; set; }
+        public Measurement Width { get; set; }
+        public Measurement Height { get; set; }
     }
 
     public abstract class Transform
@@ -94,12 +96,17 @@ namespace OpenCAD.OpenCADFormat.CoordinateSystem
     public class RotateTransform : Transform
     {
         public Point Center { get; private set; }
-        public Measurement<Measures.Quantities.PlaneAngle> Angle { get; private set; }
+        public Measurement Angle { get; private set; }
 
-        public RotateTransform(Point center, Measurement<Measures.Quantities.PlaneAngle> angle)
+        public RotateTransform(Point center, Measurement angle)
         {
             Center = center;
             Angle = angle;
         }
+    }
+
+    public class TransformList : List<Transform>
+    {
+
     }
 }
