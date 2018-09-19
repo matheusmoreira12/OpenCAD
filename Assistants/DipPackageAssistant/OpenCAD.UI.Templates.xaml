@@ -1,0 +1,15 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:DipPackageAssistant">
+
+    <ControlTemplate x:Key="TextBoxTemplate" TargetType="TextBox">
+        <Border BorderBrush="{TemplateBinding BorderBrush}" 
+                BorderThickness="{TemplateBinding BorderThickness}" 
+                Background="{TemplateBinding Background}">
+
+            <ScrollViewer Name="PART_ContentHost"
+                          Foreground="{TemplateBinding Foreground}"/>
+        </Border>
+    </ControlTemplate>
+
+</ResourceDictionary>

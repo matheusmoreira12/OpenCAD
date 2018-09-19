@@ -76,7 +76,7 @@
     <Compile Include="Libraries\OpenCAD.OpenCADFormat.Libraries.Library.cs" />
     <Compile Include="Libraries\OpenCAD.OpenCADFormat.Libraries.Parameter.cs" />
     <Compile Include="Measures\OpenCAD.OpenCADFormat.Measures.Measurement.cs" />
-    <Compile Include="Measures\OpenCAD.OpenCADFormat.Measures.MetricPrefixes.cs" />
+    <Compile Include="Measures\OpenCAD.OpenCADFormat.Measures.MetricPrefix.cs" />
     <Compile Include="Measures\OpenCAD.OpenCADFormat.Measures.PhysicalQuantity.cs" />
     <Compile Include="Measures\OpenCAD.OpenCADFormat.Measures.Unit.cs" />
     <Compile Include="Measures\OpenCAD.OpenCADFormat.Measures.Utils.cs" />

@@ -4,15 +4,15 @@
                     xmlns:measures="clr-namespace:OpenCAD.OpenCADFormat.Measures;assembly=OpenCAD.OpenCADFormat">
 
     <DataTemplate x:Key="MeasuresUnitDataTemplate" DataType="{x:Type measures:Unit}">
-        <TextBlock Text="{Binding UISymbol}"/>
+        <TextBlock Text="{Binding UISymbol}" ToolTip="{Binding Name}"/>
     </DataTemplate>
 
     <DataTemplate x:Key="MeasuresMetricPrefixDataTemplate" DataType="{x:Type measures:MetricPrefix}">
-        <TextBlock Text="{Binding UISymbol}"/>
+        <TextBlock Text="{Binding UISymbol}" ToolTip="{Binding Name}"/>
     </DataTemplate>
 
     <DataTemplate x:Key="MeasuresMeasurementDataTemplate" DataType="{x:Type measures:Measurement}">
-        <WrapPanel>
+        <WrapPanel ToolTip="{Binding Name}">
             <TextBlock Text="{Binding Amount}"/>
             <TextBlock Text="{Binding Prefix.UISymbol}"
                        FontWeight="Bold"/>

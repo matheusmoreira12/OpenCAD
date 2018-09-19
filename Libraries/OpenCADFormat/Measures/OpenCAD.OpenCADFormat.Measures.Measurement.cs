@@ -76,6 +76,19 @@ namespace OpenCAD.OpenCADFormat.Measures
             return new Measurement(amount, unit, prefix);
         }
 
+        public static bool TryParse(string value, out Measurement result)
+        {
+            result = null;
+
+            try
+            {
+                result = Parse(value);
+
+                return true;
+            }
+            catch { return false; }
+        }
+
         public Measurement(double amount, Unit unit, MetricPrefix prefix = null)
         {
             Amount = amount;
@@ -108,7 +121,11 @@ namespace OpenCAD.OpenCADFormat.Measures
         public double GetAbsoluteAmount() => Utils.GetAbsoluteAmount(this);
 
         public double Amount { get; set; }
+
         public Unit Unit { get; private set; }
+
         public MetricPrefix Prefix { get; private set; }
+
+        public string Name => Prefix == null ? $"{Amount} {Unit.Name}" : $"{Amount} {Prefix.Name} {Unit.Name}";
     }
 }

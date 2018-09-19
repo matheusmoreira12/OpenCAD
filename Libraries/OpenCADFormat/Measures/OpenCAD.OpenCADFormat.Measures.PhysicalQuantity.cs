@@ -5,9 +5,7 @@ namespace OpenCAD.OpenCADFormat.Measures
 {
     public class PhysicalQuantity
     {
-        public PhysicalQuantity(string name, string symbol) : this(name, symbol, null) { }
-
-        public PhysicalQuantity(string name, string symbol, string uISymbol)
+        public PhysicalQuantity(string name, string symbol, string uISymbol = null)
         {
             Name = name ?? throw new ArgumentNullException("name");
             Symbol = symbol ?? throw new ArgumentNullException("symbol");

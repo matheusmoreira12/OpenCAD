@@ -7,35 +7,30 @@
              xmlns:measures="clr-namespace:OpenCAD.OpenCADFormat.Measures;assembly=OpenCAD.OpenCADFormat"
              mc:Ignorable="d"
              Name="measurementPicker"
-             d:DesignHeight="21" d:DesignWidth="90" PreviewMouseDoubleClick="measurementPicker_PreviewMouseDoubleClick">
+             d:DesignHeight="21" d:DesignWidth="90" Focusable="True"
+             ToolTip="{Binding Selection.Name, ElementName=measurementPicker}">
     <Control.Resources>
-        <local:MeasurementStringValueConverter x:Key="measurementToString"/>
+        <local:MeasurementToStringConverter x:Key="measurementToString"/>
         <BooleanToVisibilityConverter x:Key="booleanToVisibility"/>
     </Control.Resources>
+
     <Grid>
         <ToggleButton Name="DropDownToggle"
                       IsChecked="{Binding IsDropDownOpen, ElementName=measurementPicker}"
-                      HorizontalContentAlignment="Right"
-                      Style="{x:Null}"
-                      Background="Transparent" BorderBrush="Transparent" BorderThickness="0">
-            <Path x:Name="DropDownArrow" Height="auto" Width="6" 
-                                          Stretch="Uniform" Margin="2 0" Fill="WhiteSmoke"
-                                          Data="M0,0 L200,0 L100,150 Z"/>
+                      Style="{StaticResource DropDownToggleButtonStyle}">
+            <Image/>
         </ToggleButton>
 
-        <ContentPresenter Margin="1 1 13 1" Content="{Binding Selection, ElementName=measurementPicker}"
+        <ContentPresenter Margin="1 1 17 1" Content="{Binding Selection, ElementName=measurementPicker}"
                           ContentTemplate="{StaticResource MeasuresMeasurementDataTemplate}"
                           IsHitTestVisible="False"/>
 
         <TextBox Name="PlainTextText"
-                 Text="{Binding Selection, Converter={StaticResource measurementToString}, ElementName=measurementPicker}"
-                 Margin="1 1 13 1"
-                 Background="{Binding Background, ElementName=measurementPicker}" 
-                 Foreground="{Binding Foreground, ElementName=measurementPicker}"
-                 BorderBrush="{Binding BorderBrush, ElementName=measurementPicker}" 
-                 BorderThickness="{Binding BorderThickness, ElementName=measurementPicker}"
+                 Text="{Binding Selection, Converter={StaticResource measurementToString}, UpdateSourceTrigger=PropertyChanged, ElementName=measurementPicker}"
+                 Margin="1 1 17 1"
+                 FontFamily="Courier New"
                  Visibility="{Binding IsCodeEditingVisible, Converter={StaticResource booleanToVisibility}, ElementName=measurementPicker}" LostFocus="PlainTextText_LostFocus" KeyDown="PlainTextText_KeyDown"/>
-        
+
         <Popup Name="SelectionPopup" Placement="Bottom" StaysOpen="False"
                IsOpen="{Binding IsDropDownOpen, ElementName=measurementPicker}">
             <Border Name="PopupBorder"
@@ -47,20 +42,20 @@
                     <local:NumberTextBox Grid.Column="0" 
                                     x:Name="TextAmount"
                                     Text="{Binding SelectedAmount, ElementName=measurementPicker}"
-                                    Width="50"/>
+                                    Width="80"/>
                     <ComboBox Grid.Column="1" 
                         Name="PrefixesCombo"
                         ItemsSource="{x:Static measures:MetricPrefixes.SupportedPrefixes}"
                         SelectedItem="{Binding SelectedPrefix, ElementName=measurementPicker}"
                         ItemTemplate="{StaticResource MeasuresMetricPrefixDataTemplate}"
                         Visibility="{Binding IsMetricPrefixVisible, Converter={StaticResource booleanToVisibility}, ElementName=measurementPicker}"
-                        Width="50"/>
+                        Width="40"/>
                     <ComboBox Grid.Column="2" 
                         Name="UnitsList"
                         ItemsSource="{x:Static measures:Units.SupportedUnits}"
                         SelectedItem="{Binding SelectedUnit, ElementName=measurementPicker}"
                         ItemTemplate="{StaticResource MeasuresUnitDataTemplate}"
-                        Width="50"/>
+                        Width="40"/>
                 </WrapPanel>
             </Border>
         </Popup>

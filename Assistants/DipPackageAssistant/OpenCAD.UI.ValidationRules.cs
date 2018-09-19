@@ -6,7 +6,7 @@ namespace OpenCAD.UI.ValidationRules
 {
     class NumericValidationRule : ValidationRule
     {
-        protected static readonly Regex NUMBER_VALIDATION_REGEX = new Regex(@"^(\d+\.?\d*|.\d+)([eE](\+|\-)(\d+))?$");
+        protected static readonly Regex NUMBER_VALIDATION_REGEX = new Regex(@"^(\d+\.?\d*|.\d+)([eE][+-]?\d+)?$");
 
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {

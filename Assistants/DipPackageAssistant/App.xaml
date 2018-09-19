@@ -8,6 +8,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/OpenCAD.UI.DataTemplates.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/OpenCAD.UI.Styles.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/OpenCAD.UI.Templates.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

@@ -6,8 +6,8 @@
              xmlns:local="clr-namespace:OpenCAD.UI"
              xmlns:validationRules="clr-namespace:OpenCAD.UI.ValidationRules"
              mc:Ignorable="d"
-             Name="numberTextBox"
-             d:DesignHeight="21" d:DesignWidth="60">
+             d:DesignHeight="21" d:DesignWidth="60"
+             Name="numberTextBox">
     <TextBox.Text>
         <Binding ElementName="numberTextBox" Path="Value" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
             <Binding.ValidationRules>

@@ -3,13 +3,13 @@ using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-
+using System.Windows.Input;
 using OpenCAD.OpenCADFormat.Measures;
 
 namespace OpenCAD.UI
 {
     [ValueConversion(typeof(Measurement), typeof(string))]
-    public class MeasurementStringValueConverter : IValueConverter
+    public class MeasurementToStringConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
@@ -26,15 +26,14 @@ namespace OpenCAD.UI
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value == null)
-                return DependencyProperty.UnsetValue;
+            string input = value == null ? null : value as string;
 
-            string input = value as string;
+            Measurement output;
 
-            if (input == null)
-                return DependencyProperty.UnsetValue;
+            if (input != null && Measurement.TryParse(input, out output))
+                return output;
 
-            return Measurement.Parse(input);
+            return new ValidationResult(false, "Measurement string is invalid.");
         }
     }
 
@@ -84,7 +83,12 @@ namespace OpenCAD.UI
         {
             base.OnPropertyChanged(e);
 
-            if (e.Property == SelectedUnitProperty)
+            if (e.Property == IsDropDownOpenProperty)
+            {
+                if (IsDropDownOpen)
+                    IsCodeEditingVisible = true;
+            }
+            else if (e.Property == SelectedUnitProperty)
             {
                 if (SelectedUnit.IsMetric)
                     IsMetricPrefixVisible = true;
@@ -98,11 +102,7 @@ namespace OpenCAD.UI
             else if (e.Property == SelectedAmountProperty)
                 UpdateSelection();
             else if (e.Property == SelectionProperty)
-            {
-                SelectedAmount = Selection.Amount;
-                SelectedPrefix = Selection.Prefix;
-                SelectedUnit = Selection.Unit;
-            }
+                (SelectedAmount, SelectedPrefix, SelectedUnit) = (Selection.Amount, Selection.Prefix, Selection.Unit);
         }
 
         #region Status Flags
@@ -191,7 +191,7 @@ namespace OpenCAD.UI
 
         private void PlainTextText_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
-            if (e.Key.HasFlag(System.Windows.Input.Key.Escape))
+            if (e.Key == Key.Escape)
                 ExitCodeEditingMode();
         }
         #endregion
