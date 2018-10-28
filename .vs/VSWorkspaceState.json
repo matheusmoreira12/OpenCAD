@@ -1,7 +1,14 @@
 {
   "ExpandedNodes": [
     "",
-    "\\Libraries"
+    "\\Libraries",
+    "\\Libraries\\OpenCADFormat",
+    "\\Libraries\\OpenCADFormat\\Drawing",
+    "\\Libraries\\OpenCADFormat\\Libraries",
+    "\\Tests",
+    "\\Tests\\Libraries",
+    "\\Tests\\Libraries\\OpenCAD.UserInterface"
   ],
+  "SelectedNode": "\\Tests\\Libraries",
   "PreviewInSolutionExplorer": false
 }

@@ -1,12 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace OpenCAD.OpenCADFormat.Drawing
 {
-    public class TextElementCollection : Collection<TextElement>
+    public class TextElementCollection : Collection<object>
     {
-        public TextElementCollection(TextElement parent, IList<TextElement> items): base(items)
+        public TextElementCollection(TextElement parent, IList<object> items) : base(items)
         {
             Parent = parent;
         }
@@ -32,16 +33,18 @@ namespace OpenCAD.OpenCADFormat.Drawing
             }
         }
 
-        protected override void InsertItem(int index, TextElement item)
+        protected override void InsertItem(int index, object item)
         {
             base.InsertItem(index, item);
 
-            item.SetParent(Parent);
+            (item as TextElement)?.SetParent(Parent);
         }
 
         protected override void RemoveItem(int index)
         {
-            this[index].UnsetParent();
+            object item = this[index];
+
+            (item as TextElement)?.UnsetParent();
 
             base.RemoveItem(index);
         }
@@ -52,7 +55,11 @@ namespace OpenCAD.OpenCADFormat.Drawing
         {
             for (int i = Count - 1; i > 0; i--)
             {
-                TextElement newItem = this[i].Collapse();
+                TextElement oldItem = this[i] as TextElement;
+
+                if (oldItem == null) continue;
+
+                TextElement newItem = oldItem.Collapse();
 
                 if (newItem == null)
                     RemoveAt(i);

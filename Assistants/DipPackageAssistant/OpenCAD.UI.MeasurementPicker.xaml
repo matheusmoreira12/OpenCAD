@@ -27,7 +27,7 @@
 
         <TextBox Name="PlainTextText"
                  Text="{Binding Selection, Converter={StaticResource measurementToString}, UpdateSourceTrigger=PropertyChanged, ElementName=measurementPicker}"
-                 Margin="1 1 17 1"
+                 Margin="0 0 17 0"
                  FontFamily="Courier New"
                  Visibility="{Binding IsCodeEditingVisible, Converter={StaticResource booleanToVisibility}, ElementName=measurementPicker}" LostFocus="PlainTextText_LostFocus" KeyDown="PlainTextText_KeyDown"/>
 
