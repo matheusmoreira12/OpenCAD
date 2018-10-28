@@ -2,20 +2,22 @@
 using System.Collections.Generic;
 
 using OpenCAD.OpenCADFormat.Measures;
-using Quantities = OpenCAD.OpenCADFormat.Measures.Quantities;
 using OpenCAD.OpenCADFormat.CoordinateSystem;
+using System.Xml.Serialization;
 
 namespace OpenCAD.OpenCADFormat.Drawing
 {
+    [Serializable]
     public abstract class DrawingElement
     {
-
+        public StrokeAttributes Stroke = StrokeAttributes.Default;
+        public FillAttributes Fill = FillAttributes.Default;
     }
 
+    [Serializable]
     public abstract class Shape : DrawingElement
     {
-        public bool Stroked { get; private set; }
-        public bool Filled { get; private set; }
+
     }
 
     public enum ArcType { Centered, ThreePoint, CenteredStartSweepAngle }

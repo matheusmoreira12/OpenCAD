@@ -15,7 +15,7 @@ namespace OpenCAD.OpenCADFormat.Drawing
 
     public class Font
     {
-        public static readonly Font Default = new Font("Arial, Verdana", new Measurement(20, Units.Length.Mil));
+        public static readonly Font Default = new Font("Arial, Verdana", new Measurement(200, Units.Length.Mil));
 
         public Font(string family, Measurement height,
             FontWeight weight = FontWeight.Regular, FontStyle style = FontStyle.Normal)

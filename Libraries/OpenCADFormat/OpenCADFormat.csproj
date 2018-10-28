@@ -60,6 +60,8 @@
     <Compile Include="DataStrings\OpenCAD.OpenCADFormat.DataStrings.ExtensionMethods.cs" />
     <Compile Include="DataStrings\OpenCAD.OpenCADFormat.DataStrings.GlobalConsts.cs" />
     <Compile Include="DataStrings\OpenCAD.OpenCADFormat.DataStrings.Utils.cs" />
+    <Compile Include="Drawing\Fill.cs" />
+    <Compile Include="Drawing\Stroke.cs" />
     <Compile Include="Drawing\Utils.cs" />
     <Compile Include="Drawing\Font.cs" />
     <Compile Include="Drawing\TextElement.cs" />
