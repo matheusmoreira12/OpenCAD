@@ -7,6 +7,8 @@ namespace OpenCAD.OpenCADFormat.Measures
 {
     public struct Measurement : IComparable<Measurement>, IEquatable<Measurement>
     {
+        public static readonly Measurement Zero = new Measurement(0, null);
+
         public static Measurement Add(Measurement a, Measurement b) => new Measurement(a.Amount
             + Utils.ConvertAmount(b, a.Unit), a.Unit);
         public static Measurement Subtract(Measurement a, Measurement b) => new Measurement(a.Amount
@@ -68,8 +70,11 @@ namespace OpenCAD.OpenCADFormat.Measures
 
         public Measurement(double amount, Unit unit, MetricPrefix prefix = null)
         {
+            if (unit == null && amount != 0) Unit = unit ?? throw new ArgumentNullException("Cannot create new " +
+                "measurement. Units can only be specified as null if the amount is zero.", "unit");
+
+            Unit = unit;
             Amount = amount;
-            Unit = unit ?? throw new ArgumentNullException("unit");
             Prefix = prefix;
         }
 
