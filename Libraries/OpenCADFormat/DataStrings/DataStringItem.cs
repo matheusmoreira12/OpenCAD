@@ -12,9 +12,8 @@ namespace OpenCAD.OpenCADFormat.DataStrings
         public static DataStringItem Parse(string content)
         {
             StringScanner scanner = new StringScanner(content);
-            DataStringItem result;
 
-            if (ReadFromString(scanner, out result))
+            if (ReadFromString(scanner, out DataStringItem result))
                 return result;
 
             return null;
@@ -216,11 +215,8 @@ namespace OpenCAD.OpenCADFormat.DataStrings
         #region String Reading
         internal static new bool ReadFromString(StringScanner scanner, out DataStringItem item)
         {
-            string decimalStr;
-            bool isFloatingPoint,
-                hasExponent;
 
-            if (StringUtils.ReadDecimalString(scanner, out decimalStr, out isFloatingPoint, out hasExponent))
+            if (StringUtils.ReadDecimalString(scanner, out string decimalStr, out bool isFloatingPoint, out bool hasExponent))
             {
                 if (isFloatingPoint)
                     item = new DataStringLiteralFloatingPoint(double.Parse(decimalStr, Conventions.STANDARD_CULTURE));
@@ -272,7 +268,7 @@ namespace OpenCAD.OpenCADFormat.DataStrings
         }
     }
 
-    public class DataStringLooseDataset : DataStringItem
+    public class DataStringParameterSet : DataStringItem
     {
         #region String Reading/Writing
         internal static new bool ReadFromString(StringScanner scanner, out DataStringItem item)
@@ -283,7 +279,7 @@ namespace OpenCAD.OpenCADFormat.DataStrings
                 {
                     scanner.Increment();
 
-                    item = new DataStringLooseDataset();
+                    item = new DataStringParameterSet();
                     item.Items.AddRange(DataStringItemCollection.ReadFromString(scanner).ToList());
 
                     if (scanner.CurrentChar == GlobalConsts.LOOSE_DATASET_CLOSING_CHAR)
@@ -317,8 +313,8 @@ namespace OpenCAD.OpenCADFormat.DataStrings
         }
         #endregion
 
-        public DataStringLooseDataset() : base() { }
-        public DataStringLooseDataset(IEnumerable<DataStringItem> items) : base(items) { }
+        public DataStringParameterSet() : base() { }
+        public DataStringParameterSet(IEnumerable<DataStringItem> items) : base(items) { }
     }
 
     public class DataStringFunction : DataStringItem
@@ -328,9 +324,7 @@ namespace OpenCAD.OpenCADFormat.DataStrings
         {
             using (var token = scanner.SaveIndex())
             {
-                string functionName;
-
-                if (Utils.ReadIdentifier(scanner, out functionName))
+                if (Utils.ReadIdentifier(scanner, out string functionName))
                 {
                     if (scanner.CurrentChar == GlobalConsts.FUNC_PARAMS_OPENING_CHAR)
                     {
@@ -389,9 +383,7 @@ namespace OpenCAD.OpenCADFormat.DataStrings
         #region String Reading/Writing
         internal static new bool ReadFromString(StringScanner scanner, out DataStringItem item)
         {
-            string symbolName;
-
-            if (Utils.ReadIdentifier(scanner, out symbolName))
+            if (Utils.ReadIdentifier(scanner, out string symbolName))
             {
                 item = new DataStringSymbol(symbolName);
                 return true;

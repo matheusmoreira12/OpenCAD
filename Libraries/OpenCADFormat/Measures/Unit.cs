@@ -12,8 +12,8 @@ namespace OpenCAD.OpenCADFormat.Measures
 
         private double conversionFactor;
 
-        public PhysicalQuantity PhysicalQuantity => BaseUnit?.PhysicalQuantity ?? physicalQuantity;
-        private PhysicalQuantity physicalQuantity;
+        public Quantity Quantity => BaseUnit?.Quantity ?? quantity;
+        private Quantity quantity;
 
         public double StandardAmount => BaseUnit?.StandardAmount * conversionFactor ?? standardAmount;
         private double standardAmount;
@@ -24,12 +24,12 @@ namespace OpenCAD.OpenCADFormat.Measures
 
         public string UISymbol { get; private set; }
 
-        public Unit(string name, PhysicalQuantity physicalQuantity, double standardAmount, string symbol, string uiSymbol = null,
+        public Unit(string name, Quantity physicalQuantity, double standardAmount, string symbol, string uiSymbol = null,
             bool isMetric = true)
         {
             Name = name;
             BaseUnit = null;
-            this.physicalQuantity = physicalQuantity ?? throw new ArgumentNullException(nameof(physicalQuantity));
+            this.quantity = physicalQuantity ?? throw new ArgumentNullException(nameof(physicalQuantity));
             this.standardAmount = standardAmount;
             Symbol = symbol ?? throw new ArgumentNullException(nameof(symbol));
             UISymbol = uiSymbol ?? symbol;

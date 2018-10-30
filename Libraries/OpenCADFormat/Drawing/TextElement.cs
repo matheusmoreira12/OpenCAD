@@ -182,10 +182,12 @@ namespace OpenCAD.OpenCADFormat.Drawing
         [XmlAttribute]
         public string Family = null;
 
-        [XmlAttribute]
-        public Measurement Height = null;
+        public bool ShouldSerializeFamily => Family == default(string);
 
-        protected override bool ShouldCollapse => base.ShouldCollapse || Family == null && Height == null;
+        [XmlAttribute]
+        public Measurement Height;
+
+        public bool ShouldSerializeHeight => Height == default(Measurement);
     }
 
     [Serializable]

@@ -40,8 +40,10 @@ namespace OpenCAD.OpenCADFormat.Drawing
 
         public StrokeAttributes(StrokeStyle style, Measurement thickness)
         {
+            Validation.Expect(Quantities.Length, thickness);
+
             Style = style;
-            Thickness = thickness ?? throw new ArgumentNullException(nameof(thickness));
+            Thickness = thickness;
         }
 
         public StrokeStyle Style { get; private set; }

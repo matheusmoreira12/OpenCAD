@@ -11,7 +11,7 @@ namespace OpenCAD.OpenCADFormat.Drawing
     public abstract class DrawingElement
     {
         public StrokeAttributes Stroke = StrokeAttributes.Default;
-        public FillAttributes Fill = FillAttributes.Default;
+        public FillStyle Fill = FillStyle.None;
     }
 
     [Serializable]
@@ -49,6 +49,8 @@ namespace OpenCAD.OpenCADFormat.Drawing
         public static Arc CreateCenteredStartSweepAngle(Point center, Size radius, Measurement rotation,
             Measurement startAngle, Measurement sweepAngle)
         {
+            Validation.Expect(Quantities.PlaneAngle, rotation);
+
             return new Arc
             {
                 Type = ArcType.CenteredStartSweepAngle,

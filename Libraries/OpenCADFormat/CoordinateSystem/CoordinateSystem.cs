@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 
 using OpenCAD.OpenCADFormat.Measures;
+using OpenCAD.OpenCADFormat.DataStrings;
 
 namespace OpenCAD.OpenCADFormat.CoordinateSystem
 {
@@ -50,6 +51,11 @@ namespace OpenCAD.OpenCADFormat.CoordinateSystem
         }
 
         public Size ConvertTo(Unit unit) => new Size(X.ConvertToUnit(unit), Y.ConvertToUnit(unit));
+
+        public override string ToString()
+        {
+            return $"({X}, {Y})";
+        }
 
         public Measurement X { get; set; }
         public Measurement Y { get; set; }

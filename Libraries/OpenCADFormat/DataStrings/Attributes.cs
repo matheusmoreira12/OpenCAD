@@ -7,19 +7,13 @@ namespace OpenCAD.OpenCADFormat.DataStrings
     {
     }
 
-    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Struct, AllowMultiple = false)]
-    public sealed class AnyFunctionAttribute : Attribute
+    [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property, AllowMultiple = false)]
+    public sealed class ParameterSet: Attribute
     {
-        public string[] FunctionNames;
 
-        public AnyFunctionAttribute() { }
-        public AnyFunctionAttribute(params string[] functionNames)
-        {
-            FunctionNames = functionNames;
-        }
     }
 
-    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Struct, AllowMultiple = false)]
+    [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property, AllowMultiple = false)]
     public sealed class FunctionAttribute : Attribute
     {
         public string FunctionName;
@@ -28,12 +22,6 @@ namespace OpenCAD.OpenCADFormat.DataStrings
         {
             FunctionName = functionName;
         }
-    }
-
-    [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property, AllowMultiple = false)]
-    public sealed class FunctionItemAttribute : Attribute
-    {
-        public Type TargetType = null;
     }
 
     [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property, AllowMultiple = false)]

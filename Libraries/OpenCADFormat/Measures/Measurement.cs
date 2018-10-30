@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace OpenCAD.OpenCADFormat.Measures
 {
-    public class Measurement : IComparable<Measurement>, IEquatable<Measurement>
+    public struct Measurement : IComparable<Measurement>, IEquatable<Measurement>
     {
         public static Measurement Add(Measurement a, Measurement b) => new Measurement(a.Amount
             + Utils.ConvertAmount(b, a.Unit), a.Unit);
@@ -34,37 +34,12 @@ namespace OpenCAD.OpenCADFormat.Measures
         public static bool operator >(Measurement a, Measurement b) => (a as IComparable<Measurement>).CompareTo(b) > 0;
         public static bool operator <(Measurement a, Measurement b) => (a as IComparable<Measurement>).CompareTo(b) < 0;
 
-        int IComparable<Measurement>.CompareTo(Measurement other)
-        {
-            if (other.Unit.PhysicalQuantity != Unit.PhysicalQuantity)
-                throw new InvalidOperationException("Cannot compare measurements. Measured physical quantities " +
-                    "don't match.");
-
-            return Comparer<double>.Default.Compare(GetAbsoluteAmount(), other.GetAbsoluteAmount());
-        }
-
-        bool IEquatable<Measurement>.Equals(Measurement other)
-        {
-            if (other.Unit.PhysicalQuantity != Unit.PhysicalQuantity)
-                throw new InvalidOperationException("Cannot equate measurements. Measured physical quantities " +
-                    "don't match.");
-
-            return GetAbsoluteAmount() == other.GetAbsoluteAmount();
-        }
-
         public static Measurement Parse(string value)
         {
-            bool isFloatingPoint,
-                hasExponent;
-
-            string amountStr = null;
-
             StringScanner scanner = new StringScanner(value);
-            StringUtils.ReadDecimalString(scanner, out amountStr, out isFloatingPoint, out hasExponent);
+            StringUtils.ReadDecimalString(scanner, out string amountStr, out bool isFloatingPoint, out bool hasExponent);
 
-            double amount;
-
-            if (!double.TryParse(amountStr, Conventions.STANDARD_NUMBER_STYLE, Conventions.STANDARD_CULTURE, out amount))
+            if (!double.TryParse(amountStr, Conventions.STANDARD_NUMBER_STYLE, Conventions.STANDARD_CULTURE, out double amount))
                 throw new InvalidOperationException("String does not contain valid amount information.");
 
             string symbol = value.Remove(0, amountStr.Length);
@@ -78,15 +53,17 @@ namespace OpenCAD.OpenCADFormat.Measures
 
         public static bool TryParse(string value, out Measurement result)
         {
-            result = null;
-
             try
             {
                 result = Parse(value);
 
                 return true;
             }
-            catch { return false; }
+            catch {
+                result = default(Measurement);
+
+                return false;
+            }
         }
 
         public Measurement(double amount, Unit unit, MetricPrefix prefix = null)
@@ -96,36 +73,60 @@ namespace OpenCAD.OpenCADFormat.Measures
             Prefix = prefix;
         }
 
-        public override string ToString() => $"{Amount.ToString(Conventions.STANDARD_CULTURE)}{Prefix?.Symbol}{Unit.Symbol}";
-        public string ToUIString() => $"{Amount.ToString(Conventions.STANDARD_CULTURE)}{Prefix?.UISymbol}{Unit.UISymbol}";
+        public override bool Equals(object obj)
+        {
+            if (!(obj is Measurement)) throw new ArgumentException($"Type {obj.GetType()} cannot be compared to " +
+                $"type Measurement. No conversion exists.", "obj");
+
+            Measurement measurement = (Measurement)obj;
+
+            return measurement != null &&
+                   Amount == measurement.Amount &&
+                   EqualityComparer<Unit>.Default.Equals(Unit, measurement.Unit) &&
+                   EqualityComparer<MetricPrefix>.Default.Equals(Prefix, measurement.Prefix);
+        }
+
+        public override int GetHashCode()
+        {
+            var hashCode = -1262229599;
+            hashCode = hashCode * -1521134295 + Amount.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<Unit>.Default.GetHashCode(Unit);
+            hashCode = hashCode * -1521134295 + EqualityComparer<MetricPrefix>.Default.GetHashCode(Prefix);
+            return hashCode;
+        }
+
+        public override string ToString() => $"{Amount.ToString(Conventions.STANDARD_CULTURE)}{Prefix?.Symbol}" +
+            $"{Unit.Symbol}";
+        public string ToUIString() => $"{Amount.ToString(Conventions.STANDARD_CULTURE)}{Prefix?.UISymbol}" +
+            $"{Unit.UISymbol}";
 
         public Measurement ConvertToUnit(Unit outUnit)
         {
-            if (outUnit.PhysicalQuantity != Unit.PhysicalQuantity)
+            if (outUnit.Quantity != Unit.Quantity)
                 throw new InvalidOperationException("Cannot convert measurement to the specified unit. " +
                     "Units have mismatched physical quantities.");
 
             return new Measurement(Utils.ConvertAmount(this, outUnit), outUnit);
         }
 
-        public override bool Equals(object obj)
-        {
-            return base.Equals(obj);
-        }
-
-        public override int GetHashCode()
-        {
-            return base.GetHashCode();
-        }
-
         public double GetAbsoluteAmount() => Utils.GetAbsoluteAmount(this);
 
-        public double Amount { get; set; }
-
+        public double Amount { get; private set; }
         public Unit Unit { get; private set; }
-
         public MetricPrefix Prefix { get; private set; }
 
-        public string Name => Prefix == null ? $"{Amount} {Unit.Name}" : $"{Amount} {Prefix.Name} {Unit.Name}";
+        int IComparable<Measurement>.CompareTo(Measurement other)
+        {
+            if (other.Unit.Quantity != Unit.Quantity)
+                throw new InvalidOperationException("Cannot compare measurements. Measured physical quantities " +
+                    "don't match.");
+
+            return Comparer<double>.Default.Compare(GetAbsoluteAmount(), other.GetAbsoluteAmount());
+        }
+
+        bool IEquatable<Measurement>.Equals(Measurement other)
+        {
+            return Equals(other);
+        }
     }
 }

@@ -39,6 +39,7 @@
       <HintPath>..\Utils\bin\Release\OpenCAD.Utils.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -49,23 +50,26 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Conventions\OpenCAD.OpenCADFormat.Conventions.cs" />
-    <Compile Include="CoordinateSystem\OpenCAD.OpenCADFormat.CoordinateSystem.cs" />
-    <Compile Include="DataConversion\OpenCAD.OpenCADFormat.DataConversion.cs" />
-    <Compile Include="DataStrings\OpenCAD.OpenCADFormat.DataStrings.Attributes.cs" />
-    <Compile Include="DataStrings\OpenCAD.OpenCADFormat.DataStrings.DataStringGenerator.cs" />
-    <Compile Include="DataStrings\OpenCAD.OpenCADFormat.DataStrings.DataStringItem.cs" />
-    <Compile Include="DataStrings\OpenCAD.OpenCADFormat.DataStrings.Encoding.cs" />
-    <Compile Include="DataStrings\OpenCAD.OpenCADFormat.DataStrings.Exceptions.cs" />
-    <Compile Include="DataStrings\OpenCAD.OpenCADFormat.DataStrings.ExtensionMethods.cs" />
-    <Compile Include="DataStrings\OpenCAD.OpenCADFormat.DataStrings.GlobalConsts.cs" />
-    <Compile Include="DataStrings\OpenCAD.OpenCADFormat.DataStrings.Utils.cs" />
+    <Compile Include="Conventions\Conventions.cs" />
+    <Compile Include="CoordinateSystem\CoordinateSystem.cs" />
+    <Compile Include="DataConversion\DataConversion.cs" />
+    <Compile Include="DataStrings\Attributes.cs" />
+    <Compile Include="DataStrings\DataStringGenerator.cs" />
+    <Compile Include="DataStrings\DataStringItem.cs" />
+    <Compile Include="DataStrings\Encoding.cs" />
+    <Compile Include="DataStrings\Exceptions.cs" />
+    <Compile Include="DataStrings\ExtensionMethods.cs" />
+    <Compile Include="DataStrings\GlobalConsts.cs" />
+    <Compile Include="DataStrings\Utils.cs" />
+    <Compile Include="Drawing\Canvas.cs" />
     <Compile Include="Drawing\Fill.cs" />
     <Compile Include="Drawing\Stroke.cs" />
     <Compile Include="Drawing\Utils.cs" />
     <Compile Include="Drawing\Font.cs" />
     <Compile Include="Drawing\TextElement.cs" />
     <Compile Include="Drawing\TextElementCollection.cs" />
+    <Compile Include="Fonts\Document.cs" />
+    <Compile Include="Fonts\FontDefinition.cs" />
     <Compile Include="Libraries\Libraries\obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
     <Compile Include="Libraries\Libraries\obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
     <Compile Include="Libraries\Libraries\obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
@@ -78,13 +82,17 @@
     <Compile Include="Libraries\FootprintLibrary.cs" />
     <Compile Include="Libraries\Library.cs" />
     <Compile Include="Libraries\Parameter.cs" />
+    <Compile Include="Measures\Exceptions.cs" />
     <Compile Include="Measures\Measurement.cs" />
     <Compile Include="Measures\MetricPrefix.cs" />
-    <Compile Include="Measures\PhysicalQuantity.cs" />
+    <Compile Include="Measures\Quantity.cs" />
     <Compile Include="Measures\Unit.cs" />
     <Compile Include="Measures\Utils.cs" />
-    <Compile Include="SchematicCapture\OpenCAD.OpenCADFormat.SchematicCapture.cs" />
-    <Compile Include="Drawing\Drawing.cs" />
+    <Compile Include="Measures\Validation.cs" />
+    <Compile Include="Metadata.cs" />
+    <Compile Include="SchematicCapture\SchematicCapture.cs" />
+    <Compile Include="Drawing\DrawingElement.cs" />
+    <Compile Include="SchematicCapture\Trace.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Libraries\Libraries\bin\Debug\OpenCAD.OpenCADFormat.Libraries.dll" />
