@@ -23,17 +23,19 @@ namespace OpenCAD.OpenCADFormat.Drawing
         internal void SetParent(TextElement parent) => Parent = parent;
         internal void UnsetParent() => Parent = null;
 
-        [XmlElement("S", Type = typeof(TextSemiBoldElement))]
-        [XmlElement("b", Type = typeof(TextBoldElement))]
-        [XmlElement("B", Type = typeof(TextBlackElement))]
-        [XmlElement("l", Type = typeof(TextLightElement))]
-        [XmlElement("i", Type = typeof(TextItalicElement))]
-        [XmlElement("o", Type = typeof(TextObliqueElement))]
-        [XmlElement("u", Type = typeof(TextUnderlineElement))]
-        [XmlElement("s", Type = typeof(TextStrikeThroughElement))]
-        [XmlElement("O", Type = typeof(TextOverlineElement))]
-        [XmlElement("_s", Type = typeof(TextSubscriptElement))]
-        [XmlElement("_S", Type = typeof(TextSuperscriptElement))]
+        [XmlElement("SemiBold", typeof(TextSemiBoldElement))]
+        [XmlElement("b", typeof(TextBoldElement))]
+        [XmlElement("Black", typeof(TextBlackElement))]
+        [XmlElement("l", typeof(TextLightElement))]
+        [XmlElement("i", typeof(TextItalicElement))]
+        [XmlElement("Oblique", typeof(TextObliqueElement))]
+        [XmlElement("u", typeof(TextUnderlineElement))]
+        [XmlElement("s", typeof(TextStrikeThroughElement))]
+        [XmlElement("Overline", typeof(TextOverlineElement))]
+        [XmlElement("Emphasis", typeof(TextEmphasisElement))]
+        [XmlElement("sub", typeof(TextSubscriptElement))]
+        [XmlElement("sup", typeof(TextSuperscriptElement))]
+        [XmlElement("font", typeof(TextFontElement))]
         [XmlText(typeof(string))]
         public TextElementCollection Children;
 
@@ -75,8 +77,10 @@ namespace OpenCAD.OpenCADFormat.Drawing
         public TextObliqueElement GetOblique() => new TextObliqueElement(Children);
         public TextUnderlineElement GetUnderline() => new TextUnderlineElement(Children);
         public TextOverlineElement GetOverline() => new TextOverlineElement(Children);
+        public TextEmphasisElement GetEmphasis() => new TextEmphasisElement(Children);
         public TextSuperscriptElement GetSuperscript() => new TextSuperscriptElement(Children);
         public TextSubscriptElement GetSubscript() => new TextSubscriptElement(Children);
+
         public TextFontElement ChangeFont(string family, Measurement height) => new TextFontElement(Children)
         {
             Family = family,
@@ -157,6 +161,14 @@ namespace OpenCAD.OpenCADFormat.Drawing
     }
 
     [Serializable]
+    public class TextEmphasisElement : TextFormat
+    {
+        public TextEmphasisElement() { }
+
+        public TextEmphasisElement(IList<object> children) : base(children) { }
+    }
+
+    [Serializable]
     public class TextSuperscriptElement : TextFormat
     {
         public TextSuperscriptElement() { }
@@ -193,9 +205,6 @@ namespace OpenCAD.OpenCADFormat.Drawing
     [Serializable]
     public class Text : TextElement
     {
-        const TextAlignment DEFAULT_ALIGNMENT = TextAlignment.Middle;
-        const TextAlignment DEFAULT_VERTICAL_ALIGNMENT = TextAlignment.Middle;
-
         public static Text FromContent(string content) => new Text(new[] { content });
 
         public Text() { }
@@ -206,13 +215,13 @@ namespace OpenCAD.OpenCADFormat.Drawing
         protected override bool ShouldCollapse => false;
 
         [XmlAttribute]
-        public TextAlignment Alignment = DEFAULT_ALIGNMENT;
+        public TextAlignment Alignment = default(TextAlignment);
 
-        public bool ShouldSerializeAlignment() => Alignment != DEFAULT_ALIGNMENT;
+        public bool ShouldSerializeAlignment() => Alignment != default(TextAlignment);
 
         [XmlAttribute]
-        public TextAlignment VerticalAlignment = DEFAULT_VERTICAL_ALIGNMENT;
+        public TextAlignment VerticalAlignment = default(TextAlignment);
 
-        public bool ShouldSerializeVerticalAlignment() => Alignment != DEFAULT_VERTICAL_ALIGNMENT;
+        public bool ShouldSerializeVerticalAlignment() => Alignment != default(TextAlignment);
     }
 }

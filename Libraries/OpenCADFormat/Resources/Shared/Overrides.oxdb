@@ -1,0 +1,83 @@
+﻿<?xml version="1.0"?>
+<base xmlns:xl="http://www.w3.org/1999/xlink">
+  <plain-table encriptionkey="">
+    <Meta @Name="shared-data#refdes"/>
+    <Meta @Key="@key"/>
+
+    <Defs>
+      <![CDATA[]]>
+    </Defs>
+
+    <Columns Format="">
+      <![CDATA[
+        ~Base shared across all exeutables: See documentation: #viewer ?link 
+§ http://doc.übercad.org/format/openeda_std/2018/doc@nav.do/search.act?sh=docs&sq=syntax+overrides/; 
+§ url= #"Documentation index.
+
+        _COMMAND_ $TABLE_START 0x000001
+
+        $TABLE_START
+        ´Shared Regexes
+
+
+        _PUSH_ _OVERLOAD_ /_\w+_/
+        _PUSH_ _OVERLOAD_ /@/_\w+_//gi: _RESERVED_
+        @PUSH @OVERLOAD COMMAND COMMENT : /'/
+
+        'Syntax Overload
+        #STORAGE_ASSIGNMENT {}
+        
+        #OVERRIDE #overide;
+        #SYNTAX_OVERLOAD 
+        #SYNTAX_OVERLOAD @assignment {
+          #PUSH_STORED "name" := #PULL_STORED "expression";
+        }
+        
+        #SYNTAX_OVERLOAD @array 
+        #SYNTAX_OVERLOAD @constant /:\w+[_+-]*: gi/
+        #SYNTAX_OVERLOAD #array @ignore
+        {
+          %regex [(**)($$)@!(@STORED : "word"))]/gi
+        }
+        #SYNTAX_OVERLOAD @directive typedef|#:letters:+/gi
+        #SYNTAX_OVERLOAD @reserved typedef|@{{:word:}}/gi
+        #SYNTAX_OVERLOAD @_REGEX_ //
+        
+        #PREPROCESSOR_ROUTINE {
+          
+        }
+
+        #STORE #map overs @is_standard=true {
+          @#command {
+            
+            @force ignore command {{  }}
+            @force force {!|@force}
+            @expression %regex compute={:expression:}/gi
+          @map commands {
+            @query: %regex (query|$){{command}{query-string}}(:ws:=:ws:)
+            @force: %regex !{}/gi
+            @comment: %regex $~{*?}(~)?+/^/gi
+          }
+        }
+        
+        'Library 
+        $row @URL http://home.übercad.org/format/doc@nav.do/openeda_std/2018/docs/index.do/gi
+        $dictionary
+        $row @URL @regex "~/gi
+        
+        ~Schematic Capture Regexes
+        $row { 
+          Name=Reference-designator|; 
+          Regex={?=ref_des}[{?=order}]{?=if{.}}/; 
+          Default_Auto=false; 
+          User_Settable=true; 
+        }
+        
+        ~*****************************************************************************************************************
+        ~                     By your guy,  Matheus M. M., in the late-night of 20/11/2018                               *                  *
+        ~                                         Proudly member of "the one-man-band". ;)                               *
+        *****************************************************************************************************************~
+        ]]>
+    </Columns>
+  </plain-table>
+</base>
