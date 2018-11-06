@@ -1,64 +1,80 @@
 ﻿<?xml version="1.0"?>
-<base xmlns:xl="http://www.w3.org/1999/xlink">
-  <plain-table encriptionkey="">
-    <Meta @Name="shared-data#refdes"/>
-    <Meta @Key="@key"/>
+<data xmlns:xl="http://www.w3.org/1999/xlink">
+  <t ek="null">
+    <meta key="doc" type="link" help="Documentation index.">
+      <![CDATA[http://doc.übercad.org/format/openeda_std/2018/doc@nav.do/search.act?sh=docs&sq=syntax+prep"]]>
+    </meta>
 
-    <Defs>
-      <![CDATA[]]>
-    </Defs>
+    <defs>
+      <column _name="shared-data#refdes"/>
+      <column _@key="@key"/>
+    </defs>
 
-    <Columns Format="">
+    <cols Format="">
       <![CDATA[
-        ~Base shared across all exeutables: See documentation: #viewer ?link 
-§ http://doc.übercad.org/format/openeda_std/2018/doc@nav.do/search.act?sh=docs&sq=syntax+overrides/; 
-§ url= #"Documentation index.
-
-        _COMMAND_ $TABLE_START 0x000001
-
-        $TABLE_START
         ´Shared Regexes
 
+        //Preprocessing
 
-        _PUSH_ _OVERLOAD_ /_\w+_/
-        _PUSH_ _OVERLOAD_ /@/_\w+_//gi: _RESERVED_
-        @PUSH @OVERLOAD COMMAND COMMENT : /'/
+        @syntax @syntax_override @OVERride_Syntax]
 
-        'Syntax Overload
-        #STORAGE_ASSIGNMENT {}
+        ## Expressions
         
-        #OVERRIDE #overide;
-        #SYNTAX_OVERLOAD 
-        #SYNTAX_OVERLOAD @assignment {
-          #PUSH_STORED "name" := #PULL_STORED "expression";
-        }
+        @syntax _number       #regex \d+
+        @syntax _literal      number??, string??, boolean??
+        @syntax _member       identifier??, literal??;
+        @syntax _statement    #regex literal?? = n, n ~= n, n > n, n < n, n >= n, n <= n; where n = string?;
+        @syntax _assignment   #regex n (:, /, |, &, &&, |, ||)= n; where n = string?;
+        @syntax _command      #regex expression??, query??, assignment??, statement??
         
-        #SYNTAX_OVERLOAD @array 
-        #SYNTAX_OVERLOAD @constant /:\w+[_+-]*: gi/
-        #SYNTAX_OVERLOAD #array @ignore
-        {
-          %regex [(**)($$)@!(@STORED : "word"))]/gi
-        }
-        #SYNTAX_OVERLOAD @directive typedef|#:letters:+/gi
-        #SYNTAX_OVERLOAD @reserved typedef|@{{:word:}}/gi
-        #SYNTAX_OVERLOAD @_REGEX_ //
-        
-        #PREPROCESSOR_ROUTINE {
-          
-        }
+        @syntax compute #regex {{*}}
 
-        #STORE #map overs @is_standard=true {
-          @#command {
-            
-            @force ignore command {{  }}
-            @force force {!|@force}
-            @expression %regex compute={:expression:}/gi
-          @map commands {
-            @query: %regex (query|$){{command}{query-string}}(:ws:=:ws:)
-            @force: %regex !{}/gi
-            @comment: %regex $~{*?}(~)?+/^/gi
+        ##Syntax sugar
+        @syntax _ANY_TEXT =         #regex    *;
+        @syntax _INLINE_COMMENT     #regex    ##ANY_TEXT^
+        @syntax _MULTILINE_COMMENT  #regex    ##ANY_TEXT#?
+        
+        ## Linting rules
+
+        ## SCPI Processing
+        @syntax __SCPI_REQUIRED { a, b; #RET _COMMON_OF(a, b) } 
+        @syntax __SCPI_OPTIONAL { a, b; #RET _COMMON_OF(a, b) } 
+        @syntax __SCPI_COMMAND, $$ "${***}  {_IN_COMMON([] ARGS...)}
+        @syntax __DO_***                    DO_***
+        @syntax __DEFINE(***)               #DEF[INE] ***
+        @syntax __REMOVE(***)               #REM[OVE] ***
+        @syntax __OVErride(***)             OVERR[IDE]" ***
+        @syntax __OVERwrite(***)            "OVERW[ITE]" ***
+        @syntax __V_RECall(***)             "VARR[ECALL]" ***
+        @syntax __REQUire(***)              "REQ[IRE]" ***
+        @syntax  @RUN_GC, @RUN_GARBAGE_COLLECTOR  __COLLect_GARBage
+        @syntax  /*/g  : ...GROUPS[n]??;
+
+        ## Execute linting
+
+        !! @DO_LINTING;
+        
+        ## Execute exit
+        
+        !! _ERROR_CODE  !! @_EXECUTE {?? _SYNTAX_RULES}
+
+        ##Table starts here
+        $TABLE_START
+
+        ##  Syntax overrides
+        ##  Check for conflicts
+
+        ERROR_CODE := #ifndef ?? __SYNTAX_OVERRIDE #define __SYNTAX OVERRIDE
+          #store @syntax_overrides {
+            @@command {
+              !! @ignore command {{  }}
+            @map commands {
+              !! @query: %regex (query|$){{command}{query-string}}(:ws:=:ws:)
+              !! @force: %regex !{}/gi
+              !! @comment: %regex $~{*?}(~)?+/^/gi
+            }
           }
-        }
+        #endif
         
         'Library 
         $row @URL http://home.übercad.org/format/doc@nav.do/openeda_std/2018/docs/index.do/gi
@@ -66,18 +82,13 @@
         $row @URL @regex "~/gi
         
         ~Schematic Capture Regexes
-        $row { 
-          Name=Reference-designator|; 
-          Regex={?=ref_des}[{?=order}]{?=if{.}}/; 
-          Default_Auto=false; 
-          User_Settable=true; 
-        }
+        $row Name=Reference-designator Regex={?=ref_des}[{?=order}]{?=if{.}}/ Default_Auto=false User_Settable=true
         
         ~*****************************************************************************************************************
         ~                     By your guy,  Matheus M. M., in the late-night of 20/11/2018                               *                  *
         ~                                         Proudly member of "the one-man-band". ;)                               *
         *****************************************************************************************************************~
         ]]>
-    </Columns>
-  </plain-table>
-</base>
+    </cols>
+  </t>
+</data>

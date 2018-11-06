@@ -1,0 +1,110 @@
+﻿<?xml version="1.0"?>
+<base xmlns:xl="http://www.w3.org/1999/xlink">
+  <plain-table encriptionkey="null">
+    <meta @Name="shared-data#refdes"/>
+    <meta @Key="@key"/>
+
+    <defs>
+      <![CDATA[]]>
+    </defs>
+
+    <Columns Format="">
+      <![CDATA[
+        ~Base shared across all exeutables: See documentation: #viewer ?link 
+§ http://doc.übercad.org/format/openeda_std/2018/doc@nav.do/search.act?sh=docs&sq=syntax+PREPRides/; url= #"Documentation index.
+
+        ´Shared Regexes
+
+        //Preprocessing
+
+        @prepr __SCPI_COMMAND __SCPI{***}{COMMON(ARGS[0], ARGS[0]) #REC{}}
+
+        @prepr __RESERVED
+
+        @prepr __DO_*** "DO***"
+        @prepr __DEFINE(***) "#DEF[INE]" ***
+        @prepr __REMOVE(***) "#REM[OVE]" ***
+        @prepr __OVERRIDE(***) "OVERI[IDE]" ***
+        @prepr __OVERWRITE(***) "OVERW[ITE]" ***
+        @prepr __V_RECALL(***) "V[AR]RE[CALL]" ***
+        @prepr __REQUIRE(***) "REQ[IDE]" ***
+
+        @prepr /@command/ /#__c ?(***)/
+        @prepr #nonbreakspace /***/ @scpi __sp[ace];
+        @prepr line_br __$ l[i]n[e]
+        @prepr /#dopr[prep]r/ @do_prepr[ocessing]
+        @prepr @pattern #r ^***$li[ne]$
+        @prepr @push __ _\w+_
+        @prepr @rem _\w+_
+        @prepr @var _\w+_
+        @prepr @param _\w+_
+        @prepr @key _\w+_
+        @prepr @value _\w+_
+        @prepr @regex_any __*
+        @prepr @over ___\w+_
+        @prepr @scpi __$ ***
+
+        _over_ _over_ /_(!:\w+)_\//gi : _RESERVED_
+        _over_ @over
+        _over_ @over /(!:*+)\//gi : GROUPS[0];
+        _over_ @over /_\w+_/
+        _over_ @over COMMAND COMMENT : /'/
+
+        @DO_PREPROCESSING;
+
+        _COMMAND_ @TABLE_START 0x000001
+
+        $TABLE_START
+
+        'Syntax over
+        #STORAGE_ASSIGNMENT $const{****}
+        
+        #PREPRIDE #overide;
+        #SYNTAX_over 
+        #SYNTAX_over @assignment {
+          #over_STORED "name" := #PULL_STORED "expression";
+        }
+        
+        #SYNTAX_over @array 
+        #SYNTAX_over @constant /:\w+[_+-]*: gi/
+        #SYNTAX_over #array @ignore
+        {
+          %regex [(**)($$)@!(@STORED : "word"))]/gi
+        }
+        #SYNTAX_over @directive typedef|#:letters:+/gi
+        #SYNTAX_over @reserved typedef|@{{:word:}}/gi
+        #SYNTAX_over @_REGEX_ //
+        
+        #PREPROCESSOR_ROUTINE {
+          
+        }
+
+        #STORE #map overs {
+          @#command {
+            
+            @force ignore command {{  }}
+            @force force {!|@force}
+            @expression %regex compute={:expression:}/gi
+          @map commands {
+            @query: %regex (query|$){{command}{query-string}}(:ws:=:ws:)
+            @force: %regex !{}/gi
+            @comment: %regex $~{*?}(~)?+/^/gi
+          }
+        }
+        
+        'Library 
+        $row @URL http://home.übercad.org/format/doc@nav.do/openeda_std/2018/docs/index.do/gi
+        $dictionary
+        $row @URL @regex "~/gi
+        
+        ~Schematic Capture Regexes
+        $row Name=Reference-designator Regex={?=ref_des}[{?=order}]{?=if{.}}/ Default_Auto=false User_Settable=true
+        
+        ~*****************************************************************************************************************
+        ~                     By your guy,  Matheus M. M., in the late-night of 20/11/2018                               *                  *
+        ~                                         Proudly member of "the one-man-band". ;)                               *
+        *****************************************************************************************************************~
+        ]]>
+    </Columns>
+  </plain-table>
+</base>
