@@ -189,7 +189,9 @@
     <Content Include="Libraries\Libraries\obj\Release\OpenCAD.OpenCADFormat.Libraries.dll" />
     <Content Include="Libraries\Libraries\obj\Release\OpenCAD.OpenCADFormat.Libraries.pdb" />
     <Content Include="Libraries\Libraries\OpenCAD.OpenCADFormat.Libraries.csproj" />
-    <None Include="Resources\Shared\Overrides.oxdb" />
+    <None Include="Resources\Shared\index.oxdb.txt" />
+    <None Include="Resources\Shared\Syntax_library.oxdb" />
+    <None Include="Resources\Shared\Regular_Expressions.oxdb" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Libraries\Libraries\.vs\OpenCAD.OpenCADFormat.Libraries\v15\.suo" />

@@ -1,0 +1,90 @@
+﻿<?xml version="1.0"?>
+<data xmlns:xl="http://www.w3.org/1999/xlink">
+  <t ek="null">
+    <meta key="doc" type="link" help="Documentation index.">
+      <![CDATA[http://doc.übercad.org/format/openeda_std/2018/doc@nav.do/search.act?sh=docs&sq=syntax+prep"]]>
+    </meta>
+
+    <defs>
+      <column _name="shared-data#refdes"/>
+      <column _@key="@key"/>
+    </defs>
+
+    <cols>
+      <![CDATA[
+        ´Shared Regexes
+
+        //Preprocessing
+
+        @syntax @SYNTAX_OVERRIDE @OVERride_Syntax]
+
+        ## Expressions
+        
+        @syntax _NUMBER       /d+/g
+        @syntax _LITERAL      number??, string??, boolean??
+        @syntax _MEMBER       identifier??, literal??;
+        @syntax _STATEMENT    #regex literal?? = n, n ~= n, n > n, n < n, n >= n, n <= n; where n = string?;
+        @syntax _ASSIGNMENT   #regex n (:, /, |, &, &&, |, ||)= n; where n = string?;
+        @syntax _COMMAND      #regex expression??, query??, assignment??, statement??
+        @syntax _ANY_TEXT =         #regex    *;
+        @syntax _INLINE_COMMENT     #regex    ##ANY_TEXT^
+        @syntax _MULTILINE_COMMENT  #regex    ##ANY_TEXT#?
+
+        ## Comment syntax ##
+        @syntax _COMMENT      #regex ^_COMMAND??($|##)
+        
+        @syntax compute #regex {{*}}
+
+        ##Syntax sugar
+        @syntax _ERROR_DETECTION  #regex    EXPRESSION !! DIE ANY_TEXT { !!_ERROR_CODE } #IF _ERROR_CODE ?? 
+          THROW _ERROR_CODE;
+        
+        ## Linting rules
+
+        ## SCPI Processing
+        @syntax __SCPI_REQUIRED             ??  { a, b; #RET _GET_ALL_UPPER(a, b) } 
+        @syntax __SCPI_OPTIONAL             ??  { a, b; #RET _GET_ALL_LOWER(a, b) } 
+        @syntax __SCPI_COMMAND,             $$ {***}  {_IN_COMMON([] ARGS...)}
+        @syntax __DEFINE _EXPRESSION??      $$  #DEFine
+        @syntax __REMOVE _EXPRESSION??      $$  #REMove
+        @syntax __OVErride _EXPRESSION??    $$  OVERride
+        @syntax __OVERwrite _EXPRESSION??   $$  OVERwrite
+        @syntax __V_RECall _EXPRESSION??    $$  variableRECall
+        @syntax __REQUire _EXPRESSION??     $$  REQire
+        @syntax  @RUN_GC                    $$  RUN_GarbageCollector
+        @syntax  /*/g                   :   $$  #JOIN {...PARAM{ GROUPS } ?? };
+
+        ## Execute linting
+
+        @DO_LINTING !! DIE;
+        
+        ## Execute exit
+        
+        @_EXECUTE {?? _SYNTAX_RULES} !! DIE
+
+        ##Table starts here
+        #TABLE_START
+
+        ##  Syntax overrides
+        ##  Check for conflicts
+
+        @RUN_GC !! DIE!!!;
+        
+        'Library Directory 
+        $row @URL http://home.übercad.org/format/doc@nav.do/openeda_std/2018/docs/index.do/gi
+        $dictionary
+        $row @URL @regex "~/gi
+        
+        ~Schematic Capture Regexes
+        $row Name=Reference-designator Regex={?=ref_des}[{?=order}]{?=if{.}}/ Default_Auto=false User_Settable=true
+        
+
+
+        ##***************************************************************************************************************#
+        #                     Byn Matheus M. M. - The Creator, in the late-night of 20/11/2018                           #                  *
+        #                                         Proudly member of "the one-man-band". ;)                               #
+        #***************************************************************************************************************##
+        ]]>
+    </cols>
+  </t>
+</data>
