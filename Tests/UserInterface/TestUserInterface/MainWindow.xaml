@@ -4,8 +4,25 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TestUserInterface"
+        xmlns:ui="clr-namespace:UserInterface;assembly=UserInterface"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
-    </Grid>
+
+    <Control.ContextMenu>
+        <ContextMenu>
+            <MenuItem Header="Copy" InputGestureText="Ctrl+C"/>
+            <MenuItem Header="Paste" InputGestureText="Ctrl+V"/>
+            <Separator/>
+            <MenuItem Header="Delete" InputGestureText="Del"/>
+            <MenuItem Header="Duplicate" InputGestureText="Ctrl+D"/>
+            <MenuItem Header="Repeat Placement" InputGestureText="Ctrl+R"/>
+            <Separator/>
+            <MenuItem Header="Rotate CW" InputGestureText="Space"/>
+            <MenuItem Header="Rotate CCW" InputGestureText="Shift+Space"/>
+            <MenuItem Header="Rotate 180°" InputGestureText="Shift+Space"/>
+            <MenuItem Header="Flip Horizontal" InputGestureText="Shift+Ctrl+Y"/>
+            <MenuItem Header="Flip Vertical" InputGestureText="Shift+Ctrl+X"/>
+            <MenuItem Header="Properties..." InputGestureText="Shift+Ctrl+P"/>
+        </ContextMenu>
+    </Control.ContextMenu>
 </Window>

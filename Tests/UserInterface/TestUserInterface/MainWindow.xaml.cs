@@ -24,5 +24,10 @@ namespace TestUserInterface
         {
             InitializeComponent();
         }
+
+        private void Window_GotKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+        {
+
+        }
     }
 }

@@ -1,14 +1,10 @@
 {
   "ExpandedNodes": [
     "",
-    "\\Libraries",
-    "\\Libraries\\OpenCADFormat",
-    "\\Libraries\\OpenCADFormat\\Drawing",
-    "\\Libraries\\OpenCADFormat\\Libraries",
-    "\\Tests",
-    "\\Tests\\Libraries",
-    "\\Tests\\Libraries\\OpenCAD.UserInterface"
+    "\\Assistants",
+    "\\Assistants\\DipPackageAssistant",
+    "\\Libraries"
   ],
-  "SelectedNode": "\\Tests\\Libraries",
+  "SelectedNode": "\\Assistants\\DipPackageAssistant\\DipPackageAssistant.sln",
   "PreviewInSolutionExplorer": false
 }
