@@ -1,4 +1,4 @@
-﻿<TextBox x:Name="textBox" x:Class="UserInterface.CustomTextBox"
+﻿<TextBox x:Name="textBox" x:Class="UserInterface.Controls.HintTextBox"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -19,12 +19,10 @@
                     <ScrollViewer Name="PART_ContentHost"
                                   Background="Transparent"/>
 
-                    <TextBlock  Name="PlaceHolderHost"
-                                Text="{Binding PlaceHolderText, ElementName=textBox}"
-                                IsHitTestVisible="False"
-                                Opacity=".6"
-                                Background="Transparent"
-                                FontStyle="Italic"/>
+                    <TextBlock Name="HintHost" Text="{Binding HintText, ElementName=textBox}"
+                               IsHitTestVisible="False"
+                               FontStyle="Italic"
+                               Opacity=".6"/>
                 </Grid>
             </Border>
         </ControlTemplate>

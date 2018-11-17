@@ -1,0 +1,58 @@
+﻿<HeaderedItemsControl x:Class="UserInterface.Controls.RibbonTabSection"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:UserInterface.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="100" d:DesignWidth="100" 
+             Height="100">
+
+    <HeaderedItemsControl.Style>
+        <Style TargetType="HeaderedItemsControl">
+            <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.ControlLightLightBrushKey}}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+        </Style>
+    </HeaderedItemsControl.Style>
+
+    <HeaderedItemsControl.ItemsPanel>
+        <ItemsPanelTemplate>
+            <StackPanel Orientation="Horizontal"/>
+        </ItemsPanelTemplate>
+    </HeaderedItemsControl.ItemsPanel>
+    
+    <HeaderedItemsControl.Template>
+        <ControlTemplate TargetType="HeaderedItemsControl">
+
+            <Border Name="ControlBorder"
+                    BorderBrush="{DynamicResource {x:Static SystemColors.ControlDarkBrushKey}}"
+                    BorderThickness="0 0 1 0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="17"/>
+                    </Grid.RowDefinitions>
+
+                    <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto">
+                        <ItemsPresenter Name="PART_ItemsHost"/>
+                    </ScrollViewer>
+
+                    <Border Grid.Row="1"
+                        Name="HeaderBorder"
+                        Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
+                        BorderThickness="0">
+
+                        <ContentPresenter Name="HeaderHost"
+                        Content="{TemplateBinding Header}" ContentTemplate="{TemplateBinding HeaderTemplate}"
+                        HorizontalAlignment="Center"/>
+                    </Border>
+                </Grid>
+
+            </Border>
+        </ControlTemplate>
+
+    </HeaderedItemsControl.Template>
+
+</HeaderedItemsControl>

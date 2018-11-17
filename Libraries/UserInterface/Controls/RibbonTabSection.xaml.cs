@@ -12,32 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using UserInterface.Controls;
 
-namespace TestUserInterface
+namespace UserInterface.Controls
 {
     /// <summary>
-    /// Interação lógica para MainWindow.xam
+    /// Interação lógica para RibbonTabDivision.xam
     /// </summary>
-    public partial class MainWindow : OpenCADWindow
+    public partial class RibbonTabSection : HeaderedItemsControl
     {
-        public MainWindow()
+        public RibbonTabSection()
         {
             InitializeComponent();
-        }
-
-        private void Window_GotKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
-        {
-
-        }
-
-        private void Separator_Loaded(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
-        {
         }
     }
 }

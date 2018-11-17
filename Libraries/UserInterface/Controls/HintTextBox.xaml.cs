@@ -13,24 +13,24 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace UserInterface
+namespace UserInterface.Controls
 {
     /// <summary>
     /// Interação lógica para SmartTextBox.xam
     /// </summary>
-    public partial class CustomTextBox : TextBox
+    public partial class HintTextBox : TextBox
     {
-        public string PlaceHolderText
+        public object HintText
         {
-            get { return (string)GetValue(PlaceHolderTextProperty); }
-            set { SetValue(PlaceHolderTextProperty, value); }
+            get { return GetValue(HintTextProperty); }
+            set { SetValue(HintTextProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for PlaceHolderText.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty PlaceHolderTextProperty =
-            DependencyProperty.Register("PlaceHolderText", typeof(string), typeof(CustomTextBox));
+        // Using a DependencyProperty as the backing store for Hint.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty HintTextProperty =
+            DependencyProperty.Register("HintText", typeof(object), typeof(HintTextBox));
 
-        public CustomTextBox()
+        public HintTextBox()
         {
             InitializeComponent();
         }
@@ -56,29 +56,34 @@ namespace UserInterface
             SelectAll();
         }
 
-        private void HidePlaceHolder()
+        private void HideHint()
         {
-            if (PlaceHolderHost == null) return;
+            if (HintHost == null) return;
 
-            PlaceHolderHost.Visibility = Visibility.Hidden;
+            HintHost.Visibility = Visibility.Hidden;
         }
 
-        private void ShowPlaceHolder()
+        private void ShowHint()
         {
-            if (PlaceHolderHost == null) return;
+            if (HintHost == null) return;
 
-            PlaceHolderHost.Visibility = Visibility.Visible;
+            HintHost.Visibility = Visibility.Visible;
         }
 
         protected override void OnTextChanged(TextChangedEventArgs e)
         {
             base.OnTextChanged(e);
 
-            if (string.IsNullOrEmpty(Text)) ShowPlaceHolder(); else HidePlaceHolder();
+            if (string.IsNullOrEmpty(Text)) ShowHint(); else HideHint();
+        }
+
+        public override void OnApplyTemplate()
+        {
+            base.OnApplyTemplate();
         }
 
         protected ScrollViewer ContentHost => GetTemplateChild("PART_ContentHost") as ScrollViewer;
-        protected TextBlock PlaceHolderHost => GetTemplateChild("PlaceHolderHost") as TextBlock;
+        protected TextBlock HintHost => GetTemplateChild("HintHost") as TextBlock;
 
     }
 }

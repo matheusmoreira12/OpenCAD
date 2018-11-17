@@ -1,28 +1,32 @@
-﻿<Window x:Class="TestUserInterface.MainWindow"
+﻿<controls:OpenCADWindow x:Class="TestUserInterface.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:TestUserInterface"
+        xmlns:local="clr-namespace:UserInterface"
         xmlns:ui="clr-namespace:UserInterface;assembly=UserInterface"
-        mc:Ignorable="d"
+        xmlns:controls="clr-namespace:UserInterface.Controls;assembly=UserInterface"
+    mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <controls:Ribbon DockPanel.Dock="Top" VerticalAlignment="Top">
+            <controls:RibbonTab Header="Main">
+                <UniformGrid Rows="1">
+                    <controls:RibbonTabSection Header="File"/>
+                </UniformGrid>
+            </controls:RibbonTab>
+            <controls:RibbonTab Header="Tools">
+                <UniformGrid Rows="1">
+                    <controls:RibbonTabSection Header="Place">
+                        <controls:RibbonIconItem Header="Wire"/>
+                        <controls:RibbonIconItem Header="Net Port"/>
+                        <controls:RibbonIconItem Header="Component"/>
+                        <controls:RibbonIconItem Header="Annotation"/>
+                        <controls:RibbonIconItem Header="Text"/>
+                    </controls:RibbonTabSection>
+                </UniformGrid>
+            </controls:RibbonTab>
+        </controls:Ribbon>
 
-    <Control.ContextMenu>
-        <ContextMenu>
-            <MenuItem Header="Copy" InputGestureText="Ctrl+C"/>
-            <MenuItem Header="Paste" InputGestureText="Ctrl+V"/>
-            <Separator/>
-            <MenuItem Header="Delete" InputGestureText="Del"/>
-            <MenuItem Header="Duplicate" InputGestureText="Ctrl+D"/>
-            <MenuItem Header="Repeat Placement" InputGestureText="Ctrl+R"/>
-            <Separator/>
-            <MenuItem Header="Rotate CW" InputGestureText="Space"/>
-            <MenuItem Header="Rotate CCW" InputGestureText="Shift+Space"/>
-            <MenuItem Header="Rotate 180°" InputGestureText="Shift+Space"/>
-            <MenuItem Header="Flip Horizontal" InputGestureText="Shift+Ctrl+Y"/>
-            <MenuItem Header="Flip Vertical" InputGestureText="Shift+Ctrl+X"/>
-            <MenuItem Header="Properties..." InputGestureText="Shift+Ctrl+P"/>
-        </ContextMenu>
-    </Control.ContextMenu>
-</Window>
+    </Grid>
+</controls:OpenCADWindow>

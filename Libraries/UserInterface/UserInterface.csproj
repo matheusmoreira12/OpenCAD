@@ -45,17 +45,54 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="DisambiguationPopup.xaml">
+    <Page Include="Controls\DropDownButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="CustomTextBox.xaml">
+    <Page Include="Controls\Ribbon.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\RibbonIconItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\RibbonTab.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\RibbonTabSection.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\OpenCADWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\HintTextBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DisambiguationPopup.xaml.cs" />
+    <Compile Include="Controls\DropDownButton.xaml.cs">
+      <DependentUpon>DropDownButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Ribbon.xaml.cs">
+      <DependentUpon>Ribbon.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\RibbonIconItem.xaml.cs">
+      <DependentUpon>RibbonIconItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\RibbonTab.xaml.cs">
+      <DependentUpon>RibbonTab.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\RibbonTabSection.xaml.cs">
+      <DependentUpon>RibbonTabSection.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\OpenCADWindow.xaml.cs">
+      <DependentUpon>OpenCADWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -66,8 +103,8 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="CustomTextBox.xaml.cs">
-      <DependentUpon>CustomTextBox.xaml</DependentUpon>
+    <Compile Include="Controls\HintTextBox.xaml.cs">
+      <DependentUpon>HintTextBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="SearchHelper.cs" />
   </ItemGroup>
@@ -109,9 +146,15 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="DataTemplates\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\compass-icon-100x100.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
