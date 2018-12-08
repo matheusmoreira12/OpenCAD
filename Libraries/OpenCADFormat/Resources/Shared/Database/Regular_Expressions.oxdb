@@ -54,7 +54,7 @@
         }
         
         'Library 
-        $row @URL http://home.übercad.org/format/doc@nav.do/openeda_std/2018/docs/index.do/gi
+        $row @URL http://home.übercad.org/format/doc@nav.do/openeda_std/2018/docs/index.do
         $dictionary
         $row @URL @regex "~/gi
         

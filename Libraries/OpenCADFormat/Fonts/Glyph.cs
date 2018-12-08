@@ -9,7 +9,7 @@ namespace OpenCAD.OpenCADFormat.Fonts
     public class Glyph
     {
         [XmlElement]
-        public Canvas Canvas;
+        public DrawingGroup Canvas;
 
         [XmlAttribute]
         public char Unicode;

@@ -11,7 +11,7 @@
     <HeaderedItemsControl.Style>
         <Style TargetType="HeaderedItemsControl">
             <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.ControlLightLightBrushKey}}"/>
-            <Setter Property="BorderBrush" Value="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource {x:Static SystemColors.ControlDarkBrushKey}}"/>
             <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}"/>
             <Setter Property="BorderThickness" Value="1"/>
         </Style>
@@ -27,7 +27,7 @@
         <ControlTemplate TargetType="HeaderedItemsControl">
 
             <Border Name="ControlBorder"
-                    BorderBrush="{DynamicResource {x:Static SystemColors.ControlDarkBrushKey}}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
                     BorderThickness="0 0 1 0">
                 <Grid>
                     <Grid.RowDefinitions>
@@ -35,13 +35,11 @@
                         <RowDefinition Height="17"/>
                     </Grid.RowDefinitions>
 
-                    <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto">
-                        <ItemsPresenter Name="PART_ItemsHost"/>
-                    </ScrollViewer>
+                    <ItemsPresenter Grid.Row="0" Name="PART_ItemsHost"/>
 
                     <Border Grid.Row="1"
                         Name="HeaderBorder"
-                        Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
+                        Background="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}"
                         BorderThickness="0">
 
                         <ContentPresenter Name="HeaderHost"

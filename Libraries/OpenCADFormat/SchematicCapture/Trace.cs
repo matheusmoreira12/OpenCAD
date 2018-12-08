@@ -2,12 +2,7 @@
 
 namespace OpenCAD.OpenCADFormat.SchematicCapture
 {
-    public enum TraceMode { Auto }
-
-    public class TraceRendererControl: System.Windows.Control
-    {
-
-    }
+    public enum TraceMode { Auto, Left90deg, Right90deg, Straight }
 
     public struct TracePoint
     {

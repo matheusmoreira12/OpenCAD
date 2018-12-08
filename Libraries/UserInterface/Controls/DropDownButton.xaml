@@ -9,15 +9,15 @@
 
     <ToggleButton.Style>
         <Style TargetType="ToggleButton">
-            <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="BorderBrush" Value="Transparent"/>
-            <Setter Property="BorderThickness" Value="0 1 0 0"/>
-            <Setter Property="Foreground" Value="SlateGray"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}"/>
+            <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.ControlLightLightBrushKey}}"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}"/>
+            <Setter Property="BorderThickness" Value="1"/>
 
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="LightSkyBlue"/>
-                    <Setter Property="BorderBrush" Value="DeepSkyBlue"/>
+                    <Setter Property="BorderBrush" Value="{DynamicResource {x:Static SystemColors.ControlDarkBrushKey}}"/>
+                    <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}"/>
                 </Trigger>
             </Style.Triggers>
         </Style>
@@ -26,11 +26,15 @@
     <ToggleButton.Template>
         <ControlTemplate TargetType="ToggleButton">
             <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}"
-                    BorderThickness="{TemplateBinding BorderThickness}">
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    Margin="{TemplateBinding Margin}"
+                    Padding="{TemplateBinding Padding}">
                 <Grid>
                     <Canvas HorizontalAlignment="Center" VerticalAlignment="Center">
                         <Path Fill="{TemplateBinding Foreground}" Data="M-4,-2 H 4 L0,2 Z"/>
                     </Canvas>
+
+                    <ContentPresenter/>
                 </Grid>
             </Border>
         </ControlTemplate>

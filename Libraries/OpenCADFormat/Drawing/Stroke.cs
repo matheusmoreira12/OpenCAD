@@ -1,41 +1,39 @@
 ﻿using OpenCAD.OpenCADFormat.Measures;
 using System;
+using System.Linq;
 
 namespace OpenCAD.OpenCADFormat.Drawing
 {
-    public enum StrokeSegment { Dash, Dot }
-
     public class StrokeStyle
     {
-        public static readonly StrokeStyle None = new StrokeStyle(false);
-        public static readonly StrokeStyle Solid = new StrokeStyle(true);
-        public static readonly StrokeStyle Dashed = new StrokeStyle(new[] { StrokeSegment.Dash });
-        public static readonly StrokeStyle Dotted = new StrokeStyle(new[] { StrokeSegment.Dot });
-        public static readonly StrokeStyle DashDot = new StrokeStyle(new[] { StrokeSegment.Dash, StrokeSegment.Dot });
-        public static readonly StrokeStyle DashDotDot = new StrokeStyle(new[] { StrokeSegment.Dash, StrokeSegment.Dot,
-            StrokeSegment.Dot });
-        public static readonly StrokeStyle DotDashDash = new StrokeStyle(new[] { StrokeSegment.Dot, StrokeSegment.Dash,
-            StrokeSegment.Dash });
+        public static readonly StrokeStyle Solid = new StrokeStyle(new[] { 1 });
+        public static readonly StrokeStyle Dashed = new StrokeStyle(new[] { 3, 3 });
+        public static readonly StrokeStyle Dotted = new StrokeStyle(new[] { 1, 1 });
+        public static readonly StrokeStyle DashDot = new StrokeStyle(new[] { 3, 1, 1, 1 });
+        public static readonly StrokeStyle DashDotDot = new StrokeStyle(new[] { 3, 1, 1, 1, 1, 1 });
+        public static readonly StrokeStyle DotDashDash = new StrokeStyle(new[] { 1, 1, 3, 3, 3, 1 });
 
-        public StrokeStyle(bool isSolid)
+        private int[] fixDashArray(int[] dashArray)
         {
-            Segments = new StrokeSegment[] { };
-            IsSolid = isSolid;
+            if (dashArray.Length % 2 != 0)
+                //Add a zero to the dash-array.
+                return dashArray.Concat(new int[] { 0 }).ToArray();
+
+            return dashArray;
         }
 
-        public StrokeStyle(StrokeSegment[] segments)
+        public StrokeStyle(int[] dashArray)
         {
-            Segments = segments ?? throw new ArgumentNullException(nameof(segments));
-            IsSolid = false;
+            DashArray = fixDashArray(dashArray ?? throw new ArgumentNullException(nameof(dashArray)));
         }
 
-        public StrokeSegment[] Segments { get; private set; }
+        public int[] DashArray { get; private set; }
         public bool IsSolid { get; private set; }
     }
 
     public struct StrokeAttributes
     {
-        public static readonly StrokeAttributes Default = new StrokeAttributes(StrokeStyle.None, new Measurement(10,
+        public static readonly StrokeAttributes Default = new StrokeAttributes(StrokeStyle.Solid, new Measurement(10,
             Units.Length.Mil));
 
         public StrokeAttributes(StrokeStyle style, Measurement thickness)

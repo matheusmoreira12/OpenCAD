@@ -1,0 +1,635 @@
+﻿<DrawingGroup xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:svg="http://sharpvectors.codeplex.com/runtime/">
+  <DrawingGroup x:Name="DrawingLayer" svg:SvgLink.Key="DrawingLayer">
+    <DrawingGroup.ClipGeometry>
+      <RectangleGeometry Rect="0,0,1000,1200" />
+    </DrawingGroup.ClipGeometry>
+    <GeometryDrawing>
+      <GeometryDrawing.Pen>
+        <Pen Brush="#00FFFFFF" Thickness="1" />
+      </GeometryDrawing.Pen>
+      <GeometryDrawing.Geometry>
+        <RectangleGeometry Rect="0,0,1000,1200" />
+      </GeometryDrawing.Geometry>
+    </GeometryDrawing>
+    <DrawingGroup x:Name="layer1" Opacity="1" Transform="1,0,0,1,0,167.58336" svg:SvgObject.Id="layer1">
+      <DrawingGroup x:Name="g982" Opacity="1" svg:SvgObject.Id="g982">
+        <GeometryDrawing x:Name="rect2241" svg:SvgObject.Id="rect2241">
+          <GeometryDrawing.Brush>
+            <SolidColorBrush Color="#FFAA4400" Opacity="1" Transform="0.707106781186548,-0.707106781186547,0.707106781186547,0.707106781186548,-240.452059429403,1250.61473702499" />
+          </GeometryDrawing.Brush>
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Transform="0.707106781186548,-0.707106781186547,0.707106781186547,0.707106781186548,-240.452059429403,1250.61473702499" Figures="M840,414C825.93368,414,814,424.79923,814,438.54688L814,441.45312C814,455.20077,825.93368,466,840,466L860,466C870.18179,466,879.24274,460.33899,883.47266,452L867.66797,452C865.50268,453.2557,862.8954,454,860,454L840,454C831.90632,454,826,448.2559,826,441.45312L826,438.54688C826,431.7441,831.90632,426,840,426L860,426C862.8954,426,865.50268,426.7443,867.66797,428L883.47266,428C879.24274,419.66101,870.18179,414,860,414z" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing x:Name="rect2243" svg:SvgObject.Id="rect2243">
+          <GeometryDrawing.Brush>
+            <SolidColorBrush Color="#FFAA4400" Opacity="1" Transform="0.707106781186548,-0.707106781186547,0.707106781186547,0.707106781186548,-396.015432612478,1321.32537167791" />
+          </GeometryDrawing.Brush>
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Transform="0.707106781186548,-0.707106781186547,0.707106781186547,0.707106781186548,-396.015432612478,1321.32537167791" Figures="M1080,474C1069.7786,474,1060.6509,479.65088,1056.4492,488L1072.2617,488C1074.4363,486.74607,1077.0664,486,1080,486L1100,486C1108.1354,486,1114,491.67719,1114,498.28711L1114,501.71289C1114,508.32281,1108.1354,514,1100,514L1080,514C1077.0664,514,1074.4363,513.25393,1072.2617,512L1056.4492,512C1060.6509,520.34912,1069.7786,526,1080,526L1100,526C1114.0246,526,1126,515.36613,1126,501.71289L1126,498.28711C1126,484.63387,1114.0246,474,1100,474z" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing x:Name="path2251" svg:SvgObject.Id="path2251">
+          <GeometryDrawing.Brush>
+            <SolidColorBrush Color="#FFAA4400" Opacity="1" Transform="0.707106781186548,-0.707106781186547,0.707106781186547,0.707106781186548,-282.878366298171,1208.18821158101" />
+          </GeometryDrawing.Brush>
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Transform="0.707106781186548,-0.707106781186547,0.707106781186547,0.707106781186548,-282.878366298171,1208.18821158101" Figures="M860,494A6.000599,6.000599,0,1,0,860,506L920,506A6.000599,6.000599,0,1,0,920,494z" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+      </DrawingGroup>
+      <DrawingGroup x:Name="g996" Opacity="1" svg:SvgObject.Id="g996">
+        <GeometryDrawing x:Name="path2455" svg:SvgObject.Id="path2455">
+          <GeometryDrawing.Brush>
+            <SolidColorBrush Color="#FF0055D4" Opacity="1" Transform="1,0,0,1,200,442.41666" />
+          </GeometryDrawing.Brush>
+          <GeometryDrawing.Pen>
+            <Pen Thickness="8" StartLineCap="Round" EndLineCap="Round" LineJoin="Round">
+              <Pen.Brush>
+                <SolidColorBrush Color="#FFAA4400" Opacity="1" Transform="1,0,0,1,200,442.41666" />
+              </Pen.Brush>
+            </Pen>
+          </GeometryDrawing.Pen>
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Transform="1,0,0,1,200,442.41666" Figures="M300,210.00001L300,300.00002" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing x:Name="path2463" svg:SvgObject.Id="path2463">
+          <GeometryDrawing.Brush>
+            <SolidColorBrush Color="#FF0055D4" Opacity="1" Transform="1,0,0,1,200,442.41666" />
+          </GeometryDrawing.Brush>
+          <GeometryDrawing.Pen>
+            <Pen Thickness="12" StartLineCap="Round" EndLineCap="Round" LineJoin="Round">
+              <Pen.Brush>
+                <SolidColorBrush Color="#FFAA4400" Opacity="1" Transform="1,0,0,1,200,442.41666" />
+              </Pen.Brush>
+            </Pen>
+          </GeometryDrawing.Pen>
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Transform="1,0,0,1,200,442.41666" Figures="M230,300.00001L370,300.00001" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing x:Name="path2465" svg:SvgObject.Id="path2465">
+          <GeometryDrawing.Brush>
+            <SolidColorBrush Color="#FF0055D4" Opacity="1" Transform="1,0,0,1,200,434.41665" />
+          </GeometryDrawing.Brush>
+          <GeometryDrawing.Pen>
+            <Pen Thickness="12" StartLineCap="Round" EndLineCap="Round" LineJoin="Round">
+              <Pen.Brush>
+                <SolidColorBrush Color="#FFAA4400" Opacity="1" Transform="1,0,0,1,200,434.41665" />
+              </Pen.Brush>
+            </Pen>
+          </GeometryDrawing.Pen>
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Transform="1,0,0,1,200,434.41665" Figures="M260,338.00002L340,338.00002" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing x:Name="path2467" svg:SvgObject.Id="path2467">
+          <GeometryDrawing.Brush>
+            <SolidColorBrush Color="#FF0055D4" Opacity="1" Transform="1,0,0,1,200,426.41664" />
+          </GeometryDrawing.Brush>
+          <GeometryDrawing.Pen>
+            <Pen Thickness="12" StartLineCap="Round" EndLineCap="Round" LineJoin="Round">
+              <Pen.Brush>
+                <SolidColorBrush Color="#FFAA4400" Opacity="1" Transform="1,0,0,1,200,426.41664" />
+              </Pen.Brush>
+            </Pen>
+          </GeometryDrawing.Pen>
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Transform="1,0,0,1,200,426.41664" Figures="M280,376.00002L320,376.00002" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+      </DrawingGroup>
+      <DrawingGroup x:Name="g990" Opacity="1" svg:SvgObject.Id="g990">
+        <GeometryDrawing x:Name="path2469" svg:SvgObject.Id="path2469">
+          <GeometryDrawing.Brush>
+            <SolidColorBrush Color="#FFFFCC00" Opacity="1" Transform="1,0,0,1,200,432.41664" />
+          </GeometryDrawing.Brush>
+          <GeometryDrawing.Pen>
+            <Pen Thickness="8" StartLineCap="Round" EndLineCap="Round" LineJoin="Round">
+              <Pen.Brush>
+                <SolidColorBrush Color="#FFAA4400" Opacity="1" Transform="1,0,0,1,200,432.41664" />
+              </Pen.Brush>
+            </Pen>
+          </GeometryDrawing.Pen>
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Transform="1,0,0,1,200,432.41664" Figures="M419.99999,340.00001L419.99999,260.00001 499.99999,260.00001 539.99999,300.00001 499.99999,340.00001z" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing x:Name="path2471" svg:SvgObject.Id="path2471">
+          <GeometryDrawing.Pen>
+            <Pen Thickness="8" StartLineCap="Round" EndLineCap="Round" LineJoin="Round">
+              <Pen.Brush>
+                <SolidColorBrush Color="#FFAA4400" Opacity="1" Transform="1,0,0,1,200,432.41664" />
+              </Pen.Brush>
+            </Pen>
+          </GeometryDrawing.Pen>
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Transform="1,0,0,1,200,432.41664" Figures="M539.99999,300.00001L579.99999,300.00001" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+      </DrawingGroup>
+      <DrawingGroup x:Name="g1008" Opacity="1" svg:SvgObject.Id="g1008">
+        <GeometryDrawing x:Name="path2473" svg:SvgObject.Id="path2473">
+          <GeometryDrawing.Pen>
+            <Pen Thickness="12" StartLineCap="Round" EndLineCap="Round" LineJoin="Round">
+              <Pen.Brush>
+                <SolidColorBrush Color="#FFAA4400" Opacity="1" Transform="1,0,0,1,-600,432.41664" />
+              </Pen.Brush>
+            </Pen>
+          </GeometryDrawing.Pen>
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Transform="1,0,0,1,-600,432.41664" Figures="M700,240.00002L700,360.00002" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing x:Name="path2475" svg:SvgObject.Id="path2475">
+          <GeometryDrawing.Pen>
+            <Pen Thickness="8" StartLineCap="Round" EndLineCap="Round" LineJoin="Round">
+              <Pen.Brush>
+                <SolidColorBrush Color="#FFAA4400" Opacity="1" Transform="1,0,0,1,-600,432.41664" />
+              </Pen.Brush>
+            </Pen>
+          </GeometryDrawing.Pen>
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Transform="1,0,0,1,-600,432.41664" Figures="M619.99999,300.00001L700,300.00002" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing x:Name="path2481" svg:SvgObject.Id="path2481">
+          <GeometryDrawing.Pen>
+            <Pen Thickness="8" StartLineCap="Round" EndLineCap="Round" LineJoin="Round">
+              <Pen.Brush>
+                <SolidColorBrush Color="#FFAA4400" Opacity="1" Transform="1,0,0,1,-600,432.41664" />
+              </Pen.Brush>
+            </Pen>
+          </GeometryDrawing.Pen>
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Transform="1,0,0,1,-600,432.41664" Figures="M699.99999,280.00001L779.99999,240.00001 780,220.00002" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing x:Name="path2483" svg:SvgObject.Id="path2483">
+          <GeometryDrawing.Pen>
+            <Pen Thickness="8" StartLineCap="Round" EndLineCap="Round" LineJoin="Round">
+              <Pen.Brush>
+                <SolidColorBrush Color="#FFAA4400" Opacity="1" Transform="1,0,0,1,-600,432.41664" />
+              </Pen.Brush>
+            </Pen>
+          </GeometryDrawing.Pen>
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Transform="1,0,0,1,-600,432.41664" Figures="M699.99999,320.00001L779.99999,360.00001 779.99999,380.00001" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing x:Name="path2487" svg:SvgObject.Id="path2487">
+          <GeometryDrawing.Brush>
+            <SolidColorBrush Color="#FFAA4400" Opacity="1" Transform="1,0,0,1,-600,432.41664" />
+          </GeometryDrawing.Brush>
+          <GeometryDrawing.Pen>
+            <Pen Thickness="8" StartLineCap="Round" EndLineCap="Round" LineJoin="Round">
+              <Pen.Brush>
+                <SolidColorBrush Color="#FFAA4400" Opacity="1" Transform="1,0,0,1,-600,432.41664" />
+              </Pen.Brush>
+            </Pen>
+          </GeometryDrawing.Pen>
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Transform="1,0,0,1,-600,432.41664" Figures="M735,320L770,355 720,345z" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+      </DrawingGroup>
+      <DrawingGroup x:Name="text2555" Transform="9.439528,0,0,9.439528,-7027.7256,-2684.2087" svg:SvgObject.Id="text2555" svg:SvgObject.Type="Text">
+        <GeometryDrawing Brush="#FFAA4400">
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Figures="M832.863830566406,354.109375L847.137268066406,354.109375 847.137268066406,358.41015625 846.715393066406,358.41015625C846.465393066406,357.41796875 846.188049316406,356.705078125 845.883361816406,356.271484375 845.578674316406,355.837890625 845.160705566406,355.4921875 844.629455566406,355.234375 844.332580566406,355.09375 843.813049316406,355.0234375 843.070861816406,355.0234375L841.887268066406,355.0234375 841.887268066406,367.28125C841.887268066406,368.09375 841.932189941406,368.6015625 842.022033691406,368.8046875 842.111877441406,369.0078125 842.287658691406,369.185546875 842.549377441406,369.337890625 842.811096191406,369.490234375 843.168518066406,369.56640625 843.621643066406,369.56640625L844.148986816406,369.56640625 844.148986816406,370 835.828674316406,370 835.828674316406,369.56640625 836.356018066406,369.56640625C836.816955566406,369.56640625 837.188049316406,369.484375 837.469299316406,369.3203125 837.672424316406,369.2109375 837.832580566406,369.0234375 837.949768066406,368.7578125 838.035705566406,368.5703125 838.078674316406,368.078125 838.078674316406,367.28125L838.078674316406,355.0234375 836.930236816406,355.0234375C835.859924316406,355.0234375 835.082580566406,355.25 834.598205566406,355.703125 833.918518066406,356.3359375 833.488830566406,357.23828125 833.309143066406,358.41015625L832.863830566406,358.41015625 832.863830566406,354.109375z" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+      </DrawingGroup>
+      <DrawingGroup x:Name="g1001" Opacity="1" svg:SvgObject.Id="g1001">
+        <GeometryDrawing x:Name="path2449" svg:SvgObject.Id="path2449">
+          <GeometryDrawing.Brush>
+            <SolidColorBrush Color="#FF0055D4" Opacity="1" Transform="1,0,0,1,200,432.41664" />
+          </GeometryDrawing.Brush>
+          <GeometryDrawing.Pen>
+            <Pen Thickness="8" StartLineCap="Round" EndLineCap="Round" LineJoin="Round">
+              <Pen.Brush>
+                <SolidColorBrush Color="#FFAA4400" Opacity="1" Transform="1,0,0,1,200,432.41664" />
+              </Pen.Brush>
+            </Pen>
+          </GeometryDrawing.Pen>
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Transform="1,0,0,1,200,432.41664" Figures="M20,300.00001L120,300.00002" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing x:Name="path2559" svg:SvgObject.Id="path2559">
+          <GeometryDrawing.Brush>
+            <SolidColorBrush Color="#FFFFCC00" Opacity="1" Transform="1,0,0,1,200,432.41664" />
+          </GeometryDrawing.Brush>
+          <GeometryDrawing.Pen>
+            <Pen Thickness="8" StartLineCap="Round" EndLineCap="Round" LineJoin="Round">
+              <Pen.Brush>
+                <SolidColorBrush Color="#FFAA4400" Opacity="1" Transform="1,0,0,1,200,432.41664" />
+              </Pen.Brush>
+            </Pen>
+          </GeometryDrawing.Pen>
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Transform="1,0,0,1,200,432.41664" Figures="M180,300.00001L120,270 120,300.00002z" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing x:Name="path2561" svg:SvgObject.Id="path2561">
+          <GeometryDrawing.Pen>
+            <Pen Thickness="12" StartLineCap="Round" EndLineCap="Round" LineJoin="Round">
+              <Pen.Brush>
+                <SolidColorBrush Color="#FFAA4400" Opacity="1" Transform="1,0,0,1,200,432.41664" />
+              </Pen.Brush>
+            </Pen>
+          </GeometryDrawing.Pen>
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Transform="1,0,0,1,200,432.41664" Figures="M180,240.00001L180,360.00001" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+      </DrawingGroup>
+      <DrawingGroup x:Name="g1723" Opacity="1" Transform="1.3793103,0,0,1.3793103,820,852.41664" svg:SvgObject.Id="g1723">
+        <GeometryDrawing x:Name="rect1265" Brush="#FFFFCC00" svg:SvgObject.Id="rect1265">
+          <GeometryDrawing.Geometry>
+            <RectangleGeometry RadiusX="0" RadiusY="0" Rect="0,0,116,116" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing x:Name="rect1267" svg:SvgObject.Id="rect1267">
+          <GeometryDrawing.Brush>
+            <SolidColorBrush Color="#FFAA4400" Opacity="1" Transform="0.72500002,0,0,0.72500002,-594.50002,-594.50002" />
+          </GeometryDrawing.Brush>
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Transform="0.72500002,0,0,0.72500002,-594.50002,-594.50002" Figures="M842.06836,842.06836L842.06836,847.58594 842.06836,853.10352 842.06836,858.62109 842.06836,864.13867 842.06836,869.6543 842.06836,875.17188 842.06836,880.68945 847.58594,880.68945 853.10352,880.68945 858.62109,880.68945 864.13867,880.68945 869.6543,880.68945 875.17188,880.68945 880.68945,880.68945 880.68945,875.17188 880.68945,869.6543 880.68945,864.13867 880.68945,858.62109 880.68945,853.10352 880.68945,847.58594 880.68945,842.06836 875.17188,842.06836 869.6543,842.06836 864.13867,842.06836 858.62109,842.06836 853.10352,842.06836 847.58594,842.06836z M897.24219,842.06836L897.24219,847.58594 891.72461,847.58594 886.20703,847.58594 886.20703,853.10352 891.72461,853.10352 897.24219,853.10352 897.24219,858.62109 902.75781,858.62109 902.75781,864.13867 908.27539,864.13867 913.79297,864.13867 913.79297,858.62109 908.27539,858.62109 908.27539,853.10352 902.75781,853.10352 902.75781,847.58594 902.75781,842.06836z M908.27539,853.10352L913.79297,853.10352 913.79297,847.58594 913.79297,842.06836 908.27539,842.06836 908.27539,847.58594z M897.24219,858.62109L891.72461,858.62109 886.20703,858.62109 886.20703,864.13867 891.72461,864.13867 891.72461,869.6543 897.24219,869.6543 897.24219,864.13867z M891.72461,869.6543L886.20703,869.6543 886.20703,875.17188 886.20703,880.68945 891.72461,880.68945 891.72461,875.17188z M891.72461,880.68945L891.72461,886.20703 897.24219,886.20703 897.24219,880.68945z M897.24219,880.68945L902.75781,880.68945 902.75781,875.17188 897.24219,875.17188z M902.75781,875.17188L908.27539,875.17188 908.27539,880.68945 913.79297,880.68945 913.79297,875.17188 913.79297,869.6543 908.27539,869.6543 902.75781,869.6543z M891.72461,886.20703L886.20703,886.20703 880.68945,886.20703 875.17188,886.20703 875.17188,891.72461 880.68945,891.72461 880.68945,897.24219 886.20703,897.24219 891.72461,897.24219 897.24219,897.24219 897.24219,902.75781 902.75781,902.75781 902.75781,908.27539 897.24219,908.27539 891.72461,908.27539 891.72461,913.79297 886.20703,913.79297 886.20703,919.31055 886.20703,924.82812 891.72461,924.82812 891.72461,919.31055 897.24219,919.31055 897.24219,924.82812 897.24219,930.3457 891.72461,930.3457 886.20703,930.3457 886.20703,935.86133 886.20703,941.37891 886.20703,946.89648 886.20703,952.41406 886.20703,957.93164 891.72461,957.93164 891.72461,952.41406 897.24219,952.41406 897.24219,946.89648 891.72461,946.89648 891.72461,941.37891 891.72461,935.86133 897.24219,935.86133 897.24219,941.37891 902.75781,941.37891 902.75781,935.86133 908.27539,935.86133 908.27539,930.3457 902.75781,930.3457 902.75781,924.82812 908.27539,924.82812 913.79297,924.82812 913.79297,930.3457 919.31055,930.3457 919.31055,924.82812 924.82812,924.82812 924.82812,919.31055 919.31055,919.31055 913.79297,919.31055 908.27539,919.31055 902.75781,919.31055 902.75781,913.79297 908.27539,913.79297 908.27539,908.27539 908.27539,902.75781 913.79297,902.75781 913.79297,897.24219 908.27539,897.24219 908.27539,891.72461 902.75781,891.72461 897.24219,891.72461 891.72461,891.72461z M908.27539,891.72461L913.79297,891.72461 913.79297,897.24219 919.31055,897.24219 919.31055,902.75781 924.82812,902.75781 924.82812,897.24219 930.3457,897.24219 935.86133,897.24219 935.86133,902.75781 935.86133,908.27539 935.86133,913.79297 930.3457,913.79297 924.82812,913.79297 924.82812,919.31055 930.3457,919.31055 935.86133,919.31055 935.86133,924.82812 941.37891,924.82812 941.37891,919.31055 946.89648,919.31055 946.89648,924.82812 941.37891,924.82812 941.37891,930.3457 946.89648,930.3457 946.89648,935.86133 952.41406,935.86133 957.93164,935.86133 957.93164,930.3457 957.93164,924.82812 952.41406,924.82812 952.41406,919.31055 957.93164,919.31055 957.93164,913.79297 952.41406,913.79297 952.41406,908.27539 957.93164,908.27539 957.93164,902.75781 952.41406,902.75781 952.41406,897.24219 957.93164,897.24219 957.93164,891.72461 952.41406,891.72461 952.41406,886.20703 946.89648,886.20703 946.89648,891.72461 941.37891,891.72461 941.37891,886.20703 935.86133,886.20703 935.86133,891.72461 930.3457,891.72461 930.3457,886.20703 924.82812,886.20703 924.82812,891.72461 919.31055,891.72461 919.31055,886.20703 913.79297,886.20703 908.27539,886.20703z M924.82812,913.79297L924.82812,908.27539 919.31055,908.27539 919.31055,913.79297z M919.31055,908.27539L919.31055,902.75781 913.79297,902.75781 913.79297,908.27539z M924.82812,924.82812L924.82812,930.3457 919.31055,930.3457 919.31055,935.86133 924.82812,935.86133 930.3457,935.86133 930.3457,930.3457 930.3457,924.82812z M930.3457,935.86133L930.3457,941.37891 935.86133,941.37891 941.37891,941.37891 941.37891,935.86133 935.86133,935.86133z M897.24219,952.41406L897.24219,957.93164 902.75781,957.93164 908.27539,957.93164 913.79297,957.93164 913.79297,952.41406 919.31055,952.41406 919.31055,946.89648 919.31055,941.37891 913.79297,941.37891 908.27539,941.37891 908.27539,946.89648 908.27539,952.41406 902.75781,952.41406z M919.31055,952.41406L919.31055,957.93164 924.82812,957.93164 924.82812,952.41406z M886.20703,913.79297L886.20703,908.27539 880.68945,908.27539 875.17188,908.27539 875.17188,913.79297 880.68945,913.79297z M875.17188,908.27539L875.17188,902.75781 869.6543,902.75781 869.6543,897.24219 875.17188,897.24219 875.17188,891.72461 869.6543,891.72461 869.6543,886.20703 864.13867,886.20703 858.62109,886.20703 853.10352,886.20703 847.58594,886.20703 842.06836,886.20703 842.06836,891.72461 847.58594,891.72461 847.58594,897.24219 853.10352,897.24219 853.10352,891.72461 858.62109,891.72461 858.62109,897.24219 858.62109,902.75781 864.13867,902.75781 864.13867,908.27539 869.6543,908.27539z M875.17188,897.24219L875.17188,902.75781 880.68945,902.75781 880.68945,897.24219z M919.31055,842.06836L919.31055,847.58594 919.31055,853.10352 919.31055,858.62109 919.31055,864.13867 919.31055,869.6543 919.31055,875.17188 919.31055,880.68945 924.82812,880.68945 930.3457,880.68945 935.86133,880.68945 941.37891,880.68945 946.89648,880.68945 952.41406,880.68945 957.93164,880.68945 957.93164,875.17188 957.93164,869.6543 957.93164,864.13867 957.93164,858.62109 957.93164,853.10352 957.93164,847.58594 957.93164,842.06836 952.41406,842.06836 946.89648,842.06836 941.37891,842.06836 935.86133,842.06836 930.3457,842.06836 924.82812,842.06836z M847.58594,847.58594L853.10352,847.58594 858.62109,847.58594 864.13867,847.58594 869.6543,847.58594 875.17188,847.58594 875.17188,853.10352 875.17188,858.62109 875.17188,864.13867 875.17188,869.6543 875.17188,875.17188 869.6543,875.17188 864.13867,875.17188 858.62109,875.17188 853.10352,875.17188 847.58594,875.17188 847.58594,869.6543 847.58594,864.13867 847.58594,858.62109 847.58594,853.10352z M924.82812,847.58594L930.3457,847.58594 935.86133,847.58594 941.37891,847.58594 946.89648,847.58594 952.41406,847.58594 952.41406,853.10352 952.41406,858.62109 952.41406,864.13867 952.41406,869.6543 952.41406,875.17188 946.89648,875.17188 941.37891,875.17188 935.86133,875.17188 930.3457,875.17188 924.82812,875.17188 924.82812,869.6543 924.82812,864.13867 924.82812,858.62109 924.82812,853.10352z M853.10352,853.10352L853.10352,858.62109 853.10352,864.13867 853.10352,869.6543 858.62109,869.6543 864.13867,869.6543 869.6543,869.6543 869.6543,864.13867 869.6543,858.62109 869.6543,853.10352 864.13867,853.10352 858.62109,853.10352z M930.3457,853.10352L930.3457,858.62109 930.3457,864.13867 930.3457,869.6543 935.86133,869.6543 941.37891,869.6543 946.89648,869.6543 946.89648,864.13867 946.89648,858.62109 946.89648,853.10352 941.37891,853.10352 935.86133,853.10352z M941.37891,897.24219L946.89648,897.24219 946.89648,902.75781 941.37891,902.75781z M847.58594,908.27539L847.58594,913.79297 853.10352,913.79297 858.62109,913.79297 858.62109,908.27539 853.10352,908.27539z M941.37891,908.27539L946.89648,908.27539 946.89648,913.79297 941.37891,913.79297z M842.06836,919.31055L842.06836,924.82812 842.06836,930.3457 842.06836,935.86133 842.06836,941.37891 842.06836,946.89648 842.06836,952.41406 842.06836,957.93164 847.58594,957.93164 853.10352,957.93164 858.62109,957.93164 864.13867,957.93164 869.6543,957.93164 875.17188,957.93164 880.68945,957.93164 880.68945,952.41406 880.68945,946.89648 880.68945,941.37891 880.68945,935.86133 880.68945,930.3457 880.68945,924.82812 880.68945,919.31055 875.17188,919.31055 869.6543,919.31055 864.13867,919.31055 858.62109,919.31055 853.10352,919.31055 847.58594,919.31055z M847.58594,924.82812L853.10352,924.82812 858.62109,924.82812 864.13867,924.82812 869.6543,924.82812 875.17188,924.82812 875.17188,930.3457 875.17188,935.86133 875.17188,941.37891 875.17188,946.89648 875.17188,952.41406 869.6543,952.41406 864.13867,952.41406 858.62109,952.41406 853.10352,952.41406 847.58594,952.41406 847.58594,946.89648 847.58594,941.37891 847.58594,935.86133 847.58594,930.3457z M853.10352,930.3457L853.10352,935.86133 853.10352,941.37891 853.10352,946.89648 858.62109,946.89648 864.13867,946.89648 869.6543,946.89648 869.6543,941.37891 869.6543,935.86133 869.6543,930.3457 864.13867,930.3457 858.62109,930.3457z M930.3457,946.89648L930.3457,952.41406 930.3457,957.93164 935.86133,957.93164 935.86133,952.41406 941.37891,952.41406 946.89648,952.41406 946.89648,946.89648 941.37891,946.89648 935.86133,946.89648z M946.89648,952.41406L946.89648,957.93164 952.41406,957.93164 952.41406,952.41406z" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+      </DrawingGroup>
+      <GeometryDrawing x:Name="rect898" svg:SvgObject.Id="rect898">
+        <GeometryDrawing.Brush>
+          <SolidColorBrush Color="#FF0055D4" Opacity="1" Transform="1,0,0,1,-10,-167.58336" />
+        </GeometryDrawing.Brush>
+        <GeometryDrawing.Geometry>
+          <RectangleGeometry RadiusX="0" RadiusY="0" Rect="20,450,50,20" Transform="1,0,0,1,-10,-167.58336" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+      <GeometryDrawing x:Name="rect900" svg:SvgObject.Id="rect900">
+        <GeometryDrawing.Brush>
+          <SolidColorBrush Color="#FF0055D4" Opacity="1" Transform="1,0,0,1,-10,-167.58336" />
+        </GeometryDrawing.Brush>
+        <GeometryDrawing.Geometry>
+          <RectangleGeometry RadiusX="6" RadiusY="6" Rect="20,480,50,20" Transform="1,0,0,1,-10,-167.58336" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+      <GeometryDrawing x:Name="rect902" svg:SvgObject.Id="rect902">
+        <GeometryDrawing.Brush>
+          <SolidColorBrush Color="#FF0055D4" Opacity="1" Transform="1,0,0,1,-10,-167.58336" />
+        </GeometryDrawing.Brush>
+        <GeometryDrawing.Geometry>
+          <RectangleGeometry RadiusX="6" RadiusY="6" Rect="20,510,50,20" Transform="1,0,0,1,-10,-167.58336" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+      <GeometryDrawing x:Name="rect904" svg:SvgObject.Id="rect904">
+        <GeometryDrawing.Brush>
+          <SolidColorBrush Color="#FF0055D4" Opacity="1" Transform="1,0,0,1,-10,-167.58336" />
+        </GeometryDrawing.Brush>
+        <GeometryDrawing.Geometry>
+          <RectangleGeometry RadiusX="6" RadiusY="6" Rect="20,540,50,20" Transform="1,0,0,1,-10,-167.58336" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+      <GeometryDrawing x:Name="rect906" svg:SvgObject.Id="rect906">
+        <GeometryDrawing.Brush>
+          <SolidColorBrush Color="#FF0055D4" Opacity="1" Transform="1,0,0,1,0,-167.58336" />
+        </GeometryDrawing.Brush>
+        <GeometryDrawing.Geometry>
+          <RectangleGeometry RadiusX="6" RadiusY="6" Rect="140,450,50,20" Transform="1,0,0,1,0,-167.58336" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+      <GeometryDrawing x:Name="rect908" svg:SvgObject.Id="rect908">
+        <GeometryDrawing.Brush>
+          <SolidColorBrush Color="#FF0055D4" Opacity="1" Transform="1,0,0,1,0,-167.58336" />
+        </GeometryDrawing.Brush>
+        <GeometryDrawing.Geometry>
+          <RectangleGeometry RadiusX="6" RadiusY="6" Rect="140,480,50,20" Transform="1,0,0,1,0,-167.58336" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+      <GeometryDrawing x:Name="rect910" svg:SvgObject.Id="rect910">
+        <GeometryDrawing.Brush>
+          <SolidColorBrush Color="#FF0055D4" Opacity="1" Transform="1,0,0,1,0,-167.58336" />
+        </GeometryDrawing.Brush>
+        <GeometryDrawing.Geometry>
+          <RectangleGeometry RadiusX="6" RadiusY="6" Rect="140,510,50,20" Transform="1,0,0,1,0,-167.58336" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+      <GeometryDrawing x:Name="rect912" svg:SvgObject.Id="rect912">
+        <GeometryDrawing.Brush>
+          <SolidColorBrush Color="#FF0055D4" Opacity="1" Transform="1,0,0,1,0,-167.58336" />
+        </GeometryDrawing.Brush>
+        <GeometryDrawing.Geometry>
+          <RectangleGeometry RadiusX="6" RadiusY="6" Rect="140,540,50,20" Transform="1,0,0,1,0,-167.58336" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+      <GeometryDrawing x:Name="path914" svg:SvgObject.Id="path914">
+        <GeometryDrawing.Pen>
+          <Pen Thickness="8" StartLineCap="Round" EndLineCap="Round" LineJoin="Round">
+            <Pen.Brush>
+              <SolidColorBrush Color="#FF80B3FF" Opacity="1" Transform="1,0,0,1,-4,-157.58336" />
+            </Pen.Brush>
+          </Pen>
+        </GeometryDrawing.Pen>
+        <GeometryDrawing.Geometry>
+          <PathGeometry FillRule="Nonzero" Transform="1,0,0,1,-4,-157.58336" Figures="M68,440L68,430 140,430 140,440" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+      <GeometryDrawing x:Name="path916" svg:SvgObject.Id="path916">
+        <GeometryDrawing.Pen>
+          <Pen Thickness="8" StartLineCap="Round" EndLineCap="Round" LineJoin="Round">
+            <Pen.Brush>
+              <SolidColorBrush Color="#FF80B3FF" Opacity="1" Transform="1,0,0,-1,-4,832.4166" />
+            </Pen.Brush>
+          </Pen>
+        </GeometryDrawing.Pen>
+        <GeometryDrawing.Geometry>
+          <PathGeometry FillRule="Nonzero" Transform="1,0,0,-1,-4,832.4166" Figures="M68,440L68,430 140,430 140,440" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+      <GeometryDrawing x:Name="path918" svg:SvgObject.Id="path918">
+        <GeometryDrawing.Brush>
+          <SolidColorBrush Color="#FF80B3FF" Opacity="1" Transform="1,0,0,1,0,-167.58336" />
+        </GeometryDrawing.Brush>
+        <GeometryDrawing.Geometry>
+          <EllipseGeometry RadiusX="10" RadiusY="10" Center="40,430" Transform="1,0,0,1,0,-167.58336" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+      <DrawingGroup x:Name="g1013" Opacity="1" svg:SvgObject.Id="g1013">
+        <GeometryDrawing x:Name="rect955" svg:SvgObject.Id="rect955">
+          <GeometryDrawing.Pen>
+            <Pen Thickness="8" StartLineCap="Round" EndLineCap="Round" LineJoin="Round">
+              <Pen.Brush>
+                <SolidColorBrush Color="#FFAA4400" Opacity="1" Transform="1,0,0,1,0,-167.58336" />
+              </Pen.Brush>
+            </Pen>
+          </GeometryDrawing.Pen>
+          <GeometryDrawing.Geometry>
+            <RectangleGeometry RadiusX="0" RadiusY="0" Rect="40,1070,120,60" Transform="1,0,0,1,0,-167.58336" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing x:Name="path957" svg:SvgObject.Id="path957">
+          <GeometryDrawing.Brush>
+            <SolidColorBrush Color="#FFAA8800" Opacity="1" Transform="1,0,0,1,0,-167.58336" />
+          </GeometryDrawing.Brush>
+          <GeometryDrawing.Pen>
+            <Pen Thickness="8" StartLineCap="Round" EndLineCap="Round" LineJoin="Round">
+              <Pen.Brush>
+                <SolidColorBrush Color="#FFAA4400" Opacity="1" Transform="1,0,0,1,0,-167.58336" />
+              </Pen.Brush>
+            </Pen>
+          </GeometryDrawing.Pen>
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Transform="1,0,0,1,0,-167.58336" Figures="M10,1100L40,1100" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing x:Name="path959" svg:SvgObject.Id="path959">
+          <GeometryDrawing.Brush>
+            <SolidColorBrush Color="#FFAA8800" Opacity="1" Transform="1,0,0,1,0,-167.58336" />
+          </GeometryDrawing.Brush>
+          <GeometryDrawing.Pen>
+            <Pen Thickness="8" StartLineCap="Round" EndLineCap="Round" LineJoin="Round">
+              <Pen.Brush>
+                <SolidColorBrush Color="#FFAA4400" Opacity="1" Transform="1,0,0,1,0,-167.58336" />
+              </Pen.Brush>
+            </Pen>
+          </GeometryDrawing.Pen>
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Transform="1,0,0,1,0,-167.58336" Figures="M160,1100L190,1100" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+      </DrawingGroup>
+      <GeometryDrawing x:Name="path961" svg:SvgObject.Id="path961">
+        <GeometryDrawing.Pen>
+          <Pen Thickness="8" StartLineCap="Round" EndLineCap="Round" LineJoin="Round">
+            <Pen.Brush>
+              <SolidColorBrush Color="#FFAA4400" Opacity="1" Transform="1,0,0,1,0,-167.58336" />
+            </Pen.Brush>
+          </Pen>
+        </GeometryDrawing.Pen>
+        <GeometryDrawing.Geometry>
+          <PathGeometry FillRule="Nonzero" Transform="1,0,0,1,0,-167.58336" Figures="M210,1100L240,1100 250,1060 270,1130 290,1060 310,1130 330,1060 350,1130 360,1100 390,1100" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+      <GeometryDrawing x:Name="path1033" svg:SvgObject.Id="path1033">
+        <GeometryDrawing.Brush>
+          <SolidColorBrush Color="#FFAA4400" Opacity="1" Transform="1,0,0,1,-10.000003,-177.58326" />
+        </GeometryDrawing.Brush>
+        <GeometryDrawing.Geometry>
+          <PathGeometry FillRule="Nonzero" Transform="1,0,0,1,-10.000003,-177.58326" Figures="M440,1190L440,1050 600,1050 600,1140 550,1190z" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+      <GeometryDrawing x:Name="path1123" svg:SvgObject.Id="path1123">
+        <GeometryDrawing.Brush>
+          <SolidColorBrush Color="#FFFFCC00" Opacity="1" Transform="3.7795275,0,0,3.7795275,-210,299.89708" />
+        </GeometryDrawing.Brush>
+        <GeometryDrawing.Geometry>
+          <PathGeometry FillRule="Nonzero" Transform="3.7795275,0,0,3.7795275,-210,299.89708" Figures="M164.04167,183.22914L164.04167,146.18747 206.375,146.18747 206.375,169.99997 193.14583,183.22914z" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+      <GeometryDrawing x:Name="path1125" svg:SvgObject.Id="path1125">
+        <GeometryDrawing.Brush>
+          <SolidColorBrush Color="#FFAA8800" Opacity="1" Transform="3.7795275,0,0,3.7795275,-210,299.89708" />
+        </GeometryDrawing.Brush>
+        <GeometryDrawing.Geometry>
+          <PathGeometry FillRule="Nonzero" Transform="3.7795275,0,0,3.7795275,-210,299.89708" Figures="M193.14583,183.22914L193.14583,169.99996 206.375,169.99997z" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+    </DrawingGroup>
+    <DrawingGroup x:Name="g953" Opacity="1" Transform="1,0,0,1,-200,-800" svg:SvgObject.Id="g953">
+      <GeometryDrawing x:Name="path3099" svg:SvgObject.Id="path3099">
+        <GeometryDrawing.Brush>
+          <SolidColorBrush Color="#FFE6E6E6" Opacity="1" Transform="3.7795275,0,0,3.7795275,201.00016,274.4803" />
+        </GeometryDrawing.Brush>
+        <GeometryDrawing.Geometry>
+          <PathGeometry FillRule="Nonzero" Transform="3.7795275,0,0,3.7795275,201.00016,274.4803" Figures="M23.018735,155.97702L19.843738,154.38954C18.256248,153.47274,18.256248,155.64156,17.462498,155.18328L15.874988,154.38954 15.874988,155.18328 17.462498,155.97702C18.836948,156.77076,18.468968,154.38954,19.843738,155.18328L23.018735,156.77076z" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+      <GeometryDrawing x:Name="path3101" svg:SvgObject.Id="path3101">
+        <GeometryDrawing.Brush>
+          <SolidColorBrush Color="#FFB3B3B3" Opacity="1" Transform="3.7795275,0,0,3.7795275,201.00016,274.4803" />
+        </GeometryDrawing.Brush>
+        <GeometryDrawing.Geometry>
+          <PathGeometry FillRule="Nonzero" Transform="3.7795275,0,0,3.7795275,201.00016,274.4803" Figures="M15.874988,154.38954L18.256248,152.00826 19.843748,152.80206C20.637495,153.26046,20.850125,151.21452,22.225005,152.00832L25.399995,153.5958 23.018735,155.97702 19.843738,154.38954C18.256248,153.47298,18.256248,155.64156,17.462498,155.18328z" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+      <GeometryDrawing x:Name="path3105" svg:SvgObject.Id="path3105">
+        <GeometryDrawing.Brush>
+          <SolidColorBrush Color="#FFE6E6E6" Opacity="1" Transform="3.7795275,0,0,3.7795275,201.00016,274.4803" />
+        </GeometryDrawing.Brush>
+        <GeometryDrawing.Geometry>
+          <PathGeometry FillRule="Nonzero" Transform="3.7795275,0,0,3.7795275,201.00016,274.4803" Figures="M19.049988,159.94572L15.874988,158.35824C14.287501,157.44144,14.287501,159.61026,13.493751,159.15198L11.906241,158.35824 11.906241,159.15198 13.493751,159.94572C14.868201,160.73946,14.500221,158.35824,15.874988,159.15198L19.049988,160.73946z" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+      <GeometryDrawing x:Name="path3107" svg:SvgObject.Id="path3107">
+        <GeometryDrawing.Brush>
+          <SolidColorBrush Color="#FFB3B3B3" Opacity="1" Transform="3.7795275,0,0,3.7795275,201.00016,274.4803" />
+        </GeometryDrawing.Brush>
+        <GeometryDrawing.Geometry>
+          <PathGeometry FillRule="Nonzero" Transform="3.7795275,0,0,3.7795275,201.00016,274.4803" Figures="M11.906241,158.35824L14.287501,155.97696 15.874998,156.77076C16.668748,157.22916,16.881378,155.18322,18.256258,155.97702L21.431245,157.5645 19.049988,159.94572 15.874988,158.35824C14.287501,157.44168,14.287501,159.61026,13.493751,159.15198z" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+      <GeometryDrawing x:Name="path3111" svg:SvgObject.Id="path3111">
+        <GeometryDrawing.Brush>
+          <SolidColorBrush Color="#FFE6E6E6" Opacity="1" Transform="3.7795275,0,0,3.7795275,201.00016,274.4803" />
+        </GeometryDrawing.Brush>
+        <GeometryDrawing.Geometry>
+          <PathGeometry FillRule="Nonzero" Transform="3.7795275,0,0,3.7795275,201.00016,274.4803" Figures="M15.081241,163.91452L11.906241,162.32704C10.318751,161.41024,10.318751,163.57906,9.5250043,163.12078L7.9374943,162.32704 7.9374943,163.12078 9.5250043,163.91452C10.899451,164.70826,10.531471,162.32704,11.906241,163.12078L15.081241,164.70826z" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+      <GeometryDrawing x:Name="path3113" svg:SvgObject.Id="path3113">
+        <GeometryDrawing.Brush>
+          <SolidColorBrush Color="#FFB3B3B3" Opacity="1" Transform="3.7795275,0,0,3.7795275,201.00016,274.4803" />
+        </GeometryDrawing.Brush>
+        <GeometryDrawing.Geometry>
+          <PathGeometry FillRule="Nonzero" Transform="3.7795275,0,0,3.7795275,201.00016,274.4803" Figures="M7.9374943,162.32704L10.318751,159.94576 11.906251,160.73956C12.700001,161.19796,12.912631,159.15202,14.287511,159.94582L17.462498,161.5333 15.081241,163.91452 11.906241,162.32704C10.318751,161.41048,10.318751,163.57906,9.5250043,163.12078z" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+      <GeometryDrawing x:Name="path3117" svg:SvgObject.Id="path3117">
+        <GeometryDrawing.Brush>
+          <SolidColorBrush Color="#FFE6E6E6" Opacity="1" Transform="3.7795275,0,0,3.7795275,201.00016,274.4803" />
+        </GeometryDrawing.Brush>
+        <GeometryDrawing.Geometry>
+          <PathGeometry FillRule="Nonzero" Transform="3.7795275,0,0,3.7795275,201.00016,274.4803" Figures="M11.112481,167.88322L7.9374843,166.29574C6.3499943,165.37894,6.3499943,167.54776,5.5562443,167.08948L3.9687376,166.29574 3.9687376,167.08948 5.5562443,167.88322C6.9306943,168.67696,6.5627143,166.29574,7.9374843,167.08948L11.112481,168.67696z" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+      <GeometryDrawing x:Name="path3119" svg:SvgObject.Id="path3119">
+        <GeometryDrawing.Brush>
+          <SolidColorBrush Color="#FFB3B3B3" Opacity="1" Transform="3.7795275,0,0,3.7795275,201.00016,274.4803" />
+        </GeometryDrawing.Brush>
+        <GeometryDrawing.Geometry>
+          <PathGeometry FillRule="Nonzero" Transform="3.7795275,0,0,3.7795275,201.00016,274.4803" Figures="M3.9687376,166.29574L6.3499943,163.91446 7.9374943,164.70826C8.7312443,165.16666,8.9438743,163.12072,10.318751,163.91452L13.493741,165.502 11.112481,167.88322 7.9374843,166.29574C6.3499943,165.37918,6.3499943,167.54776,5.5562443,167.08948z" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+      <GeometryDrawing x:Name="path3123" svg:SvgObject.Id="path3123">
+        <GeometryDrawing.Brush>
+          <SolidColorBrush Color="#FF1A1A1A" Opacity="1" Transform="3.7795275,0,0,3.7795275,201.00016,274.4803" />
+        </GeometryDrawing.Brush>
+        <GeometryDrawing.Geometry>
+          <PathGeometry FillRule="Nonzero" Transform="3.7795275,0,0,3.7795275,201.00016,274.4803" Figures="M42.068703,159.94587L42.068703,163.12083 26.193712,178.99587 26.193732,175.82084z" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+      <GeometryDrawing x:Name="path3125" svg:SvgObject.Id="path3125">
+        <GeometryDrawing.Brush>
+          <SolidColorBrush Color="#FF666666" Opacity="1" Transform="3.7795275,0,0,3.7795275,201.00016,274.4803" />
+        </GeometryDrawing.Brush>
+        <GeometryDrawing.Geometry>
+          <PathGeometry FillRule="Nonzero" Transform="3.7795275,0,0,3.7795275,201.00016,274.4803" Figures="M10.318721,166.29583L24.606215,173.43963 40.481216,157.56459 26.193712,150.42087z" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+      <GeometryDrawing x:Name="path3127" svg:SvgObject.Id="path3127">
+        <GeometryDrawing.Brush>
+          <SolidColorBrush Color="#FF666666" Opacity="1" Transform="3.7795275,0,0,3.7795275,201.00016,274.4803" />
+        </GeometryDrawing.Brush>
+        <GeometryDrawing.Geometry>
+          <PathGeometry FillRule="Nonzero" Transform="3.7795275,0,0,3.7795275,201.00016,274.4803" Figures="M10.318711,166.29583L10.318721,171.05835 26.193712,178.99587 26.193722,175.82083 24.606215,173.43955z" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+      <GeometryDrawing x:Name="path3129" svg:SvgObject.Id="path3129">
+        <GeometryDrawing.Brush>
+          <SolidColorBrush Color="#FF333333" Opacity="1" Transform="3.7795275,0,0,3.7795275,201.00016,274.4803" />
+        </GeometryDrawing.Brush>
+        <GeometryDrawing.Geometry>
+          <PathGeometry FillRule="Nonzero" Transform="3.7795275,0,0,3.7795275,201.00016,274.4803" Figures="M24.606215,173.43955L26.193712,175.82083 42.068703,159.94587 40.481216,157.56459z" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+      <GeometryDrawing x:Name="path3131" svg:SvgObject.Id="path3131">
+        <GeometryDrawing.Brush>
+          <SolidColorBrush Color="#FFB3B3B3" Opacity="1" Transform="3.7795275,0,0,3.7795275,201.00016,274.4803" />
+        </GeometryDrawing.Brush>
+        <GeometryDrawing.Geometry>
+          <PathGeometry FillRule="Nonzero" Transform="3.7795275,0,0,3.7795275,201.00016,274.4803" Figures="M29.368712,173.43959L26.987462,175.82084 26.987462,176.61459 30.162462,178.20209C30.956212,178.66049,30.956212,179.66684,32.543709,180.58334L34.131209,181.37709 36.512456,178.99584 36.512456,178.20209 34.924959,177.40834C33.550169,176.6146,33.918499,175.82083,32.543709,175.02709z" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+      <GeometryDrawing x:Name="path3133" svg:SvgObject.Id="path3133">
+        <GeometryDrawing.Brush>
+          <SolidColorBrush Color="#FFE6E6E6" Opacity="1" Transform="3.7795275,0,0,3.7795275,201.00016,274.4803" />
+        </GeometryDrawing.Brush>
+        <GeometryDrawing.Geometry>
+          <PathGeometry FillRule="Nonzero" Transform="3.7795275,0,0,3.7795275,201.00016,274.4803" Figures="M34.456769,177.08276L32.075519,179.46404C32.206979,179.57204,32.356319,179.68124,32.543699,179.78984L34.131199,180.58358 36.512446,178.2023 34.924949,177.40856C34.737569,177.30056,34.588229,177.19136,34.456769,177.08276z" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+      <GeometryDrawing x:Name="path3135" svg:SvgObject.Id="path3135">
+        <GeometryDrawing.Brush>
+          <SolidColorBrush Color="#FFE6E6E6" Opacity="1" Transform="3.7795275,0,0,3.7795275,201.00016,274.4803" />
+        </GeometryDrawing.Brush>
+        <GeometryDrawing.Geometry>
+          <PathGeometry FillRule="Nonzero" Transform="3.7795275,0,0,3.7795275,201.00016,274.4803" Figures="M26.987472,176.61458L30.162472,178.20206C30.956222,178.66046,30.956222,179.66684,32.543719,180.58334L34.131219,181.37708 34.131219,180.58334 32.543719,179.7896C31.168882,178.99586,31.537309,178.20206,30.162472,177.40832L26.987472,175.82084z" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+      <GeometryDrawing x:Name="path3139" svg:SvgObject.Id="path3139">
+        <GeometryDrawing.Brush>
+          <SolidColorBrush Color="#FFB3B3B3" Opacity="1" Transform="3.7795275,0,0,3.7795275,201.00016,274.4803" />
+        </GeometryDrawing.Brush>
+        <GeometryDrawing.Geometry>
+          <PathGeometry FillRule="Nonzero" Transform="3.7795275,0,0,3.7795275,201.00016,274.4803" Figures="M33.337469,169.47079L30.956222,171.85204 30.956222,172.64579 34.131219,174.23329C34.924969,174.69169,34.924969,175.69804,36.512466,176.61454L38.099966,177.40829 40.481216,175.02704 40.481216,174.23329 38.893716,173.43954C37.518926,172.6458,37.887256,171.85203,36.512466,171.05829z" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+      <GeometryDrawing x:Name="path3141" svg:SvgObject.Id="path3141">
+        <GeometryDrawing.Brush>
+          <SolidColorBrush Color="#FFE6E6E6" Opacity="1" Transform="3.7795275,0,0,3.7795275,201.00016,274.4803" />
+        </GeometryDrawing.Brush>
+        <GeometryDrawing.Geometry>
+          <PathGeometry FillRule="Nonzero" Transform="3.7795275,0,0,3.7795275,201.00016,274.4803" Figures="M38.425526,173.11396L36.044279,175.49524C36.175739,175.60324,36.325079,175.71244,36.512456,175.82104L38.099956,176.61478 40.481206,174.2335 38.893706,173.43976C38.706326,173.33176,38.556986,173.22256,38.425526,173.11396z" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+      <GeometryDrawing x:Name="path3143" svg:SvgObject.Id="path3143">
+        <GeometryDrawing.Brush>
+          <SolidColorBrush Color="#FFE6E6E6" Opacity="1" Transform="3.7795275,0,0,3.7795275,201.00016,274.4803" />
+        </GeometryDrawing.Brush>
+        <GeometryDrawing.Geometry>
+          <PathGeometry FillRule="Nonzero" Transform="3.7795275,0,0,3.7795275,201.00016,274.4803" Figures="M30.956232,172.64578L34.131229,174.23326C34.924979,174.69166,34.924979,175.69804,36.512476,176.61454L38.099976,177.40828 38.099976,176.61454 36.512476,175.8208C35.137639,175.02706,35.506069,174.23326,34.131229,173.43952L30.956232,171.85204z" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+      <GeometryDrawing x:Name="path3147" svg:SvgObject.Id="path3147">
+        <GeometryDrawing.Brush>
+          <SolidColorBrush Color="#FFB3B3B3" Opacity="1" Transform="3.7795275,0,0,3.7795275,201.00016,274.4803" />
+        </GeometryDrawing.Brush>
+        <GeometryDrawing.Geometry>
+          <PathGeometry FillRule="Nonzero" Transform="3.7795275,0,0,3.7795275,201.00016,274.4803" Figures="M37.306226,165.50199L34.924979,167.88324 34.924979,168.67699 38.099976,170.26449C38.893726,170.72289,38.893726,171.72924,40.481226,172.64574L42.068723,173.43949 44.449973,171.05824 44.449973,170.26449 42.862473,169.47074C41.487686,168.677,41.856013,167.88323,40.481226,167.08949z" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+      <GeometryDrawing x:Name="path3149" svg:SvgObject.Id="path3149">
+        <GeometryDrawing.Brush>
+          <SolidColorBrush Color="#FFE6E6E6" Opacity="1" Transform="3.7795275,0,0,3.7795275,201.00016,274.4803" />
+        </GeometryDrawing.Brush>
+        <GeometryDrawing.Geometry>
+          <PathGeometry FillRule="Nonzero" Transform="3.7795275,0,0,3.7795275,201.00016,274.4803" Figures="M42.394283,169.14516L40.013036,171.52644C40.144496,171.63444,40.293836,171.74364,40.481216,171.85224L42.068713,172.64598 44.449963,170.2647 42.862463,169.47096C42.675083,169.36296,42.525743,169.25376,42.394283,169.14516z" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+      <GeometryDrawing x:Name="path3151" svg:SvgObject.Id="path3151">
+        <GeometryDrawing.Brush>
+          <SolidColorBrush Color="#FFE6E6E6" Opacity="1" Transform="3.7795275,0,0,3.7795275,201.00016,274.4803" />
+        </GeometryDrawing.Brush>
+        <GeometryDrawing.Geometry>
+          <PathGeometry FillRule="Nonzero" Transform="3.7795275,0,0,3.7795275,201.00016,274.4803" Figures="M34.924989,168.67698L38.099986,170.26446C38.893736,170.72286,38.893736,171.72924,40.481236,172.64574L42.068733,173.43948 42.068733,172.64574 40.481236,171.852C39.106396,171.05826,39.474826,170.26446,38.099986,169.47072L34.924989,167.88324z" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+      <GeometryDrawing x:Name="path3155" svg:SvgObject.Id="path3155">
+        <GeometryDrawing.Brush>
+          <SolidColorBrush Color="#FFB3B3B3" Opacity="1" Transform="3.7795275,0,0,3.7795275,201.00016,274.4803" />
+        </GeometryDrawing.Brush>
+        <GeometryDrawing.Geometry>
+          <PathGeometry FillRule="Nonzero" Transform="3.7795275,0,0,3.7795275,201.00016,274.4803" Figures="M41.274956,161.53329L38.893706,163.91454 38.893706,164.70829 42.068703,166.29579C42.862453,166.75419,42.862453,167.76054,44.449953,168.67704L46.037453,169.47079 48.4187,167.08954 48.4187,166.29579 46.831203,165.50204C45.456413,164.7083,45.824743,163.91453,44.449953,163.12079z" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+      <GeometryDrawing x:Name="path3157" svg:SvgObject.Id="path3157">
+        <GeometryDrawing.Brush>
+          <SolidColorBrush Color="#FFE6E6E6" Opacity="1" Transform="3.7795275,0,0,3.7795275,201.00016,274.4803" />
+        </GeometryDrawing.Brush>
+        <GeometryDrawing.Geometry>
+          <PathGeometry FillRule="Nonzero" Transform="3.7795275,0,0,3.7795275,201.00016,274.4803" Figures="M46.363013,165.17646L43.981763,167.55774C44.113223,167.66574,44.262563,167.77494,44.449943,167.88354L46.037443,168.67728 48.41869,166.296 46.831193,165.50226C46.643813,165.39426,46.494473,165.28506,46.363013,165.17646z" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+      <GeometryDrawing x:Name="path3159" svg:SvgObject.Id="path3159">
+        <GeometryDrawing.Brush>
+          <SolidColorBrush Color="#FFE6E6E6" Opacity="1" Transform="3.7795275,0,0,3.7795275,201.00016,274.4803" />
+        </GeometryDrawing.Brush>
+        <GeometryDrawing.Geometry>
+          <PathGeometry FillRule="Nonzero" Transform="3.7795275,0,0,3.7795275,201.00016,274.4803" Figures="M38.893716,164.70828L42.068713,166.29576C42.862463,166.75416,42.862463,167.76054,44.449963,168.67704L46.037463,169.47078 46.037463,168.67704 44.449963,167.8833C43.075123,167.08956,43.443553,166.29576,42.068713,165.50202L38.893716,163.91454z" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+    </DrawingGroup>
+  </DrawingGroup>
+</DrawingGroup>

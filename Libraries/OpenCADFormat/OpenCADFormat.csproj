@@ -114,7 +114,7 @@
     <Compile Include="DataStrings\ExtensionMethods.cs" />
     <Compile Include="DataStrings\GlobalConsts.cs" />
     <Compile Include="DataStrings\Utils.cs" />
-    <Compile Include="Drawing\Canvas.cs" />
+    <Compile Include="Drawing\DrawingGroup.cs" />
     <Compile Include="Drawing\Fill.cs" />
     <Compile Include="Drawing\Stroke.cs" />
     <Compile Include="Drawing\Utils.cs" />
@@ -189,9 +189,6 @@
     <Content Include="Libraries\Libraries\obj\Release\OpenCAD.OpenCADFormat.Libraries.dll" />
     <Content Include="Libraries\Libraries\obj\Release\OpenCAD.OpenCADFormat.Libraries.pdb" />
     <Content Include="Libraries\Libraries\OpenCAD.OpenCADFormat.Libraries.csproj" />
-    <None Include="Resources\Shared\index.oxdb.txt" />
-    <None Include="Resources\Shared\Syntax_library.oxdb" />
-    <None Include="Resources\Shared\Regular_Expressions.oxdb" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Libraries\Libraries\.vs\OpenCAD.OpenCADFormat.Libraries\v15\.suo" />
@@ -210,6 +207,7 @@
   <ItemGroup>
     <Folder Include="Libraries\Libraries\obj\Debug\TempPE\" />
     <Folder Include="Libraries\Libraries\obj\Release\TempPE\" />
+    <Folder Include="Resources\Shared\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resource1.resx">

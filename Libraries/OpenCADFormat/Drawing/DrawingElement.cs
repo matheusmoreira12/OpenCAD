@@ -24,27 +24,21 @@ namespace OpenCAD.OpenCADFormat.Drawing
 
     public class Arc : Shape
     {
-        public static Arc CreateCentered(Point center, Point start, Point end)
+        public static Arc CreateCentered(Point center, Point start, Point end) => new Arc
         {
-            return new Arc
-            {
-                Type = ArcType.Centered,
-                Center = center,
-                Start = start,
-                End = end
-            };
-        }
+            Type = ArcType.Centered,
+            Center = center,
+            Start = start,
+            End = end
+        };
 
-        public static Arc CreateThreePoint(Point start, Point end, Point control)
+        public static Arc CreateThreePoint(Point start, Point end, Point control) => new Arc
         {
-            return new Arc
-            {
-                Type = ArcType.ThreePoint,
-                Start = start,
-                End = end,
-                Control = control
-            };
-        }
+            Type = ArcType.ThreePoint,
+            Start = start,
+            End = end,
+            Control = control
+        };
 
         public static Arc CreateCenteredStartSweepAngle(Point center, Size radius, Measurement rotation,
             Measurement startAngle, Measurement sweepAngle)
@@ -82,6 +76,8 @@ namespace OpenCAD.OpenCADFormat.Drawing
         public static Ellipse CreateCentered(Point center, Size radius,
             Measurement rotation)
         {
+            Validation.Expect(Quantities.PlaneAngle, rotation);
+
             return new Ellipse
             {
                 Type = EllipseType.Centered,
@@ -91,26 +87,20 @@ namespace OpenCAD.OpenCADFormat.Drawing
             };
         }
 
-        public static Ellipse CreateTwoPoint(Point start, Point end)
+        public static Ellipse CreateTwoPoint(Point start, Point end) => new Ellipse
         {
-            return new Ellipse
-            {
-                Type = EllipseType.TwoPoint,
-                Start = start,
-                End = end
-            };
-        }
+            Type = EllipseType.TwoPoint,
+            Start = start,
+            End = end
+        };
 
-        public static Ellipse CreateThreePoint(Point start, Point end, Point control)
+        public static Ellipse CreateThreePoint(Point start, Point end, Point control) => new Ellipse
         {
-            return new Ellipse
-            {
-                Type = EllipseType.ThreePoint,
-                Start = start,
-                End = end,
-                Control = control
-            };
-        }
+            Type = EllipseType.ThreePoint,
+            Start = start,
+            End = end,
+            Control = control
+        };
 
         private Ellipse() { }
 
@@ -125,44 +115,59 @@ namespace OpenCAD.OpenCADFormat.Drawing
 
     public class Image : Shape
     {
-        public string EmbeddedResourceID;
-        public Point TopLeft;
-        public Size Size;
+        public string EmbeddedResourceID { get; private set; }
+        public Point TopLeft { get; private set; }
+        public Size Size { get; private set; }
     }
 
     public class Line : Shape
     {
-        public Point Start;
-        public Point End;
+        public Point Start { get; private set; }
+        public Point End { get; private set; }
     }
 
     public class Polyline : Shape
     {
-        public List<Point> Points;
+        public List<Point> Points { get; private set; }
     }
 
     public class Polygon : Shape
     {
-        public List<Point> Points;
+        public List<Point> Points { get; private set; }
     }
 
     public class Path : Shape
     {
-        public List<PathSegment> PathSegments;
+        public List<PathSegment> PathSegments { get; private set; }
     }
 
     public abstract class PathSegment
     {
-        public Point EndPoint;
-        public bool Relative;
+        public Point EndPoint { get; private set; }
+        public bool Relative { get; private set; }
     }
 
     public class PathArc : PathSegment
     {
-        public Size Radius;
-        public Measurement Rotation;
-        public bool LargeArcFlag;
-        public bool SweepFlag;
+        public static PathArc Create(Size radius, Measurement rotation, bool largeArcFlag, bool sweepFlag)
+        {
+            Validation.Expect(Quantities.PlaneAngle, rotation);
+
+            return new PathArc
+            {
+                Radius = radius,
+                Rotation = rotation,
+                LargeArcFlag = largeArcFlag,
+                SweepFlag = sweepFlag
+            };
+        }
+
+        private PathArc() { }
+
+        public Size Radius { get; private set; }
+        public Measurement Rotation { get; private set; }
+        public bool LargeArcFlag { get; private set; }
+        public bool SweepFlag { get; private set; }
     }
 
     public class PathCurveCubic : PathSegment
@@ -181,5 +186,36 @@ namespace OpenCAD.OpenCADFormat.Drawing
 
     public class PathPoint : PathSegment
     {
+    }
+
+    public enum RectangleType { TwoPoint, ThreePoint, Centered }
+
+    public class Rectangle : Shape
+    {
+        public static Rectangle CreateTwoPoint(Point start, Point end) => new Rectangle()
+        {
+            Start = start,
+            End = end
+        };
+
+        public static Rectangle CreateThreePoint(Point start, Point end, Point control) => new Rectangle()
+        {
+            Start = start,
+            End = end,
+            Control = control
+        };
+
+        public static Rectangle CreateCentered(Point center, Point end) => new Rectangle()
+        {
+            Center = center,
+            End = end
+        };
+
+        private Rectangle() { }
+
+        public Point Start { get; private set; }
+        public Point End { get; private set; }
+        public Point Control { get; private set; }
+        public Point Center { get; private set; }
     }
 }
