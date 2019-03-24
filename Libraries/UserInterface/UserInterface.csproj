@@ -45,33 +45,13 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Controls\DropDownButton.xaml">
+    <Page Include="ConceptUI\Controls\BackgroundProgressIndicator.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Ribbon.xaml">
+    <Page Include="ConceptUI\Controls\StatusCountDisplay.xaml">
       <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\RibbonIconItem.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\RibbonTab.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\RibbonTabSection.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <EmbeddedResource Include="Themes\Generic.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </EmbeddedResource>
-    <Page Include="Windows\OpenCADWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
+      <Generator>XamlIntelliSenseFileGenerator</Generator>
     </Page>
     <Page Include="Controls\HintTextBox.xaml">
       <SubType>Designer</SubType>
@@ -79,24 +59,12 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controls\DropDownButton.xaml.cs">
-      <DependentUpon>DropDownButton.xaml</DependentUpon>
+    <Compile Include="ConceptUI\Controls\BackgroundProgressIndicator.xaml.cs">
+      <DependentUpon>BackgroundProgressIndicator.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Ribbon.xaml.cs">
-      <DependentUpon>Ribbon.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\RibbonIconItem.xaml.cs">
-      <DependentUpon>RibbonIconItem.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\RibbonTab.xaml.cs">
-      <DependentUpon>RibbonTab.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\RibbonTabSection.xaml.cs">
-      <DependentUpon>RibbonTabSection.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Windows\OpenCADWindow.xaml.cs">
-      <DependentUpon>OpenCADWindow.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="ConceptUI\Controls\StatusCountDisplay.xaml.cs">
+		<DependentUpon>StatusCountDisplay.xaml</DependentUpon>
+	</Compile>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

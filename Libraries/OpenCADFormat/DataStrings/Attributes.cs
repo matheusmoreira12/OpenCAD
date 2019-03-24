@@ -13,14 +13,16 @@ namespace OpenCAD.OpenCADFormat.DataStrings
 
     }
 
-    [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property, AllowMultiple = false)]
+    [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property, AllowMultiple = true)]
     public sealed class FunctionAttribute : Attribute
     {
         public string FunctionName;
+        public Type Type;
 
-        public FunctionAttribute(string functionName)
+        public FunctionAttribute(string functionName, Type type)
         {
             FunctionName = functionName;
+            Type = type;
         }
     }
 

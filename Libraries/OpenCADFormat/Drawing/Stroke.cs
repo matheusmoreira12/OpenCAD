@@ -4,6 +4,9 @@ using System.Linq;
 
 namespace OpenCAD.OpenCADFormat.Drawing
 {
+    /// <summary>
+    /// Represents a draw1ing element's stroke style.
+    /// </summary>
     public class StrokeStyle
     {
         public static readonly StrokeStyle Solid = new StrokeStyle(new[] { 1 });
