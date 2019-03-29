@@ -103,8 +103,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ArbitraryValueContainer.cs" />
+    <Compile Include="Libraries\ComponentPart.cs" />
+    <Compile Include="Libraries\Footprint.cs" />
+    <Compile Include="PCBLayout\AnnotationLayer.cs" />
+    <Compile Include="PCBLayout\CopperTheevingOptions.cs" />
+    <Compile Include="PCBLayout\PCBLayout.cs" />
+    <Compile Include="PCBLayout\ThermalReliefOptions.cs" />
     <Compile Include="Conventions\Conventions.cs" />
-    <Compile Include="CoordinateSystem\CoordinateSystem.cs" />
+    <Compile Include="CoordinateSystem\Point.cs" />
+    <Compile Include="CoordinateSystem\RotateTransform.cs" />
+    <Compile Include="CoordinateSystem\Size.cs" />
+    <Compile Include="CoordinateSystem\Transform.cs" />
+    <Compile Include="CoordinateSystem\TransformList.cs" />
+    <Compile Include="CoordinateSystem\TranslateTransform.cs" />
     <Compile Include="DataConversion\DataConversion.cs" />
     <Compile Include="DataStrings\Attributes.cs" />
     <Compile Include="DataStrings\DataStringGenerator.cs" />
@@ -141,18 +152,11 @@
     <Compile Include="Fonts\Font.cs" />
     <Compile Include="Fonts\FontVariant.cs" />
     <Compile Include="Fonts\Glyph.cs" />
-    <Compile Include="Libraries\Libraries\obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
-    <Compile Include="Libraries\Libraries\obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
-    <Compile Include="Libraries\Libraries\obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
-    <Compile Include="Libraries\Libraries\obj\Release\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
-    <Compile Include="Libraries\Libraries\obj\Release\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
-    <Compile Include="Libraries\Libraries\obj\Release\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
-    <Compile Include="Libraries\Libraries\Properties\AssemblyInfo.cs" />
+    <Compile Include="Libraries\Component.cs" />
     <Compile Include="Libraries\ComponentLibrary.cs" />
     <Compile Include="Libraries\Exceptions.cs" />
     <Compile Include="Libraries\FootprintLibrary.cs" />
     <Compile Include="Libraries\Library.cs" />
-    <Compile Include="Libraries\Parameter.cs" />
     <Compile Include="Measures\Exceptions.cs" />
     <Compile Include="Measures\Measurement.cs" />
     <Compile Include="Measures\MetricPrefix.cs" />
@@ -160,8 +164,19 @@
     <Compile Include="Measures\Unit.cs" />
     <Compile Include="Measures\Utils.cs" />
     <Compile Include="Measures\Validation.cs" />
-    <Compile Include="MetaInformation\Metadata.cs" />
     <Compile Include="MetaInformation\Exceptions.cs" />
+    <Compile Include="PCBLayout\KeepoutLayer.cs" />
+    <Compile Include="PCBLayout\Layer.cs" />
+    <Compile Include="PCBLayout\MechanicalLayer.cs" />
+    <Compile Include="PCBLayout\OverlayLayer.cs" />
+    <Compile Include="PCBLayout\Pad.cs" />
+    <Compile Include="PCBLayout\PCBElement.cs" />
+    <Compile Include="PCBLayout\RoutingLayer.cs" />
+    <Compile Include="PCBLayout\SolderMaskLayer.cs" />
+    <Compile Include="PCBLayout\SolderPasteLayer.cs" />
+    <Compile Include="PCBLayout\Via.cs" />
+    <Compile Include="MetaInformation\MetadataField.cs" />
+    <Compile Include="MetaInformation\MetadataFieldCollection.cs" />
     <Compile Include="Resource1.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -172,56 +187,10 @@
     <Compile Include="SchematicCapture\Trace.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Libraries\Libraries\bin\Debug\OpenCAD.OpenCADFormat.Libraries.dll" />
-    <Content Include="Libraries\Libraries\bin\Debug\OpenCAD.OpenCADFormat.Libraries.pdb" />
-    <Content Include="Libraries\Libraries\bin\Debug\OpenCAD.OpenCADFormat.XMLBinaryEncoding.dll" />
-    <Content Include="Libraries\Libraries\bin\Debug\OpenCAD.OpenCADFormat.XMLBinaryEncoding.pdb" />
-    <Content Include="Libraries\Libraries\bin\Release\OpenCAD.OpenCADFormat.Conventions.dll" />
-    <Content Include="Libraries\Libraries\bin\Release\OpenCAD.OpenCADFormat.Conventions.pdb" />
-    <Content Include="Libraries\Libraries\bin\Release\OpenCAD.OpenCADFormat.CoordinateSystem.dll" />
-    <Content Include="Libraries\Libraries\bin\Release\OpenCAD.OpenCADFormat.CoordinateSystem.pdb" />
-    <Content Include="Libraries\Libraries\bin\Release\OpenCAD.OpenCADFormat.DataConversion.dll" />
-    <Content Include="Libraries\Libraries\bin\Release\OpenCAD.OpenCADFormat.DataConversion.pdb" />
-    <Content Include="Libraries\Libraries\bin\Release\OpenCAD.OpenCADFormat.DataStrings.dll" />
-    <Content Include="Libraries\Libraries\bin\Release\OpenCAD.OpenCADFormat.DataStrings.pdb" />
-    <Content Include="Libraries\Libraries\bin\Release\OpenCAD.OpenCADFormat.DataTypes.dll" />
-    <Content Include="Libraries\Libraries\bin\Release\OpenCAD.OpenCADFormat.DataTypes.pdb" />
-    <Content Include="Libraries\Libraries\bin\Release\OpenCAD.OpenCADFormat.Libraries.dll" />
-    <Content Include="Libraries\Libraries\bin\Release\OpenCAD.OpenCADFormat.Libraries.pdb" />
-    <Content Include="Libraries\Libraries\bin\Release\OpenCAD.OpenCADFormat.Measures.dll" />
-    <Content Include="Libraries\Libraries\bin\Release\OpenCAD.OpenCADFormat.Measures.pdb" />
-    <Content Include="Libraries\Libraries\bin\Release\OpenCAD.OpenCADFormat.SchematicCapture.dll" />
-    <Content Include="Libraries\Libraries\bin\Release\OpenCAD.OpenCADFormat.SchematicCapture.pdb" />
-    <Content Include="Libraries\Libraries\bin\Release\OpenCAD.Utils.dll" />
-    <Content Include="Libraries\Libraries\bin\Release\OpenCAD.Utils.pdb" />
-    <Content Include="Libraries\Libraries\obj\Debug\OpenCAD.OpenCADFormat.Libraries.csproj.FileListAbsolute.txt" />
-    <Content Include="Libraries\Libraries\obj\Debug\OpenCAD.OpenCADFormat.Libraries.dll" />
-    <Content Include="Libraries\Libraries\obj\Debug\OpenCAD.OpenCADFormat.Libraries.pdb" />
-    <Content Include="Libraries\Libraries\obj\Debug\OpenCAD.OpenCADFormat.XMLBinaryEncoding.csproj.FileListAbsolute.txt" />
-    <Content Include="Libraries\Libraries\obj\Debug\OpenCAD.OpenCADFormat.XMLBinaryEncoding.dll" />
-    <Content Include="Libraries\Libraries\obj\Debug\OpenCAD.OpenCADFormat.XMLBinaryEncoding.pdb" />
-    <Content Include="Libraries\Libraries\obj\Release\OpenCAD.OpenCADFormat.Libraries.csproj.FileListAbsolute.txt" />
-    <Content Include="Libraries\Libraries\obj\Release\OpenCAD.OpenCADFormat.Libraries.dll" />
-    <Content Include="Libraries\Libraries\obj\Release\OpenCAD.OpenCADFormat.Libraries.pdb" />
-    <Content Include="Libraries\Libraries\OpenCAD.OpenCADFormat.Libraries.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Libraries\Libraries\.vs\OpenCAD.OpenCADFormat.Libraries\v15\.suo" />
-    <None Include="Libraries\Libraries\obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
-    <None Include="Libraries\Libraries\obj\Debug\OpenCAD.OpenCADFormat.ComponentLibrary.csproj.CoreCompileInputs.cache" />
-    <None Include="Libraries\Libraries\obj\Debug\OpenCAD.OpenCADFormat.ComponentLibrary.csprojResolveAssemblyReference.cache" />
-    <None Include="Libraries\Libraries\obj\Debug\OpenCAD.OpenCADFormat.Libraries.csproj.CoreCompileInputs.cache" />
-    <None Include="Libraries\Libraries\obj\Debug\OpenCAD.OpenCADFormat.Libraries.csprojResolveAssemblyReference.cache" />
-    <None Include="Libraries\Libraries\obj\Debug\OpenCAD.OpenCADFormat.XMLBinaryEncoding.csproj.CoreCompileInputs.cache" />
-    <None Include="Libraries\Libraries\obj\Release\DesignTimeResolveAssemblyReferencesInput.cache" />
-    <None Include="Libraries\Libraries\obj\Release\OpenCAD.OpenCADFormat.Libraries.csproj.CopyComplete" />
-    <None Include="Libraries\Libraries\obj\Release\OpenCAD.OpenCADFormat.Libraries.csproj.CoreCompileInputs.cache" />
-    <None Include="Libraries\Libraries\obj\Release\OpenCAD.OpenCADFormat.Libraries.csprojResolveAssemblyReference.cache" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Libraries\Libraries\obj\Debug\TempPE\" />
-    <Folder Include="Libraries\Libraries\obj\Release\TempPE\" />
+    <Folder Include="ReferencingSystem\" />
     <Folder Include="Resources\Shared\" />
   </ItemGroup>
   <ItemGroup>

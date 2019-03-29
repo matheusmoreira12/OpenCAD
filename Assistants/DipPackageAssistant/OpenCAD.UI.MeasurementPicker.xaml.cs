@@ -16,10 +16,7 @@ namespace OpenCAD.UI
             if (value == null)
                 return DependencyProperty.UnsetValue;
 
-            Measurement input = value as Measurement;
-
-            if (input == null)
-                return DependencyProperty.UnsetValue;
+            Measurement input = (Measurement)value;
 
             return input.ToString();
         }
@@ -63,7 +60,7 @@ namespace OpenCAD.UI
         {
             IsDropDownOpen = true;
 
-            SelectionPopup.Focus();
+            //SelectionPopup.Focus();
         }
 
         protected void CloseDropDown() => IsDropDownOpen = false;

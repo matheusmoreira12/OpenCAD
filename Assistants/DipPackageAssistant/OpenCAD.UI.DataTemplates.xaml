@@ -14,10 +14,8 @@
     <DataTemplate x:Key="MeasuresMeasurementDataTemplate" DataType="{x:Type measures:Measurement}">
         <WrapPanel ToolTip="{Binding Name}">
             <TextBlock Text="{Binding Amount}"/>
-            <TextBlock Text="{Binding Prefix.UISymbol}"
-                       FontWeight="Bold"/>
-            <TextBlock Text="{Binding Unit.UISymbol}"
-                       FontWeight="Bold"/>
+            <TextBlock Text="{Binding Prefix.UISymbol}"/>
+            <TextBlock Text="{Binding Unit.UISymbol}"/>
         </WrapPanel>
     </DataTemplate>
 </ResourceDictionary>

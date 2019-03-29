@@ -13,9 +13,5 @@
     </Style>
 
     <Style TargetType="local:MeasurementPicker">
-        <Setter Property="Background" Value="White"/>
-        <Setter Property="BorderBrush" Value="Gray"/>
-        <Setter Property="BorderThickness" Value="1"/>
-        <Setter Property="Foreground" Value="Black"/>
     </Style>
 </ResourceDictionary>

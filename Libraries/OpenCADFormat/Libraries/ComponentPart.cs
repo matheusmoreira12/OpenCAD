@@ -6,23 +6,25 @@ using OpenCAD.OpenCADFormat.MetaInformation;
 namespace OpenCAD.OpenCADFormat.Libraries
 {
     [Serializable]
-    public abstract class Library
+    public class ComponentPart
     {
         [XmlAttribute]
         public string Name = "*";
-
-        [XmlAttribute]
-        public string Description = "*";
 
         [XmlArray()]
         [XmlArrayItem("Field")]
         public MetadataFieldCollection Metadata;
 
-        public Library()
+        [XmlElement]
+        public SchematicCapture.SchematicCapture Symbol;
+
+        public ComponentPart()
         {
             Metadata = new MetadataFieldCollection {
                 new MetadataField{ Name = "Comment", Value = "" },
             };
+
+            Symbol = new SchematicCapture.SchematicCapture();
         }
     }
 }

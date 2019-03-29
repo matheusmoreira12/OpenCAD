@@ -10,8 +10,9 @@ namespace OpenCAD.OpenCADFormat.Fonts.DocumentStandard
     [Serializable]
     public class Document
     {
-        [XmlElement("Metadata")]
-        public Metadata Metadata;
+        [XmlArray()]
+        [XmlArrayItem("Field")]
+        public MetadataFieldCollection Metadata;
 
         [XmlElement("Variant")]
         public List<Font> Font;

@@ -1,9 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 using System.Xml.Serialization;
 
 namespace OpenCAD.OpenCADFormat.Libraries
@@ -12,20 +8,8 @@ namespace OpenCAD.OpenCADFormat.Libraries
     [XmlRoot]
     public class FootprintLibrary: Library
     {
-
-        [Serializable]
-        public class Footprint
-        {
-            [XmlArray]
-            [XmlArrayItem(ElementName = "Parameter")]
-            public ParameterList Parameters;
-
-            /*[XmlElement]
-            public BoardLayout Layout;*/
-        }
-
         [XmlArray]
-        [XmlArrayItem(ElementName = "Footprint")]
+        [XmlArrayItem("Footprint")]
         public List<Footprint> Footprints;
 
         public FootprintLibrary()

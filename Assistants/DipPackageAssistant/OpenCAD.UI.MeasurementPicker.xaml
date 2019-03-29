@@ -7,57 +7,22 @@
              xmlns:measures="clr-namespace:OpenCAD.OpenCADFormat.Measures;assembly=OpenCAD.OpenCADFormat"
              mc:Ignorable="d"
              Name="measurementPicker"
-             d:DesignHeight="21" d:DesignWidth="90" Focusable="True"
-             ToolTip="{Binding Selection.Name, ElementName=measurementPicker}">
-    <Control.Resources>
-        <local:MeasurementToStringConverter x:Key="measurementToString"/>
-        <BooleanToVisibilityConverter x:Key="booleanToVisibility"/>
-    </Control.Resources>
-
-    <Grid>
-        <ToggleButton Name="DropDownToggle"
-                      IsChecked="{Binding IsDropDownOpen, ElementName=measurementPicker}"
-                      Style="{StaticResource DropDownToggleButtonStyle}">
-            <Image/>
-        </ToggleButton>
-
-        <ContentPresenter Margin="1 1 17 1" Content="{Binding Selection, ElementName=measurementPicker}"
-                          ContentTemplate="{StaticResource MeasuresMeasurementDataTemplate}"
-                          IsHitTestVisible="False"/>
-
-        <TextBox Name="PlainTextText"
-                 Text="{Binding Selection, Converter={StaticResource measurementToString}, UpdateSourceTrigger=PropertyChanged, ElementName=measurementPicker}"
-                 Margin="0 0 17 0"
-                 FontFamily="Courier New"
-                 Visibility="{Binding IsCodeEditingVisible, Converter={StaticResource booleanToVisibility}, ElementName=measurementPicker}" LostFocus="PlainTextText_LostFocus" KeyDown="PlainTextText_KeyDown"/>
-
-        <Popup Name="SelectionPopup" Placement="Bottom" StaysOpen="False"
-               IsOpen="{Binding IsDropDownOpen, ElementName=measurementPicker}">
-            <Border Name="PopupBorder"
-                    Background="{Binding Background, ElementName=measurementPicker}"
-                    BorderBrush="{Binding BorderBrush, ElementName=measurementPicker}"
-                    BorderThickness="{Binding BorderThickness, ElementName=measurementPicker}"
-                    Padding="5">
-                <WrapPanel>
-                    <local:NumberTextBox Grid.Column="0" 
-                                    x:Name="TextAmount"
-                                    Text="{Binding SelectedAmount, ElementName=measurementPicker}"
-                                    Width="80"/>
-                    <ComboBox Grid.Column="1" 
-                        Name="PrefixesCombo"
-                        ItemsSource="{x:Static measures:MetricPrefixes.SupportedPrefixes}"
-                        SelectedItem="{Binding SelectedPrefix, ElementName=measurementPicker}"
-                        ItemTemplate="{StaticResource MeasuresMetricPrefixDataTemplate}"
-                        Visibility="{Binding IsMetricPrefixVisible, Converter={StaticResource booleanToVisibility}, ElementName=measurementPicker}"
-                        Width="40"/>
-                    <ComboBox Grid.Column="2" 
-                        Name="UnitsList"
-                        ItemsSource="{x:Static measures:Units.SupportedUnits}"
-                        SelectedItem="{Binding SelectedUnit, ElementName=measurementPicker}"
-                        ItemTemplate="{StaticResource MeasuresUnitDataTemplate}"
-                        Width="40"/>
-                </WrapPanel>
-            </Border>
-        </Popup>
-    </Grid>
+             d:DesignHeight="21" d:DesignWidth="90" Focusable="True">
+    <Border CornerRadius="3" ClipToBounds="True" 
+            BorderBrush="DimGray" BorderThickness="1" Background="White">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            
+            <TextBox Grid.Column="0" Name="TxtAmount" 
+                     Text="100"
+                     Background="Transparent" BorderBrush="Transparent"/>
+            <TextBlock Grid.Column="1"
+                       Text="mm"
+                       Foreground="DimGray"/>
+        </Grid>
+    </Border>
 </UserControl>

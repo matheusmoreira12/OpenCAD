@@ -101,9 +101,9 @@ namespace OpenCAD.OpenCADFormat.Measures
         }
 
         public override string ToString() => $"{Amount.ToString(Conventions.STANDARD_CULTURE)}{Prefix?.Symbol}" +
-            $"{Unit.Symbol}";
+            $"{Unit?.Symbol}";
         public string ToUIString() => $"{Amount.ToString(Conventions.STANDARD_CULTURE)}{Prefix?.UISymbol}" +
-            $"{Unit.UISymbol}";
+            $"{Unit?.UISymbol}";
 
         public Measurement ConvertToUnit(Unit outUnit)
         {
