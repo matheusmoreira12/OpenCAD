@@ -1,13 +1,10 @@
-﻿using OpenCAD.OpenCADFormat.Measures;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 using System.Xml.Serialization;
+using OpenCAD.OpenCADFormat.Measures;
 
 namespace OpenCAD.OpenCADFormat.PCBLayout
 {
+    [Serializable]
     public class RoutingLayer: Layer
     {
         [XmlAttribute]
@@ -17,6 +14,6 @@ namespace OpenCAD.OpenCADFormat.PCBLayout
         public ThermalReliefOptions ThermalRelief;
 
         [XmlElement]
-        public CopperTheevingOptions CopperTheeving;
+        public CopperThievingOptions CopperTheeving;
     }
 }

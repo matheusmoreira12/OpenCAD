@@ -5,6 +5,8 @@ namespace OpenCAD.OpenCADFormat.CoordinateSystem
 {
     public struct Size
     {
+        public static readonly Size Zero = new Size(Measurement.Zero, Measurement.Zero);
+
         public static Size Add(Size a, Size b) => new Size(a.Width + b.Width, a.Height + b.Height);
         public static Size Subtract(Size a, Size b) => new Size(a.Width - b.Width, a.Height - b.Height);
         public static Size Divide(Size a, double b) => new Size(a.Width / b, a.Height / b);

@@ -1,11 +1,13 @@
 ﻿using System;
-
+using System.Xml.Serialization;
 using OpenCAD.OpenCADFormat.Measures;
 
 namespace OpenCAD.OpenCADFormat.CoordinateSystem
 {
     public struct Point
     {
+        public static readonly Point Zero = new Point(Measurement.Zero, Measurement.Zero);
+
         public static Size Subtract(Point a, Point b) => new Size(a.X - b.X, a.Y - b.Y);
         public static Point Subtract(Point a, Size b) => new Point(a.X - b.Width, a.Y - b.Height);
         public static Point Negate(Point a) => new Point(-a.X, -a.Y);
@@ -53,12 +55,10 @@ namespace OpenCAD.OpenCADFormat.CoordinateSystem
 
         public Size ConvertTo(Unit unit) => new Size(X.ConvertToUnit(unit), Y.ConvertToUnit(unit));
 
-        public override string ToString()
-        {
-            return $"({X}, {Y})";
-        }
-
+        [XmlAttribute]
         public Measurement X { get; set; }
+
+        [XmlAttribute]
         public Measurement Y { get; set; }
     }
 }

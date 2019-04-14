@@ -1,15 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Media;
+﻿using System.Collections.Generic;
 using System.Xml.Serialization;
+
+using OpenCAD.OpenCADFormat.CoordinateSystem;
 
 namespace OpenCAD.OpenCADFormat.PCBLayout
 {
     public class PCBLayout
     {
+        [XmlAttribute]
+        public Point Origin = Point.Zero;
+
         [XmlElement(typeof(MechanicalLayer))]
         [XmlElement(typeof(KeepoutLayer))]
         [XmlElement(typeof(RoutingLayer))]
@@ -17,6 +17,10 @@ namespace OpenCAD.OpenCADFormat.PCBLayout
         [XmlElement(typeof(SolderMaskLayer))]
         [XmlElement(typeof(SolderPasteLayer))]
         public List<Layer> Layers;
+
+        [XmlElement(typeof(Pad))]
+        [XmlElement(typeof(Via))]
+        public List<PCBElement> Elements;
 
         public PCBLayout()
         {
@@ -33,6 +37,8 @@ namespace OpenCAD.OpenCADFormat.PCBLayout
                 new SolderMaskLayer(){ Name = "BottomSolderMaskLayer", StackupOrder = -3 },
                 new OverlayLayer(){ Name = "BottomOverlayLayer", StackupOrder = -4 },
             };
+
+            Elements = new List<PCBElement> ();
         }
     }
 }

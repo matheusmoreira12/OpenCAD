@@ -1,6 +1,6 @@
 ﻿namespace OpenCAD.OpenCADFormat.Measures
 {
-    static class Validation
+    public static class Validation
     {
         public static void Expect(Quantity expected, Quantity actual)
         {
@@ -20,7 +20,7 @@
         {
             if (measurement == null) return;
 
-            Expect(expectedQuantity, measurement.Unit.Quantity);
+            Expect(expectedQuantity, measurement.Unit);
         }
     }
 }

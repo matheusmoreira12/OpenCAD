@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
-
+using OpenCAD.OpenCADFormat.CoordinateSystem;
+using OpenCAD.OpenCADFormat.Drawing;
 using OpenCAD.OpenCADFormat.MetaInformation;
 
 namespace OpenCAD.OpenCADFormat.Libraries
@@ -19,7 +20,7 @@ namespace OpenCAD.OpenCADFormat.Libraries
         public string Value = "*?";
 
         [XmlArray()]
-        [XmlArrayItem("Parameter")]
+        [XmlArrayItem("Field")]
         public MetadataFieldCollection Metadata;
 
         [XmlArray]
