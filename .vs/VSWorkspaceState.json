@@ -2,9 +2,13 @@
   "ExpandedNodes": [
     "",
     "\\Assistants",
-    "\\Assistants\\DipPackageAssistant",
-    "\\Libraries"
+    "\\Libraries",
+    "\\Libraries\\OpenCADFormat",
+    "\\Libraries\\OpenCADFormat\\Libraries",
+    "\\Libraries\\OpenCADFormat\\PCBLayout",
+    "\\Libraries\\OpenCADFormat\\Resources\\Shared",
+    "\\Libraries\\OpenCADFormat\\SchematicCapture"
   ],
-  "SelectedNode": "\\Assistants\\DipPackageAssistant\\DipPackageAssistant.sln",
+  "SelectedNode": "\\Libraries\\OpenCADFormat\\OpenCADFormat.sln",
   "PreviewInSolutionExplorer": false
 }

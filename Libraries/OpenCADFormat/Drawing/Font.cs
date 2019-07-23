@@ -1,9 +1,8 @@
 ﻿using OpenCAD.OpenCADFormat.Measures;
-using System;
 
 namespace OpenCAD.OpenCADFormat.Drawing
 {
-    public enum TextDecoration { None = 0, Underline = 1, Overline = 2, StrikeThrough = 4, Emphasis = 8 }
+    public enum TextDecoration { None = 0, Underline = 1, Overline = 2, StrikeThrough = 4 }
 
     public enum TextAlignment { Leading, Middle, Trailing }
 
@@ -25,8 +24,6 @@ namespace OpenCAD.OpenCADFormat.Drawing
             Weight = weight;
             Style = style;
         }
-
-        public Font() { }
 
         public string Family { get; private set; }
         public FontWeight Weight { get; private set; }

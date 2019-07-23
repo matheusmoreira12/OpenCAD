@@ -24,18 +24,17 @@ namespace OpenCAD.OpenCADFormat.Drawing
         internal void UnsetParent() => Parent = null;
 
         [XmlElement("SemiBold", typeof(TextSemiBoldElement))]
-        [XmlElement("b", typeof(TextBoldElement))]
+        [XmlElement("Bold", typeof(TextBoldElement))]
         [XmlElement("Black", typeof(TextBlackElement))]
-        [XmlElement("l", typeof(TextLightElement))]
-        [XmlElement("i", typeof(TextItalicElement))]
+        [XmlElement("Light", typeof(TextLightElement))]
+        [XmlElement("Italic", typeof(TextItalicElement))]
         [XmlElement("Oblique", typeof(TextObliqueElement))]
-        [XmlElement("u", typeof(TextUnderlineElement))]
-        [XmlElement("s", typeof(TextStrikeThroughElement))]
+        [XmlElement("Underline", typeof(TextUnderlineElement))]
+        [XmlElement("StrikeThrough", typeof(TextStrikeThroughElement))]
         [XmlElement("Overline", typeof(TextOverlineElement))]
-        [XmlElement("Emphasis", typeof(TextEmphasisElement))]
-        [XmlElement("sub", typeof(TextSubscriptElement))]
-        [XmlElement("sup", typeof(TextSuperscriptElement))]
-        [XmlElement("font", typeof(TextFontElement))]
+        [XmlElement("Subscript", typeof(TextSubscriptElement))]
+        [XmlElement("Superscript", typeof(TextSuperscriptElement))]
+        [XmlElement("Font", typeof(TextFontElement))]
         [XmlText(typeof(string))]
         public TextElementCollection Children;
 
@@ -63,11 +62,11 @@ namespace OpenCAD.OpenCADFormat.Drawing
     }
 
     [Serializable]
-    public class TextFormat : TextElement
+    public class TextFormatElement : TextElement
     {
-        public TextFormat() { }
+        public TextFormatElement() { }
 
-        public TextFormat(IList<object> children) : base(children) { }
+        public TextFormatElement(IList<object> children) : base(children) { }
 
         public TextSemiBoldElement GetSemiBold() => new TextSemiBoldElement(Children);
         public TextBoldElement GetBold() => new TextBoldElement(Children);
@@ -77,7 +76,6 @@ namespace OpenCAD.OpenCADFormat.Drawing
         public TextObliqueElement GetOblique() => new TextObliqueElement(Children);
         public TextUnderlineElement GetUnderline() => new TextUnderlineElement(Children);
         public TextOverlineElement GetOverline() => new TextOverlineElement(Children);
-        public TextEmphasisElement GetEmphasis() => new TextEmphasisElement(Children);
         public TextSuperscriptElement GetSuperscript() => new TextSuperscriptElement(Children);
         public TextSubscriptElement GetSubscript() => new TextSubscriptElement(Children);
 
@@ -89,7 +87,7 @@ namespace OpenCAD.OpenCADFormat.Drawing
     }
 
     [Serializable]
-    public class TextLightElement : TextFormat
+    public class TextLightElement : TextFormatElement
     {
         public TextLightElement() { }
 
@@ -97,7 +95,7 @@ namespace OpenCAD.OpenCADFormat.Drawing
     }
 
     [Serializable]
-    public class TextSemiBoldElement : TextFormat
+    public class TextSemiBoldElement : TextFormatElement
     {
         public TextSemiBoldElement() { }
 
@@ -105,7 +103,7 @@ namespace OpenCAD.OpenCADFormat.Drawing
     }
 
     [Serializable]
-    public class TextBoldElement : TextFormat
+    public class TextBoldElement : TextFormatElement
     {
         public TextBoldElement() { }
 
@@ -113,7 +111,7 @@ namespace OpenCAD.OpenCADFormat.Drawing
     }
 
     [Serializable]
-    public class TextBlackElement : TextFormat
+    public class TextBlackElement : TextFormatElement
     {
         public TextBlackElement() { }
 
@@ -121,7 +119,7 @@ namespace OpenCAD.OpenCADFormat.Drawing
     }
 
     [Serializable]
-    public class TextItalicElement : TextFormat
+    public class TextItalicElement : TextFormatElement
     {
         public TextItalicElement() { }
 
@@ -129,7 +127,7 @@ namespace OpenCAD.OpenCADFormat.Drawing
     }
 
     [Serializable]
-    public class TextObliqueElement : TextFormat
+    public class TextObliqueElement : TextFormatElement
     {
         public TextObliqueElement() { }
 
@@ -137,7 +135,7 @@ namespace OpenCAD.OpenCADFormat.Drawing
     }
 
     [Serializable]
-    public class TextUnderlineElement : TextFormat
+    public class TextUnderlineElement : TextFormatElement
     {
         public TextUnderlineElement() { }
 
@@ -145,7 +143,7 @@ namespace OpenCAD.OpenCADFormat.Drawing
     }
 
     [Serializable]
-    public class TextStrikeThroughElement : TextFormat
+    public class TextStrikeThroughElement : TextFormatElement
     {
         public TextStrikeThroughElement() { }
 
@@ -153,7 +151,7 @@ namespace OpenCAD.OpenCADFormat.Drawing
     }
 
     [Serializable]
-    public class TextOverlineElement : TextFormat
+    public class TextOverlineElement : TextFormatElement
     {
         public TextOverlineElement() { }
 
@@ -161,15 +159,7 @@ namespace OpenCAD.OpenCADFormat.Drawing
     }
 
     [Serializable]
-    public class TextEmphasisElement : TextFormat
-    {
-        public TextEmphasisElement() { }
-
-        public TextEmphasisElement(IList<object> children) : base(children) { }
-    }
-
-    [Serializable]
-    public class TextSuperscriptElement : TextFormat
+    public class TextSuperscriptElement : TextFormatElement
     {
         public TextSuperscriptElement() { }
 
@@ -177,7 +167,7 @@ namespace OpenCAD.OpenCADFormat.Drawing
     }
 
     [Serializable]
-    public class TextSubscriptElement : TextFormat
+    public class TextSubscriptElement : TextFormatElement
     {
         public TextSubscriptElement() { }
 
@@ -185,7 +175,7 @@ namespace OpenCAD.OpenCADFormat.Drawing
     }
 
     [Serializable]
-    public class TextFontElement : TextFormat
+    public class TextFontElement : TextFormatElement
     {
         public TextFontElement() { }
 
@@ -194,12 +184,8 @@ namespace OpenCAD.OpenCADFormat.Drawing
         [XmlAttribute]
         public string Family = null;
 
-        public bool ShouldSerializeFamily => Family == default(string);
-
         [XmlAttribute]
-        public Measurement Height;
-
-        public bool ShouldSerializeHeight => Height == default(Measurement);
+        public Measurement? Height = null;
     }
 
     [Serializable]
@@ -215,13 +201,9 @@ namespace OpenCAD.OpenCADFormat.Drawing
         protected override bool ShouldCollapse => false;
 
         [XmlAttribute]
-        public TextAlignment Alignment = default(TextAlignment);
-
-        public bool ShouldSerializeAlignment() => Alignment != default(TextAlignment);
+        public TextAlignment? Alignment = null;
 
         [XmlAttribute]
-        public TextAlignment VerticalAlignment = default(TextAlignment);
-
-        public bool ShouldSerializeVerticalAlignment() => Alignment != default(TextAlignment);
+        public TextAlignment? VerticalAlignment = null;
     }
 }

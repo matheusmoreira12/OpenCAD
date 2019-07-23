@@ -15,9 +15,6 @@ namespace OpenCAD.OpenCADFormat.PCBLayout
         public string Name;
 
         [XmlAttribute]
-        public int StackupOrder;
-
-        [XmlAttribute]
         public Color UIColor;
     }
 }

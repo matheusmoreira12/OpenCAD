@@ -27,7 +27,7 @@ namespace OpenCAD.OpenCADFormat.CoordinateSystem
         public Size ConvertTo(Unit unit) => new Size(Width.ConvertToUnit(unit),
             Height.ConvertToUnit(unit));
 
-        public Measurement Width { get; set; }
-        public Measurement Height { get; set; }
+        public Measurement Width { get; }
+        public Measurement Height { get; }
     }
 }

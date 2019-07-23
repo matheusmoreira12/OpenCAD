@@ -17,7 +17,7 @@ namespace OpenCAD.OpenCADFormat.Libraries
         public string Name = "*?";
 
         [XmlAttribute]
-        public string Value = "*?";
+        public string Value = "*";
 
         [XmlArray()]
         [XmlArrayItem("Field")]

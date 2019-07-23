@@ -109,10 +109,13 @@
     <Compile Include="Libraries\ComponentPinCollection.cs" />
     <Compile Include="Libraries\ComponentPinPolarity.cs" />
     <Compile Include="Libraries\ComponentPinType.cs" />
+    <Compile Include="Libraries\ComponentSymbol.cs" />
     <Compile Include="Libraries\Footprint.cs" />
     <Compile Include="PCBLayout\AnnotationLayer.cs" />
     <Compile Include="PCBLayout\CopperThievingOptions.cs" />
     <Compile Include="PCBLayout\DefaultValues.cs" />
+    <Compile Include="PCBLayout\KeepoutLayer.cs" />
+    <Compile Include="PCBLayout\Layer.cs" />
     <Compile Include="PCBLayout\PCBLayout.cs" />
     <Compile Include="PCBLayout\ThermalReliefOptions.cs" />
     <Compile Include="Conventions\Conventions.cs" />
@@ -171,8 +174,6 @@
     <Compile Include="Measures\Utils.cs" />
     <Compile Include="Measures\Validation.cs" />
     <Compile Include="MetaInformation\Exceptions.cs" />
-    <Compile Include="PCBLayout\KeepoutLayer.cs" />
-    <Compile Include="PCBLayout\Layer.cs" />
     <Compile Include="PCBLayout\MechanicalLayer.cs" />
     <Compile Include="PCBLayout\OverlayLayer.cs" />
     <Compile Include="PCBLayout\Pad.cs" />
@@ -180,14 +181,16 @@
     <Compile Include="PCBLayout\RoutingLayer.cs" />
     <Compile Include="PCBLayout\SolderMaskLayer.cs" />
     <Compile Include="PCBLayout\SolderPasteLayer.cs" />
-    <Compile Include="PCBLayout\Via.cs" />
     <Compile Include="MetaInformation\MetadataField.cs" />
     <Compile Include="MetaInformation\MetadataFieldCollection.cs" />
+    <Compile Include="PCBLayout\Via.cs" />
     <Compile Include="Resource1.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resource1.resx</DependentUpon>
     </Compile>
+    <Compile Include="SchematicCapture\Net.cs" />
+    <Compile Include="SchematicCapture\RatsNest.cs" />
     <Compile Include="SchematicCapture\SchematicCapture.cs" />
     <Compile Include="Drawing\DrawingElement.cs" />
     <Compile Include="SchematicCapture\Trace.cs" />

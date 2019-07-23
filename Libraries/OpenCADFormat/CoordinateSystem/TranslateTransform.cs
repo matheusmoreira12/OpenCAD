@@ -2,7 +2,7 @@
 {
     public class TranslateTransform : Transform
     {
-        public Point Offset { get; private set; }
+        public Point Offset { get; }
 
         public TranslateTransform(Point offset)
         {

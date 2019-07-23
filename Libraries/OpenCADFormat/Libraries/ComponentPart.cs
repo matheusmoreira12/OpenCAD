@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Xml.Serialization;
-using OpenCAD.OpenCADFormat.Drawing;
 using OpenCAD.OpenCADFormat.MetaInformation;
 
 namespace OpenCAD.OpenCADFormat.Libraries
@@ -17,13 +15,7 @@ namespace OpenCAD.OpenCADFormat.Libraries
         public MetadataFieldCollection Metadata;
 
         [XmlElement]
-        public DrawingGroup Drawing;
-
-        [XmlElement]
-        public ComponentPinCollection Pins;
-
-        [XmlElement]
-        public SchematicCapture.SchematicCapture Symbol;
+        public ComponentSymbol Symbol;
 
         public ComponentPart()
         {
@@ -31,7 +23,7 @@ namespace OpenCAD.OpenCADFormat.Libraries
                 new MetadataField{ Name = "Comment", Value = "" },
             };
 
-            Symbol = new SchematicCapture.SchematicCapture();
+            Symbol = new ComponentSymbol();
         }
     }
 }

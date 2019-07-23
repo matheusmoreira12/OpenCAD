@@ -5,8 +5,8 @@ namespace OpenCAD.OpenCADFormat.CoordinateSystem
 {
     public class RotateTransform : Transform
     {
-        public Point Center { get; private set; }
-        public Measurement Angle { get; private set; }
+        public Point Center { get; }
+        public Measurement Angle { get; }
 
         public RotateTransform(Point center, Measurement angle)
         {

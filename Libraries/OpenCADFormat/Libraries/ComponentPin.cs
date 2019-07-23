@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OpenCAD.OpenCADFormat.CoordinateSystem;
+using System;
 using System.Xml.Serialization;
 
 namespace OpenCAD.OpenCADFormat.Libraries
@@ -14,6 +15,9 @@ namespace OpenCAD.OpenCADFormat.Libraries
 
         [XmlAttribute]
         public ComponentPinPolarity Polarity;
+
+        [XmlAttribute]
+        public Point Placement;
 
         [XmlAttribute]
         public string ConnectedPadName;

@@ -55,10 +55,8 @@ namespace OpenCAD.OpenCADFormat.CoordinateSystem
 
         public Size ConvertTo(Unit unit) => new Size(X.ConvertToUnit(unit), Y.ConvertToUnit(unit));
 
-        [XmlAttribute]
-        public Measurement X { get; set; }
+        public Measurement X { get; }
 
-        [XmlAttribute]
-        public Measurement Y { get; set; }
+        public Measurement Y { get; }
     }
 }

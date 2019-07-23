@@ -5,6 +5,11 @@ namespace OpenCAD.OpenCADFormat.Drawing
 {
     public class Polyline : Shape
     {
-        public List<Point> Points { get; private set; }
+        public List<Point> Points;
+
+        protected Polyline()
+        {
+            Points = new List<Point>();
+        }
     }
 }
