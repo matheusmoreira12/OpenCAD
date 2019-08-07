@@ -6,9 +6,9 @@ namespace OpenCAD.OpenCADFormat.CoordinateSystem
     public class RotateTransform : Transform
     {
         public Point Center { get; }
-        public Measurement Angle { get; }
+        public Scalar Angle { get; }
 
-        public RotateTransform(Point center, Measurement angle)
+        public RotateTransform(Point center, Scalar angle)
         {
             Validation.Expect(Quantities.PlaneAngle, angle);
 

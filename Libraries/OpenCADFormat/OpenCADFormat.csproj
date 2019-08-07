@@ -111,11 +111,15 @@
     <Compile Include="Libraries\ComponentPinType.cs" />
     <Compile Include="Libraries\ComponentSymbol.cs" />
     <Compile Include="Libraries\Footprint.cs" />
+    <Compile Include="Measures\Quantities.cs" />
+    <Compile Include="Measures\Scalar.cs" />
+    <Compile Include="Measures\Units.cs" />
     <Compile Include="PCBLayout\AnnotationLayer.cs" />
     <Compile Include="PCBLayout\CopperThievingOptions.cs" />
     <Compile Include="PCBLayout\DefaultValues.cs" />
     <Compile Include="PCBLayout\KeepoutLayer.cs" />
     <Compile Include="PCBLayout\Layer.cs" />
+    <Compile Include="PCBLayout\LayerStackup.cs" />
     <Compile Include="PCBLayout\PCBLayout.cs" />
     <Compile Include="PCBLayout\ThermalReliefOptions.cs" />
     <Compile Include="Conventions\Conventions.cs" />
@@ -167,7 +171,6 @@
     <Compile Include="Libraries\FootprintLibrary.cs" />
     <Compile Include="Libraries\Library.cs" />
     <Compile Include="Measures\Exceptions.cs" />
-    <Compile Include="Measures\Measurement.cs" />
     <Compile Include="Measures\MetricPrefix.cs" />
     <Compile Include="Measures\Quantity.cs" />
     <Compile Include="Measures\Unit.cs" />

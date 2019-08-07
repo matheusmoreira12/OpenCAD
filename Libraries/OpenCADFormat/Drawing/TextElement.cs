@@ -79,7 +79,7 @@ namespace OpenCAD.OpenCADFormat.Drawing
         public TextSuperscriptElement GetSuperscript() => new TextSuperscriptElement(Children);
         public TextSubscriptElement GetSubscript() => new TextSubscriptElement(Children);
 
-        public TextFontElement ChangeFont(string family, Measurement height) => new TextFontElement(Children)
+        public TextFontElement ChangeFont(string family, Scalar height) => new TextFontElement(Children)
         {
             Family = family,
             Height = height
@@ -185,7 +185,7 @@ namespace OpenCAD.OpenCADFormat.Drawing
         public string Family = null;
 
         [XmlAttribute]
-        public Measurement? Height = null;
+        public Scalar? Height = null;
     }
 
     [Serializable]

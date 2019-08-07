@@ -24,8 +24,8 @@ namespace OpenCAD.OpenCADFormat.Drawing
             Control = control
         };
 
-        public static Arc CreateCenteredStartSweepAngle(Point center, Size radius, Measurement rotation,
-            Measurement startAngle, Measurement sweepAngle)
+        public static Arc CreateCenteredStartSweepAngle(Point center, Size radius, Scalar rotation,
+            Scalar startAngle, Scalar sweepAngle)
         {
             Validation.Expect(Quantities.PlaneAngle, rotation);
 
@@ -48,8 +48,8 @@ namespace OpenCAD.OpenCADFormat.Drawing
         public Point Control { get; private set; }
         public Point Center { get; private set; }
         public Size Radius { get; private set; }
-        public Measurement Rotation { get; private set; }
-        public Measurement StartAngle { get; private set; }
-        public Measurement SweepAngle { get; private set; }
+        public Scalar Rotation { get; private set; }
+        public Scalar StartAngle { get; private set; }
+        public Scalar SweepAngle { get; private set; }
     }
 }

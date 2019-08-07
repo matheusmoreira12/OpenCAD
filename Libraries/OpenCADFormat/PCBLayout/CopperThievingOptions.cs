@@ -11,7 +11,7 @@ namespace OpenCAD.OpenCADFormat.PCBLayout
         public CopperThievingPatternType PatternType = DefaultValues.COPPER_THIEVING_PATTERN_TYPE;
 
         [XmlAttribute]
-        public Measurement PatternSize = DefaultValues.COPPER_THIEVING_PATTERN_SIZE;
+        public Scalar PatternSize = DefaultValues.COPPER_THIEVING_PATTERN_SIZE;
 
         [XmlAttribute]
         public double PatternDensity = DefaultValues.COPPER_THIEVING_PATTERN_DENSITY;

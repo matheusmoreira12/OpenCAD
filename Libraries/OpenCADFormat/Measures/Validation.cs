@@ -16,7 +16,7 @@
             Expect(expectedQuantity, unit.Quantity);
         }
 
-        public static void Expect(Quantity expectedQuantity, Measurement measurement)
+        public static void Expect(Quantity expectedQuantity, Scalar measurement)
         {
             if (measurement == null) return;
 

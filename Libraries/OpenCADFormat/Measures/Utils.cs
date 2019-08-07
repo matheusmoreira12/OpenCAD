@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace OpenCAD.OpenCADFormat.Measures
@@ -7,10 +8,10 @@ namespace OpenCAD.OpenCADFormat.Measures
     {
         public static double GetMetricPrefixValue(MetricPrefix prefix) => prefix == null ? 1 : prefix.Multiplier;
 
-        public static double GetAbsoluteAmount(Measurement measurement)
+        public static double GetAbsoluteAmount(Scalar measurement)
             => measurement.Unit.StandardAmount * measurement.Amount;
 
-        public static double ConvertAmount(Measurement measurement, Unit outUnit) => GetAbsoluteAmount(measurement)
+        public static double ConvertAmount(Scalar measurement, Unit outUnit) => GetAbsoluteAmount(measurement)
             / outUnit.StandardAmount;
 
         public static IEnumerable<(Unit, MetricPrefix)> GetSupportedUnitsAndPrefixes()
@@ -41,6 +42,13 @@ namespace OpenCAD.OpenCADFormat.Measures
 
             throw new KeyNotFoundException("Unable to parse unit and prefix. The provided unit/prefix string" +
                 " has no matches.");
+        }
+
+        internal static Quantity FindEquivalentQuantity(Unit unit)
+        {
+            ///TODO: implement equivalency between quantities and selection logic
+
+            return null;
         }
     }
 }

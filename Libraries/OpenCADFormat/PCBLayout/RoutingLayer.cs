@@ -8,7 +8,7 @@ namespace OpenCAD.OpenCADFormat.PCBLayout
     public class RoutingLayer: Layer
     {
         [XmlAttribute]
-        public Measurement CopperPullBack;
+        public Scalar CopperPullBack;
 
         [XmlElement]
         public ThermalReliefOptions ThermalRelief;

@@ -1,175 +1,95 @@
-﻿using System;
+﻿using OpenCAD.Utils;
+using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
-using System.Runtime.CompilerServices;
+using System.Text;
 
 namespace OpenCAD.OpenCADFormat.Measures
 {
-    public class Unit : IDisposable
+    public class Unit
     {
-        public Unit BaseUnit { get; private set; }
+        static Unit Derive(string name, Unit original, double conversionAmount, string symbol, string uiSymbol = null, bool isMetric = true) =>
+            new Unit(name, original.Quantity, original.StandardAmount * conversionAmount, symbol, uiSymbol, isMetric);
 
-        private double conversionFactor;
+        static Unit Exponentiate(Unit unit, double exponent) => new ExponentiatedUnit(unit, exponent);
 
-        public Quantity Quantity => BaseUnit?.Quantity ?? quantity;
-        private Quantity quantity;
+        static Unit Invert(Unit unit) => Exponentiate(unit, -1);
 
-        public double StandardAmount => BaseUnit?.StandardAmount * conversionFactor ?? standardAmount;
-        private double standardAmount;
+        static Unit Multiply(Unit a, Unit b) => new ComposedUnit(a, b);
 
-        public string Symbol { get; private set; }
+        static Unit Divide(Unit a, Unit b) => new ComposedUnit(a, Invert(b));
 
-        public string Name { get; private set; }
+        public static Unit operator *(Unit a, Unit b) => Multiply(a, b);
 
-        public string UISymbol { get; private set; }
+        public static Unit operator /(Unit a, Unit b) => Divide(a, b);
 
-        public Unit(string name, Quantity physicalQuantity, double standardAmount, string symbol, string uiSymbol = null,
-            bool isMetric = true)
+        public Unit(string name, Quantity quantity, double standardAmount, string symbol, string uISymbol = null, bool isMetric = true)
         {
-            Name = name;
-            BaseUnit = null;
-            this.quantity = physicalQuantity ?? throw new ArgumentNullException(nameof(physicalQuantity));
-            this.standardAmount = standardAmount;
+            Name = name ?? throw new ArgumentNullException(nameof(name));
+            Quantity = quantity ?? throw new ArgumentNullException(nameof(quantity));
+            StandardAmount = standardAmount;
             Symbol = symbol ?? throw new ArgumentNullException(nameof(symbol));
-            UISymbol = uiSymbol ?? symbol;
+            UISymbol = uISymbol ?? symbol;
             IsMetric = isMetric;
-
-            Units.AddUnit(this);
         }
 
-        public Unit(string name, Unit baseUnit, double conversionFactor, string symbol, string uiSymbol = null, bool isMetric = true)
-        {
-            Name = name;
-            BaseUnit = baseUnit ?? throw new ArgumentNullException(nameof(baseUnit));
-            Symbol = symbol ?? throw new ArgumentNullException(nameof(symbol));
-            UISymbol = uiSymbol ?? symbol;
-            this.conversionFactor = conversionFactor;
-            IsMetric = isMetric;
+        public Unit Derive(string name, double conversionAmount, string symbol, string uiSymbol = null, bool isMetric = true) =>
+            Derive(name, this, conversionAmount, symbol, uiSymbol, isMetric);
 
-            Units.AddUnit(this);
-        }
+        public string Name { get; }
 
-        public bool IsMetric { get; private set; }
+        public Quantity Quantity { get; }
 
-        private void dispose()
-        {
-            Units.RemoveUnit(this);
-        }
+        public double StandardAmount { get; }
 
-        public bool Disposed { get; private set; } = false;
+        public string Symbol { get; }
 
-        public void Dispose()
-        {
-            if (!Disposed)
-                dispose();
+        public string UISymbol { get; }
 
-            Disposed = true;
-        }
+        public bool IsMetric { get; }
     }
 
-    public static class Units
+    public sealed class ExponentiatedUnit : Unit
     {
-        internal static void AddUnit(Unit unit) => SupportedUnits.Add(unit);
-        internal static void RemoveUnit(Unit unit) => SupportedUnits.Remove(unit);
+        private static string getNewUISymbol(Unit baseUnit, double exponent) => $"{baseUnit.Symbol}^{exponent}";
 
-        public static readonly List<Unit> SupportedUnits = new List<Unit>();
+        private static string getNewSymbol(Unit baseUnit, double exponent) => $"{baseUnit.UISymbol}^{exponent}";
 
-        public static class Capacitance
+        private static double getNewStandardAmount(Unit baseUnit, double exponent) => Math.Pow(baseUnit.StandardAmount, exponent);
+
+        private static Quantity getNewQuantity(Unit baseUnit, double exponent) => null;
+
+        private static string getNewName(Unit baseUnit, double exponent) => null;
+
+        internal ExponentiatedUnit(Unit baseUnit, double exponent) : base(getNewName(baseUnit, exponent), getNewQuantity(baseUnit, exponent),
+            getNewStandardAmount(baseUnit, exponent), getNewSymbol(baseUnit, exponent), getNewUISymbol(baseUnit, exponent), baseUnit.IsMetric)
         {
-            public readonly static Unit Farad = new Unit("Farad", Quantities.Capacitance, 1.0, "F");
         }
 
-        public static class Charge
+        public Unit BaseUnit { get; }
+
+        public double Exponent { get; }
+    }
+
+    public sealed class ComposedUnit : Unit
+    {
+        public ComposedUnit(params Unit[] baseUnits) : base(getNewName(baseUnits), getNewQuantity(baseUnits),
+            getNewStandardAmount(baseUnits), getNewSymbol(baseUnits), getNewUISymbol(baseUnits), getNewIsMetric(baseUnits))
         {
-            public readonly static Unit Coulomb = new Unit("Coulomb", Quantities.Charge, 1.0, "C");
         }
 
-        public static class Conductance
-        {
-            public readonly static Unit Siemens = new Unit("Siemens", Quantities.Conductance, 1.0, "S");
-        }
+        private static bool getNewIsMetric(Unit[] baseUnits) => baseUnits.All(b => b.IsMetric);
 
-        public static class Current
-        {
-            public readonly static Unit Ampere = new Unit("Ampere", Quantities.Current, 1.0, "A");
-        }
+        private static string getNewUISymbol(Unit[] baseUnits) => String.Join(" ", baseUnits.Select(b => b.Symbol));
 
-        public static class Frequency
-        {
-            public readonly static Unit Hertz = new Unit("Hertz", Quantities.Frequency, 1.0, "Hz");
-        }
+        private static string getNewSymbol(Unit[] baseUnits) => String.Join(" ", baseUnits.Select(b => b.UISymbol));
 
-        public static class Inductance
-        {
-            public readonly static Unit Henry = new Unit("Henry", Quantities.Inductance, 1.0, "H");
-        }
+        private static double getNewStandardAmount(Unit[] baseUnits) => baseUnits.Select(b => b.StandardAmount).Aggregate((a, b) => a * b);
 
-        public static class Length
-        {
-            //Metric
-            public readonly static Unit Meter = new Unit("Meter", Quantities.Length, 1, "m");
-            //Imperial
-            public readonly static Unit Inch = new Unit("Inch", Meter, .0254, "in", "\"", false);
-            public readonly static Unit Mil = new Unit("Mil", Inch, .001, "mil", isMetric: false);
-            public readonly static Unit Foot = new Unit("Foot", Inch, 12, "ft", isMetric: false);
-            public readonly static Unit Yard = new Unit("Yard", Foot, 3, "yd", isMetric: false);
-            public readonly static Unit Chain = new Unit("Chain", Yard, 22, "ch", isMetric: false);
-            public readonly static Unit Furlong = new Unit("Furlong", Chain, 10, "fur", isMetric: false);
-            public readonly static Unit Mile = new Unit("Mile", Furlong, 8, "mi", isMetric: false);
-        }
+        private static Quantity getNewQuantity(Unit[] baseUnits) => null;
 
-        public static class PlaneAngle
-        {
-            public static readonly Unit Degree = new Unit("Degree", Quantities.PlaneAngle, 1.0, "deg", "°", false);
-            public static readonly Unit Radian = new Unit("Radian", Degree, 180.0 / Math.PI, "rad", isMetric: false);
-            public static readonly Unit Gradian = new Unit("Gradian", Degree, 9.0 / 10.0, "grad", isMetric: false);
-            public static readonly Unit Minute = new Unit("Minute", Degree, 1.0 / 60.0, "ang_min", "\'", false);
-            public static readonly Unit Second = new Unit("Second", Minute, 1.0 / 60.0, "ang_s", "\"", false);
-        }
+        private static string getNewName(Unit[] baseUnits) => null;
 
-        public static class Resistance
-        {
-            public static readonly Unit Ohm = new Unit("Ohm", Quantities.Resistance, 1.0, "ohm", "Ω");
-        }
-
-        public static class Temperature
-        {
-            //Metric
-            public static readonly Unit Kelvin = new Unit("Kelvin", Quantities.Temperature, 1.0, "K");
-            public static readonly Unit DegreeCelsius = new Unit("Degree Celsius", Kelvin, 1.0, "degC", "°C");
-
-            //Imperial
-            public static readonly Unit DegreeFahrenheit = new Unit("Degree Fahrenheit", DegreeCelsius, 5.0 / 9.0, 
-                "degF", "°F", false);
-        }
-
-        public static class Time
-        {
-            public static readonly Unit Second = new Unit("Second", Quantities.Time, 1.0, "s");
-            public static readonly Unit Minute = new Unit("Minute", Second, 60, "min", isMetric: false);
-            public static readonly Unit Hour = new Unit("Hour", Minute, 60, "h", isMetric: false);
-            public static readonly Unit Day = new Unit("Day", Hour, 24, "d", isMetric: false);
-            public static readonly Unit Week = new Unit("Week", Day, 7, "wk", isMetric: false);
-            public static readonly Unit Month = new Unit("Month", Day, 30, "mth", isMetric: false);
-            public static readonly Unit Year = new Unit("Year", Month, 12, "yr", isMetric: false);
-            public static readonly Unit Decade = new Unit("Decade", Year, 10, "dec", isMetric: false);
-            public static readonly Unit Century = new Unit("Century", Year, 100, "cent", isMetric: false);
-            public static readonly Unit Millenium = new Unit("Millenium", Year, 1000, "millenium", isMetric: false);
-        }
-
-        static Units()
-        {
-            RuntimeHelpers.RunClassConstructor(typeof(Capacitance).TypeHandle);
-            RuntimeHelpers.RunClassConstructor(typeof(Charge).TypeHandle);
-            RuntimeHelpers.RunClassConstructor(typeof(Conductance).TypeHandle);
-            RuntimeHelpers.RunClassConstructor(typeof(Current).TypeHandle);
-            RuntimeHelpers.RunClassConstructor(typeof(Frequency).TypeHandle);
-            RuntimeHelpers.RunClassConstructor(typeof(Length).TypeHandle);
-            RuntimeHelpers.RunClassConstructor(typeof(PlaneAngle).TypeHandle);
-            RuntimeHelpers.RunClassConstructor(typeof(Resistance).TypeHandle);
-            RuntimeHelpers.RunClassConstructor(typeof(Temperature).TypeHandle);
-            RuntimeHelpers.RunClassConstructor(typeof(Time).TypeHandle);
-        }
+        public Unit[] BaseUnits { get; }
     }
 }

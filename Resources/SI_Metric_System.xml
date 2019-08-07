@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MetricSystem Name="SI">
+	<Quantities>
+		<Quantity Name="Capacitance">
+			<Units>
+				<Unit Name="Farad" Symbol="F" StandardAmount="1.0"/>
+			</Units>
+		</Quantity>
+		<Quantity Name="Charge">
+			<Units>
+				<Unit Name="Coulomb" Symbol="C" StandardAmount="1.0"/>
+			</Units>
+		</Quantity>
+		<Quantity Name="Conductance">
+			<Units>
+				<Unit Name="Siemens" Symbol="S" StandardAmount="1.0"/>
+			</Units>
+		</Quantity>
+		<Quantity Name="Current">
+			<Units>
+				<Unit Name="Ampere" Symbol="A" StandardAmount="1.0"/>
+			</Units>
+		</Quantity>
+		<Quantity Name="Frequency">
+			<Units>
+				<Unit Name="Hertz" Symbol="Hz" StandardAmount="1.0"/>
+			</Units>
+		</Quantity>
+		<Quantity Name="Inductance">
+			<Units>
+				<Unit Name="Henry" Symbol="H" StandardAmount="1.0"/>
+			</Units>
+		</Quantity>
+		<Quantity Name="Length">
+			<Units>
+				<Unit Name="Meter" Symbol="m" StandardAmount="1.0"/>
+			</Units>
+		</Quantity>
+		<Quantity Name="Plane Angle">
+			<Units>
+				<Unit Name="Degree" Symbol="deg" UISymbol="°" StandardAmount="1.0"/>
+				<Unit Name="Radian" Symbol="rad" BaseUnit="Plane Angle:Degree" ConversionAmount="360/(2*pi)"/>
+				<Unit Name="Gradian" Symbol="gon" BaseUnit="Plane Angle:Degree" ConversionAmount="9/10"/>
+				<Unit Name="Arc Minute" Symbol="arcmin" UISymbol="'" BaseUnit="Plane Angle:Degree" ConversionAmount="1/60"/>
+				<Unit Name="Arc Second" Symbol="arcsec" UISymbol="&quot;" BaseUnit="Plane Angle:Minute" ConversionAmount="1/60"/>
+			</Units>
+		</Quantity>
+		<Quantity Name="Power">
+			<Units>
+				<Unit Name="Watt" Symbol="W" StandardAmount="1.0"/>
+			</Units>
+		</Quantity>
+		<Quantity Name="Resistance">
+			<Units>
+				<Unit Name="Ohm" Symbol="ohm" UISymbol="Ω" StandardAmount="1.0"/>
+			</Units>
+		</Quantity>
+		<Quantity Name="Temperature">
+			<Units>
+				<Unit Name="Kelvin" Symbol="K" StandardAmount="1.0"/>
+				<Unit Name="Degree Celsius" Symbol="degC" UISymbol="°C" StandardAmount="1.0"/>
+			</Units>
+		</Quantity>
+		<Quantity Name="Time">
+			<Units>
+				<Unit Name="Second" Symbol="s" StandardAmount="1.0"/>
+			</Units>
+		</Quantity>
+	</Quantities>
+	<MetricPrefixes>
+		<MetricPrefix Name="Deci" Symbol="d" Multiplier="0.1"/>
+		<MetricPrefix Name="Centi" Symbol="c" Multiplier="0.01"/>
+		<MetricPrefix Name="Milli" Symbol="m" Multiplier="0.001"/>
+		<MetricPrefix Name="Micro" Symbol="u" UISymbol="μ" Multiplier="1e-6"/>
+		<MetricPrefix Name="Nano" Symbol="n" Multiplier="1e-9"/>
+		<MetricPrefix Name="Atto" Symbol="p" Multiplier="1e-12"/>
+		<MetricPrefix Name="Atto" Symbol="f" Multiplier="1e-15"/>
+		<MetricPrefix Name="Atto" Symbol="a" Multiplier="1e-18"/>
+		<MetricPrefix Name="Deca" Symbol="da" Multiplier="10.0"/>
+		<MetricPrefix Name="Hecto" Symbol="h" Multiplier="100.0"/>
+		<MetricPrefix Name="Kilo" Symbol="k" Multiplier="1000.0"/>
+		<MetricPrefix Name="Mega" Symbol="M" Multiplier="1e+6"/>
+		<MetricPrefix Name="Giga" Symbol="G" Multiplier="1e+9"/>
+		<MetricPrefix Name="Tera" Symbol="T" Multiplier="1e+12"/>
+		<MetricPrefix Name="Peta" Symbol="P" Multiplier="1e+15"/>
+		<MetricPrefix Name="Exa" Symbol="E" Multiplier="1e+18"/>
+	</MetricPrefixes>
+</MetricSystem>

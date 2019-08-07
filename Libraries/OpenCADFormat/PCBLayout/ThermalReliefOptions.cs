@@ -8,12 +8,12 @@ namespace OpenCAD.OpenCADFormat.PCBLayout
     public class ThermalReliefOptions
     {
         [XmlAttribute]
-        public Measurement Angle = DefaultValues.THERMAL_RELIEF_SPOKE_ANGLE;
+        public Scalar Angle = DefaultValues.THERMAL_RELIEF_SPOKE_ANGLE;
 
         [XmlAttribute]
         public int SpokeCount = DefaultValues.THERMAL_RELIEF_SPOKE_COUNT;
 
         [XmlAttribute]
-        public Measurement SpokeWidth = DefaultValues.THERMAL_RELIEF_SPOKE_WIDTH;
+        public Scalar SpokeWidth = DefaultValues.THERMAL_RELIEF_SPOKE_WIDTH;
     }
 }

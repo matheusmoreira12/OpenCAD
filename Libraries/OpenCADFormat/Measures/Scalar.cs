@@ -5,38 +5,45 @@ using System.Linq;
 
 namespace OpenCAD.OpenCADFormat.Measures
 {
-    public struct Measurement : IComparable<Measurement>, IEquatable<Measurement>
+    public struct Scalar : IComparable<Scalar>, IEquatable<Scalar>
     {
-        public static readonly Measurement Zero = new Measurement(0, null);
+        public static readonly Scalar Zero = new Scalar(0, null);
 
-        public static Measurement Add(Measurement a, Measurement b) => new Measurement(a.Amount
-            + Utils.ConvertAmount(b, a.Unit), a.Unit);
-        public static Measurement Subtract(Measurement a, Measurement b) => new Measurement(a.Amount
-            - Utils.ConvertAmount(b, a.Unit), a.Unit);
-        public static Measurement Negate(Measurement a) => new Measurement(-a.Amount, a.Unit);
-        public static Measurement Multiply(Measurement a, double b) => new Measurement(a.Amount * b, a.Unit);
-        public static Measurement Divide(Measurement a, double b) => new Measurement(a.Amount / b, a.Unit);
-        public static double Divide(Measurement a, Measurement b) => a.Amount / Utils.ConvertAmount(b, a.Unit);
-        public static Measurement Remainder(Measurement a, double b) => new Measurement(a.Amount % b, a.Unit);
-        public static Measurement Remainder(Measurement a, Measurement b) => new Measurement(a.Amount
-            % Utils.ConvertAmount(b, a.Unit), a.Unit);
+        public static Scalar Add(Scalar a, Scalar b) => new Scalar(a.Amount + Utils.ConvertAmount(b, a.Unit), a.Unit);
 
-        public static Measurement operator +(Measurement a, Measurement b) => Add(a, b);
-        public static Measurement operator -(Measurement a, Measurement b) => Subtract(a, b);
-        public static Measurement operator -(Measurement a) => Negate(a);
-        public static Measurement operator *(Measurement a, double b) => Multiply(a, b);
-        public static Measurement operator /(Measurement a, double b) => Divide(a, b);
-        public static double operator /(Measurement a, Measurement b) => Divide(a, b);
-        public static Measurement operator %(Measurement a, double b) => Remainder(a, b);
-        public static Measurement operator %(Measurement a, Measurement b) => Remainder(a, b);
+        public static Scalar Subtract(Scalar a, Scalar b) => new Scalar(a.Amount - Utils.ConvertAmount(b, a.Unit), a.Unit);
 
-        public static bool operator ==(Measurement a, Measurement b) => a.Equals(b);
-        public static bool operator !=(Measurement a, Measurement b) => !(a == b);
+        public static Scalar Negate(Scalar a) => new Scalar(-a.Amount, a.Unit);
 
-        public static bool operator >(Measurement a, Measurement b) => (a as IComparable<Measurement>).CompareTo(b) > 0;
-        public static bool operator <(Measurement a, Measurement b) => (a as IComparable<Measurement>).CompareTo(b) < 0;
+        public static Scalar Multiply(Scalar a, double b) => new Scalar(a.Amount * b, a.Unit);
 
-        public static Measurement Parse(string value)
+        public static Scalar Multiply(Scalar a, Scalar b) => new Scalar(a.Amount * b.Amount, a.Unit * b.Unit);
+
+        public static Scalar Divide(Scalar a, double b) => new Scalar(a.Amount / b, a.Unit);
+
+        public static Scalar Divide(Scalar a, Scalar b) => new Scalar(a.Amount / b.Amount, a.Unit / b.Unit);
+
+        public static Scalar operator +(Scalar a, Scalar b) => Add(a, b);
+
+        public static Scalar operator -(Scalar a, Scalar b) => Subtract(a, b);
+
+        public static Scalar operator -(Scalar a) => Negate(a);
+
+        public static Scalar operator *(Scalar a, double b) => Multiply(a, b);
+
+        public static Scalar operator /(Scalar a, double b) => Divide(a, b);
+
+        public static Scalar operator /(Scalar a, Scalar b) => Divide(a, b);
+
+        public static bool operator ==(Scalar a, Scalar b) => a.Equals(b);
+
+        public static bool operator !=(Scalar a, Scalar b) => !(a == b);
+
+        public static bool operator >(Scalar a, Scalar b) => (a as IComparable<Scalar>).CompareTo(b) > 0;
+
+        public static bool operator <(Scalar a, Scalar b) => (a as IComparable<Scalar>).CompareTo(b) < 0;
+
+        public static Scalar Parse(string value)
         {
             StringScanner scanner = new StringScanner(value);
             StringUtils.ReadDecimalString(scanner, out string amountStr, out bool isFloatingPoint, out bool hasExponent);
@@ -50,10 +57,10 @@ namespace OpenCAD.OpenCADFormat.Measures
 
             (unit, prefix) = Utils.ParseUnitAndPrefix(symbol);
 
-            return new Measurement(amount, unit, prefix);
+            return new Scalar(amount, unit, prefix);
         }
 
-        public static bool TryParse(string value, out Measurement result)
+        public static bool TryParse(string value, out Scalar result)
         {
             try
             {
@@ -61,14 +68,15 @@ namespace OpenCAD.OpenCADFormat.Measures
 
                 return true;
             }
-            catch {
-                result = default(Measurement);
+            catch
+            {
+                result = default(Scalar);
 
                 return false;
             }
         }
 
-        public Measurement(double amount, Unit unit, MetricPrefix prefix = null)
+        public Scalar(double amount, Unit unit, MetricPrefix prefix = null)
         {
             if (unit == null && amount != 0) Unit = unit ?? throw new ArgumentNullException("Cannot create new " +
                 "measurement. Units can only be specified as null if the amount is zero.", "unit");
@@ -80,10 +88,10 @@ namespace OpenCAD.OpenCADFormat.Measures
 
         public override bool Equals(object obj)
         {
-            if (!(obj is Measurement)) throw new ArgumentException($"Type {obj.GetType()} cannot be compared to " +
+            if (!(obj is Scalar)) throw new ArgumentException($"Type {obj.GetType()} cannot be compared to " +
                 $"type Measurement. No conversion exists.", "obj");
 
-            Measurement measurement = (Measurement)obj;
+            Scalar measurement = (Scalar)obj;
 
             return measurement != null &&
                    Amount == measurement.Amount &&
@@ -105,13 +113,13 @@ namespace OpenCAD.OpenCADFormat.Measures
         public string ToUIString() => $"{Amount.ToString(Conventions.STANDARD_CULTURE)}{Prefix?.UISymbol}" +
             $"{Unit?.UISymbol}";
 
-        public Measurement ConvertToUnit(Unit outUnit)
+        public Scalar ConvertToUnit(Unit outUnit)
         {
             if (outUnit.Quantity != Unit.Quantity)
                 throw new InvalidOperationException("Cannot convert measurement to the specified unit. " +
                     "Units have mismatched physical quantities.");
 
-            return new Measurement(Utils.ConvertAmount(this, outUnit), outUnit);
+            return new Scalar(Utils.ConvertAmount(this, outUnit), outUnit);
         }
 
         public double GetAbsoluteAmount() => Utils.GetAbsoluteAmount(this);
@@ -120,7 +128,7 @@ namespace OpenCAD.OpenCADFormat.Measures
         public Unit Unit { get; private set; }
         public MetricPrefix Prefix { get; private set; }
 
-        int IComparable<Measurement>.CompareTo(Measurement other)
+        int IComparable<Scalar>.CompareTo(Scalar other)
         {
             if (other.Unit.Quantity != Unit.Quantity)
                 throw new InvalidOperationException("Cannot compare measurements. Measured physical quantities " +
@@ -129,7 +137,7 @@ namespace OpenCAD.OpenCADFormat.Measures
             return Comparer<double>.Default.Compare(GetAbsoluteAmount(), other.GetAbsoluteAmount());
         }
 
-        bool IEquatable<Measurement>.Equals(Measurement other)
+        bool IEquatable<Scalar>.Equals(Scalar other)
         {
             return Equals(other);
         }

@@ -9,7 +9,7 @@ namespace OpenCAD.OpenCADFormat.Drawing
     public class Ellipse : Shape
     {
         public static Ellipse CreateCentered(Point center, Size radius,
-            Measurement rotation)
+            Scalar rotation)
         {
             Validation.Expect(Quantities.PlaneAngle, rotation);
 
@@ -45,6 +45,6 @@ namespace OpenCAD.OpenCADFormat.Drawing
         public Point Control { get; private set; }
         public Point Center { get; private set; }
         public Size Radius { get; private set; }
-        public Measurement Rotation { get; private set; }
+        public Scalar Rotation { get; private set; }
     }
 }

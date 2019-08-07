@@ -5,7 +5,7 @@ namespace OpenCAD.OpenCADFormat.CoordinateSystem
 {
     public struct Size
     {
-        public static readonly Size Zero = new Size(Measurement.Zero, Measurement.Zero);
+        public static readonly Size Zero = new Size(Scalar.Zero, Scalar.Zero);
 
         public static Size Add(Size a, Size b) => new Size(a.Width + b.Width, a.Height + b.Height);
         public static Size Subtract(Size a, Size b) => new Size(a.Width - b.Width, a.Height - b.Height);
@@ -15,7 +15,7 @@ namespace OpenCAD.OpenCADFormat.CoordinateSystem
         public static Size operator -(Size a, Size b) => Subtract(a, b);
         public static Size operator /(Size a, double b) => Divide(a, b);
 
-        public Size(Measurement width, Measurement height)
+        public Size(Scalar width, Scalar height)
         {
             Validation.Expect(Quantities.Length, width);
             Validation.Expect(Quantities.Length, height);
@@ -27,7 +27,7 @@ namespace OpenCAD.OpenCADFormat.CoordinateSystem
         public Size ConvertTo(Unit unit) => new Size(Width.ConvertToUnit(unit),
             Height.ConvertToUnit(unit));
 
-        public Measurement Width { get; }
-        public Measurement Height { get; }
+        public Scalar Width { get; }
+        public Scalar Height { get; }
     }
 }

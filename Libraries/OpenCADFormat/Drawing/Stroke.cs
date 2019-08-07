@@ -36,10 +36,10 @@ namespace OpenCAD.OpenCADFormat.Drawing
 
     public struct StrokeAttributes
     {
-        public static readonly StrokeAttributes Default = new StrokeAttributes(StrokeStyle.Solid, new Measurement(10,
+        public static readonly StrokeAttributes Default = new StrokeAttributes(StrokeStyle.Solid, new Scalar(10,
             Units.Length.Mil));
 
-        public StrokeAttributes(StrokeStyle style, Measurement thickness)
+        public StrokeAttributes(StrokeStyle style, Scalar thickness)
         {
             Validation.Expect(Quantities.Length, thickness);
 
@@ -48,6 +48,6 @@ namespace OpenCAD.OpenCADFormat.Drawing
         }
 
         public StrokeStyle Style { get; private set; }
-        public Measurement Thickness { get; private set; }
+        public Scalar Thickness { get; private set; }
     }
 }

@@ -6,7 +6,7 @@ namespace OpenCAD.OpenCADFormat.Drawing
 {
     public class PathArc : PathSegment
     {
-        public static PathArc Create(Size radius, Measurement rotation, bool largeArcFlag, bool sweepFlag)
+        public static PathArc Create(Size radius, Scalar rotation, bool largeArcFlag, bool sweepFlag)
         {
             Validation.Expect(Quantities.PlaneAngle, rotation);
 
@@ -22,7 +22,7 @@ namespace OpenCAD.OpenCADFormat.Drawing
         private PathArc() { }
 
         public Size Radius { get; private set; }
-        public Measurement Rotation { get; private set; }
+        public Scalar Rotation { get; private set; }
         public bool LargeArcFlag { get; private set; }
         public bool SweepFlag { get; private set; }
     }
