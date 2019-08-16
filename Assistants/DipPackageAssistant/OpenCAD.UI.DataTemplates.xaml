@@ -11,7 +11,7 @@
         <TextBlock Text="{Binding UISymbol}" ToolTip="{Binding Name}"/>
     </DataTemplate>
 
-    <DataTemplate x:Key="MeasuresMeasurementDataTemplate" DataType="{x:Type measures:Measurement}">
+    <DataTemplate x:Key="MeasuresMeasurementDataTemplate" DataType="{x:Type measures:Scalar}">
         <WrapPanel ToolTip="{Binding Name}">
             <TextBlock Text="{Binding Amount}"/>
             <TextBlock Text="{Binding Prefix.UISymbol}"/>

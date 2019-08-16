@@ -8,7 +8,7 @@ using OpenCAD.OpenCADFormat.Measures;
 
 namespace OpenCAD.UI
 {
-    [ValueConversion(typeof(Measurement), typeof(string))]
+    [ValueConversion(typeof(Scalar), typeof(string))]
     public class MeasurementToStringConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -16,7 +16,7 @@ namespace OpenCAD.UI
             if (value == null)
                 return DependencyProperty.UnsetValue;
 
-            Measurement input = (Measurement)value;
+            Scalar input = (Scalar)value;
 
             return input.ToString();
         }
@@ -25,12 +25,12 @@ namespace OpenCAD.UI
         {
             string input = value == null ? null : value as string;
 
-            Measurement output;
+            Scalar output;
 
-            if (input != null && Measurement.TryParse(input, out output))
+            if (input != null && Scalar.TryParse(input, out output))
                 return output;
 
-            return new ValidationResult(false, "Measurement string is invalid.");
+            return new ValidationResult(false, "Scalar string is invalid.");
         }
     }
 
@@ -70,9 +70,9 @@ namespace OpenCAD.UI
             if (SelectedUnit != null)
             {
                 if (SelectedUnit.IsMetric)
-                    Selection = new Measurement(SelectedAmount, SelectedUnit, SelectedPrefix);
+                    Selection = new Scalar(SelectedAmount, SelectedUnit, SelectedPrefix);
                 else
-                    Selection = new Measurement(SelectedAmount, SelectedUnit);
+                    Selection = new Scalar(SelectedAmount, SelectedUnit);
             }
         }
 
@@ -138,15 +138,15 @@ namespace OpenCAD.UI
             DependencyProperty.Register("IsCodeEditingVisible", typeof(bool), typeof(MeasurementPicker),
                 new PropertyMetadata(false));
 
-        public Measurement Selection
+        public Scalar Selection
         {
-            get { return (Measurement)GetValue(SelectionProperty); }
+            get { return (Scalar)GetValue(SelectionProperty); }
             set { SetValue(SelectionProperty, value); }
         }
 
         // Using a DependencyProperty as the backing store for Selection.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty SelectionProperty =
-            DependencyProperty.Register("Selection", typeof(Measurement), typeof(MeasurementPicker),
+            DependencyProperty.Register("Selection", typeof(Scalar), typeof(MeasurementPicker),
                 new PropertyMetadata(null));
 
         public double SelectedAmount

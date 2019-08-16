@@ -13,38 +13,38 @@ namespace OpenCAD.OpenCADFormat.Measures
 
         public static class Capacitance
         {
-            public readonly static Unit Farad = new Unit("Farad", Quantities.Capacitance, 1.0, "F");
+            public readonly static Unit Farad = new BaseUnit("Farad", Quantities.Capacitance, 1.0, "F");
         }
 
         public static class Charge
         {
-            public readonly static Unit Coulomb = new Unit("Coulomb", Quantities.Charge, 1.0, "C");
+            public readonly static Unit Coulomb = new BaseUnit("Coulomb", Quantities.Charge, 1.0, "C");
         }
 
         public static class Conductance
         {
-            public readonly static Unit Siemens = new Unit("Siemens", Quantities.Conductance, 1.0, "S");
+            public readonly static Unit Siemens = new BaseUnit("Siemens", Quantities.Conductance, 1.0, "S");
         }
 
         public static class Current
         {
-            public readonly static Unit Ampere = new Unit("Ampere", Quantities.Current, 1.0, "A");
+            public readonly static Unit Ampere = new BaseUnit("Ampere", Quantities.Current, 1.0, "A");
         }
 
         public static class Frequency
         {
-            public readonly static Unit Hertz = new Unit("Hertz", Quantities.Frequency, 1.0, "Hz");
+            public readonly static Unit Hertz = new BaseUnit("Hertz", Quantities.Frequency, 1.0, "Hz");
         }
 
         public static class Inductance
         {
-            public readonly static Unit Henry = new Unit("Henry", Quantities.Inductance, 1.0, "H");
+            public readonly static Unit Henry = new BaseUnit("Henry", Quantities.Inductance, 1.0, "H");
         }
 
         public static class Length
         {
             //Metric
-            public readonly static Unit Meter = new Unit("Meter", Quantities.Length, 1, "m");
+            public readonly static Unit Meter = new BaseUnit("Meter", Quantities.Length, 1, "m");
             //Imperial
             public readonly static Unit Inch = Meter.Derive("Inch", .0254, "in", "\"", false);
             public readonly static Unit Mil = Inch.Derive("Mil", .001, "mil", isMetric: false);
@@ -57,7 +57,7 @@ namespace OpenCAD.OpenCADFormat.Measures
 
         public static class PlaneAngle
         {
-            public static readonly Unit Degree = new Unit("Degree", Quantities.PlaneAngle, 1.0, "deg", "°", false);
+            public static readonly Unit Degree = new BaseUnit("Degree", Quantities.PlaneAngle, 1.0, "deg", "°", false);
             public static readonly Unit Radian = Degree.Derive("Radian", 180.0 / Math.PI, "rad", isMetric: false);
             public static readonly Unit Gradian = Degree.Derive("Gradian", 9.0 / 10.0, "grad", isMetric: false);
             public static readonly Unit ArcMinute = Degree.Derive("Arc Minute", 1.0 / 60.0, "arcmin", "\'", false);
@@ -66,19 +66,19 @@ namespace OpenCAD.OpenCADFormat.Measures
 
         public static class Power
         {
-            public static readonly Unit Watt = new Unit("Watt", Quantities.Power, 1.0, "deg", "°", false);
+            public static readonly Unit Watt = new BaseUnit("Watt", Quantities.Power, 1.0, "deg", "°", false);
         }
 
         public static class Resistance
         {
-            public static readonly Unit Ohm = new Unit("Ohm", Quantities.Resistance, 1.0, "ohm", "Ω");
+            public static readonly Unit Ohm = new BaseUnit("Ohm", Quantities.Resistance, 1.0, "ohm", "Ω");
         }
 
         public static class Temperature
         {
             //Metric
-            public static readonly Unit Kelvin = new Unit("Kelvin", Quantities.Temperature, 1.0, "K");
-            public static readonly Unit DegreeCelsius = new Unit("Degree Celsius", Quantities.Temperature, 1.0, "degC", "°C");
+            public static readonly Unit Kelvin = new BaseUnit("Kelvin", Quantities.Temperature, 1.0, "K");
+            public static readonly Unit DegreeCelsius = new BaseUnit("Degree Celsius", Quantities.Temperature, 1.0, "degC", "°C");
 
             //Imperial
             public static readonly Unit DegreeFahrenheit = DegreeCelsius.Derive("Degree Fahrenheit", 5.0 / 9.0, "degF", "°F", false);
@@ -86,7 +86,7 @@ namespace OpenCAD.OpenCADFormat.Measures
 
         public static class Time
         {
-            public static readonly Unit Second = new Unit("Second", Quantities.Time, 1.0, "s");
+            public static readonly Unit Second = new BaseUnit("Second", Quantities.Time, 1.0, "s");
             public static readonly Unit Minute = Second.Derive("Minute", 60, "min", isMetric: false);
             public static readonly Unit Hour = Minute.Derive("Hour", 60, "h", isMetric: false);
             public static readonly Unit Day = Hour.Derive("Day", 24, "d", isMetric: false);

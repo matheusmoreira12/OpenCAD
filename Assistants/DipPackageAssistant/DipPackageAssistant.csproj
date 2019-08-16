@@ -65,6 +65,9 @@
       <DependentUpon>OpenCAD.UI.NumberTextBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="OpenCAD.UI.ValidationRules.cs" />
+    <Compile Include="TextFormatPopup.xaml.cs">
+      <DependentUpon>TextFormatPopup.xaml</DependentUpon>
+    </Compile>
     <Page Include="OpenCAD.UI.NumberTextBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -94,6 +97,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="OpenCAD.UI.Templates.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TextFormatPopup.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

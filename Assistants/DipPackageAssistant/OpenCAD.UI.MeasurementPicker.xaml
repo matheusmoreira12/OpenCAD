@@ -14,14 +14,15 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="auto"/>
-                <ColumnDefinition Width="auto"/>
             </Grid.ColumnDefinitions>
-            
-            <TextBox Grid.Column="0" Name="TxtAmount" 
+
+            <TextBox Grid.Column="0" Grid.ColumnSpan="3" 
+                     Name="TxtAmount" 
                      Text="100"
                      Background="Transparent" BorderBrush="Transparent"/>
+
             <TextBlock Grid.Column="1"
-                       Text="mm"
+                       Text="{Binding SelectedUnit.UISymbol, ElementName=measurementPicker }"
                        Foreground="DimGray"/>
         </Grid>
     </Border>

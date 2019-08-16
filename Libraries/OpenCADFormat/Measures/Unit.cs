@@ -6,24 +6,58 @@ using System.Text;
 
 namespace OpenCAD.OpenCADFormat.Measures
 {
-    public class Unit
+    public abstract class Unit
     {
-        static Unit Derive(string name, Unit original, double conversionAmount, string symbol, string uiSymbol = null, bool isMetric = true) =>
-            new Unit(name, original.Quantity, original.StandardAmount * conversionAmount, symbol, uiSymbol, isMetric);
+        static BaseUnit Derive(string name, Unit original, double conversionAmount, string symbol, string uiSymbol = null, bool isMetric = true) =>
+            new BaseUnit(name, original.Quantity, original.StandardAmount * conversionAmount, symbol, uiSymbol, isMetric);
 
-        static Unit Exponentiate(Unit unit, double exponent) => new ExponentiatedUnit(unit, exponent);
+        static Unit Exponentiate(Unit unit, double exponent) => new ExponentiatedUnit(unit, exponent).Collapse();
 
         static Unit Invert(Unit unit) => Exponentiate(unit, -1);
 
-        static Unit Multiply(Unit a, Unit b) => new ComposedUnit(a, b);
+        static Unit Multiply(Unit a, Unit b) => new ComposedUnit(a, b).Collapse();
 
-        static Unit Divide(Unit a, Unit b) => new ComposedUnit(a, Invert(b));
+        static Unit Divide(Unit a, Unit b)
+        {
+            if (a is null)
+                return Invert(b);
+
+            return Multiply(a, Invert(b));
+        }
 
         public static Unit operator *(Unit a, Unit b) => Multiply(a, b);
 
         public static Unit operator /(Unit a, Unit b) => Divide(a, b);
 
-        public Unit(string name, Quantity quantity, double standardAmount, string symbol, string uISymbol = null, bool isMetric = true)
+        public Unit Exponentiate(double exponent) => Exponentiate(this, exponent);
+
+        public Unit Invert() => Invert(this);
+
+        public Unit Multiply(Unit other) => Multiply(this, other);
+
+        public Unit Divide(Unit other) => Divide(this, other);
+
+        public abstract Unit Collapse();
+
+        public abstract string Name { get; }
+
+        public abstract Quantity Quantity { get; }
+
+        public abstract double StandardAmount { get; }
+
+        public abstract string Symbol { get; }
+
+        public abstract string UISymbol { get; }
+
+        public abstract bool IsMetric { get; }
+
+        public Unit Derive(string name, double conversionAmount, string symbol, string uiSymbol = null, bool isMetric = true) =>
+            Derive(name, this, conversionAmount, symbol, uiSymbol, isMetric);
+    }
+
+    public class BaseUnit : Unit
+    {
+        public BaseUnit(string name, Quantity quantity, double standardAmount, string symbol, string uISymbol = null, bool isMetric = true)
         {
             Name = name ?? throw new ArgumentNullException(nameof(name));
             Quantity = quantity ?? throw new ArgumentNullException(nameof(quantity));
@@ -33,63 +67,91 @@ namespace OpenCAD.OpenCADFormat.Measures
             IsMetric = isMetric;
         }
 
-        public Unit Derive(string name, double conversionAmount, string symbol, string uiSymbol = null, bool isMetric = true) =>
-            Derive(name, this, conversionAmount, symbol, uiSymbol, isMetric);
+        public override Unit Collapse() => this;
 
-        public string Name { get; }
+        public override string Name { get; }
 
-        public Quantity Quantity { get; }
+        public override Quantity Quantity { get; }
 
-        public double StandardAmount { get; }
+        public override double StandardAmount { get; }
 
-        public string Symbol { get; }
+        public override string Symbol { get; }
 
-        public string UISymbol { get; }
+        public override string UISymbol { get; }
 
-        public bool IsMetric { get; }
+        public override bool IsMetric { get; }
     }
 
     public sealed class ExponentiatedUnit : Unit
     {
-        private static string getNewUISymbol(Unit baseUnit, double exponent) => $"{baseUnit.Symbol}^{exponent}";
-
-        private static string getNewSymbol(Unit baseUnit, double exponent) => $"{baseUnit.UISymbol}^{exponent}";
-
-        private static double getNewStandardAmount(Unit baseUnit, double exponent) => Math.Pow(baseUnit.StandardAmount, exponent);
-
-        private static Quantity getNewQuantity(Unit baseUnit, double exponent) => null;
-
-        private static string getNewName(Unit baseUnit, double exponent) => null;
-
-        internal ExponentiatedUnit(Unit baseUnit, double exponent) : base(getNewName(baseUnit, exponent), getNewQuantity(baseUnit, exponent),
-            getNewStandardAmount(baseUnit, exponent), getNewSymbol(baseUnit, exponent), getNewUISymbol(baseUnit, exponent), baseUnit.IsMetric)
+        internal ExponentiatedUnit(Unit baseUnit, double exponent)
         {
+            BaseUnit = baseUnit;
+            Exponent = exponent;
+        }
+
+        public override Unit Collapse()
+        {
+            Unit baseUnit = BaseUnit.Collapse();
+
+            if (baseUnit is ExponentiatedUnit)
+                return new ExponentiatedUnit((baseUnit as ExponentiatedUnit).BaseUnit, (baseUnit as ExponentiatedUnit).Exponent * Exponent);
+
+            if (baseUnit is ComposedUnit)
+                return new ComposedUnit((baseUnit as ComposedUnit).BaseUnits.Select(bu => bu.Exponentiate(Exponent).Collapse()).ToArray());
+
+            return new ExponentiatedUnit(baseUnit, Exponent);
         }
 
         public Unit BaseUnit { get; }
 
         public double Exponent { get; }
+
+        public override string Name => null;
+
+        public override Quantity Quantity => null;
+
+        public override double StandardAmount => Math.Pow(BaseUnit.StandardAmount, Exponent);
+
+        public override string Symbol => $"{BaseUnit.UISymbol}^{Exponent}";
+
+        public override string UISymbol => $"{BaseUnit.Symbol}^{Exponent}";
+
+        public override bool IsMetric => BaseUnit.IsMetric;
     }
 
     public sealed class ComposedUnit : Unit
     {
-        public ComposedUnit(params Unit[] baseUnits) : base(getNewName(baseUnits), getNewQuantity(baseUnits),
-            getNewStandardAmount(baseUnits), getNewSymbol(baseUnits), getNewUISymbol(baseUnits), getNewIsMetric(baseUnits))
+        internal ComposedUnit(params Unit[] baseUnits)
         {
+            BaseUnits = baseUnits;
         }
 
-        private static bool getNewIsMetric(Unit[] baseUnits) => baseUnits.All(b => b.IsMetric);
+        public override Unit Collapse()
+        {
+            var collapsedBaseUnits = BaseUnits.SelectMany(bu => (bu as ComposedUnit)?.BaseUnits ?? new[] { bu.Collapse() })
+                .GroupBy(bu => (bu as ExponentiatedUnit)?.BaseUnit ?? bu)
+                .Select(g => new ExponentiatedUnit(g.Key, g.Sum(bu => (bu as ExponentiatedUnit)?.Exponent ?? 1)))
+                .ToArray();
 
-        private static string getNewUISymbol(Unit[] baseUnits) => String.Join(" ", baseUnits.Select(b => b.Symbol));
+            if (collapsedBaseUnits.Length == 1)
+                return collapsedBaseUnits[0];
 
-        private static string getNewSymbol(Unit[] baseUnits) => String.Join(" ", baseUnits.Select(b => b.UISymbol));
-
-        private static double getNewStandardAmount(Unit[] baseUnits) => baseUnits.Select(b => b.StandardAmount).Aggregate((a, b) => a * b);
-
-        private static Quantity getNewQuantity(Unit[] baseUnits) => null;
-
-        private static string getNewName(Unit[] baseUnits) => null;
+            return new ComposedUnit(collapsedBaseUnits);
+        }
 
         public Unit[] BaseUnits { get; }
+
+        public override string Name => null;
+
+        public override Quantity Quantity => null;
+
+        public override double StandardAmount => BaseUnits.Select(bu => bu.StandardAmount).Aggregate((a, b) => a * b);
+
+        public override string Symbol => string.Join("*", BaseUnits.Select(bu => bu.Symbol));
+
+        public override string UISymbol => string.Join("*", BaseUnits.Select(bu => bu.UISymbol));
+
+        public override bool IsMetric => BaseUnits.All(bu => bu.IsMetric);
     }
 }

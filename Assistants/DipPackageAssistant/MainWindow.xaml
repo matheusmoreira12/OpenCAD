@@ -43,5 +43,8 @@
             <TabItem Header="Pad Specs">
             </TabItem>
         </TabControl>
+
+        <local:TextFormatPopup Width="200" Height="200" IsOpen="True"></local:TextFormatPopup>
+
     </Grid>
 </Window>
