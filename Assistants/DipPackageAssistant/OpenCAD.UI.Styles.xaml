@@ -12,6 +12,9 @@
         <Setter Property="Margin" Value="-1"/>
     </Style>
 
-    <Style TargetType="local:MeasurementPicker">
+    <Style TargetType="local:ScalarPicker">
+        <Setter Property="BorderBrush" Value="Gray"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Template" Value="{DynamicResource ScalarPickerTemplate}"/>
     </Style>
 </ResourceDictionary>

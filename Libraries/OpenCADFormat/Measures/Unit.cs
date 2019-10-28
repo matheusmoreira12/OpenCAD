@@ -8,34 +8,48 @@ namespace OpenCAD.OpenCADFormat.Measures
 {
     public abstract class Unit
     {
-        static BaseUnit Derive(string name, Unit original, double conversionAmount, string symbol, string uiSymbol = null, bool isMetric = true) =>
-            new BaseUnit(name, original.Quantity, original.StandardAmount * conversionAmount, symbol, uiSymbol, isMetric);
+        public static BaseUnit Derive(string name, Unit original, double conversionAmount, string symbol, string uiSymbol = null) => 
+            new BaseUnit(name, original.Quantity, original.StandardAmount * conversionAmount, symbol, uiSymbol);
 
-        static Unit Exponentiate(Unit unit, double exponent) => new ExponentiatedUnit(unit, exponent).Collapse();
-
-        static Unit Invert(Unit unit) => Exponentiate(unit, -1);
-
-        static Unit Multiply(Unit a, Unit b) => new ComposedUnit(a, b).Collapse();
-
-        static Unit Divide(Unit a, Unit b)
+        public static Unit Parse(string value)
         {
-            if (a is null)
-                return Invert(b);
+            IEnumerable<Unit> supportedUnits = Utils.GetSupportedUnits();
 
-            return Multiply(a, Invert(b));
+            foreach (var unit in supportedUnits)
+                if (unit.Symbol == value)
+                    return unit;
+
+            throw new KeyNotFoundException("Unable to parse unit. The provided unit/prefix found no matches.");
         }
 
-        public static Unit operator *(Unit a, Unit b) => Multiply(a, b);
+        public static bool TryParse(string value, out Unit result)
+        {
+            try
+            {
+                result = Parse(value);
 
-        public static Unit operator /(Unit a, Unit b) => Divide(a, b);
+                return true;
+            }
+            catch
+            {
+                result = default;
 
-        public Unit Exponentiate(double exponent) => Exponentiate(this, exponent);
+                return false;
+            }
+        }
 
-        public Unit Invert() => Invert(this);
+        public Unit()
+        {
+            Units.SupportedUnits.Add(this);
+        }
 
-        public Unit Multiply(Unit other) => Multiply(this, other);
+        public static Unit operator *(Unit a, Unit b) => UnitMath.Multiply(a, b);
 
-        public Unit Divide(Unit other) => Divide(this, other);
+        public static Unit operator *(Unit a, MetricPrefix b) => UnitMath.Multiply(a, b);
+
+        public static Unit operator /(Unit a, Unit b) => UnitMath.Divide(a, b);
+
+        public static Unit operator !(Unit a) => UnitMath.Invert(a);
 
         public abstract Unit Collapse();
 
@@ -49,22 +63,21 @@ namespace OpenCAD.OpenCADFormat.Measures
 
         public abstract string UISymbol { get; }
 
-        public abstract bool IsMetric { get; }
+        public abstract MetricSystem MetricSystem { get; }
 
-        public Unit Derive(string name, double conversionAmount, string symbol, string uiSymbol = null, bool isMetric = true) =>
-            Derive(name, this, conversionAmount, symbol, uiSymbol, isMetric);
+        public Unit Derive(string name, double conversionAmount, string symbol, string uiSymbol = null) =>
+            Derive(name, this, conversionAmount, symbol, uiSymbol);
     }
 
-    public class BaseUnit : Unit
+    public sealed class BaseUnit : Unit
     {
-        public BaseUnit(string name, Quantity quantity, double standardAmount, string symbol, string uISymbol = null, bool isMetric = true)
+        public BaseUnit(string name, Quantity quantity, double standardAmount, string symbol, string uISymbol = null)
         {
             Name = name ?? throw new ArgumentNullException(nameof(name));
             Quantity = quantity ?? throw new ArgumentNullException(nameof(quantity));
             StandardAmount = standardAmount;
             Symbol = symbol ?? throw new ArgumentNullException(nameof(symbol));
             UISymbol = uISymbol ?? symbol;
-            IsMetric = isMetric;
         }
 
         public override Unit Collapse() => this;
@@ -79,7 +92,34 @@ namespace OpenCAD.OpenCADFormat.Measures
 
         public override string UISymbol { get; }
 
-        public override bool IsMetric { get; }
+        public override MetricSystem MetricSystem { get; }
+    }
+
+    public sealed class PrefixedUnit : Unit
+    {
+        internal PrefixedUnit(Unit baseUnit, MetricPrefix prefix)
+        {
+            BaseUnit = baseUnit ?? throw new ArgumentNullException(nameof(baseUnit));
+            Prefix = prefix ?? throw new ArgumentNullException(nameof(prefix));
+        }
+
+        public Unit BaseUnit { get; }
+
+        public MetricPrefix Prefix { get; }
+
+        public override string Name => $"{Prefix.Name} {BaseUnit.Name}";
+
+        public override Quantity Quantity => BaseUnit.Quantity;
+
+        public override double StandardAmount => Prefix.Multiplier * BaseUnit.StandardAmount;
+
+        public override string Symbol => $"{Prefix.Symbol}{BaseUnit.Symbol}";
+
+        public override string UISymbol => $"{Prefix.UISymbol}{BaseUnit.UISymbol}";
+
+        public override Unit Collapse() => this;
+
+        public override MetricSystem MetricSystem => BaseUnit.MetricSystem;
     }
 
     public sealed class ExponentiatedUnit : Unit
@@ -98,7 +138,7 @@ namespace OpenCAD.OpenCADFormat.Measures
                 return new ExponentiatedUnit((baseUnit as ExponentiatedUnit).BaseUnit, (baseUnit as ExponentiatedUnit).Exponent * Exponent);
 
             if (baseUnit is ComposedUnit)
-                return new ComposedUnit((baseUnit as ComposedUnit).BaseUnits.Select(bu => bu.Exponentiate(Exponent).Collapse()).ToArray());
+                return new ComposedUnit((baseUnit as ComposedUnit).BaseUnits.Select(bu => bu.Power(Exponent).Collapse()).ToArray());
 
             return new ExponentiatedUnit(baseUnit, Exponent);
         }
@@ -117,7 +157,7 @@ namespace OpenCAD.OpenCADFormat.Measures
 
         public override string UISymbol => $"{BaseUnit.Symbol}^{Exponent}";
 
-        public override bool IsMetric => BaseUnit.IsMetric;
+        public override MetricSystem MetricSystem => BaseUnit.MetricSystem;
     }
 
     public sealed class ComposedUnit : Unit
@@ -152,6 +192,6 @@ namespace OpenCAD.OpenCADFormat.Measures
 
         public override string UISymbol => string.Join("*", BaseUnits.Select(bu => bu.UISymbol));
 
-        public override bool IsMetric => BaseUnits.All(bu => bu.IsMetric);
+        public override MetricSystem MetricSystem => null;
     }
 }

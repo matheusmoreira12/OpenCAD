@@ -1,19 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
+using System.Text.RegularExpressions;
 
 namespace OpenCAD.OpenCADFormat.Measures
 {
-    public class Quantity
+    public abstract class Quantity
     {
-        public Quantity(string name, string symbol, string uISymbol = null)
+        public string Name { get; }
+
+        public string Symbol { get; }
+
+        public Unit Unit = null;
+
+        protected Quantity(string name, string symbol)
         {
-            Name = name ?? throw new ArgumentNullException("name");
+            Name = name ?? throw new ArgumentNullException(nameof(name));
+            Symbol = symbol ?? throw new ArgumentNullException(nameof(symbol));
         }
-
-        public string Name { get; private set; }
-
-        public string Symbol { get; private set; }
-
-        public string UISymbol { get; private set; }
     }
 }

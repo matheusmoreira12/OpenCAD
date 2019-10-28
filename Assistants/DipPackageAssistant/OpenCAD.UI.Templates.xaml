@@ -1,6 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:DipPackageAssistant">
+                    xmlns:local="clr-namespace:DipPackageAssistant"
+                    xmlns:ui="clr-namespace:OpenCAD.UI">
 
     <ControlTemplate x:Key="TextBoxTemplate" TargetType="TextBox">
         <Border BorderBrush="{TemplateBinding BorderBrush}" 
@@ -9,6 +10,27 @@
 
             <ScrollViewer Name="PART_ContentHost"
                           Foreground="{TemplateBinding Foreground}"/>
+        </Border>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="ScalarPickerTemplate" TargetType="ui:ScalarPicker">
+        <Border BorderBrush="{TemplateBinding BorderBrush}" 
+                BorderThickness="{TemplateBinding BorderThickness}" 
+                Background="{TemplateBinding Background}">
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBox Grid.Column="0"
+                         Name="PART_TxtEdit"/>
+
+                <TextBlock Grid.Column="1"
+                           Name="PART_TxtUnit"
+                           Opacity=".6"/>
+            </Grid>
         </Border>
     </ControlTemplate>
 

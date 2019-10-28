@@ -1,30 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace OpenCAD.Utils
 {
-    public delegate void StringScannerIteratorMethod(StringScanner scanner);
-
-    public sealed class StringScannerSaveIndexToken : IDisposable
-    {
-        private bool disposedValue = false;
-        private StringScanner parentScanner;
-
-        public void Dispose()
-        {
-            if (!disposedValue)
-                parentScanner.SavedIndexTokenDisposed(this);
-
-            disposedValue = true;
-        }
-
-        internal StringScannerSaveIndexToken(StringScanner parentScanner)
-        {
-            this.parentScanner = parentScanner;
-
-            parentScanner.SavedIndexTokenCreated(this);
-        }
-    }
 
     public class StringScanner
     {
@@ -120,6 +97,16 @@ namespace OpenCAD.Utils
         {
             CurrentIndex++;
         }
+
+        /// <summary>
+        /// Gets a value indicating whether the start of the string has been reached.
+        /// </summary>
+        public bool StartReached => CurrentIndex <= 0;
+
+        /// <summary>
+        /// Gets a value indicating whether the end of the string has been reached.
+        /// </summary>
+        public bool EndReached => CurrentIndex >= Content.Length;
 
         /// <summary>
         /// Gets the current char being scanned

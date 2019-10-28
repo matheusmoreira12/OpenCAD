@@ -1,88 +1,314 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <MetricSystem Name="SI">
+	
 	<Quantities>
-		<Quantity Name="Capacitance">
-			<Units>
-				<Unit Name="Farad" Symbol="F" StandardAmount="1.0"/>
-			</Units>
-		</Quantity>
-		<Quantity Name="Charge">
-			<Units>
-				<Unit Name="Coulomb" Symbol="C" StandardAmount="1.0"/>
-			</Units>
-		</Quantity>
-		<Quantity Name="Conductance">
-			<Units>
-				<Unit Name="Siemens" Symbol="S" StandardAmount="1.0"/>
-			</Units>
-		</Quantity>
-		<Quantity Name="Current">
-			<Units>
-				<Unit Name="Ampere" Symbol="A" StandardAmount="1.0"/>
-			</Units>
-		</Quantity>
-		<Quantity Name="Frequency">
-			<Units>
-				<Unit Name="Hertz" Symbol="Hz" StandardAmount="1.0"/>
-			</Units>
-		</Quantity>
-		<Quantity Name="Inductance">
-			<Units>
-				<Unit Name="Henry" Symbol="H" StandardAmount="1.0"/>
-			</Units>
-		</Quantity>
-		<Quantity Name="Length">
-			<Units>
-				<Unit Name="Meter" Symbol="m" StandardAmount="1.0"/>
-			</Units>
-		</Quantity>
-		<Quantity Name="Plane Angle">
-			<Units>
-				<Unit Name="Degree" Symbol="deg" UISymbol="°" StandardAmount="1.0"/>
-				<Unit Name="Radian" Symbol="rad" BaseUnit="Plane Angle:Degree" ConversionAmount="360/(2*pi)"/>
-				<Unit Name="Gradian" Symbol="gon" BaseUnit="Plane Angle:Degree" ConversionAmount="9/10"/>
-				<Unit Name="Arc Minute" Symbol="arcmin" UISymbol="'" BaseUnit="Plane Angle:Degree" ConversionAmount="1/60"/>
-				<Unit Name="Arc Second" Symbol="arcsec" UISymbol="&quot;" BaseUnit="Plane Angle:Minute" ConversionAmount="1/60"/>
-			</Units>
-		</Quantity>
-		<Quantity Name="Power">
-			<Units>
-				<Unit Name="Watt" Symbol="W" StandardAmount="1.0"/>
-			</Units>
-		</Quantity>
-		<Quantity Name="Resistance">
-			<Units>
-				<Unit Name="Ohm" Symbol="ohm" UISymbol="Ω" StandardAmount="1.0"/>
-			</Units>
-		</Quantity>
-		<Quantity Name="Temperature">
-			<Units>
-				<Unit Name="Kelvin" Symbol="K" StandardAmount="1.0"/>
-				<Unit Name="Degree Celsius" Symbol="degC" UISymbol="°C" StandardAmount="1.0"/>
-			</Units>
-		</Quantity>
-		<Quantity Name="Time">
-			<Units>
-				<Unit Name="Second" Symbol="s" StandardAmount="1.0"/>
-			</Units>
-		</Quantity>
+		
+		<BaseQuantity Names="Length"
+			Symbol="l"
+			Unit="m"/>
+		<BaseQuantity Name="Mass"
+			Symbol="m"
+			Unit="kg"/>
+		<BaseQuantity Name="Time"
+			Symbol="t"
+			Unit="s"/>
+		<BaseQuantity Name="Electric Current"
+			Symbol="I"
+			Unit=""/>
+		<BaseQuantity Name="Temperature, Thermodynamic Temperature"
+			Symbol="T"
+			Unit="K"/>
+		<BaseQuantity Name="Amount of Substance"
+			Symbol="n"
+			Unit="mol"/>
+		<BaseQuantity Name="Luminous Intensity"
+			Symbol="I_v"
+			Unit="cd"/>
+			
+		<DerivedQuantity Name="Area"
+			Symbol="A"
+			Dimension="l^2"
+			Unit="m^2"/>
+		<DerivedQuantity Name="Volume"
+			Symbol="V"
+			Dimension="l^3"
+			Unit="m^3"/>
+		<DerivedQuantity Name="Speed, Velocity"
+			Symbol="v"
+			Dimension="l/t"
+			Unit="m/s"/>
+		<DerivedQuantity Name="Acceleration"
+			Symbol="a"
+			Dimension="l/t^2"
+			Unit="m/s^2"/>
+		<DerivedQuantity Name="Wavenumber"
+			Symbol="\sigma"
+			Dimension="l^-1"
+			Unit="m^-1"/>
+		<DerivedQuantity Name="Density, Mass Density"
+			Symbol="\rho"
+			Dimension="m/l^3"
+			Unit="kg/m^3"/>
+		<DerivedQuantity Name="Surface Density"
+			Symbol="\rho_A"
+			Dimension="m/l^2"
+			Unit="kg/m^2"/>
+		<DerivedQuantity Name="Specific Volume"
+			Symbol="v"
+			Dimension="l^3/m"
+			Unit="m^3/kg"/>
+		<DerivedQuantity Name="Current Density"
+			Symbol="j"
+			Dimension="I/l^2"
+			Unit="A/m^2"/>
+		<DerivedQuantity Name="Magnetic Field Strength"
+			Symbol="H"
+			Dimension="I/l"
+			Unit="A/m"/>
+		<DerivedQuantity Name="Concentration, Amount Concentration"
+			Symbol="c"
+			Dimension="n/l^3"
+			Unit="mol/m^3"/>
+		<DerivedQuantity Name="Mass Concentration"
+			Symbol="\rho"
+			Dimension="m/l^3"
+			Unit="kg/m^3"/>
+		<DerivedQuantity Name="Luminance"
+			Symbol="L_v"
+			Dimension="I_v/l^2"
+			Unit="cd/m^2"/>
+		<DerivedQuantity Name="Refractive Index"
+			Symbol="n"
+			Dimension="1"
+			Unit="1"/>
+		<DerivedQuantity Name="Relative Permeability"
+			Symbol="μ_r"
+			Dimension="1"
+			Unit="1"/>
+			
+		<DerivedQuantity Name="Plane Angle"
+			Symbol="\omega"
+			Dimension="1"
+			Unit="rad"/>
+		<DerivedQuantity Name="Solid Angle"
+			Symbol="\phy"
+			Dimension="1"
+			Unit="sr"/>
+		<DerivedQuantity Name="Frequency"
+			Symbol="f"
+			Dimension="t^-1"
+			Unit="Hz"/>
+		<DerivedQuantity Name="Force"
+			Symbol="F"
+			Dimension="l m t^2"
+			Unit="N"/>
+		<DerivedQuantity Name="Pressure, Stress"
+			Symbol="p"
+			Dimension="l^-1 m t^-2"
+			Unit="Pa"/>
+		<DerivedQuantity Name="Energy, Work, Amount of Heat"
+			Symbol="W"
+			Dimension="l^2 m t^-2"
+			Unit="J"/>
+		<DerivedQuantity Name="Power, Radiant Flux"
+			Symbol="P"
+			Dimension="l^2 m t^-3"
+			Unit="W"/>
+		<DerivedQuantity Name="Electric Charge, Amount of Electricity"
+			Symbol="Q"
+			Dimension="t I"
+			Unit="C"/>
+		<DerivedQuantity Name="Electric Potential Difference, Electromotive Force"
+			Symbol="U"
+			Dimension="l^2 kg t^-3 I^-1"
+			Unit="V"/>
+		<DerivedQuantity Name="Capacitance"
+			Symbol="C"
+			Dimension="l^-2 m^-1 t^4 I^-1"
+			Unit="F"/>
+		<DerivedQuantity Name="Electric Resistance"
+			Symbol="R"
+			Dimension="l^2 m t^-3 I^-2"
+			Unit="ohm"/>
+		<DerivedQuantity Name="Electric Conductance"
+			Symbol="G"
+			Dimension="l^-2 m^-1 t^3 I^2"
+			Unit="S"/>
+		<DerivedQuantity Name="Magnetic Flux"
+			Symbol="\Fi_B"
+			Dimension="l^2 m t^-2 I^-1"
+			Unit="Wb"/>
+		<DerivedQuantity Name="Magnetic Flux Density"
+			Symbol="B"
+			Dimension="m s^-2 I^-1"
+			Unit="T"/>
+		<DerivedQuantity Name="Inductance"
+			Symbol="L"
+			Dimension="l^2 m t^-2 I^-2"
+			Unit="H"/>
+		<DerivedQuantity Name="Iluminance"
+			Symbol="E_v"
+			Dimension="l^-2 I_v"
+			Unit="lx"/>
+		<DerivedQuantity Name="Specific Activity"
+			Symbol="a"
+			Dimension="s^-1"
+			Unit="Bq"/>
+		<DerivedQuantity Name="Dose Equivalent"
+			Symbol="H"
+			Dimension="m^2 s^-2"
+			Unit="Sv"/>
+		<DerivedQuantity Name="Catalytic Activity"
+			Symbol="z"
+			Dimension="s^-1 mol"
+			Unit="kat"/>
+
+		<DerivedQuantity Name="Dynamic Viscosity"
+			Symbol="\nu"
+			Dimension="l^-1 m t^-1"
+			Unit="Pa s"/>
+		<DerivedQuantity Name="Moment of Force"
+			Symbol="\tau"
+			Dimension="l^2 m t^-2"
+			Unit="N m"/>
+		<DerivedQuantity Name="Surface Tension"
+			Symbol=""
+			Dimension="m t^2"
+			Unit="N/m"/>
+		<DerivedQuantity Name="Angular Velocity"
+			Symbol=""
+			Dimension="l^-1"
+			Unit="rad/s"/>
+		<DerivedQuantity Name="Angular Acceleration"
+			Symbol=""
+			Dimension="l^-2"
+			Unit="rad/s^2"/>
+		<DerivedQuantity Name="Heat Flux Density, Irradiance"
+			Symbol=""
+			Dimension="m t^-3"
+			Unit="W/m^2"/>
+		<DerivedQuantity Name="Heat Capacity, Entropy"
+			Symbol=""
+			Dimension="l^2 m t^-2 T^-1"
+			Unit="J/K"/>
+		<DerivedQuantity Name="Specific Heat Capacity, Specific Entropy"
+			Symbol=""
+			Dimension="l^2 t^-2 T^-1"
+			Unit="J/(m K)"/>
+		<DerivedQuantity Name="Specific Energy"
+			Symbol=""
+			Dimension="l^2 t^-2"
+			Unit="J/kg"/>
+		<DerivedQuantity Name="Thermal Conductivity"
+			Symbol=""
+			Dimension="l m t^-3 T^-1"
+			Unit="W/(m K)"/>
+		<DerivedQuantity Name="Energy Density"
+			Symbol=""
+			Dimension="l^-1 m t^-2"
+			Unit="J/m^3"/>
+		<DerivedQuantity Name="Electric Field Strength"
+			Symbol=""
+			Dimension="l m s^-3 I^-1"
+			Unit="V/m"/>
+		<DerivedQuantity Name="Electric Charge Density"
+			Symbol=""
+			Dimension="l^-3 t I"
+			Unit="C/m^3"/>
+		<DerivedQuantity Name="Electric Flux Density, Electric Displacement"
+			Symbol=""
+			Dimension="l^-2 t I"
+			Unit="C/m^2"/>
+		<DerivedQuantity Name="Permitivity"
+			Symbol=""
+			Dimension="l^-3 m^-1 t^4 I^2"
+			Unit="F/m"/>
+		<DerivedQuantity Name="Permeability"
+			Symbol=""
+			Dimension="l m t^-2 I^-2"
+			Unit="H/m"/>
+		<DerivedQuantity Name="Molar Energy"
+			Symbol=""
+			Dimension="l^2 m t^-2 n^-1"
+			Unit="J/mol"/>
+		<DerivedQuantity Name="Molar Entropy, Molar Heat Capacity"
+			Symbol=""
+			Dimension="l^2 m t^2 T^-1 n^-1"
+			Unit="J/(mol K)"/>
+		<DerivedQuantity Name="Exposure X and Y Rays"
+			Symbol=""
+			Dimension="m^-1 t I"
+			Unit="C/kg"/>
+		<DerivedQuantity Name="Absorbed Dose Rate"
+			Symbol=""
+			Dimension="l^2 t^-3"
+			Unit="Gy/s"/>
+		<DerivedQuantity Name="Radiant Intensity"
+			Symbol=""
+			Dimension="l^2 m t^-3"
+			Unit="W/sr"/>
+		<DerivedQuantity Name="Radiance"
+			Symbol=""
+			Dimension="m s^-3"
+			Unit="W/(m^2 sr)"/>
+		<DerivedQuantity Name="Catalytic Activity Concentration"
+			Symbol=""
+			Dimension="l^-3 t^-1 n"
+			Unit="kat/m^3"/>
+
 	</Quantities>
+			
 	<MetricPrefixes>
-		<MetricPrefix Name="Deci" Symbol="d" Multiplier="0.1"/>
-		<MetricPrefix Name="Centi" Symbol="c" Multiplier="0.01"/>
-		<MetricPrefix Name="Milli" Symbol="m" Multiplier="0.001"/>
-		<MetricPrefix Name="Micro" Symbol="u" UISymbol="μ" Multiplier="1e-6"/>
-		<MetricPrefix Name="Nano" Symbol="n" Multiplier="1e-9"/>
-		<MetricPrefix Name="Atto" Symbol="p" Multiplier="1e-12"/>
-		<MetricPrefix Name="Atto" Symbol="f" Multiplier="1e-15"/>
-		<MetricPrefix Name="Atto" Symbol="a" Multiplier="1e-18"/>
-		<MetricPrefix Name="Deca" Symbol="da" Multiplier="10.0"/>
-		<MetricPrefix Name="Hecto" Symbol="h" Multiplier="100.0"/>
-		<MetricPrefix Name="Kilo" Symbol="k" Multiplier="1000.0"/>
-		<MetricPrefix Name="Mega" Symbol="M" Multiplier="1e+6"/>
-		<MetricPrefix Name="Giga" Symbol="G" Multiplier="1e+9"/>
-		<MetricPrefix Name="Tera" Symbol="T" Multiplier="1e+12"/>
-		<MetricPrefix Name="Peta" Symbol="P" Multiplier="1e+15"/>
-		<MetricPrefix Name="Exa" Symbol="E" Multiplier="1e+18"/>
+
+		<MetricPrefix Name="Deci" 
+			Symbol="d" 
+			Multiplier="0.1"/>
+		<MetricPrefix Name="Centi" 
+			Symbol="c" 
+			Multiplier="0.01"/>
+		<MetricPrefix Name="Milli" 
+			Symbol="m" 
+			Multiplier="0.001"/>
+		<MetricPrefix Name="Micro" 
+			Symbol="u" 
+			UISymbol="\mu" 
+			Multiplier="1e-6"/>
+		<MetricPrefix Name="Nano" 
+			Symbol="n" 
+			Multiplier="1e-9"/>
+		<MetricPrefix Name="Atto" 
+			Symbol="p" 
+			Multiplier="1e-12"/>
+		<MetricPrefix Name="Atto" 
+			Symbol="f" 
+			Multiplier="1e-15"/>
+		<MetricPrefix Name="Atto" 
+			Symbol="a" 
+			Multiplier="1e-18"/>
+		<MetricPrefix Name="Deca" 
+			Symbol="da" 
+			Multiplier="10.0"/>
+		<MetricPrefix Name="Hecto" 
+			Symbol="h" 
+			Multiplier="100.0"/>
+		<MetricPrefix Name="Kilo" 
+			Symbol="k" 
+			Multiplier="1000.0"/>
+		<MetricPrefix Name="Mega" 
+			Symbol="M" 
+			Multiplier="1e+6"/>
+		<MetricPrefix Name="Giga" 
+			Symbol="G" 
+			Multiplier="1e+9"/>
+		<MetricPrefix Name="Tera" 
+			Symbol="T" 
+			Multiplier="1e+12"/>
+		<MetricPrefix Name="Peta" 
+			Symbol="P" 
+			Multiplier="1e+15"/>
+		<MetricPrefix Name="Exa" 
+			Symbol="E" 
+			Multiplier="1e+18"/>
 	</MetricPrefixes>
+	
 </MetricSystem>

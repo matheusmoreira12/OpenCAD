@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27428.2043
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rendering", "Rendering\Rendering.csproj", "{D6E7D1CF-B9C7-4783-8AAF-9CA1527AC578}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tokens", "Tokens\Tokens.csproj", "{B2A4046D-4DD7-4D5F-A5F1-63A22E4F5A98}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{D6E7D1CF-B9C7-4783-8AAF-9CA1527AC578}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D6E7D1CF-B9C7-4783-8AAF-9CA1527AC578}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D6E7D1CF-B9C7-4783-8AAF-9CA1527AC578}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D6E7D1CF-B9C7-4783-8AAF-9CA1527AC578}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B2A4046D-4DD7-4D5F-A5F1-63A22E4F5A98}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2A4046D-4DD7-4D5F-A5F1-63A22E4F5A98}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2A4046D-4DD7-4D5F-A5F1-63A22E4F5A98}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2A4046D-4DD7-4D5F-A5F1-63A22E4F5A98}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {9DBCBEFA-9211-4871-92B2-A8061ECE7C9E}
+		SolutionGuid = {CB11A97C-80A2-4F90-A269-5877B2D8E1C9}
 	EndGlobalSection
 EndGlobal

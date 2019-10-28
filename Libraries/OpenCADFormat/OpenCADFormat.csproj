@@ -69,7 +69,7 @@
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>packages\Newtonsoft.Json.4.5.11\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="OpenCAD.Utils, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="OpenCAD.Utils, Version=0.0.0.0, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Utils\bin\Release\OpenCAD.Utils.dll</HintPath>
     </Reference>
@@ -111,8 +111,17 @@
     <Compile Include="Libraries\ComponentPinType.cs" />
     <Compile Include="Libraries\ComponentSymbol.cs" />
     <Compile Include="Libraries\Footprint.cs" />
+    <Compile Include="Measures\BaseQuantity.cs" />
+    <Compile Include="Measures\DerivedQuantity.cs" />
+    <Compile Include="Measures\DerivedQuantityDimension.cs" />
+    <Compile Include="Measures\DerivedQuantityDimensionMember.cs" />
+    <Compile Include="Measures\MetricSystem.cs" />
+    <Compile Include="Measures\MetricSystemManager.cs" />
     <Compile Include="Measures\Quantities.cs" />
+    <Compile Include="Measures\QuantityMath.cs" />
     <Compile Include="Measures\Scalar.cs" />
+    <Compile Include="Measures\ScalarMath.cs" />
+    <Compile Include="Measures\UnitMath.cs" />
     <Compile Include="Measures\Units.cs" />
     <Compile Include="PCBLayout\AnnotationLayer.cs" />
     <Compile Include="PCBLayout\CopperThievingOptions.cs" />

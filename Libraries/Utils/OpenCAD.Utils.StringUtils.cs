@@ -13,7 +13,8 @@ namespace OpenCAD.Utils
         public static readonly char[] LOWER_LETTERS_CHARSET = GetCharRange('a', 'z').ToArray();
         public static readonly char[] UPPER_LETTERS_CHARSET = GetCharRange('A', 'Z').ToArray();
         public static readonly char[] LETTERS_CHARSET = LOWER_LETTERS_CHARSET.Concat(UPPER_LETTERS_CHARSET).ToArray();
-        public static readonly char[] WORD_CHARSET = NUMERAL_CHARSET.Concat(LETTERS_CHARSET).Concat(new char[] { '_' }).ToArray();
+        public static readonly char[] WORD_STRICT_CHARSET = LETTERS_CHARSET.Concat(new char[] { '_' }).ToArray();
+        public static readonly char[] WORD_CHARSET = WORD_STRICT_CHARSET.Concat(NUMERAL_CHARSET).ToArray();
 
         public const char DECIMAL_SEPARATOR = '.';
         public const char DECIMAL_EXPONENT_CHARACTER = 'e';
@@ -53,16 +54,23 @@ namespace OpenCAD.Utils
             return WORD_CHARSET.Contains(c);
         }
 
+        public static bool CharIsStrictWord(char c)
+        {
+            return WORD_STRICT_CHARSET.Contains(c);
+        }
+
         public static bool ReadIdentifier(StringScanner scanner, out string identifier)
         {
             using (var token = scanner.SaveIndex())
             {
 
-                if (CharIsLetter(scanner.CurrentChar))
+                if (char.IsLetter(scanner.CurrentChar) ||
+                    scanner.CurrentChar == '_')
                 {
                     scanner.Increment();
 
-                    while (CharIsWord(scanner.CurrentChar))
+                    while (char.IsLetterOrDigit(scanner.CurrentChar) ||
+                        scanner.CurrentChar == '_')
                         scanner.Increment();
 
                     identifier = scanner.GetString(token);
@@ -75,77 +83,73 @@ namespace OpenCAD.Utils
             }
         }
 
-        private static bool skipNumeralChars(StringScanner scanner)
-        {
-            var result = false;
-
-            while (CharIsNumeral(scanner.CurrentChar))
-            {
-                scanner.Increment();
-                result = true;
-            }
-
-            return result;
-        }
-
-        private static bool skipSignChars(StringScanner scanner)
-        {
-            var result = false;
-
-            while (DECIMAL_SIGN_CHARACTERS.Contains(scanner.CurrentChar))
-            {
-                scanner.Increment();
-                result = true;
-            }
-
-            return result;
-        }
-
         public static bool ReadDecimalString(StringScanner scanner, out string decimalStr,
             out bool isFloatingPoint, out bool hasExponent)
         {
-            using (var t = scanner.SaveIndex())
+            using (var token = scanner.SaveIndex())
             {
                 isFloatingPoint = false;
                 hasExponent = false;
 
-                if (CharIsDecimal(scanner.CurrentChar))
+                if (skipNumberChars(scanner))
                 {
-                    scanner.Increment();
-
-                    skipNumeralChars(scanner);
-
-                    if (scanner.CurrentChar == DECIMAL_SEPARATOR)
+                    if (scanner.CurrentChar == '.')
                     {
                         scanner.Increment();
 
                         isFloatingPoint = true;
 
-                        skipNumeralChars(scanner);
+                        skipNumberChars(scanner);
                     }
 
-                    if (scanner.CurrentChar == DECIMAL_EXPONENT_CHARACTER)
+                    if (scanner.CurrentChar == 'e' ||
+                        scanner.CurrentChar == 'E')
                     {
                         scanner.Increment();
 
-                        if (skipSignChars(scanner))
-                            isFloatingPoint = true;
+                        hasExponent = true;
 
-                        if (skipNumeralChars(scanner))
-                            hasExponent = true;
-                        else
-                            throw new InvalidOperationException($"Unexpected token \"{scanner.CurrentChar}\". " +
-                                "Expected an exponent quantifier instead.");
+                        if (scanner.CurrentChar == '+' ||
+                            scanner.CurrentChar == '-')
+                        {
+                            scanner.Increment();
+
+                            isFloatingPoint = true;
+                        }
+
+                        if (!skipNumberChars(scanner))
+                            throw new FormatException();
                     }
 
-                    decimalStr = scanner.GetString(t);
+                    decimalStr = scanner.GetString(token);
                     return true;
                 }
 
+                scanner.RestoreIndex(token);
+
                 decimalStr = null;
-                scanner.RestoreIndex(t);
                 return false;
             }
+        }
+
+        private static bool skipNumberChars(StringScanner scanner)
+        {
+            var result = false;
+
+            while (char.IsNumber(scanner.CurrentChar))
+            {
+                scanner.Increment();
+                result = true;
+            }
+
+            return result;
+        }
+
+        public static bool ReadDecimalString(StringScanner scanner, out string decimalStr)
+        {
+            bool isFloatingPoint, hasExponent;
+
+            return ReadDecimalString(scanner, out decimalStr, out isFloatingPoint, out hasExponent);
         }
     }
 }

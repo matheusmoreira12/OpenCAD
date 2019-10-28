@@ -31,12 +31,12 @@
                                   Height="21"/>
                     </HeaderedContentControl>
                     <HeaderedContentControl Header="Total Height (H)">
-                        <opencadUI:MeasurementPicker x:Name="ComboTotalHeight"
-                                                     Height="21"/>
+                        <opencadUI:ScalarPicker x:Name="ComboTotalHeight"
+                                                Height="21"/>
                     </HeaderedContentControl>
                     <HeaderedContentControl Header="Standoff Height (h)">
-                        <opencadUI:MeasurementPicker x:Name="ComboStandoffHeight"
-                                                     Height="21"/>
+                        <opencadUI:ScalarPicker x:Name="ComboStandoffHeight"
+                                                Height="21"/>
                     </HeaderedContentControl>
                 </StackPanel>
             </TabItem>

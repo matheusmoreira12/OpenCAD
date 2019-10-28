@@ -46,27 +46,27 @@ namespace OpenCAD.OpenCADFormat.Measures
             //Metric
             public readonly static Unit Meter = new BaseUnit("Meter", Quantities.Length, 1, "m");
             //Imperial
-            public readonly static Unit Inch = Meter.Derive("Inch", .0254, "in", "\"", false);
-            public readonly static Unit Mil = Inch.Derive("Mil", .001, "mil", isMetric: false);
-            public readonly static Unit Foot = Inch.Derive("Foot", 12, "ft", isMetric: false);
-            public readonly static Unit Yard = Foot.Derive("Yard", 3, "yd", isMetric: false);
-            public readonly static Unit Chain = Yard.Derive("Chain", 22, "ch", isMetric: false);
-            public readonly static Unit Furlong = Chain.Derive("Furlong", 10, "fur", isMetric: false);
-            public readonly static Unit Mile = Mile.Derive("Mile", 8, "mi", isMetric: false);
+            public readonly static Unit Inch = Meter.Derive("Inch", .0254, "in", "\"");
+            public readonly static Unit Mil = Inch.Derive("Mil", .001, "mil");
+            public readonly static Unit Foot = Inch.Derive("Foot", 12, "ft");
+            public readonly static Unit Yard = Foot.Derive("Yard", 3, "yd");
+            public readonly static Unit Chain = Yard.Derive("Chain", 22, "ch");
+            public readonly static Unit Furlong = Chain.Derive("Furlong", 10, "fur");
+            public readonly static Unit Mile = Furlong.Derive("Mile", 8, "mi");
         }
 
         public static class PlaneAngle
         {
-            public static readonly Unit Degree = new BaseUnit("Degree", Quantities.PlaneAngle, 1.0, "deg", "°", false);
-            public static readonly Unit Radian = Degree.Derive("Radian", 180.0 / Math.PI, "rad", isMetric: false);
-            public static readonly Unit Gradian = Degree.Derive("Gradian", 9.0 / 10.0, "grad", isMetric: false);
-            public static readonly Unit ArcMinute = Degree.Derive("Arc Minute", 1.0 / 60.0, "arcmin", "\'", false);
-            public static readonly Unit ArcSecond = ArcMinute.Derive("Arc Second", 1.0 / 60.0, "arcsec", "\"", false);
+            public static readonly Unit Degree = new BaseUnit("Degree", Quantities.PlaneAngle, 1.0, "deg", "°");
+            public static readonly Unit Radian = Degree.Derive("Radian", 180.0 / Math.PI, "rad");
+            public static readonly Unit Gradian = Degree.Derive("Gradian", 9.0 / 10.0, "grad");
+            public static readonly Unit ArcMinute = Degree.Derive("Arc Minute", 1.0 / 60.0, "arcmin", "\'");
+            public static readonly Unit ArcSecond = ArcMinute.Derive("Arc Second", 1.0 / 60.0, "arcsec", "\"");
         }
 
         public static class Power
         {
-            public static readonly Unit Watt = new BaseUnit("Watt", Quantities.Power, 1.0, "deg", "°", false);
+            public static readonly Unit Watt = new BaseUnit("Watt", Quantities.Power, 1.0, "W");
         }
 
         public static class Resistance
@@ -81,18 +81,18 @@ namespace OpenCAD.OpenCADFormat.Measures
             public static readonly Unit DegreeCelsius = new BaseUnit("Degree Celsius", Quantities.Temperature, 1.0, "degC", "°C");
 
             //Imperial
-            public static readonly Unit DegreeFahrenheit = DegreeCelsius.Derive("Degree Fahrenheit", 5.0 / 9.0, "degF", "°F", false);
+            public static readonly Unit DegreeFahrenheit = DegreeCelsius.Derive("Degree Fahrenheit", 5.0 / 9.0, "degF", "°F");
         }
 
         public static class Time
         {
             public static readonly Unit Second = new BaseUnit("Second", Quantities.Time, 1.0, "s");
-            public static readonly Unit Minute = Second.Derive("Minute", 60, "min", isMetric: false);
-            public static readonly Unit Hour = Minute.Derive("Hour", 60, "h", isMetric: false);
-            public static readonly Unit Day = Hour.Derive("Day", 24, "d", isMetric: false);
-            public static readonly Unit Week = Day.Derive("Week", 7, "wk", isMetric: false);
-            public static readonly Unit Month = Day.Derive("Month", 30, "mth", isMetric: false);
-            public static readonly Unit Year = Month.Derive("Year", 12, "yr", isMetric: false);
+            public static readonly Unit Minute = Second.Derive("Minute", 60, "min");
+            public static readonly Unit Hour = Minute.Derive("Hour", 60, "h");
+            public static readonly Unit Day = Hour.Derive("Day", 24, "d");
+            public static readonly Unit Week = Day.Derive("Week", 7, "wk");
+            public static readonly Unit Month = Day.Derive("Month", 30, "mth");
+            public static readonly Unit Year = Month.Derive("Year", 12, "yr");
         }
 
         static Units()
@@ -102,6 +102,7 @@ namespace OpenCAD.OpenCADFormat.Measures
             RuntimeHelpers.RunClassConstructor(typeof(Conductance).TypeHandle);
             RuntimeHelpers.RunClassConstructor(typeof(Current).TypeHandle);
             RuntimeHelpers.RunClassConstructor(typeof(Frequency).TypeHandle);
+            RuntimeHelpers.RunClassConstructor(typeof(Inductance).TypeHandle);
             RuntimeHelpers.RunClassConstructor(typeof(Length).TypeHandle);
             RuntimeHelpers.RunClassConstructor(typeof(PlaneAngle).TypeHandle);
             RuntimeHelpers.RunClassConstructor(typeof(Power).TypeHandle);

@@ -2,17 +2,17 @@
 {
     public static class Quantities
     {
-        public static Quantity Capacitance = new Quantity("Capacitance", "C");
-        public static Quantity Charge = new Quantity("Charge", "Q");
-        public static Quantity Conductance = new Quantity("Conductance", "");
-        public static Quantity Current = new Quantity("Current", "I");
-        public static Quantity Frequency = new Quantity("Frequency", "F");
-        public static Quantity Inductance = new Quantity("Inductance", "L");
-        public static Quantity Length = new Quantity("Length", "l");
-        public static Quantity PlaneAngle = new Quantity("PlaneAngle", "α", "alpha");
-        public static Quantity Power = new Quantity("Power", "P");
-        public static Quantity Resistance = new Quantity("Resistance", "R");
-        public static Quantity Temperature = new Quantity("Temperature", "T");
-        public static Quantity Time = new Quantity("Time", "t");
+        public static BaseQuantity Capacitance = new BaseQuantity("Capacitance", "C");
+        public static BaseQuantity Charge = new BaseQuantity("Charge", "Q");
+        public static BaseQuantity Conductance = new BaseQuantity("Conductance", "");
+        public static BaseQuantity Current = new BaseQuantity("Current", "I");
+        public static BaseQuantity Frequency = new BaseQuantity("Frequency", "F");
+        public static BaseQuantity Inductance = new BaseQuantity("Inductance", "L");
+        public static BaseQuantity Length = new BaseQuantity("Length", "l");
+        public static BaseQuantity PlaneAngle = new BaseQuantity("PlaneAngle", "α");
+        public static BaseQuantity Power = new BaseQuantity("Power", "P");
+        public static BaseQuantity Resistance = new BaseQuantity("Resistance", "R");
+        public static BaseQuantity Temperature = new BaseQuantity("Temperature", "T");
+        public static BaseQuantity Time = new BaseQuantity("Time", "t");
     }
 }
