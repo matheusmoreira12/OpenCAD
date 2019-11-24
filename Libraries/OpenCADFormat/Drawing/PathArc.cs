@@ -8,8 +8,6 @@ namespace OpenCAD.OpenCADFormat.Drawing
     {
         public static PathArc Create(Size radius, Scalar rotation, bool largeArcFlag, bool sweepFlag)
         {
-            Validation.Expect(Quantities.PlaneAngle, rotation);
-
             return new PathArc
             {
                 Radius = radius,

@@ -17,9 +17,6 @@ namespace OpenCAD.OpenCADFormat.CoordinateSystem
 
         public Size(Scalar width, Scalar height)
         {
-            Validation.Expect(Quantities.Length, width);
-            Validation.Expect(Quantities.Length, height);
-
             Width = width;
             Height = height;
         }

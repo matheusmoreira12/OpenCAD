@@ -184,7 +184,6 @@
     <Compile Include="Measures\Quantity.cs" />
     <Compile Include="Measures\Unit.cs" />
     <Compile Include="Measures\Utils.cs" />
-    <Compile Include="Measures\Validation.cs" />
     <Compile Include="MetaInformation\Exceptions.cs" />
     <Compile Include="PCBLayout\MechanicalLayer.cs" />
     <Compile Include="PCBLayout\OverlayLayer.cs" />

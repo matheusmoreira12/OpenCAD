@@ -41,8 +41,6 @@ namespace OpenCAD.OpenCADFormat.Drawing
 
         public StrokeAttributes(StrokeStyle style, Scalar thickness)
         {
-            Validation.Expect(Quantities.Length, thickness);
-
             Style = style;
             Thickness = thickness;
         }

@@ -11,8 +11,6 @@ namespace OpenCAD.OpenCADFormat.Drawing
         public static Ellipse CreateCentered(Point center, Size radius,
             Scalar rotation)
         {
-            Validation.Expect(Quantities.PlaneAngle, rotation);
-
             return new Ellipse
             {
                 Type = EllipseType.Centered,

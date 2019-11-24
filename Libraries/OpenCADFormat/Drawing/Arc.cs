@@ -27,8 +27,6 @@ namespace OpenCAD.OpenCADFormat.Drawing
         public static Arc CreateCenteredStartSweepAngle(Point center, Size radius, Scalar rotation,
             Scalar startAngle, Scalar sweepAngle)
         {
-            Validation.Expect(Quantities.PlaneAngle, rotation);
-
             return new Arc
             {
                 Type = ArcType.CenteredStartSweepAngle,

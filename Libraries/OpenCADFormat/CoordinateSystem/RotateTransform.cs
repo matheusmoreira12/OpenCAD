@@ -10,8 +10,6 @@ namespace OpenCAD.OpenCADFormat.CoordinateSystem
 
         public RotateTransform(Point center, Scalar angle)
         {
-            Validation.Expect(Quantities.PlaneAngle, angle);
-
             Center = center;
             Angle = angle;
         }

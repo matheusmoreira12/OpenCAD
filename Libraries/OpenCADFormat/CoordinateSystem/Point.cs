@@ -52,9 +52,6 @@ namespace OpenCAD.OpenCADFormat.CoordinateSystem
 
         public Point(Scalar x, Scalar y)
         {
-            Validation.Expect(Quantities.Length, x);
-            Validation.Expect(Quantities.Length, y);
-
             X = x;
             Y = y;
         }
