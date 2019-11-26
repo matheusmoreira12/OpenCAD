@@ -1,11 +1,14 @@
 ﻿
 using OpenCAD.OpenCADFormat.Measures;
 using OpenCAD.OpenCADFormat.CoordinateSystem;
+using System;
+using System.Xml.Serialization;
 
 namespace OpenCAD.OpenCADFormat.Drawing
 {
-    public enum ArcType { Centered, ThreePoint, CenteredStartSweepAngle }
+    public enum ArcType { Centered, ThreePoint, CenteredStartSweep }
 
+    [Serializable]
     public class Arc : Shape
     {
         public static Arc CreateCentered(Point center, Point start, Point end) => new Arc
@@ -24,30 +27,42 @@ namespace OpenCAD.OpenCADFormat.Drawing
             Control = control
         };
 
-        public static Arc CreateCenteredStartSweepAngle(Point center, Size radius, Scalar rotation,
+        public static Arc CreateCenteredStartSweep(Point center, Size radius, Scalar rotation,
             Scalar startAngle, Scalar sweepAngle)
         {
             return new Arc
             {
-                Type = ArcType.CenteredStartSweepAngle,
+                Type = ArcType.CenteredStartSweep,
                 Center = center,
                 Radius = radius,
-                Rotation = rotation,
-                StartAngle = startAngle,
-                SweepAngle = sweepAngle
             };
         }
 
         private Arc() { }
 
-        public ArcType Type { get; private set; }
-        public Point Start { get; private set; }
-        public Point End { get; private set; }
-        public Point Control { get; private set; }
-        public Point Center { get; private set; }
-        public Size Radius { get; private set; }
-        public Scalar Rotation { get; private set; }
-        public Scalar StartAngle { get; private set; }
-        public Scalar SweepAngle { get; private set; }
+        [XmlAttribute]
+        [XmlEnum]
+        public ArcType Type;
+
+        [XmlAttribute]
+        public Point Start;
+        public bool ShouldSerializeStart => Type == ArcType.Centered || Type == ArcType.ThreePoint;
+
+        [XmlAttribute]
+        public Point End;
+        public bool ShouldSerializeEnd => Type == ArcType.Centered || Type == ArcType.ThreePoint;
+
+        [XmlAttribute]
+        public Point Control;
+        public bool ShouldSerializeControl => Type == ArcType.ThreePoint;
+
+        [XmlAttribute]
+        public Point Center;
+        public bool ShouldSerializeCenter => Type == ArcType.Centered || 
+            Type == ArcType.CenteredStartSweep;
+
+        [XmlAttribute]
+        public Size Radius;
+        public bool ShouldSerializeRadius => Type == ArcType.CenteredStartSweep;
     }
 }

@@ -8,8 +8,7 @@ namespace OpenCAD.OpenCADFormat.Drawing
 
     public class Ellipse : Shape
     {
-        public static Ellipse CreateCentered(Point center, Size radius,
-            Scalar rotation)
+        public static Ellipse CreateCentered(Point center, Size radius, Scalar rotation)
         {
             return new Ellipse
             {
@@ -37,12 +36,24 @@ namespace OpenCAD.OpenCADFormat.Drawing
 
         private Ellipse() { }
 
-        public EllipseType Type { get; private set; }
-        public Point Start { get; private set; }
-        public Point End { get; private set; }
-        public Point Control { get; private set; }
-        public Point Center { get; private set; }
-        public Size Radius { get; private set; }
-        public Scalar Rotation { get; private set; }
+        public EllipseType Type;
+
+        public Point Start;
+        public bool ShouldSerializeStart => Type == EllipseType.ThreePoint;
+
+        public Point End;
+        public bool ShouldSerializeEnd => Type == EllipseType.ThreePoint;
+
+        public Point Control;
+        public bool ShouldSerializeControl => Type == EllipseType.ThreePoint;
+
+        public Point Center;
+        public bool ShouldSerializeCenter => Type == EllipseType.ThreePoint;
+
+        public Size Radius;
+        public bool ShouldSerializeRadius => Type == EllipseType.ThreePoint;
+
+        public Scalar Rotation;
+        public bool ShouldSerializeRotation => Type == EllipseType.ThreePoint;
     }
 }
