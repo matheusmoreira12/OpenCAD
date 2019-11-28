@@ -4,10 +4,7 @@ using System.Linq;
 
 namespace OpenCAD.OpenCADFormat.Drawing
 {
-    /// <summary>
-    /// Represents a draw1ing element's stroke style.
-    /// </summary>
-    public class StrokeStyle
+    public static class StrokeStyles
     {
         public static readonly StrokeStyle Solid = new StrokeStyle(new[] { 1 });
         public static readonly StrokeStyle Dashed = new StrokeStyle(new[] { 3, 3 });
@@ -15,7 +12,13 @@ namespace OpenCAD.OpenCADFormat.Drawing
         public static readonly StrokeStyle DashDot = new StrokeStyle(new[] { 3, 1, 1, 1 });
         public static readonly StrokeStyle DashDotDot = new StrokeStyle(new[] { 3, 1, 1, 1, 1, 1 });
         public static readonly StrokeStyle DotDashDash = new StrokeStyle(new[] { 1, 1, 3, 3, 3, 1 });
+    }
 
+    /// <summary>
+    /// Represents a draw1ing element's stroke style.
+    /// </summary>
+    public class StrokeStyle
+    {
         private int[] fixDashArray(int[] dashArray)
         {
             if (dashArray.Length % 2 != 0)
@@ -36,8 +39,7 @@ namespace OpenCAD.OpenCADFormat.Drawing
 
     public struct StrokeAttributes
     {
-        public static readonly StrokeAttributes Default = new StrokeAttributes(StrokeStyle.Solid, new Scalar(10,
-            Units.Length.Mil));
+        public static readonly StrokeAttributes Default = new StrokeAttributes(StrokeStyles.Solid, Scalar.Parse("10mil"));
 
         public StrokeAttributes(StrokeStyle style, Scalar thickness)
         {

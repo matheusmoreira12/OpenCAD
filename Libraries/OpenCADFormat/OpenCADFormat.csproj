@@ -112,15 +112,26 @@
     <Compile Include="Libraries\ComponentSymbol.cs" />
     <Compile Include="Libraries\Footprint.cs" />
     <Compile Include="Measures\BaseQuantity.cs" />
+    <Compile Include="Measures\BaseUnit.cs" />
+    <Compile Include="Measures\ComposedUnit.cs" />
     <Compile Include="Measures\DerivedQuantity.cs" />
     <Compile Include="Measures\DerivedQuantityDimension.cs" />
     <Compile Include="Measures\DerivedQuantityDimensionMember.cs" />
+    <Compile Include="Measures\ExponentiatedUnit.cs" />
     <Compile Include="Measures\MetricSystem.cs" />
     <Compile Include="Measures\MetricSystemManager.cs" />
+    <Compile Include="Measures\PrefixedUnit.cs" />
     <Compile Include="Measures\Quantities.cs" />
     <Compile Include="Measures\QuantityMath.cs" />
     <Compile Include="Measures\Scalar.cs" />
     <Compile Include="Measures\ScalarMath.cs" />
+    <Compile Include="Measures\Serialization\MetricPrefixEntry.cs" />
+    <Compile Include="Measures\Serialization\QuantityEntry.cs" />
+    <Compile Include="Measures\Serialization\DerivedQuantityEntry.cs" />
+    <Compile Include="Measures\Serialization\BaseQuantityEntry.cs" />
+    <Compile Include="Measures\Serialization\MetricSystemEntry.cs" />
+    <Compile Include="Measures\Serialization\Serializer.cs" />
+    <Compile Include="Measures\Serialization\UnitEntry.cs" />
     <Compile Include="Measures\UnitMath.cs" />
     <Compile Include="Measures\Units.cs" />
     <Compile Include="PCBLayout\AnnotationLayer.cs" />
@@ -205,19 +216,23 @@
     <Compile Include="SchematicCapture\SchematicCapture.cs" />
     <Compile Include="Drawing\DrawingElement.cs" />
     <Compile Include="SchematicCapture\Trace.cs" />
+    <Compile Include="Serialization\IResolvable.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ReferencingSystem\" />
-    <Folder Include="Resources\Shared\" />
+    <Folder Include="Resources\Shared\MetricSystems\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resource1.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resource1.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\Shared\Icons\SI.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />
   <ProjectExtensions>

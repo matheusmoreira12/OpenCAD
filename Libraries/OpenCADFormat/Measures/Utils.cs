@@ -1,11 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 
 namespace OpenCAD.OpenCADFormat.Measures
 {
     public static class Utils
     {
+        public static (double X, double Y) GetScreenDPI()
+        {
+            using (var graphics = Graphics.FromHwnd(IntPtr.Zero))
+            {
+                return (X: graphics.DpiX, Y: graphics.DpiY);
+            }
+        }
+
         public static double GetMetricPrefixValue(MetricPrefix prefix) => prefix == null ? 1 : prefix.Multiplier;
 
         public static double GetAbsoluteAmount(Scalar measurement)

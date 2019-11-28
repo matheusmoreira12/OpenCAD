@@ -53,6 +53,8 @@ namespace OpenCAD.OpenCADFormat.Measures
             public readonly static Unit Chain = Yard.Derive("Chain", 22, "ch");
             public readonly static Unit Furlong = Chain.Derive("Furlong", 10, "fur");
             public readonly static Unit Mile = Furlong.Derive("Mile", 8, "mi");
+            public readonly static Unit PixelX = Inch.Derive("PixelX", 1 / Utils.GetScreenDPI().X, "px_x");
+            public readonly static Unit PixelY = Inch.Derive("PixelY", 1 / Utils.GetScreenDPI().Y, "px_y");
         }
 
         public static class PlaneAngle

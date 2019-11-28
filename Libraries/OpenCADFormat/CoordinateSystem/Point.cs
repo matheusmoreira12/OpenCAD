@@ -70,7 +70,9 @@ namespace OpenCAD.OpenCADFormat.CoordinateSystem
 
         public Scalar Angle(Point other) => Angle(this, other);
 
-        public Size ConvertTo(Unit unit) => new Size(X.ConvertToUnit(unit), Y.ConvertToUnit(unit));
+        public Point ConvertTo(Unit unit) => new Point(X.ConvertToUnit(unit), Y.ConvertToUnit(unit));
+
+        public Point ConvertToPixels() => new Point(X.ConvertToUnit(Units.Length.PixelX), Y.ConvertToUnit(Units.Length.PixelY));
 
         public Scalar X { get; }
 

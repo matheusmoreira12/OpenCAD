@@ -31,7 +31,7 @@ namespace OpenCAD.OpenCADFormat.Measures
 
         public static List<BaseQuantity> registeredQuantities = new List<BaseQuantity> { };
 
-        public BaseQuantity(string name, string symbol) : base(name, symbol) {
+        public BaseQuantity(string name, string symbol, string uiSymbol = null) : base(name, symbol, uiSymbol) {
             registerQuantity(this);
         }
     }

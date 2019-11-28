@@ -11,12 +11,15 @@ namespace OpenCAD.OpenCADFormat.Measures
 
         public string Symbol { get; }
 
+        public string UISymbol { get; }
+
         public Unit Unit = null;
 
-        protected Quantity(string name, string symbol)
+        protected Quantity(string name, string symbol, string uiSymbol = null)
         {
             Name = name ?? throw new ArgumentNullException(nameof(name));
             Symbol = symbol ?? throw new ArgumentNullException(nameof(symbol));
+            UISymbol = uiSymbol;
         }
     }
 }

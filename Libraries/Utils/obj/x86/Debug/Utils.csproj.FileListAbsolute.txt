@@ -1,0 +1,5 @@
+C:\Projetos\OpenCAD\Libraries\Utils\bin\Debug\OpenCAD.Utils.dll
+C:\Projetos\OpenCAD\Libraries\Utils\bin\Debug\OpenCAD.Utils.pdb
+C:\Projetos\OpenCAD\Libraries\Utils\obj\x86\Debug\Utils.csprojAssemblyReference.cache
+C:\Projetos\OpenCAD\Libraries\Utils\obj\x86\Debug\OpenCAD.Utils.dll
+C:\Projetos\OpenCAD\Libraries\Utils\obj\x86\Debug\OpenCAD.Utils.pdb

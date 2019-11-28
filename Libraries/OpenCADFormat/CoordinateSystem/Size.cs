@@ -24,6 +24,8 @@ namespace OpenCAD.OpenCADFormat.CoordinateSystem
         public Size ConvertTo(Unit unit) => new Size(Width.ConvertToUnit(unit),
             Height.ConvertToUnit(unit));
 
+        public Size ConvertToPixels() => new Size(Width.ConvertToUnit(Units.Length.PixelX), Height.ConvertToUnit(Units.Length.PixelY));
+
         public Scalar Width { get; }
         public Scalar Height { get; }
     }
