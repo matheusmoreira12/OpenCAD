@@ -1,10 +1,11 @@
-﻿using System;
+﻿using OpenCAD.Utils;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OpenCAD.Utils
+namespace OpenCAD.APIs.Tokens
 {
 
     public abstract class StringTokenifier
