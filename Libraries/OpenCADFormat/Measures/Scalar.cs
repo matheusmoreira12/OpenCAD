@@ -117,5 +117,20 @@ namespace OpenCAD.OpenCADFormat.Measures
         {
             return Equals(other);
         }
+
+        public override bool Equals(object obj)
+        {
+            return obj is Scalar scalar &&
+                   Amount == scalar.Amount &&
+                   EqualityComparer<Unit>.Default.Equals(Unit, scalar.Unit);
+        }
+
+        public override int GetHashCode()
+        {
+            var hashCode = 1156833016;
+            hashCode = hashCode * -1521134295 + Amount.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<Unit>.Default.GetHashCode(Unit);
+            return hashCode;
+        }
     }
 }

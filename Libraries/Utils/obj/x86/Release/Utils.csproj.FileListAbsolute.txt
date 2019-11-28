@@ -1,0 +1,4 @@
+C:\Projetos\OpenCAD\Libraries\Utils\bin\Release\OpenCAD.Utils.dll
+C:\Projetos\OpenCAD\Libraries\Utils\bin\Release\OpenCAD.Utils.pdb
+C:\Projetos\OpenCAD\Libraries\Utils\obj\x86\Release\OpenCAD.Utils.dll
+C:\Projetos\OpenCAD\Libraries\Utils\obj\x86\Release\OpenCAD.Utils.pdb
