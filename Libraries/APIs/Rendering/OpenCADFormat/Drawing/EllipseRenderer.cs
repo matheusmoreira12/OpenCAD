@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace Rendering.OpenCADFormat.Drawing
 {
@@ -28,15 +29,20 @@ namespace Rendering.OpenCADFormat.Drawing
             }
         }
 
+        private void RenderFill(DrawingContext context, Brush fill, Pen stroke)
+        {
+            var brushRenderer = new FillStyleRenderer(Target.Fill);
+            brushRenderer.Render(context, fill, stroke);
+        }
+
+        private void RenderStroke(DrawingContext context, Brush fill, Pen stroke)
+        {
+            var strokeStyleRenderer = new StrokeStyleRenderer(Target.Stroke.Style);
+        }
+
         private void RenderCentered(DrawingContext context, Brush fill, Pen stroke)
         {
-            var center = new Point(Target.Center.X.ConvertToUnit(OpenCAD.OpenCADFormat.Measures.Units.Length.PixelX).Amount,
-                Target.Center.X.ConvertToUnit(OpenCAD.OpenCADFormat.Measures.Units.Length.PixelY).Amount);
-
-            var ellipse = new EllipseGeometry();
-            ellipse.Transform = new RotateTransform();
-
-            context.DrawGeometry(fill, stroke, ellipse);
+            
         }
 
         private void RenderThreePoint(DrawingContext context, Brush fill, Pen stroke)

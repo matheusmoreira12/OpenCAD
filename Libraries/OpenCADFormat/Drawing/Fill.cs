@@ -7,9 +7,9 @@ namespace OpenCAD.OpenCADFormat.Drawing
 {
     public static class HatchStyles
     {
-        public static readonly HatchStyle Solid = new HatchStyle(new[] { StrokeStyle.Solid });
-        public static readonly HatchStyle Dashed = new HatchStyle(new[] { StrokeStyle.Dashed });
-        public static readonly HatchStyle Dotted = new HatchStyle(new[] { StrokeStyle.Dotted });
+        public static readonly HatchStyle Solid = new HatchStyle(new[] { StrokeStyles.Solid });
+        public static readonly HatchStyle Dashed = new HatchStyle(new[] { StrokeStyles.Dashed });
+        public static readonly HatchStyle Dotted = new HatchStyle(new[] { StrokeStyles.Dotted });
     }
 
     public class HatchStyle
@@ -43,13 +43,13 @@ namespace OpenCAD.OpenCADFormat.Drawing
         public static readonly FillStyle None = null;
         public static readonly FillStyle Solid = new SolidFillStyle();
         public static readonly FillStyle Hatched = new HatchFillStyle(new[] { new HatchAttributes(HatchStyles.Solid,
-            StrokeAttributes.Default.Thickness, new Scalar(0, Units.PlaneAngle.Degree), new[] {1, 6}) });
+            StrokeAttributes.Default.Thickness, Scalar.Parse("0deg"), new[] {1, 6}) });
         public static readonly FillStyle Hatched90Deg = new HatchFillStyle(new[] { new HatchAttributes(HatchStyles.Solid,
-            StrokeAttributes.Default.Thickness, new Scalar(90, Units.PlaneAngle.Degree), new[] {1, 6}) });
+            StrokeAttributes.Default.Thickness, Scalar.Parse("90deg"), new[] {1, 6}) });
         public static readonly FillStyle Hatched45Deg = new HatchFillStyle(new[] { new HatchAttributes(HatchStyles.Solid,
-            StrokeAttributes.Default.Thickness, new Scalar(45, Units.PlaneAngle.Degree), new[] {1, 6}) });
+            StrokeAttributes.Default.Thickness, Scalar.Parse("45deg"), new[] {1, 6}) });
         public static readonly FillStyle Hatched135Deg = new HatchFillStyle(new[] { new HatchAttributes(HatchStyles.Solid,
-            StrokeAttributes.Default.Thickness, new Scalar(135, Units.PlaneAngle.Degree), new[] {1, 6}) });
+            StrokeAttributes.Default.Thickness, Scalar.Parse("135deg"), new[] {1, 6}) });
         public static readonly FillStyle Crossed = HatchFillStyle.Combine((HatchFillStyle)Hatched,
             (HatchFillStyle)Hatched90Deg);
         public static readonly FillStyle Crossed45Deg = HatchFillStyle.Combine((HatchFillStyle)Hatched45Deg,

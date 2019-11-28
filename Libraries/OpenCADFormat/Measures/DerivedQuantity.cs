@@ -7,6 +7,11 @@
             Dimension = dimension;
         }
 
+        public DerivedQuantity(string name, string symbol, string uiSymbol, DerivedQuantityDimension dimension) : base(name, symbol, uiSymbol)
+        {
+            Dimension = dimension;
+        }
+
         public DerivedQuantityDimension Dimension { get; }
     }
 }
