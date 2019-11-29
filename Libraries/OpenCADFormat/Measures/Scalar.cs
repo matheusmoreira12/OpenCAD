@@ -88,7 +88,7 @@ namespace OpenCAD.OpenCADFormat.Measures
         }
 
         public override string ToString() => $"{Amount.ToString(Conventions.STANDARD_CULTURE)}{Unit?.Symbol}";
-        public string ToUIString() => $"{Amount.ToString(Conventions.STANDARD_CULTURE)}{Unit?.UISymbol}";
+        public string ToUIString() => $"{Amount.ToString(Conventions.STANDARD_CULTURE)}{Unit?.UISymbol ?? Unit?.Symbol}";
 
         public Scalar ConvertToUnit(Unit outUnit)
         {

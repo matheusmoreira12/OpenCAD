@@ -22,7 +22,7 @@ namespace OpenCAD.OpenCADFormat.Measures
 
         public override string Symbol => $"{Prefix.Symbol}{BaseUnit.Symbol}";
 
-        public override string UISymbol => $"{Prefix.UISymbol}{BaseUnit.UISymbol}";
+        public override string UISymbol => $"{Prefix.UISymbol ?? Prefix.Symbol}{BaseUnit.UISymbol}";
 
         public override Unit Collapse() => this;
 

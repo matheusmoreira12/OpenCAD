@@ -32,7 +32,7 @@ namespace OpenCAD.OpenCADFormat.Measures
 
         public override string Symbol => string.Join("*", BaseUnits.Select(bu => bu.Symbol));
 
-        public override string UISymbol => string.Join("*", BaseUnits.Select(bu => bu.UISymbol));
+        public override string UISymbol => string.Join("*", BaseUnits.Select(bu => bu.UISymbol ?? bu.Symbol));
 
         public override MetricSystem MetricSystem => null;
     }

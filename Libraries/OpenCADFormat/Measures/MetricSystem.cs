@@ -8,17 +8,21 @@ namespace OpenCAD.OpenCADFormat.Measures
 {
     public sealed class MetricSystem
     {
-        public MetricSystem(string name, IList<Quantity> quantities, IList<MetricPrefix> prefixes)
+        public MetricSystem(string name, IList<Quantity> quantities, IList<Unit> units, 
+            IList<MetricPrefix> prefixes)
         {
             Name = name ?? throw new ArgumentNullException(nameof(name));
-            Quantities = (quantities ?? throw new ArgumentNullException(nameof(quantities))).ToArray();
-            Prefixes = (prefixes ?? throw new ArgumentNullException(nameof(prefixes))).ToArray();
+            Quantities = (quantities ?? throw new ArgumentNullException(nameof(quantities))).ToList();
+            Units = (units ?? throw new ArgumentNullException(nameof(units))).ToList();
+            Prefixes = (prefixes ?? throw new ArgumentNullException(nameof(prefixes))).ToList();
         }
 
         public string Name { get; }
 
-        public Quantity[] Quantities { get; }
+        public List<Quantity> Quantities { get; }
 
-        public MetricPrefix[] Prefixes { get; }
+        public List<Unit> Units { get; }
+
+        public List<MetricPrefix> Prefixes { get; }
     }
 }

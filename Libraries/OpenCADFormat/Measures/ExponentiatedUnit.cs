@@ -34,7 +34,7 @@ namespace OpenCAD.OpenCADFormat.Measures
 
         public override double StandardAmount => Math.Pow(BaseUnit.StandardAmount, Exponent);
 
-        public override string Symbol => $"{BaseUnit.UISymbol}^{Exponent}";
+        public override string Symbol => $"{BaseUnit.UISymbol ?? BaseUnit.Symbol}^{Exponent}";
 
         public override string UISymbol => $"{BaseUnit.Symbol}^{Exponent}";
 

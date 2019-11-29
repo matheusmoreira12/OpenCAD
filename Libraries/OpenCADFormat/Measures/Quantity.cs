@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Text.RegularExpressions;
 
 namespace OpenCAD.OpenCADFormat.Measures
 {
@@ -13,7 +10,7 @@ namespace OpenCAD.OpenCADFormat.Measures
 
         public string UISymbol { get; }
 
-        public Unit Unit = null;
+        public Unit Unit { get; internal set; }
 
         protected Quantity(string name, string symbol, string uiSymbol = null)
         {

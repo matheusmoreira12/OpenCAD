@@ -2,7 +2,7 @@
 
 namespace OpenCAD.OpenCADFormat.Measures.Serialization
 {
-    public sealed class UnitEntry
+    public abstract class UnitNode
     {
         [XmlAttribute]
         public string Name;

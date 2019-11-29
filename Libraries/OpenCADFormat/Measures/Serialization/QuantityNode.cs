@@ -1,9 +1,11 @@
 ﻿using OpenCAD.OpenCADFormat.Serialization;
+using System;
+using System.Collections.Generic;
 using System.Xml.Serialization;
 
 namespace OpenCAD.OpenCADFormat.Measures.Serialization
 {
-    public sealed class MetricPrefixEntry: IResolvable<MetricPrefix>
+    public abstract class QuantityNode
     {
         [XmlAttribute]
         public string Name;
@@ -14,14 +16,8 @@ namespace OpenCAD.OpenCADFormat.Measures.Serialization
         [XmlAttribute]
         public string UISymbol;
 
-        public void Assimilate(MetricPrefix value)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public MetricPrefix Resolve()
-        {
-            throw new System.NotImplementedException();
-        }
+        [XmlArray("Units")]
+        [XmlElement("Unit", typeof(BaseUnitNode))]
+        public BaseUnitNode[] Units;
     }
 }

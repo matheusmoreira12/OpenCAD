@@ -8,8 +8,8 @@ namespace OpenCAD.OpenCADFormat.Serialization
 {
     public interface IResolvable<T> where T : class
     {
-        public T Resolve();
+        T Resolve();
 
-        public void Assimilate(T value);
+        void Assimilate(T value);
     }
 }

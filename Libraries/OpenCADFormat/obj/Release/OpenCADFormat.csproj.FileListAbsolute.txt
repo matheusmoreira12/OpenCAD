@@ -28,3 +28,34 @@ C:\Projetos\OpenCAD\Libraries\OpenCADFormat\obj\Release\OpenCADFormat.csproj.Cop
 C:\Projetos\OpenCAD\Libraries\OpenCADFormat\obj\Release\OpenCAD.OpenCADFormat.dll
 C:\Projetos\OpenCAD\Libraries\OpenCADFormat\obj\Release\OpenCAD.OpenCADFormat.pdb
 C:\Projetos\OpenCAD\Libraries\OpenCADFormat\obj\Release\OpenCADFormat.csprojAssemblyReference.cache
+C:\Users\Matheus Moreira\source\repos\OpenCAD\Libraries\OpenCADFormat\bin\Release\OpenCAD.OpenCADFormat.dll
+C:\Users\Matheus Moreira\source\repos\OpenCAD\Libraries\OpenCADFormat\bin\Release\OpenCAD.OpenCADFormat.pdb
+C:\Users\Matheus Moreira\source\repos\OpenCAD\Libraries\OpenCADFormat\bin\Release\BruTile.Desktop.dll
+C:\Users\Matheus Moreira\source\repos\OpenCAD\Libraries\OpenCADFormat\bin\Release\BruTile.dll
+C:\Users\Matheus Moreira\source\repos\OpenCAD\Libraries\OpenCADFormat\bin\Release\BruTile.MbTiles.dll
+C:\Users\Matheus Moreira\source\repos\OpenCAD\Libraries\OpenCADFormat\bin\Release\BruTile.Serialization.dll
+C:\Users\Matheus Moreira\source\repos\OpenCAD\Libraries\OpenCADFormat\bin\Release\Common.Logging.dll
+C:\Users\Matheus Moreira\source\repos\OpenCAD\Libraries\OpenCADFormat\bin\Release\GeoAPI.dll
+C:\Users\Matheus Moreira\source\repos\OpenCAD\Libraries\OpenCADFormat\bin\Release\NetTopologySuite.dll
+C:\Users\Matheus Moreira\source\repos\OpenCAD\Libraries\OpenCADFormat\bin\Release\NetTopologySuite.IO.GeoTools.dll
+C:\Users\Matheus Moreira\source\repos\OpenCAD\Libraries\OpenCADFormat\bin\Release\NetTopologySuite.IO.MsSqlSpatial.dll
+C:\Users\Matheus Moreira\source\repos\OpenCAD\Libraries\OpenCADFormat\bin\Release\NetTopologySuite.IO.PostGis.dll
+C:\Users\Matheus Moreira\source\repos\OpenCAD\Libraries\OpenCADFormat\bin\Release\Newtonsoft.Json.dll
+C:\Users\Matheus Moreira\source\repos\OpenCAD\Libraries\OpenCADFormat\bin\Release\OpenCAD.Utils.dll
+C:\Users\Matheus Moreira\source\repos\OpenCAD\Libraries\OpenCADFormat\bin\Release\PowerCollections.dll
+C:\Users\Matheus Moreira\source\repos\OpenCAD\Libraries\OpenCADFormat\bin\Release\ProjNet.dll
+C:\Users\Matheus Moreira\source\repos\OpenCAD\Libraries\OpenCADFormat\bin\Release\SharpMap.dll
+C:\Users\Matheus Moreira\source\repos\OpenCAD\Libraries\OpenCADFormat\bin\Release\System.Data.SQLite.dll
+C:\Users\Matheus Moreira\source\repos\OpenCAD\Libraries\OpenCADFormat\bin\Release\System.Data.SQLite.Linq.dll
+C:\Users\Matheus Moreira\source\repos\OpenCAD\Libraries\OpenCADFormat\bin\Release\System.ValueTuple.dll
+C:\Users\Matheus Moreira\source\repos\OpenCAD\Libraries\OpenCADFormat\bin\Release\Newtonsoft.Json.xml
+C:\Users\Matheus Moreira\source\repos\OpenCAD\Libraries\OpenCADFormat\bin\Release\OpenCAD.Utils.pdb
+C:\Users\Matheus Moreira\source\repos\OpenCAD\Libraries\OpenCADFormat\bin\Release\SharpMap.xml
+C:\Users\Matheus Moreira\source\repos\OpenCAD\Libraries\OpenCADFormat\bin\Release\System.ValueTuple.xml
+C:\Users\Matheus Moreira\source\repos\OpenCAD\Libraries\OpenCADFormat\obj\Release\OpenCADFormat.csprojAssemblyReference.cache
+C:\Users\Matheus Moreira\source\repos\OpenCAD\Libraries\OpenCADFormat\obj\Release\OpenCAD.OpenCADFormat.Resource1.resources
+C:\Users\Matheus Moreira\source\repos\OpenCAD\Libraries\OpenCADFormat\obj\Release\OpenCADFormat.csproj.GenerateResource.cache
+C:\Users\Matheus Moreira\source\repos\OpenCAD\Libraries\OpenCADFormat\obj\Release\OpenCADFormat.csproj.CoreCompileInputs.cache
+C:\Users\Matheus Moreira\source\repos\OpenCAD\Libraries\OpenCADFormat\obj\Release\OpenCADFormat.csproj.CopyComplete
+C:\Users\Matheus Moreira\source\repos\OpenCAD\Libraries\OpenCADFormat\obj\Release\OpenCAD.OpenCADFormat.dll
+C:\Users\Matheus Moreira\source\repos\OpenCAD\Libraries\OpenCADFormat\obj\Release\OpenCAD.OpenCADFormat.pdb
