@@ -126,12 +126,14 @@
     <Compile Include="Measures\Scalar.cs" />
     <Compile Include="Measures\ScalarMath.cs" />
     <Compile Include="Measures\Serialization\BaseQuantityNode.cs" />
+    <Compile Include="Measures\Serialization\BaseUnitNode.cs" />
     <Compile Include="Measures\Serialization\DerivedQuantityNode.cs" />
+    <Compile Include="Measures\Serialization\DerivedUnitNode.cs" />
     <Compile Include="Measures\Serialization\MetricPrefixNode.cs" />
     <Compile Include="Measures\Serialization\MetricSystemLibrary.cs" />
     <Compile Include="Measures\Serialization\MetricSystemNode.cs" />
     <Compile Include="Measures\Serialization\QuantityNode.cs" />
-    <Compile Include="Measures\Serialization\UnitEntry.cs" />
+    <Compile Include="Measures\Serialization\UnitNode.cs" />
     <Compile Include="Measures\UnitMath.cs" />
     <Compile Include="Measures\Units.cs" />
     <Compile Include="PCBLayout\AnnotationLayer.cs" />
