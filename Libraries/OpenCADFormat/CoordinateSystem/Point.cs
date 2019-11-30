@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Xml.Serialization;
 using OpenCAD.OpenCADFormat.Measures;
+using OpenCAD.OpenCADFormat.Measures.Math;
 
 namespace OpenCAD.OpenCADFormat.CoordinateSystem
 {
@@ -36,16 +37,16 @@ namespace OpenCAD.OpenCADFormat.CoordinateSystem
         {
             Size difference = (a - b).ConvertTo(outUnit);
 
-            return ScalarMath.SquareRoot(difference.Width.Square() + difference.Height.Square());
+            return MathExtension.SquareRoot(difference.Width.Square() + difference.Height.Square());
         }
 
         public static Scalar Angle(Point a, Point b)
         {
             Size difference = a - b;
 
-            double angleRad = Math.Atan2(difference.Width.GetAbsoluteAmount(), difference.Height.GetAbsoluteAmount());
+            double angleRad = Math.Atan2(difference.Width.ConvertTo(null).Amount, difference.Height.ConvertTo(null).Amount);
 
-            return new Scalar(angleRad, Units.PlaneAngle.Radian);
+            return new Scalar(angleRad, Unit.Parse("rad"));
         }
 
         public static Scalar Angle(Point a, Point o, Point b) => Angle(a, o) + Angle(o, b);
@@ -70,9 +71,9 @@ namespace OpenCAD.OpenCADFormat.CoordinateSystem
 
         public Scalar Angle(Point other) => Angle(this, other);
 
-        public Point ConvertTo(Unit unit) => new Point(X.ConvertToUnit(unit), Y.ConvertToUnit(unit));
+        public Point ConvertTo(Unit unit) => new Point(X.ConvertTo(unit), Y.ConvertTo(unit));
 
-        public Point ConvertToPixels() => new Point(X.ConvertToUnit(Units.Length.PixelX), Y.ConvertToUnit(Units.Length.PixelY));
+        public Point ConvertToPixels() => new Point(X.ConvertTo(Unit.Parse("px_x")), Y.ConvertTo(Unit.Parse("px_y")));
 
         public Scalar X { get; }
 

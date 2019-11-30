@@ -1,4 +1,5 @@
-﻿using OpenCAD.Utils;
+﻿using OpenCAD.OpenCADFormat.Measures.Math;
+using OpenCAD.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,19 +13,19 @@ namespace OpenCAD.OpenCADFormat.Measures
 
         public static readonly Scalar One = new Scalar(1);
 
-        public static Scalar operator +(Scalar a, Scalar b) => ScalarMath.Add(a, b);
+        public static Scalar operator +(Scalar a, Scalar b) => MathExtension.Add(a, b);
 
-        public static Scalar operator -(Scalar a, Scalar b) => ScalarMath.Subtract(a, b);
+        public static Scalar operator -(Scalar a, Scalar b) => MathExtension.Subtract(a, b);
 
-        public static Scalar operator -(Scalar a) => ScalarMath.Negate(a);
+        public static Scalar operator -(Scalar a) => MathExtension.Negate(a);
 
-        public static Scalar operator *(Scalar a, double b) => ScalarMath.Multiply(a, b);
+        public static Scalar operator *(Scalar a, double b) => MathExtension.Multiply(a, b);
 
-        public static Scalar operator /(Scalar a, double b) => ScalarMath.Divide(a, b);
+        public static Scalar operator /(Scalar a, double b) => MathExtension.Divide(a, b);
 
-        public static Scalar operator /(Scalar a, Scalar b) => ScalarMath.Divide(a, b);
+        public static Scalar operator /(Scalar a, Scalar b) => MathExtension.Divide(a, b);
 
-        public static Scalar operator !(Scalar a) => ScalarMath.Invert(a);
+        public static Scalar operator !(Scalar a) => MathExtension.Invert(a);
 
         public static bool operator ==(Scalar a, Scalar b) => a.Equals(b);
 
@@ -90,16 +91,10 @@ namespace OpenCAD.OpenCADFormat.Measures
         public override string ToString() => $"{Amount.ToString(Conventions.STANDARD_CULTURE)}{Unit?.Symbol}";
         public string ToUIString() => $"{Amount.ToString(Conventions.STANDARD_CULTURE)}{Unit?.UISymbol ?? Unit?.Symbol}";
 
-        public Scalar ConvertToUnit(Unit outUnit)
+        public Scalar ConvertTo(Unit outUnit)
         {
-            if (outUnit.Quantity != Unit.Quantity)
-                throw new InvalidOperationException("Cannot convert scalar to the specified unit. " +
-                    "Units have mismatched physical quantities.");
-
-            return new Scalar(Utils.ConvertAmount(this, outUnit), outUnit);
+            throw new NotImplementedException();
         }
-
-        public double GetAbsoluteAmount() => Utils.GetAbsoluteAmount(this);
 
         public double Amount { get; private set; }
         public Unit Unit { get; private set; }
@@ -110,7 +105,7 @@ namespace OpenCAD.OpenCADFormat.Measures
                 throw new InvalidOperationException("Cannot compare measurements. Measured physical quantities " +
                     "don't match.");
 
-            return Comparer<double>.Default.Compare(GetAbsoluteAmount(), other.GetAbsoluteAmount());
+            return Comparer<double>.Default.Compare(ConvertTo(null).Amount, other.ConvertTo(null).Amount);
         }
 
         bool IEquatable<Scalar>.Equals(Scalar other)

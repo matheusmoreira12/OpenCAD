@@ -1,4 +1,5 @@
-﻿using OpenCAD.Utils;
+﻿using OpenCAD.OpenCADFormat.Measures.Math;
+using OpenCAD.Utils;
 using System.Collections.Generic;
 using System.Text;
 
@@ -6,9 +7,6 @@ namespace OpenCAD.OpenCADFormat.Measures
 {
     public abstract class Unit
     {
-        public static BaseUnit Derive(string name, Unit original, double conversionAmount, string symbol, string uiSymbol = null) => 
-            new BaseUnit(name, original.Quantity, original.StandardAmount * conversionAmount, symbol, uiSymbol);
-
         public static Unit Parse(string value)
         {
             IEnumerable<Unit> allUnits = Utils.GetSupportedUnits();
@@ -36,18 +34,13 @@ namespace OpenCAD.OpenCADFormat.Measures
             }
         }
 
-        public Unit()
-        {
-            Units.SupportedUnits.Add(this);
-        }
+        public static Unit operator *(Unit a, Unit b) => MathExtension.Multiply(a, b);
 
-        public static Unit operator *(Unit a, Unit b) => UnitMath.Multiply(a, b);
+        public static Unit operator *(Unit a, MetricPrefix b) => MathExtension.Multiply(a, b);
 
-        public static Unit operator *(Unit a, MetricPrefix b) => UnitMath.Multiply(a, b);
+        public static Unit operator /(Unit a, Unit b) => MathExtension.Divide(a, b);
 
-        public static Unit operator /(Unit a, Unit b) => UnitMath.Divide(a, b);
-
-        public static Unit operator !(Unit a) => UnitMath.Invert(a);
+        public static Unit operator !(Unit a) => MathExtension.Invert(a);
 
         public abstract Unit Collapse();
 
@@ -55,15 +48,10 @@ namespace OpenCAD.OpenCADFormat.Measures
 
         public abstract Quantity Quantity { get; }
 
-        public abstract double StandardAmount { get; }
-
         public abstract string Symbol { get; }
 
         public abstract string UISymbol { get; }
 
         public MetricSystem MetricSystem { get; internal set; }
-
-        public Unit Derive(string name, double conversionAmount, string symbol, string uiSymbol = null) =>
-            Derive(name, this, conversionAmount, symbol, uiSymbol);
     }
 }

@@ -2,7 +2,8 @@
 
 namespace OpenCAD.OpenCADFormat.Measures.Serialization
 {
-    public sealed class BaseUnitNode: UnitNode
+    public sealed class BaseUnitNode : UnitNode
     {
+        public string Quantity { get; internal set; }
     }
 }

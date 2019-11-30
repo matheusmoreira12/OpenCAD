@@ -35,8 +35,6 @@ namespace OpenCAD.OpenCADFormat.Measures
 
         public override Quantity Quantity => throw new NotImplementedException();
 
-        public override double StandardAmount => throw new NotImplementedException();
-
         public override string Symbol => _symbol;
         private readonly string _symbol;
 

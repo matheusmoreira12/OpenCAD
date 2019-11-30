@@ -119,12 +119,11 @@
     <Compile Include="Measures\DerivedUnit.cs" />
     <Compile Include="Measures\DerivedUnitExpression.cs" />
     <Compile Include="Measures\DerivedUnitExpressionMember.cs" />
+    <Compile Include="Measures\Math\MathExtension.cs" />
     <Compile Include="Measures\MetricSystem.cs" />
+    <Compile Include="Measures\MetricSystemImporter.cs" />
     <Compile Include="Measures\MetricSystemManager.cs" />
-    <Compile Include="Measures\Quantities.cs" />
-    <Compile Include="Measures\QuantityMath.cs" />
     <Compile Include="Measures\Scalar.cs" />
-    <Compile Include="Measures\ScalarMath.cs" />
     <Compile Include="Measures\Serialization\BaseQuantityNode.cs" />
     <Compile Include="Measures\Serialization\BaseUnitNode.cs" />
     <Compile Include="Measures\Serialization\DerivedQuantityNode.cs" />
@@ -134,8 +133,6 @@
     <Compile Include="Measures\Serialization\MetricSystemNode.cs" />
     <Compile Include="Measures\Serialization\QuantityNode.cs" />
     <Compile Include="Measures\Serialization\UnitNode.cs" />
-    <Compile Include="Measures\UnitMath.cs" />
-    <Compile Include="Measures\Units.cs" />
     <Compile Include="PCBLayout\AnnotationLayer.cs" />
     <Compile Include="PCBLayout\CopperThievingOptions.cs" />
     <Compile Include="PCBLayout\DefaultValues.cs" />

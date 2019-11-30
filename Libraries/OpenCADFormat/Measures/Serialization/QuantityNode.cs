@@ -8,13 +8,16 @@ namespace OpenCAD.OpenCADFormat.Measures.Serialization
     public abstract class QuantityNode
     {
         [XmlAttribute]
-        public string Name;
+        public string Name = null;
 
         [XmlAttribute]
-        public string Symbol;
+        public string Symbol = null;
 
         [XmlAttribute]
-        public string UISymbol;
+        public string UISymbol = null;
+
+        [XmlAttribute]
+        public string Unit = null;
 
         [XmlArray("Units")]
         [XmlElement("Unit", typeof(BaseUnitNode))]

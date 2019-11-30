@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OpenCAD.OpenCADFormat.Measures.Math;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -17,20 +18,20 @@ namespace OpenCAD.OpenCADFormat.Measures
 
         public static double GetMetricPrefixValue(MetricPrefix prefix) => prefix == null ? 1 : prefix.Multiplier;
 
-        public static double GetAbsoluteAmount(Scalar measurement)
-            => measurement.Unit.StandardAmount * measurement.Amount;
-
-        public static double ConvertAmount(Scalar measurement, Unit outUnit) => GetAbsoluteAmount(measurement)
-            / outUnit.StandardAmount;
-
         public static IEnumerable<Unit> GetSupportedUnits()
         {
-            foreach (var unit in Units.SupportedUnits)
+            var allUnits = MetricSystemManager.GetAllUnits().ToArray();
+            var allPrefixes = MetricSystemManager.GetAllMetricPrefixes();
+
+            foreach (var unit in allUnits)
             {
                 yield return unit;
 
-                foreach (var prefix in MetricPrefixes.SupportedPrefixes)
-                    yield return unit.Multiply(prefix);
+                if (unit is BaseUnit)
+                {
+                    foreach (var prefix in allPrefixes)
+                        yield return unit.Multiply(prefix);
+                }
             }
         }
 
