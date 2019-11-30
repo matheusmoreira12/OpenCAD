@@ -5,7 +5,7 @@ namespace OpenCAD.OpenCADFormat.Measures
 {
     public static class QuantityMath
     {
-        private static DerivedQuantityDimensionMember Power(this DerivedQuantityDimensionMember member, double exponent) =>
+        public static DerivedQuantityDimensionMember Power(this DerivedQuantityDimensionMember member, double exponent) =>
             new DerivedQuantityDimensionMember(member.BaseQuantity, member.Exponent * exponent);
 
         public static DerivedQuantityDimensionMember Square(this DerivedQuantityDimensionMember member) => Power(member, 2);

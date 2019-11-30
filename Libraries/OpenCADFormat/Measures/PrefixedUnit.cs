@@ -14,7 +14,7 @@ namespace OpenCAD.OpenCADFormat.Measures
 
         public MetricPrefix Prefix { get; }
 
-        public override string Name => $"{Prefix.Name} {BaseUnit.Name}";
+        public override string Name => $"{Prefix.Name}{BaseUnit.Name}";
 
         public override Quantity Quantity => BaseUnit.Quantity;
 

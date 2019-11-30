@@ -106,6 +106,6 @@ namespace OpenCAD.OpenCADFormat.Measures
             Members = members ?? throw new ArgumentNullException(nameof(members));
         }
 
-        public IReadOnlyList<DerivedQuantityDimensionMember> Members { get; }
+        public DerivedQuantityDimensionMember[] Members { get; }
     }
 }

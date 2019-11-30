@@ -29,8 +29,21 @@ namespace OpenCAD.OpenCADFormat.Measures
 
         private static IEnumerable<Unit> importUnits(BaseUnitNode[] unitNodes)
         {
-            foreach (var unitNode in unitNodes)
-                yield return importUnits(unitNode);
+            foreach (var baseUnit in importBaseUnits(unitNodes))
+                yield return baseUnit;
+
+            foreach (var derivedUnit in importDerivedUnits(unitNodes))
+                yield return derivedUnit;
+        }
+
+        private static IEnumerable<DerivedUnit> importDerivedUnits(BaseUnitNode[] unitNodes)
+        {
+            throw new NotImplementedException();
+        }
+
+        private static IEnumerable<BaseUnit> importBaseUnits(BaseUnitNode[] unitNodes)
+        {
+            throw new NotImplementedException();
         }
 
         private static Unit importUnits(UnitNode unitNode)

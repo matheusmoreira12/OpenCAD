@@ -113,11 +113,12 @@
     <Compile Include="Libraries\Footprint.cs" />
     <Compile Include="Measures\BaseQuantity.cs" />
     <Compile Include="Measures\BaseUnit.cs" />
-    <Compile Include="Measures\ComposedUnit.cs" />
     <Compile Include="Measures\DerivedQuantity.cs" />
     <Compile Include="Measures\DerivedQuantityDimension.cs" />
     <Compile Include="Measures\DerivedQuantityDimensionMember.cs" />
-    <Compile Include="Measures\ExponentiatedUnit.cs" />
+    <Compile Include="Measures\DerivedUnit.cs" />
+    <Compile Include="Measures\DerivedUnitExpression.cs" />
+    <Compile Include="Measures\DerivedUnitExpressionMember.cs" />
     <Compile Include="Measures\MetricSystem.cs" />
     <Compile Include="Measures\MetricSystemManager.cs" />
     <Compile Include="Measures\PrefixedUnit.cs" />
