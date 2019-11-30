@@ -11,9 +11,9 @@ namespace OpenCAD.OpenCADFormat.Measures
 
         public static Unit Parse(string value)
         {
-            IEnumerable<Unit> supportedUnits = Utils.GetSupportedUnits();
+            IEnumerable<Unit> allUnits = Utils.GetSupportedUnits();
 
-            foreach (var unit in supportedUnits)
+            foreach (var unit in allUnits)
                 if (unit.Symbol == value)
                     return unit;
 
@@ -61,7 +61,7 @@ namespace OpenCAD.OpenCADFormat.Measures
 
         public abstract string UISymbol { get; }
 
-        public abstract MetricSystem MetricSystem { get; }
+        public MetricSystem MetricSystem { get; internal set; }
 
         public Unit Derive(string name, double conversionAmount, string symbol, string uiSymbol = null) =>
             Derive(name, this, conversionAmount, symbol, uiSymbol);

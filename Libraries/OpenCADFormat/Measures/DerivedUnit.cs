@@ -6,41 +6,42 @@ namespace OpenCAD.OpenCADFormat.Measures
     {
         public DerivedUnit(DerivedUnitExpression expression)
         {
-            Name = null;
-            Symbol = null;
-            UISymbol = null;
+            _name = null;
+            _symbol = null;
+            _uiSymbol = null;
             Expression = expression ?? throw new ArgumentNullException(nameof(expression));
         }
 
         public DerivedUnit(string name, string symbol, DerivedUnitExpression expression)
         {
-            Name = name ?? throw new ArgumentNullException(nameof(name));
-            Symbol = symbol ?? throw new ArgumentNullException(nameof(symbol));
-            UISymbol = null;
+            _name = name ?? throw new ArgumentNullException(nameof(name));
+            _symbol = symbol ?? throw new ArgumentNullException(nameof(symbol));
+            _uiSymbol = null;
             Expression = expression ?? throw new ArgumentNullException(nameof(expression));
         }
 
         public DerivedUnit(string name, string symbol, string uiSymbol, DerivedUnitExpression expression)
         {
-            Name = name ?? throw new ArgumentNullException(nameof(name));
-            Symbol = symbol ?? throw new ArgumentNullException(nameof(symbol));
-            UISymbol = uiSymbol ?? throw new ArgumentNullException(nameof(uiSymbol));
+            _name = name ?? throw new ArgumentNullException(nameof(name));
+            _symbol = symbol ?? throw new ArgumentNullException(nameof(symbol));
+            _uiSymbol = uiSymbol ?? throw new ArgumentNullException(nameof(uiSymbol));
             Expression = expression ?? throw new ArgumentNullException(nameof(expression));
         }
 
         public DerivedUnitExpression Expression { get; }
 
-        public override string Name { get; }
+        public override string Name => _name;
+        private readonly string _name;
 
         public override Quantity Quantity => throw new NotImplementedException();
 
         public override double StandardAmount => throw new NotImplementedException();
 
-        public override string Symbol { get; }
+        public override string Symbol => _symbol;
+        private readonly string _symbol;
 
-        public override string UISymbol { get; }
-
-        public override MetricSystem MetricSystem => throw new NotImplementedException();
+        public override string UISymbol => _uiSymbol;
+        private readonly string _uiSymbol;
 
         public override Unit Collapse()
         {

@@ -24,7 +24,5 @@ namespace OpenCAD.OpenCADFormat.Measures
         public override string Symbol { get; }
 
         public override string UISymbol { get; }
-
-        public override MetricSystem MetricSystem { get; }
     }
 }

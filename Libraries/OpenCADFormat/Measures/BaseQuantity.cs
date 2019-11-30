@@ -5,34 +5,16 @@ namespace OpenCAD.OpenCADFormat.Measures
 {
     public sealed class BaseQuantity : Quantity
     {
-        public static BaseQuantity Parse(string value)
-        {
-            return registeredQuantities.Find(q => q.Symbol == value || q.Name == value) ?? 
-                throw new ArgumentOutOfRangeException("Cannot parse BaseQuantity. The specified name does not match any Base Quantities.");
-        }
+        public override string Name { get; }
 
-        public static bool TryParse(string value, out BaseQuantity result)
-        {
-            try
-            {
-                result = Parse(value);
-                return true;
-            }
-            catch
-            {
-                result = default;
-                return false;
-            }
-        }
+        public override string Symbol { get; }
 
-        private static void registerQuantity(BaseQuantity quantity) => registeredQuantities.Add(quantity);
+        public override string UISymbol { get; }
 
-        private static void unregisterQuantity(BaseQuantity quantity) => registeredQuantities.Remove(quantity);
-
-        public static List<BaseQuantity> registeredQuantities = new List<BaseQuantity> { };
-
-        public BaseQuantity(string name, string symbol, string uiSymbol = null) : base(name, symbol, uiSymbol) {
-            registerQuantity(this);
+        public BaseQuantity(string name, string symbol, string uiSymbol = null) {
+            Name = name;
+            Symbol = symbol;
+            UISymbol = uiSymbol;
         }
     }
 }

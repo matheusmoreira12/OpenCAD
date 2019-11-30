@@ -72,9 +72,9 @@ namespace OpenCAD.OpenCADFormat.Measures
 
                 if (StringUtils.ReadIdentifier(scanner, out baseQuantityStr))
                 {
-                    BaseQuantity baseQuantity;
+                    Quantity quantity;
 
-                    if (!BaseQuantity.TryParse(baseQuantityStr, out baseQuantity))
+                    if (!Quantity.TryParse(baseQuantityStr, out quantity))
                         throw new FormatException("A valid base quantity symbol was expected.");
 
                     double exponent = 1;
@@ -91,7 +91,7 @@ namespace OpenCAD.OpenCADFormat.Measures
                             throw new FormatException("A valid exponent decimal was expected.");
                     }
 
-                    result = new DerivedQuantityDimensionMember(baseQuantity, exponent);
+                    result = new DerivedQuantityDimensionMember(quantity, exponent);
                     return true;
                 }
 

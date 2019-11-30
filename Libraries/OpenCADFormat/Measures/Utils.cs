@@ -30,7 +30,7 @@ namespace OpenCAD.OpenCADFormat.Measures
                 yield return unit;
 
                 foreach (var prefix in MetricPrefixes.SupportedPrefixes)
-                    yield return new PrefixedUnit(unit, prefix);
+                    yield return unit.Multiply(prefix);
             }
         }
 
