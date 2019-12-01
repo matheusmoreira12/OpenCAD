@@ -1,7 +1,4 @@
-﻿using OpenCAD.OpenCADFormat.Measures.Math;
-using OpenCAD.Utils;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace OpenCAD.OpenCADFormat.Measures
 {
@@ -34,13 +31,13 @@ namespace OpenCAD.OpenCADFormat.Measures
             }
         }
 
-        public static Unit operator *(Unit a, Unit b) => MathExtension.Multiply(a, b);
+        public static Unit operator *(Unit a, Unit b) => Math.Multiply(a, b);
 
-        public static Unit operator *(Unit a, MetricPrefix b) => MathExtension.Multiply(a, b);
+        public static Unit operator *(Unit a, MetricPrefix b) => Math.Multiply(a, b);
 
-        public static Unit operator /(Unit a, Unit b) => MathExtension.Divide(a, b);
+        public static Unit operator /(Unit a, Unit b) => Math.Divide(a, b);
 
-        public static Unit operator !(Unit a) => MathExtension.Invert(a);
+        public static Unit operator !(Unit a) => Math.Invert(a);
 
         public abstract Unit Collapse();
 

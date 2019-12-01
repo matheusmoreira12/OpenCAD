@@ -1,5 +1,4 @@
-﻿using OpenCAD.OpenCADFormat.Measures.Math;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -30,7 +29,7 @@ namespace OpenCAD.OpenCADFormat.Measures
                 if (unit is BaseUnit)
                 {
                     foreach (var prefix in allPrefixes)
-                        yield return unit.Multiply(prefix);
+                        yield return Measures.Math.Multiply(unit, prefix);
                 }
             }
         }

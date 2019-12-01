@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Xml.Serialization;
 using OpenCAD.OpenCADFormat.Measures;
-using OpenCAD.OpenCADFormat.Measures.Math;
 
 namespace OpenCAD.OpenCADFormat.CoordinateSystem
 {
@@ -37,14 +36,14 @@ namespace OpenCAD.OpenCADFormat.CoordinateSystem
         {
             Size difference = (a - b).ConvertTo(outUnit);
 
-            return MathExtension.SquareRoot(difference.Width.Square() + difference.Height.Square());
+            return Measures.Math.SquareRoot(Measures.Math.Square(difference.Width) + Measures.Math.Square(difference.Height));
         }
 
         public static Scalar Angle(Point a, Point b)
         {
             Size difference = a - b;
 
-            double angleRad = Math.Atan2(difference.Width.ConvertTo(null).Amount, difference.Height.ConvertTo(null).Amount);
+            double angleRad = System.Math.Atan2(difference.Width.ConvertTo(null).Amount, difference.Height.ConvertTo(null).Amount);
 
             return new Scalar(angleRad, Unit.Parse("rad"));
         }

@@ -113,13 +113,14 @@
     <Compile Include="Libraries\Footprint.cs" />
     <Compile Include="Measures\BaseQuantity.cs" />
     <Compile Include="Measures\BaseUnit.cs" />
+    <Compile Include="Measures\Conversion\UnitConversionManager.cs" />
     <Compile Include="Measures\DerivedQuantity.cs" />
     <Compile Include="Measures\DerivedQuantityDimension.cs" />
     <Compile Include="Measures\DerivedQuantityDimensionMember.cs" />
     <Compile Include="Measures\DerivedUnit.cs" />
     <Compile Include="Measures\DerivedUnitExpression.cs" />
     <Compile Include="Measures\DerivedUnitExpressionMember.cs" />
-    <Compile Include="Measures\Math\MathExtension.cs" />
+    <Compile Include="Measures\Math\Math.cs" />
     <Compile Include="Measures\MetricSystem.cs" />
     <Compile Include="Measures\MetricSystemImporter.cs" />
     <Compile Include="Measures\MetricSystemManager.cs" />
@@ -133,6 +134,7 @@
     <Compile Include="Measures\Serialization\MetricSystemNode.cs" />
     <Compile Include="Measures\Serialization\QuantityNode.cs" />
     <Compile Include="Measures\Serialization\UnitNode.cs" />
+    <Compile Include="Measures\Conversion\UnitConversion.cs" />
     <Compile Include="PCBLayout\AnnotationLayer.cs" />
     <Compile Include="PCBLayout\CopperThievingOptions.cs" />
     <Compile Include="PCBLayout\DefaultValues.cs" />

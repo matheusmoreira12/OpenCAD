@@ -1,5 +1,4 @@
-﻿using OpenCAD.OpenCADFormat.Measures.Math;
-using OpenCAD.Utils;
+﻿using OpenCAD.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,19 +12,19 @@ namespace OpenCAD.OpenCADFormat.Measures
 
         public static readonly Scalar One = new Scalar(1);
 
-        public static Scalar operator +(Scalar a, Scalar b) => MathExtension.Add(a, b);
+        public static Scalar operator +(Scalar a, Scalar b) => Math.Add(a, b);
 
-        public static Scalar operator -(Scalar a, Scalar b) => MathExtension.Subtract(a, b);
+        public static Scalar operator -(Scalar a, Scalar b) => Math.Subtract(a, b);
 
-        public static Scalar operator -(Scalar a) => MathExtension.Negate(a);
+        public static Scalar operator -(Scalar a) => Math.Negate(a);
 
-        public static Scalar operator *(Scalar a, double b) => MathExtension.Multiply(a, b);
+        public static Scalar operator *(Scalar a, double b) => Math.Multiply(a, b);
 
-        public static Scalar operator /(Scalar a, double b) => MathExtension.Divide(a, b);
+        public static Scalar operator /(Scalar a, double b) => Math.Divide(a, b);
 
-        public static Scalar operator /(Scalar a, Scalar b) => MathExtension.Divide(a, b);
+        public static Scalar operator /(Scalar a, Scalar b) => Math.Divide(a, b);
 
-        public static Scalar operator !(Scalar a) => MathExtension.Invert(a);
+        public static Scalar operator !(Scalar a) => Math.Invert(a);
 
         public static bool operator ==(Scalar a, Scalar b) => a.Equals(b);
 
