@@ -1,16 +1,48 @@
 ﻿using System;
+using System.Linq;
 
 namespace OpenCAD.OpenCADFormat.Measures
 {
     public sealed class MetricPrefix
     {
-        public double Multiplier { get; private set; }
+        public static MetricPrefix Parse(string value)
+        {
+            MetricPrefix result;
+            if (TryParse(value, out result))
+                return result;
 
-        public string Name { get; private set; }
+            throw new ArgumentOutOfRangeException(nameof(value));
+        }
 
-        public string Symbol { get; private set; }
+        public static bool TryParse(string value, out MetricPrefix result) =>
+            tryParseBySymbol(value, out result) || tryParseByUISymbol(value, out result) || tryParseByName(value, out result);
 
-        public string UISymbol { get; private set; }
+        private static bool tryParseBySymbol(string symbol, out MetricPrefix result)
+        {
+            result = MetricSystemManager.GetAllMetricPrefixes().FirstOrDefault(q => q.Symbol == symbol);
+            if (result == null)
+                return false;
+
+            return true;
+        }
+
+        private static bool tryParseByUISymbol(string uiSymbol, out MetricPrefix result)
+        {
+            result = MetricSystemManager.GetAllMetricPrefixes().FirstOrDefault(q => q.UISymbol == uiSymbol);
+            if (result == null)
+                return false;
+
+            return true;
+        }
+
+        private static bool tryParseByName(string name, out MetricPrefix result)
+        {
+            result = MetricSystemManager.GetAllMetricPrefixes().FirstOrDefault(q => q.Name == name);
+            if (result == null)
+                return false;
+
+            return true;
+        }
 
         public MetricPrefix(string name, double multiplier, string symbol, string uiSymbol = null)
         {
@@ -20,6 +52,14 @@ namespace OpenCAD.OpenCADFormat.Measures
             UISymbol = uiSymbol ?? symbol;
         }
 
-        public bool Disposed { get; private set; } = false;
+        public double Multiplier { get; }
+
+        public string Name { get; }
+
+        public string Symbol { get; }
+
+        public string UISymbol { get; }
+
+        public MetricSystem MetricSystem { get; internal set; }
     }
 }

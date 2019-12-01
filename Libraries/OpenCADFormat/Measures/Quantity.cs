@@ -5,16 +5,6 @@ namespace OpenCAD.OpenCADFormat.Measures
 {
     public abstract class Quantity
     {
-        public static bool TryParse(string value, out Quantity result)
-        {
-            result = parseBySymbol(value) ?? parseByUISymbol(value) ?? parseByName(value);
-
-            if (result == null)
-                return false;
-
-            return true;
-        }
-
         public static Quantity Parse(string value)
         {
             Quantity result;
@@ -24,14 +14,35 @@ namespace OpenCAD.OpenCADFormat.Measures
             throw new ArgumentOutOfRangeException(nameof(value));
         }
 
-        private static Quantity parseBySymbol(string symbol) =>
-            MetricSystemManager.GetAllQuantities().FirstOrDefault(q => q.Symbol == symbol);
+        public static bool TryParse(string value, out Quantity result) =>
+            tryParseBySymbol(value, out result) || tryParseByUISymbol(value, out result) || tryParseByName(value, out result);
 
-        private static Quantity parseByUISymbol(string uiSymbol) =>
-            MetricSystemManager.GetAllQuantities().FirstOrDefault(q => q.UISymbol == uiSymbol);
+        private static bool tryParseBySymbol(string symbol, out Quantity result)
+        {
+            result = MetricSystemManager.GetAllQuantities().FirstOrDefault(q => q.Symbol == symbol);
+            if (result == null)
+                return false;
 
-        private static Quantity parseByName(string name) =>
-            MetricSystemManager.GetAllQuantities().FirstOrDefault(q => q.Name == name);
+            return true;
+        }
+
+        private static bool tryParseByUISymbol(string uiSymbol, out Quantity result)
+        {
+            result = MetricSystemManager.GetAllQuantities().FirstOrDefault(q => q.UISymbol == uiSymbol);
+            if (result == null)
+                return false;
+
+            return true;
+        }
+
+        private static bool tryParseByName(string name, out Quantity result)
+        {
+            result = MetricSystemManager.GetAllQuantities().FirstOrDefault(q => q.Name == name);
+            if (result == null)
+                return false;
+
+            return true;
+        }
 
         public abstract string Name { get; }
 

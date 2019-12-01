@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace OpenCAD.OpenCADFormat.Measures
 {
@@ -6,29 +8,37 @@ namespace OpenCAD.OpenCADFormat.Measures
     {
         public static Unit Parse(string value)
         {
-            IEnumerable<Unit> allUnits = Utils.GetSupportedUnits();
+            Unit result;
+            if (TryParse(value, out result))
+                return result;
 
-            foreach (var unit in allUnits)
-                if (unit.Symbol == value)
-                    return unit;
-
-            throw new KeyNotFoundException("Unable to parse unit. The provided unit/prefix found no matches.");
+            throw new ArgumentOutOfRangeException(nameof(value));
         }
 
-        public static bool TryParse(string value, out Unit result)
-        {
-            try
-            {
-                result = Parse(value);
+        public static bool TryParse(string value, out Unit result) =>
+            tryParseBySymbol(value, out result) || tryParseByUISymbol(value, out result) || tryParseByName(value, out result);
 
-                return true;
-            }
-            catch
-            {
-                result = default;
-
+        private static bool tryParseBySymbol(string symbol, out Unit result) {
+            result = MetricSystemManager.GetAllUnits().FirstOrDefault(u => u.Symbol == symbol);
+            if (result == default)
                 return false;
-            }
+            return true;
+        }
+
+        private static bool tryParseByUISymbol(string uiSymbol, out Unit result)
+        {
+            result = MetricSystemManager.GetAllUnits().FirstOrDefault(u => u.UISymbol == uiSymbol);
+            if (result == default)
+                return false;
+            return true;
+        }
+
+        private static bool tryParseByName(string name, out Unit result)
+        {
+            result = MetricSystemManager.GetAllUnits().FirstOrDefault(u => u.Name == name);
+            if (result == default)
+                return false;
+            return true;
         }
 
         public static Unit operator *(Unit a, Unit b) => Math.Multiply(a, b);
