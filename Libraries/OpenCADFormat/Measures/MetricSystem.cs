@@ -19,6 +19,8 @@ namespace OpenCAD.OpenCADFormat.Measures
 
         public string Name { get; }
 
+        public string FullName { get; }
+
         public List<Quantity> Quantities { get; }
 
         public List<Unit> Units { get; }

@@ -16,5 +16,7 @@ namespace OpenCAD.OpenCADFormat.Measures
             Symbol = symbol;
             UISymbol = uiSymbol;
         }
+
+        public override Quantity Collapse() => this;
     }
 }

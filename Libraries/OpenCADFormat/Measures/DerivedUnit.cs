@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace OpenCAD.OpenCADFormat.Measures
 {
@@ -10,6 +11,7 @@ namespace OpenCAD.OpenCADFormat.Measures
             _symbol = null;
             _uiSymbol = null;
             Expression = expression ?? throw new ArgumentNullException(nameof(expression));
+            IsNamed = false;
         }
 
         public DerivedUnit(string name, string symbol, DerivedUnitExpression expression)
@@ -18,6 +20,7 @@ namespace OpenCAD.OpenCADFormat.Measures
             _symbol = symbol ?? throw new ArgumentNullException(nameof(symbol));
             _uiSymbol = null;
             Expression = expression ?? throw new ArgumentNullException(nameof(expression));
+            IsNamed = true;
         }
 
         public DerivedUnit(string name, string symbol, string uiSymbol, DerivedUnitExpression expression)
@@ -26,6 +29,7 @@ namespace OpenCAD.OpenCADFormat.Measures
             _symbol = symbol ?? throw new ArgumentNullException(nameof(symbol));
             _uiSymbol = uiSymbol ?? throw new ArgumentNullException(nameof(uiSymbol));
             Expression = expression ?? throw new ArgumentNullException(nameof(expression));
+            IsNamed = true;
         }
 
         public DerivedUnitExpression Expression { get; }
@@ -33,7 +37,7 @@ namespace OpenCAD.OpenCADFormat.Measures
         public override string Name => _name;
         private readonly string _name;
 
-        public override Quantity Quantity => throw new NotImplementedException();
+        public override Quantity Quantity => null;
 
         public override string Symbol => _symbol;
         private readonly string _symbol;
@@ -41,9 +45,17 @@ namespace OpenCAD.OpenCADFormat.Measures
         public override string UISymbol => _uiSymbol;
         private readonly string _uiSymbol;
 
+        public readonly bool IsNamed;
+
         public override Unit Collapse()
         {
-            throw new NotImplementedException();
+            var members = Expression.Members
+                .GroupBy(m => (baseUnit: m.BaseUnit.Collapse(), prefix: m.Prefix))
+                .Select(g => new DerivedUnitExpressionMember(g.Key.baseUnit, g.Key.prefix, g.Sum(m => m.Exponent)))
+                .Where(m => m.Exponent != 0)
+                .ToArray();
+            var expression = new DerivedUnitExpression(members);
+            return new DerivedUnit(expression);
         }
     }
 }

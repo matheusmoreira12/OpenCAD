@@ -4,11 +4,6 @@ namespace OpenCAD.OpenCADFormat.Measures
 {
     public sealed class MetricPrefixes
     {
-        internal static void AddPrefix(MetricPrefix prefix) => SupportedPrefixes.Add(prefix);
-        internal static void RemovePrefix(MetricPrefix prefix) => SupportedPrefixes.Remove(prefix);
-
-        public static readonly List<MetricPrefix> SupportedPrefixes = new List<MetricPrefix>();
-
         public static readonly MetricPrefix Deci = new MetricPrefix("Deci", 0.1, "d");
         public static readonly MetricPrefix Centi = new MetricPrefix("Centi", 0.01, "c");
         public static readonly MetricPrefix Milli = new MetricPrefix("Milli", 0.001, "m");

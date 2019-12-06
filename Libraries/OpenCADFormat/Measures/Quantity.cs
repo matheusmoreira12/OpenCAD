@@ -53,5 +53,7 @@ namespace OpenCAD.OpenCADFormat.Measures
         public Unit Unit { get; internal set; } = null;
 
         public MetricSystem MetricSystem { get; internal set; } = null;
+
+        public abstract Quantity Collapse();
     }
 }
