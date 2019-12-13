@@ -44,15 +44,15 @@ namespace OpenCAD.OpenCADFormat.Measures
         private static Quantity power(DerivedQuantity quantity, double exponent) =>
             new DerivedQuantity(Power(quantity.Dimension, exponent));
 
-        private static Quantity Square(Quantity quantity) => Power(quantity, 2);
+        public static Quantity Square(Quantity quantity) => Power(quantity, 2);
 
-        private static Quantity Cube(Quantity quantity) => Power(quantity, 3);
+        public static Quantity Cube(Quantity quantity) => Power(quantity, 3);
 
-        private static Quantity SquareRoot(Quantity quantity) => Power(quantity, 1.0 / 2.0);
+        public static Quantity SquareRoot(Quantity quantity) => Power(quantity, 1.0 / 2.0);
 
-        private static Quantity CubicRoot(Quantity quantity) => Power(quantity, 1.0 / 3.0);
+        public static Quantity CubicRoot(Quantity quantity) => Power(quantity, 1.0 / 3.0);
 
-        private static Quantity Invert(Quantity quantity) => Power(quantity, -1);
+        public static Quantity Invert(Quantity quantity) => Power(quantity, -1);
 
         public static Quantity Multiply(Quantity a, Quantity b)
         {
@@ -101,7 +101,7 @@ namespace OpenCAD.OpenCADFormat.Measures
 
         #region Unit Math
         public static DerivedUnitExpressionMember Power(DerivedUnitExpressionMember member, double exponent) =>
-            new DerivedUnitExpressionMember(member.BaseUnit, member.Exponent * exponent);
+            new DerivedUnitExpressionMember(member.BaseUnit, member.Prefix, member.Exponent * exponent);
 
         public static DerivedUnitExpression Power(DerivedUnitExpression expression, double exponent) =>
             new DerivedUnitExpression(expression.Members.Select(m => Power(m, exponent)).ToArray());
@@ -121,7 +121,7 @@ namespace OpenCAD.OpenCADFormat.Measures
         public static Unit Power(Unit unit, double exponent)
         {
             if (unit is BaseUnit)
-                return Power((BaseUnit)unit, exponent);
+                return power((BaseUnit)unit, exponent);
             else if (unit is DerivedUnit)
                 return power((DerivedUnit)unit, exponent);
 
@@ -183,7 +183,7 @@ namespace OpenCAD.OpenCADFormat.Measures
 
         private static DerivedUnit multiply(DerivedUnit a, BaseUnit b)
         {
-            var memberB = new DerivedUnitExpressionMember(a, 1);
+            var memberB = new DerivedUnitExpressionMember(b, 1);
             return new DerivedUnit(Multiply(a.Expression, memberB));
         }
 
@@ -202,6 +202,9 @@ namespace OpenCAD.OpenCADFormat.Measures
 
         private static DerivedUnit multiply(BaseUnit unit, MetricPrefix prefix) =>
             new DerivedUnit(new DerivedUnitExpression(new DerivedUnitExpressionMember(unit, prefix, 1)));
+
+        public static Unit Multiply(MetricPrefix prefix, Unit unit) =>
+            Multiply(unit, prefix);
 
         public static Unit Divide(Unit a, Unit b) => Multiply(a, Invert(b));
         #endregion

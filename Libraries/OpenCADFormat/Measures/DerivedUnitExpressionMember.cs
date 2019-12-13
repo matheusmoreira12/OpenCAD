@@ -14,7 +14,7 @@ namespace OpenCAD.OpenCADFormat.Measures
         public DerivedUnitExpressionMember(Unit baseUnit, MetricPrefix prefix, double exponent)
         {
             BaseUnit = baseUnit ?? throw new ArgumentNullException(nameof(baseUnit));
-            Prefix = prefix ?? throw new ArgumentNullException(nameof(prefix));
+            Prefix = prefix;
             Exponent = exponent;
         }
 

@@ -30,7 +30,7 @@ namespace OpenCAD.OpenCADFormat.Measures
                     scanner.Increment();
 
                     foreach (var member in readMembers(scanner))
-                        yield return Measures.Math.Power(member, -1);
+                        yield return Math.Power(member, -1);
 
                     if (scanner.CurrentChar == ')')
                         scanner.Increment();
@@ -42,7 +42,7 @@ namespace OpenCAD.OpenCADFormat.Measures
                     DerivedQuantityDimensionMember member;
 
                     if (readMember(scanner, out member))
-                        yield return Measures.Math.Power(member, -1);
+                        yield return Math.Power(member, -1);
                     else
                         throw new FormatException("A valid dimension member was expected.");
                 }

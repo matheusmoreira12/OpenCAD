@@ -34,13 +34,16 @@ namespace OpenCAD.OpenCADFormat.Measures
 
         public DerivedQuantityDimension Dimension { get; }
 
-        public override string Name => _name;
+        public override string Name => _name ?? generateName();
+        private string generateName() => null;
         private readonly string _name;
 
-        public override string Symbol => _symbol;
+        public override string Symbol => _symbol ?? generateSymbol();
+        private string generateSymbol() => null;
         private readonly string _symbol;
 
-        public override string UISymbol => _uiSymbol;
+        public override string UISymbol => _uiSymbol ?? generateUISymbol();
+        private string generateUISymbol() => null;
         private readonly string _uiSymbol;
 
         public readonly bool IsNamed;

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace OpenCAD.OpenCADFormat.Measures
@@ -34,7 +35,15 @@ namespace OpenCAD.OpenCADFormat.Measures
 
         public DerivedUnitExpression Expression { get; }
 
-        public override string Name => _name;
+        public override string Name => _name ?? generateName();
+        private string generateName()
+        {
+            var memberStrs = new List<string> { };
+            foreach (var member in Expression.Members)
+                memberStrs.Add($"({member.Prefix?.Name}{member.BaseUnit.Name})^{member.Exponent}");
+            return string.Join("*", memberStrs);
+        }
+
         private readonly string _name;
 
         public override Quantity Quantity => null;

@@ -5,6 +5,14 @@ namespace OpenCAD.OpenCADFormat.Measures
 {
     public abstract class Quantity
     {
+        public static Quantity operator *(Quantity a, Quantity b) => Math.Multiply(a, b);
+
+        public static Quantity operator /(Quantity a, Quantity b) => Math.Divide(a, b);
+
+        public static Quantity operator !(Quantity a) => Math.Invert(a);
+
+        public static Quantity operator ^(Quantity a, double b) => Math.Power(a, b);
+
         public static Quantity Parse(string value)
         {
             Quantity result;

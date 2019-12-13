@@ -24,6 +24,8 @@ namespace OpenCAD.OpenCADFormat.Measures
 
         public static Scalar operator /(Scalar a, Scalar b) => Math.Divide(a, b);
 
+        public static Scalar operator ^(Scalar a, double b) => Math.Power(a, b);
+
         public static Scalar operator !(Scalar a) => Math.Invert(a);
 
         public static bool operator ==(Scalar a, Scalar b) => a.Equals(b);

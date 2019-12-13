@@ -6,6 +6,18 @@ namespace OpenCAD.OpenCADFormat.Measures
 {
     public abstract class Unit
     {
+        public static Unit operator *(Unit a, Unit b) => Math.Multiply(a, b);
+
+        public static Unit operator *(MetricPrefix a, Unit b) => Math.Multiply(a, b);
+
+        public static Unit operator *(Unit a, MetricPrefix b) => Math.Multiply(a, b);
+
+        public static Unit operator /(Unit a, Unit b) => Math.Divide(a, b);
+
+        public static Unit operator !(Unit a) => Math.Invert(a);
+
+        public static Unit operator ^(Unit a, double b) => Math.Power(a, b);
+
         public static Unit Parse(string value)
         {
             Unit result;
@@ -40,14 +52,6 @@ namespace OpenCAD.OpenCADFormat.Measures
                 return false;
             return true;
         }
-
-        public static Unit operator *(Unit a, Unit b) => Math.Multiply(a, b);
-
-        public static Unit operator *(Unit a, MetricPrefix b) => Math.Multiply(a, b);
-
-        public static Unit operator /(Unit a, Unit b) => Math.Divide(a, b);
-
-        public static Unit operator !(Unit a) => Math.Invert(a);
 
         public abstract Unit Collapse();
 
