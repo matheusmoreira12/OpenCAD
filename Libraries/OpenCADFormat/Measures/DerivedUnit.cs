@@ -4,7 +4,8 @@ using System.Linq;
 
 namespace OpenCAD.OpenCADFormat.Measures
 {
-    public sealed class DerivedUnit : Unit
+    public sealed class DerivedUnit : Unit, IMultipliable<BaseUnit, DerivedUnit>, IMultipliable<DerivedUnit, DerivedUnit>,
+        IExponentiable<double, DerivedUnit>
     {
         public DerivedUnit(DerivedUnitExpression expression)
         {
@@ -63,6 +64,27 @@ namespace OpenCAD.OpenCADFormat.Measures
                 .Select(g => new DerivedUnitExpressionMember(g.Key.baseUnit, g.Key.prefix, g.Sum(m => m.Exponent)))
                 .Where(m => m.Exponent != 0)
                 .ToArray();
+            var expression = new DerivedUnitExpression(members);
+            return new DerivedUnit(expression);
+        }
+
+        DerivedUnit IMultipliable<BaseUnit, DerivedUnit>.Multiply(BaseUnit value)
+        {
+            var valueMember = new DerivedUnitExpressionMember(value, 1);
+            var expression = new DerivedUnitExpression(Expression.Members.Concat(new[] { valueMember }).ToArray());
+            return new DerivedUnit(expression);
+        }
+
+        DerivedUnit IMultipliable<DerivedUnit, DerivedUnit>.Multiply(DerivedUnit value)
+        {
+            var expression = new DerivedUnitExpression(Expression.Members.Concat(value.Expression.Members).ToArray());
+            return new DerivedUnit(expression);
+        }
+
+        DerivedUnit IExponentiable<double, DerivedUnit>.Exponentiate(double exponent)
+        {
+            var members = Expression.Members.Select(m => new DerivedUnitExpressionMember(m.BaseUnit, m.Prefix,
+                m.Exponent * exponent)).ToArray();
             var expression = new DerivedUnitExpression(members);
             return new DerivedUnit(expression);
         }

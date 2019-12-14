@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace OpenCAD.OpenCADFormat.Measures
 {
-    public abstract class Unit
+    public abstract class Unit: IMultipliable<Unit, Unit>, IExponentiable<double, Unit>
     {
         public static Unit operator *(Unit a, Unit b) => Math.Multiply(a, b);
 
@@ -64,5 +64,9 @@ namespace OpenCAD.OpenCADFormat.Measures
         public abstract string UISymbol { get; }
 
         public MetricSystem MetricSystem { get; internal set; }
+
+        Unit IMultipliable<Unit, Unit>.Multiply(Unit value) => this.MultiplyImplicit(value);
+
+        Unit IExponentiable<double, Unit>.Exponentiate(double exponent) => this.ExponentiateImplicit(exponent);
     }
 }

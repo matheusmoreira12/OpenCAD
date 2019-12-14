@@ -3,6 +3,46 @@ using System.Linq;
 
 namespace OpenCAD.OpenCADFormat.Measures
 {
+    public interface ISummable<TValue, TResult>
+    {
+        TResult Sum(TValue value);
+    }
+
+    public static class ISummableExtension
+    {
+        public static TResult SumImplicit<TValue, TResult>(this ISummable<TValue, TResult> a, TValue b)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public interface IMultipliable<TValue, TResult>
+    {
+        TResult Multiply(TValue value);
+    }
+
+    public static class IMultipliableExtension
+    {
+        public static TResult MultiplyImplicit<TValue, TResult>(this IMultipliable<TValue, TResult> a, TValue b)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public interface IExponentiable<TExponent, TResult>
+    {
+        TResult Exponentiate(TExponent exponent);
+    }
+
+    public static class IExponentiableExtension
+    {
+        public static TResult ExponentiateImplicit<TExponent, TResult>(this IExponentiable<TExponent, TResult> value, 
+            TExponent exponent)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
     public static class Math
     {
         #region Quantity Math

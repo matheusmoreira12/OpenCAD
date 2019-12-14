@@ -6,7 +6,8 @@ using System.Text.RegularExpressions;
 
 namespace OpenCAD.OpenCADFormat.Measures
 {
-    public struct Scalar : IComparable<Scalar>, IEquatable<Scalar>
+    public struct Scalar : IComparable<Scalar>, IEquatable<Scalar>, IMultipliable<Scalar, Scalar>, 
+        ISummable<Scalar, Scalar>, IMultipliable<double, Scalar>, IExponentiable<double, Scalar>
     {
         public static readonly Scalar Zero = new Scalar(0);
 
@@ -130,5 +131,17 @@ namespace OpenCAD.OpenCADFormat.Measures
             hashCode = hashCode * -1521134295 + EqualityComparer<Unit>.Default.GetHashCode(Unit);
             return hashCode;
         }
+
+        Scalar ISummable<Scalar, Scalar>.Sum(Scalar value) =>
+            new Scalar(Amount + value.ConvertTo(Unit).Amount, Unit);
+
+        Scalar IMultipliable<Scalar, Scalar>.Multiply(Scalar value) =>
+            new Scalar(Amount * value.Amount, ((IMultipliable<Unit, Unit>)Unit).Multiply(value.Unit));
+
+        Scalar IMultipliable<double, Scalar>.Multiply(double value) =>
+            new Scalar(Amount * value, Unit);
+
+        Scalar IExponentiable<double, Scalar>.Exponentiate(double exponent) =>
+            new Scalar(System.Math.Pow(Amount, exponent), ((IExponentiable<double, Unit>)Unit).Exponentiate(exponent));
     }
 }
