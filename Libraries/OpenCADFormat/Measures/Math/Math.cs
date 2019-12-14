@@ -56,6 +56,12 @@ namespace OpenCAD.OpenCADFormat.Measures
 
         public static Quantity Multiply(Quantity a, Quantity b)
         {
+            if (a is null)
+                return b;
+
+            if (b is null)
+                return a;
+
             if (a is BaseQuantity)
             {
                 if (b is BaseQuantity)
@@ -150,6 +156,12 @@ namespace OpenCAD.OpenCADFormat.Measures
 
         public static Unit Multiply(Unit a, Unit b)
         {
+            if (a is null)
+                return b;
+
+            if (b is null)
+                return a;
+
             if (a is BaseUnit)
             {
                 if (b is BaseUnit)

@@ -12,6 +12,8 @@ namespace OpenCAD.OpenCADFormat.Measures
 
         public static readonly Scalar One = new Scalar(1);
 
+        public static implicit operator Scalar(double value) => new Scalar(value);
+
         public static Scalar operator +(Scalar a, Scalar b) => Math.Add(a, b);
 
         public static Scalar operator -(Scalar a, Scalar b) => Math.Subtract(a, b);
