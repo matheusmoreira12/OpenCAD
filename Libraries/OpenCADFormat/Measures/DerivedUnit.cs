@@ -4,8 +4,7 @@ using System.Linq;
 
 namespace OpenCAD.OpenCADFormat.Measures
 {
-    public sealed class DerivedUnit : Unit, IMultipliable<BaseUnit, DerivedUnit>, IMultipliable<DerivedUnit, DerivedUnit>,
-        IExponentiable<double, DerivedUnit>
+    public sealed class DerivedUnit : Unit
     {
         public DerivedUnit(DerivedUnitExpression expression)
         {
@@ -29,33 +28,90 @@ namespace OpenCAD.OpenCADFormat.Measures
         {
             _name = name ?? throw new ArgumentNullException(nameof(name));
             _symbol = symbol ?? throw new ArgumentNullException(nameof(symbol));
-            _uiSymbol = uiSymbol ?? throw new ArgumentNullException(nameof(uiSymbol));
+            _uiSymbol = uiSymbol;
             Expression = expression ?? throw new ArgumentNullException(nameof(expression));
             IsNamed = true;
         }
 
+        public DerivedUnit(BaseUnit baseUnit, double exponent)
+        {
+            _name = null;
+            _symbol = null;
+            _uiSymbol = null;
+            Expression = getExpression(baseUnit, null, exponent);
+            IsNamed = false;
+        }
+
+        public DerivedUnit(string name, string symbol, BaseUnit baseUnit, double exponent)
+        {
+            _name = name ?? throw new ArgumentNullException(nameof(name));
+            _symbol = symbol ?? throw new ArgumentNullException(nameof(symbol));
+            _uiSymbol = null;
+            Expression = getExpression(baseUnit, null, exponent);
+            IsNamed = true;
+        }
+
+        public DerivedUnit(string name, string symbol, string uiSymbol, BaseUnit baseUnit, double exponent)
+        {
+            _name = name ?? throw new ArgumentNullException(nameof(name));
+            _symbol = symbol ?? throw new ArgumentNullException(nameof(symbol));
+            _uiSymbol = uiSymbol;
+            Expression = getExpression(baseUnit, null, exponent);
+            IsNamed = true;
+        }
+
+        public DerivedUnit(BaseUnit baseUnit, MetricPrefix prefix, double exponent)
+        {
+            _name = null;
+            _symbol = null;
+            _uiSymbol = null;
+            Expression = getExpression(baseUnit, prefix, exponent);
+            IsNamed = false;
+        }
+
+        public DerivedUnit(string name, string symbol, BaseUnit baseUnit, MetricPrefix prefix, double exponent)
+        {
+            _name = name ?? throw new ArgumentNullException(nameof(name));
+            _symbol = symbol ?? throw new ArgumentNullException(nameof(symbol));
+            _uiSymbol = null;
+            Expression = getExpression(baseUnit, prefix, exponent);
+            IsNamed = true;
+        }
+
+        public DerivedUnit(string name, string symbol, string uiSymbol, BaseUnit baseUnit, MetricPrefix prefix, double exponent)
+        {
+            _name = name ?? throw new ArgumentNullException(nameof(name));
+            _symbol = symbol ?? throw new ArgumentNullException(nameof(symbol));
+            _uiSymbol = uiSymbol;
+            Expression = getExpression(baseUnit, prefix, exponent);
+            IsNamed = true;
+        }
+
+        private DerivedUnitExpression getExpression(BaseUnit baseUnit, MetricPrefix prefix, double exponent) => 
+            new DerivedUnitExpression(new DerivedUnitExpressionMember(
+                baseUnit ?? throw new ArgumentNullException(nameof(baseUnit)), prefix, exponent));
+
+
         public DerivedUnitExpression Expression { get; }
 
         public override string Name => _name ?? generateName();
-        private string generateName()
-        {
-            var memberStrs = new List<string> { };
-            foreach (var member in Expression.Members)
-                memberStrs.Add($"({member.Prefix?.Name}{member.BaseUnit.Name})^{member.Exponent}");
-            return string.Join("*", memberStrs);
-        }
+        private string _name;
 
-        private readonly string _name;
+        private string generateName() => null;
 
         public override Quantity Quantity => null;
 
-        public override string Symbol => _symbol;
-        private readonly string _symbol;
+        public override string Symbol => _symbol ?? generateSymbol();
+        private string _symbol;
 
-        public override string UISymbol => _uiSymbol;
-        private readonly string _uiSymbol;
+        private string generateSymbol() => null;
 
-        public readonly bool IsNamed;
+        public override string UISymbol => _uiSymbol ?? generateUISymbol();
+        private string _uiSymbol;
+
+        private string generateUISymbol() => null;
+
+        public bool IsNamed;
 
         public override Unit Collapse()
         {
@@ -64,27 +120,6 @@ namespace OpenCAD.OpenCADFormat.Measures
                 .Select(g => new DerivedUnitExpressionMember(g.Key.baseUnit, g.Key.prefix, g.Sum(m => m.Exponent)))
                 .Where(m => m.Exponent != 0)
                 .ToArray();
-            var expression = new DerivedUnitExpression(members);
-            return new DerivedUnit(expression);
-        }
-
-        DerivedUnit IMultipliable<BaseUnit, DerivedUnit>.Multiply(BaseUnit value)
-        {
-            var valueMember = new DerivedUnitExpressionMember(value, 1);
-            var expression = new DerivedUnitExpression(Expression.Members.Concat(new[] { valueMember }).ToArray());
-            return new DerivedUnit(expression);
-        }
-
-        DerivedUnit IMultipliable<DerivedUnit, DerivedUnit>.Multiply(DerivedUnit value)
-        {
-            var expression = new DerivedUnitExpression(Expression.Members.Concat(value.Expression.Members).ToArray());
-            return new DerivedUnit(expression);
-        }
-
-        DerivedUnit IExponentiable<double, DerivedUnit>.Exponentiate(double exponent)
-        {
-            var members = Expression.Members.Select(m => new DerivedUnitExpressionMember(m.BaseUnit, m.Prefix,
-                m.Exponent * exponent)).ToArray();
             var expression = new DerivedUnitExpression(members);
             return new DerivedUnit(expression);
         }

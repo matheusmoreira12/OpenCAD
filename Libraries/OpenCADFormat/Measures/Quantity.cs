@@ -3,11 +3,11 @@ using System.Linq;
 
 namespace OpenCAD.OpenCADFormat.Measures
 {
-    public abstract class Quantity
+    public abstract class Quantity: IMultipliable<Quantity, Quantity>, IExponentiable<Quantity>
     {
-        public static Quantity operator *(Quantity a, Quantity b) => Math.Multiply(a, b);
+        public static Quantity operator *(Quantity a, Quantity b) => Math.Multiply<Quantity, Quantity>(a, b);
 
-        public static Quantity operator /(Quantity a, Quantity b) => Math.Divide(a, b);
+        public static Quantity operator /(Quantity a, Quantity b) => Math.Divide<Quantity, Quantity>(a, b);
 
         public static Quantity operator !(Quantity a) => Math.Invert(a);
 
@@ -63,5 +63,15 @@ namespace OpenCAD.OpenCADFormat.Measures
         public MetricSystem MetricSystem { get; internal set; } = null;
 
         public abstract Quantity Collapse();
+
+        Quantity IMultipliable<Quantity, Quantity>.Multiply(Quantity value)
+        {
+            throw new NotImplementedException();
+        }
+
+        Quantity IExponentiable<Quantity>.Exponentiate(double exponent)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
