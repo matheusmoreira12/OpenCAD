@@ -27,10 +27,41 @@ namespace OpenCAD.OpenCADFormat.Measures
         {
             _name = name ?? throw new ArgumentNullException(nameof(name));
             _symbol = symbol ?? throw new ArgumentNullException(nameof(symbol));
-            _uiSymbol = uiSymbol ?? throw new ArgumentNullException(nameof(uiSymbol));
+            _uiSymbol = uiSymbol;
             Dimension = dimension;
             IsNamed = true;
         }
+
+        public DerivedQuantity(BaseQuantity baseQuantity, double exponent)
+        {
+            _name = null;
+            _symbol = null;
+            _uiSymbol = null;
+            Dimension = getDimension(baseQuantity, exponent);
+            IsNamed = false;
+        }
+
+        public DerivedQuantity(string name, string symbol, BaseQuantity baseQuantity, double exponent)
+        {
+            _name = name ?? throw new ArgumentNullException(nameof(name));
+            _symbol = symbol ?? throw new ArgumentNullException(nameof(symbol));
+            _uiSymbol = null;
+            Dimension = getDimension(baseQuantity, exponent);
+            IsNamed = true;
+        }
+
+        public DerivedQuantity(string name, string symbol, string uiSymbol, BaseQuantity baseQuantity, double exponent)
+        {
+            _name = name ?? throw new ArgumentNullException(nameof(name));
+            _symbol = symbol ?? throw new ArgumentNullException(nameof(symbol));
+            _uiSymbol = uiSymbol ?? throw new ArgumentNullException(nameof(uiSymbol));
+            Dimension = getDimension(baseQuantity, exponent);
+            IsNamed = true;
+        }
+
+        private DerivedQuantityDimension getDimension(BaseQuantity baseQuantity, double exponent) =>
+            new DerivedQuantityDimension(new DerivedQuantityDimensionMember(baseQuantity ??
+                throw new ArgumentNullException(nameof(baseQuantity)), exponent));
 
         public DerivedQuantityDimension Dimension { get; }
 

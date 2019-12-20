@@ -81,9 +81,9 @@ namespace OpenCAD.OpenCADFormat.Measures
                 derivedValue = (DerivedUnit)value;
 
             if (derivedThis is null || derivedValue is null)
-                return multiply(derivedThis, derivedValue);
+                throw new NotSupportedException();
 
-            throw new NotSupportedException();
+            return multiply(derivedThis, derivedValue);
         }
 
         private Unit multiply(DerivedUnit a, DerivedUnit b)
@@ -96,39 +96,31 @@ namespace OpenCAD.OpenCADFormat.Measures
         Unit IMultipliable<MetricPrefix, Unit>.Multiply(MetricPrefix value)
         {
             if (this is BaseUnit)
-                return multiply((BaseUnit)this, value);
-            else if (this is DerivedUnit)
-                return multiply((DerivedUnit)this, value);
+                return new DerivedUnit((BaseUnit)this, value, 1);
+
             throw new NotSupportedException();
-        }
-
-        private Unit multiply(BaseUnit baseUnit, MetricPrefix value)
-        {
-            throw new NotImplementedException();
-        }
-
-        private Unit multiply(DerivedUnit derivedUnit, MetricPrefix value)
-        {
-            throw new NotImplementedException();
         }
 
         Unit IExponentiable<Unit>.Exponentiate(double exponent)
         {
+            DerivedUnit derivedThis = null;
             if (this is BaseUnit)
-                return exponentiate((BaseUnit)this, exponent);
+                derivedThis = new DerivedUnit((BaseUnit)this, 1);
             else if (this is DerivedUnit)
-                return exponentiate((DerivedUnit)this, exponent);
-            throw new NotSupportedException();
-        }
+                derivedThis = (DerivedUnit)this;
 
-        private Unit exponentiate(BaseUnit baseUnit, double exponent)
-        {
-            throw new NotImplementedException();
+            if (derivedThis is null)
+                throw new NotSupportedException();
+
+            return exponentiate(derivedThis, exponent);
         }
 
         private Unit exponentiate(DerivedUnit derivedUnit, double exponent)
         {
-            throw new NotImplementedException();
+            var members = derivedUnit.Expression.Members.Select(m => new DerivedUnitExpressionMember(m.BaseUnit,
+                m.Prefix, m.Exponent * exponent)).ToArray();
+            var expression = new DerivedUnitExpression(members);
+            return new DerivedUnit(expression);
         }
     }
 }

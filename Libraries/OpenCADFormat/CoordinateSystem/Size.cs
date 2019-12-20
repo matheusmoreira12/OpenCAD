@@ -9,7 +9,7 @@ namespace OpenCAD.OpenCADFormat.CoordinateSystem
 
         public static Size Add(Size a, Size b) => new Size(a.Width + b.Width, a.Height + b.Height);
         public static Size Subtract(Size a, Size b) => new Size(a.Width - b.Width, a.Height - b.Height);
-        public static Size Divide(Size a, double b) => new Size(a.Width / b, a.Height / b);
+        public static Size Divide(Size a, double b) => new Size(a.Width / (Scalar)b, a.Height / (Scalar)b);
 
         public static Size operator +(Size a, Size b) => Add(a, b);
         public static Size operator -(Size a, Size b) => Subtract(a, b);

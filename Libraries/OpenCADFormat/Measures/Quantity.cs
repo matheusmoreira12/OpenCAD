@@ -5,9 +5,9 @@ namespace OpenCAD.OpenCADFormat.Measures
 {
     public abstract class Quantity: IMultipliable<Quantity, Quantity>, IExponentiable<Quantity>
     {
-        public static Quantity operator *(Quantity a, Quantity b) => Math.Multiply<Quantity, Quantity>(a, b);
+        public static Quantity operator *(Quantity a, Quantity b) => Math.Multiply(a, b);
 
-        public static Quantity operator /(Quantity a, Quantity b) => Math.Divide<Quantity, Quantity>(a, b);
+        public static Quantity operator /(Quantity a, Quantity b) => Math.Divide(a, b);
 
         public static Quantity operator !(Quantity a) => Math.Invert(a);
 
@@ -58,20 +58,57 @@ namespace OpenCAD.OpenCADFormat.Measures
 
         public abstract string UISymbol { get; }
 
-        public Unit Unit { get; internal set; } = null;
-
         public MetricSystem MetricSystem { get; internal set; } = null;
 
         public abstract Quantity Collapse();
 
         Quantity IMultipliable<Quantity, Quantity>.Multiply(Quantity value)
         {
-            throw new NotImplementedException();
+            DerivedQuantity derivedThis = null;
+            if (this is BaseQuantity)
+                derivedThis = new DerivedQuantity((BaseQuantity)this, 1);
+            else if (this is DerivedQuantity)
+                derivedThis = (DerivedQuantity)this;
+
+            DerivedQuantity derivedValue = null;
+            if (value is BaseQuantity)
+                derivedValue = new DerivedQuantity((BaseQuantity)value, 1);
+            else if (value is DerivedQuantity)
+                derivedValue = (DerivedQuantity)value;
+
+            if (derivedThis is null || derivedValue is null)
+                throw new NotSupportedException();
+
+            return multiply(derivedThis, derivedValue);
+        }
+
+        private Quantity multiply(DerivedQuantity a, DerivedQuantity b)
+        {
+            var members = a.Dimension.Members.Concat(b.Dimension.Members).ToArray();
+            var expression = new DerivedQuantityDimension(members);
+            return new DerivedQuantity(expression);
         }
 
         Quantity IExponentiable<Quantity>.Exponentiate(double exponent)
         {
-            throw new NotImplementedException();
+            DerivedQuantity derivedThis = null;
+            if (this is BaseQuantity)
+                derivedThis = new DerivedQuantity((BaseQuantity)this, 1);
+            else if (this is DerivedQuantity)
+                derivedThis = (DerivedQuantity)this;
+
+            if (derivedThis is null)
+                throw new NotSupportedException();
+
+            return exponentiate(derivedThis, exponent);
+        }
+
+        private Quantity exponentiate(DerivedQuantity derivedQuantity, double exponent)
+        {
+            var members = derivedQuantity.Dimension.Members.Select(m => new DerivedQuantityDimensionMember(m.BaseQuantity, 
+                m.Exponent * exponent)).ToArray();
+            var expression = new DerivedQuantityDimension(members);
+            return new DerivedQuantity(expression);
         }
     }
 }

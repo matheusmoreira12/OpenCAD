@@ -18,7 +18,7 @@ namespace OpenCAD.OpenCADFormat.CoordinateSystem
 
         public static Point Add(Point a, Size b) => new Point(a.X + b.Width, a.Y + b.Height);
 
-        public static Point Divide(Point a, double b) => new Point(a.X / b, a.Y / b);
+        public static Point Divide(Point a, double b) => new Point(a.X / (Scalar)b, a.Y / (Scalar)b);
 
         public static Size operator -(Point a, Point b) => Subtract(a, b);
 
