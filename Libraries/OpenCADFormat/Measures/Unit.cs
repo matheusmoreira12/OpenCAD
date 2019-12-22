@@ -66,20 +66,20 @@ namespace OpenCAD.OpenCADFormat.Measures
 
         public MetricSystem MetricSystem { get; internal set; }
 
+        private DerivedUnit convertToDerivedUnit(Unit unit)
+        {
+            if (this is BaseUnit)
+                return new DerivedUnit((BaseUnit)unit, 1);
+            else if (this is DerivedUnit)
+                return (DerivedUnit)unit;
+
+            return null;
+        }
+
         Unit IMultipliable<Unit, Unit>.Multiply(Unit value)
         {
-            DerivedUnit derivedThis = null;
-            if (this is BaseUnit)
-                derivedThis = new DerivedUnit((BaseUnit)this, 1);
-            else if (this is DerivedUnit)
-                derivedThis = (DerivedUnit)this;
-
-            DerivedUnit derivedValue = null;
-            if (value is BaseUnit)
-                derivedValue = new DerivedUnit((BaseUnit)value, 1);
-            else if (value is DerivedUnit)
-                derivedValue = (DerivedUnit)value;
-
+            DerivedUnit derivedThis = convertToDerivedUnit(this);
+            DerivedUnit derivedValue = convertToDerivedUnit(value);
             if (derivedThis is null || derivedValue is null)
                 throw new NotSupportedException();
 
@@ -103,12 +103,7 @@ namespace OpenCAD.OpenCADFormat.Measures
 
         Unit IExponentiable<Unit>.Exponentiate(double exponent)
         {
-            DerivedUnit derivedThis = null;
-            if (this is BaseUnit)
-                derivedThis = new DerivedUnit((BaseUnit)this, 1);
-            else if (this is DerivedUnit)
-                derivedThis = (DerivedUnit)this;
-
+            DerivedUnit derivedThis = convertToDerivedUnit(this);
             if (derivedThis is null)
                 throw new NotSupportedException();
 

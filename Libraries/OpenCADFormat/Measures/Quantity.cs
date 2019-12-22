@@ -62,20 +62,20 @@ namespace OpenCAD.OpenCADFormat.Measures
 
         public abstract Quantity Collapse();
 
+        private DerivedQuantity convertToDerivedUnit(Quantity quantity)
+        {
+            if (this is BaseQuantity)
+                return new DerivedQuantity((BaseQuantity)quantity, 1);
+            else if (this is DerivedQuantity)
+                return (DerivedQuantity)quantity;
+
+            return null;
+        }
+
         Quantity IMultipliable<Quantity, Quantity>.Multiply(Quantity value)
         {
-            DerivedQuantity derivedThis = null;
-            if (this is BaseQuantity)
-                derivedThis = new DerivedQuantity((BaseQuantity)this, 1);
-            else if (this is DerivedQuantity)
-                derivedThis = (DerivedQuantity)this;
-
-            DerivedQuantity derivedValue = null;
-            if (value is BaseQuantity)
-                derivedValue = new DerivedQuantity((BaseQuantity)value, 1);
-            else if (value is DerivedQuantity)
-                derivedValue = (DerivedQuantity)value;
-
+            DerivedQuantity derivedThis = convertToDerivedUnit(this);
+            DerivedQuantity derivedValue = convertToDerivedUnit(value);
             if (derivedThis is null || derivedValue is null)
                 throw new NotSupportedException();
 
@@ -85,18 +85,13 @@ namespace OpenCAD.OpenCADFormat.Measures
         private Quantity multiply(DerivedQuantity a, DerivedQuantity b)
         {
             var members = a.Dimension.Members.Concat(b.Dimension.Members).ToArray();
-            var expression = new DerivedQuantityDimension(members);
-            return new DerivedQuantity(expression);
+            var dimension = new DerivedQuantityDimension(members);
+            return new DerivedQuantity(dimension);
         }
 
         Quantity IExponentiable<Quantity>.Exponentiate(double exponent)
         {
-            DerivedQuantity derivedThis = null;
-            if (this is BaseQuantity)
-                derivedThis = new DerivedQuantity((BaseQuantity)this, 1);
-            else if (this is DerivedQuantity)
-                derivedThis = (DerivedQuantity)this;
-
+            DerivedQuantity derivedThis = convertToDerivedUnit(this);
             if (derivedThis is null)
                 throw new NotSupportedException();
 
@@ -107,8 +102,8 @@ namespace OpenCAD.OpenCADFormat.Measures
         {
             var members = derivedQuantity.Dimension.Members.Select(m => new DerivedQuantityDimensionMember(m.BaseQuantity, 
                 m.Exponent * exponent)).ToArray();
-            var expression = new DerivedQuantityDimension(members);
-            return new DerivedQuantity(expression);
+            var dimension = new DerivedQuantityDimension(members);
+            return new DerivedQuantity(dimension);
         }
     }
 }

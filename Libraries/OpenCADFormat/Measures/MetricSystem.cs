@@ -17,6 +17,34 @@ namespace OpenCAD.OpenCADFormat.Measures
             Prefixes = (prefixes ?? throw new ArgumentNullException(nameof(prefixes))).ToList();
         }
 
+        public static MetricPrefix Parse(string value)
+        {
+            MetricPrefix result;
+            if (TryParse(value, out result))
+                return result;
+
+            throw new ArgumentOutOfRangeException(nameof(value));
+        }
+
+        public static bool TryParse(string value, out MetricPrefix result) => tryParseByName(value, out result)
+            || tryParseByFullName(value, out result);
+
+        private static bool tryParseByName(string symbol, out MetricPrefix result)
+        {
+            result = MetricSystemManager.GetAllMetricPrefixes().FirstOrDefault(u => u.Symbol == symbol);
+            if (result == default)
+                return false;
+            return true;
+        }
+
+        private static bool tryParseByFullName(string uiSymbol, out MetricPrefix result)
+        {
+            result = MetricSystemManager.GetAllMetricPrefixes().FirstOrDefault(u => u.UISymbol == uiSymbol);
+            if (result == default)
+                return false;
+            return true;
+        }
+
         public string Name { get; }
 
         public string FullName { get; }

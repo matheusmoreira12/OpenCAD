@@ -87,11 +87,10 @@ namespace OpenCAD.OpenCADFormat.Measures
             IsNamed = true;
         }
 
-        private DerivedUnitExpression getExpression(BaseUnit baseUnit, MetricPrefix prefix, double exponent) => 
-            new DerivedUnitExpression(new DerivedUnitExpressionMember(
-                baseUnit ?? throw new ArgumentNullException(nameof(baseUnit)), prefix, exponent));
-
-
+        private DerivedUnitExpression getExpression(BaseUnit baseUnit, MetricPrefix prefix, double exponent) =>
+            new DerivedUnitExpression(new DerivedUnitExpressionMember(baseUnit
+                ?? throw new ArgumentNullException(nameof(baseUnit)), prefix, exponent));
+        
         public DerivedUnitExpression Expression { get; }
 
         public override string Name => _name ?? generateName();
@@ -99,7 +98,8 @@ namespace OpenCAD.OpenCADFormat.Measures
 
         private string generateName() => null;
 
-        public override Quantity Quantity => null;
+        public override Quantity Quantity => Expression.Members.Select(m => m.BaseUnit.Quantity ^ m.Exponent)
+            .Aggregate((qa, q) => qa * q);
 
         public override string Symbol => _symbol ?? generateSymbol();
         private string _symbol;

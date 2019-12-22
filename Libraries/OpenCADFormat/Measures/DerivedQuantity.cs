@@ -10,7 +10,7 @@ namespace OpenCAD.OpenCADFormat.Measures
             _name = null;
             _symbol = null;
             _uiSymbol = null;
-            Dimension = Dimension ?? throw new ArgumentNullException(nameof(dimension));
+            Dimension = dimension ?? throw new ArgumentNullException(nameof(dimension));
             IsNamed = false;
         }
 
@@ -54,7 +54,7 @@ namespace OpenCAD.OpenCADFormat.Measures
         {
             _name = name ?? throw new ArgumentNullException(nameof(name));
             _symbol = symbol ?? throw new ArgumentNullException(nameof(symbol));
-            _uiSymbol = uiSymbol ?? throw new ArgumentNullException(nameof(uiSymbol));
+            _uiSymbol = uiSymbol;
             Dimension = getDimension(baseQuantity, exponent);
             IsNamed = true;
         }
