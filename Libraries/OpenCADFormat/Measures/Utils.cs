@@ -29,7 +29,7 @@ namespace OpenCAD.OpenCADFormat.Measures
                 if (unit is BaseUnit)
                 {
                     foreach (var prefix in allPrefixes)
-                        yield return Math.Multiply<MetricPrefix, Unit>(unit, prefix);
+                        yield return (Unit)Math.Multiply(unit, prefix);
                 }
             }
         }

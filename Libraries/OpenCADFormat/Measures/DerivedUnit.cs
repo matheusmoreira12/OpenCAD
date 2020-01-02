@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace OpenCAD.OpenCADFormat.Measures
 {
@@ -90,7 +91,7 @@ namespace OpenCAD.OpenCADFormat.Measures
         private DerivedUnitExpression getExpression(BaseUnit baseUnit, MetricPrefix prefix, double exponent) =>
             new DerivedUnitExpression(new DerivedUnitExpressionMember(baseUnit
                 ?? throw new ArgumentNullException(nameof(baseUnit)), prefix, exponent));
-        
+
         public DerivedUnitExpression Expression { get; }
 
         public override string Name => _name ?? generateName();
@@ -98,13 +99,34 @@ namespace OpenCAD.OpenCADFormat.Measures
 
         private string generateName() => null;
 
-        public override Quantity Quantity => Expression.Members.Select(m => m.BaseUnit.Quantity ^ m.Exponent)
-            .Aggregate((qa, q) => qa * q);
+        public override Quantity Quantity => Expression.Members.Select(m => 
+            (Quantity)Math.Power(m.BaseUnit.Quantity, m.Exponent)).Aggregate((qa, q) => qa * q);
 
         public override string Symbol => _symbol ?? generateSymbol();
         private string _symbol;
 
-        private string generateSymbol() => null;
+        private string generateSymbol()
+        {
+            bool hasMultipleBases = Expression.Members.Length > 1;
+            var builder = new StringBuilder();
+
+            if (hasMultipleBases)
+                builder.Append("(");
+
+            for (int i = 0; i < Expression.Members.Length; i++)
+            {
+                if (i > 0)
+                    builder.Append("*");
+
+                var member = Expression.Members[i];
+                builder.Append($"{member.Prefix?.Symbol}{member.BaseUnit.Symbol}^{member.Exponent}");
+            }
+
+            if (hasMultipleBases)
+                builder.Append(")");
+
+            return builder.ToString();
+        }
 
         public override string UISymbol => _uiSymbol ?? generateUISymbol();
         private string _uiSymbol;

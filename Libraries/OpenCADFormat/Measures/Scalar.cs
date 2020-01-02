@@ -6,8 +6,7 @@ using System.Text.RegularExpressions;
 
 namespace OpenCAD.OpenCADFormat.Measures
 {
-    public struct Scalar : IComparable<Scalar>, IEquatable<Scalar>, ISummable<Scalar, Scalar>, INegatable<Scalar>,
-        IMultipliable<Scalar, Scalar>, IExponentiable<Scalar>
+    public struct Scalar : IComparable<Scalar>, IEquatable<Scalar>
     {
         public static readonly Scalar Zero = new Scalar(0);
 
@@ -15,19 +14,19 @@ namespace OpenCAD.OpenCADFormat.Measures
 
         public static explicit operator Scalar(double value) => new Scalar(value);
 
-        public static Scalar operator +(Scalar a, Scalar b) => Math.Add(a, b);
+        public static Scalar operator +(Scalar a, Scalar b) => (Scalar)Math.Add(a, b);
 
-        public static Scalar operator -(Scalar a, Scalar b) => Math.Subtract(a, b);
+        public static Scalar operator -(Scalar a, Scalar b) => (Scalar)Math.Subtract(a, b);
 
-        public static Scalar operator -(Scalar a) => Math.Negate(a);
+        public static Scalar operator -(Scalar a) => (Scalar)Math.Negate(a);
 
-        public static Scalar operator *(Scalar a, Scalar b) => Math.Multiply(a, b);
+        public static Scalar operator *(Scalar a, Scalar b) => (Scalar)Math.Multiply(a, b);
 
-        public static Scalar operator /(Scalar a, Scalar b) => Math.Divide(a, b);
+        public static Scalar operator /(Scalar a, Scalar b) => (Scalar)Math.Divide(a, b);
 
-        public static Scalar operator ^(Scalar a, double b) => Math.Power(a, b);
+        public static Scalar operator ^(Scalar a, double b) => (Scalar)Math.Power(a, b);
 
-        public static Scalar operator !(Scalar a) => Math.Invert(a);
+        public static Scalar operator !(Scalar a) => (Scalar)Math.Invert<Scalar, Scalar>(a);
 
         public static bool operator ==(Scalar a, Scalar b) => a.Equals(b);
 
@@ -36,6 +35,31 @@ namespace OpenCAD.OpenCADFormat.Measures
         public static bool operator >(Scalar a, Scalar b) => (a as IComparable<Scalar>).CompareTo(b) > 0;
 
         public static bool operator <(Scalar a, Scalar b) => (a as IComparable<Scalar>).CompareTo(b) < 0;
+
+        static Scalar()
+        {
+            //Addition Operator
+            Func<Scalar, Scalar, Scalar> addScalars = (a, b) =>
+                new Scalar(a.Amount + b.ConvertTo(a.Unit).Amount, a.Unit);
+
+            //Negation Operator
+            Func<Scalar, Scalar> negateScalar = (a) => new Scalar(-a.Amount, a.Unit);
+
+            //Multiplication Operator
+            Func<Scalar, Scalar, Scalar> multiplyScalars = (a, b) =>
+                new Scalar(a.Amount * b.Amount, (Unit)Math.Multiply(a, b));
+
+            //Exponentiation Operator
+            Func<Scalar, double, Scalar> exponetiateScalar = (a, b) =>
+                new Scalar(System.Math.Pow(a.Amount, b), (Unit)Math.Power(a.Unit, b));
+
+            MathOperationManager.RegisterMany(new MathOperation[] {
+                new MathOperation<Scalar, Scalar, Scalar>(addScalars, MathOperationType.Addition),
+                new MathOperation<Scalar, Scalar>(negateScalar, MathOperationType.Negation),
+                new MathOperation<Scalar, Scalar, Scalar>(multiplyScalars, MathOperationType.Multiplication),
+                new MathOperation<Scalar, double, Scalar>(exponetiateScalar, MathOperationType.Exponentiation)
+            });
+        }
 
         public static Scalar Parse(string value)
         {
@@ -129,16 +153,5 @@ namespace OpenCAD.OpenCADFormat.Measures
             hashCode = hashCode * -1521134295 + EqualityComparer<Unit>.Default.GetHashCode(Unit);
             return hashCode;
         }
-
-        Scalar ISummable<Scalar, Scalar>.Sum(Scalar value) =>
-            new Scalar(Amount + value.ConvertTo(Unit).Amount, Unit);
-
-        Scalar INegatable<Scalar>.Negate() => new Scalar(-Amount, Unit);
-
-        Scalar IMultipliable<Scalar, Scalar>.Multiply(Scalar value) =>
-            new Scalar(Amount * value.Amount, ((IMultipliable<Unit, Unit>)Unit).Multiply(value.Unit));
-
-        Scalar IExponentiable<Scalar>.Exponentiate(double exponent) =>
-            new Scalar(System.Math.Pow(Amount, exponent), ((IExponentiable<Unit>)Unit).Exponentiate(exponent));
     }
 }

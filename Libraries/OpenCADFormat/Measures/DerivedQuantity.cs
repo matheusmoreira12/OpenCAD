@@ -86,6 +86,7 @@ namespace OpenCAD.OpenCADFormat.Measures
                 .Select(g => new DerivedQuantityDimensionMember(g.Key, g.Sum(m => m.Exponent)))
                 .Where(m => m.Exponent != 0)
                 .ToArray();
+
             var dimension = new DerivedQuantityDimension(members);
             return new DerivedQuantity(dimension);
         }

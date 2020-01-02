@@ -121,6 +121,8 @@
     <Compile Include="Measures\DerivedUnitExpression.cs" />
     <Compile Include="Measures\DerivedUnitExpressionMember.cs" />
     <Compile Include="Measures\Math\Math.cs" />
+    <Compile Include="Measures\Math\MathOperation.cs" />
+    <Compile Include="Measures\Math\MathOperationManager.cs" />
     <Compile Include="Measures\MetricSystem.cs" />
     <Compile Include="Measures\MetricSystemImporter.cs" />
     <Compile Include="Measures\MetricSystemManager.cs" />
