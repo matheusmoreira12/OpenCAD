@@ -1,8 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 
-namespace OpenCAD.OpenCADFormat.Measures
+using MathAPI = OpenCAD.APIs.Math;
+using OpenCAD.APIs.Math;
+
+namespace OpenCAD.APIs.Measures
 {
     public abstract class Unit
     {
@@ -52,34 +54,26 @@ namespace OpenCAD.OpenCADFormat.Measures
             };
 
             MathOperationManager.RegisterMany(new MathOperation[] {
-                new MathOperation<BaseUnit, BaseUnit, DerivedUnit>(multiplyBaseUnits,
-                    MathOperationType.Multiplication),
-                new MathOperation<DerivedUnit, DerivedUnit, DerivedUnit>(multiplyDerivedUnits,
-                    MathOperationType.Multiplication),
-                new MathOperation<BaseUnit, DerivedUnit, DerivedUnit>(multiplyBaseByDerivedUnits,
-                    MathOperationType.Multiplication),
-                new MathOperation<DerivedUnit, BaseUnit, DerivedUnit>(multiplyDerivedByBaseUnits,
-                    MathOperationType.Multiplication),
-                new MathOperation<BaseUnit, MetricPrefix, DerivedUnit>(multiplyBaseUnitByPrefix,
-                    MathOperationType.Multiplication),
-                new MathOperation<MetricPrefix, BaseUnit, DerivedUnit>(multiplyPrefixByBaseUnit,
-                    MathOperationType.Multiplication),
-                new MathOperation<BaseUnit, double, DerivedUnit>(exponentiateBaseUnit,
-                    MathOperationType.Exponentiation),
-                new MathOperation<DerivedUnit, double, DerivedUnit>(exponentiateDerivedUnit,
-                    MathOperationType.Exponentiation)
+                new Multiplication<BaseUnit, BaseUnit, DerivedUnit>(multiplyBaseUnits),
+                new Multiplication<DerivedUnit, DerivedUnit, DerivedUnit>(multiplyDerivedUnits),
+                new Multiplication<BaseUnit, DerivedUnit, DerivedUnit>(multiplyBaseByDerivedUnits),
+                new Multiplication<DerivedUnit, BaseUnit, DerivedUnit>(multiplyDerivedByBaseUnits),
+                new Multiplication<BaseUnit, MetricPrefix, DerivedUnit>(multiplyBaseUnitByPrefix),
+                new Multiplication<MetricPrefix, BaseUnit, DerivedUnit>(multiplyPrefixByBaseUnit),
+                new Exponentiation<BaseUnit, double, DerivedUnit>(exponentiateBaseUnit),
+                new Exponentiation<DerivedUnit, double, DerivedUnit>(exponentiateDerivedUnit)
             });
         }
 
-        public static Unit operator *(Unit a, Unit b) => (Unit)Math.Multiply(a, b);
+        public static Unit operator *(Unit a, Unit b) => (Unit)MathAPI::Math.Multiply(a, b);
 
-        public static Unit operator *(MetricPrefix a, Unit b) => (Unit)Math.Multiply(b, a);
+        public static Unit operator *(MetricPrefix a, Unit b) => (Unit)MathAPI::Math.Multiply(b, a);
 
-        public static Unit operator *(Unit a, MetricPrefix b) => (Unit)Math.Multiply(a, b);
+        public static Unit operator *(Unit a, MetricPrefix b) => (Unit)MathAPI::Math.Multiply(a, b);
 
-        public static Unit operator /(Unit a, Unit b) => (Unit)Math.Divide(a, b);
+        public static Unit operator /(Unit a, Unit b) => (Unit)MathAPI::Math.Divide(a, b);
 
-        public static Unit operator !(Unit a) => (Unit)Math.Invert<Unit, Unit>(a);
+        public static Unit operator !(Unit a) => (Unit)MathAPI::Math.Invert<Unit, Unit>(a);
 
         public static Unit Parse(string value)
         {

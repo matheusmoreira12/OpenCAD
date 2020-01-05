@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Xml.Serialization;
-using OpenCAD.OpenCADFormat.Measures;
+using OpenCAD.APIs.Measures;
 
 namespace OpenCAD.OpenCADFormat.PCBLayout
 {

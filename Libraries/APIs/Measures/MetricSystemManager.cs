@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace OpenCAD.OpenCADFormat.Measures
+namespace OpenCAD.APIs.Measures
 {
     static class MetricSystemManager
     {

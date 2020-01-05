@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OpenCAD.OpenCADFormat.Measures
+namespace OpenCAD.APIs.Measures
 {
     /// <summary>
     /// Defines a conversion between two units. 

@@ -1,8 +1,7 @@
-﻿
-using OpenCAD.OpenCADFormat.Measures;
-using OpenCAD.OpenCADFormat.CoordinateSystem;
+﻿using OpenCAD.OpenCADFormat.CoordinateSystem;
 using System;
 using System.Xml.Serialization;
+using OpenCAD.APIs.Measures;
 
 namespace OpenCAD.OpenCADFormat.Drawing
 {

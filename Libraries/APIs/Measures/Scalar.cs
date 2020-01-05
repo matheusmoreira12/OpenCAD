@@ -1,10 +1,12 @@
-﻿using OpenCAD.Utils;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace OpenCAD.OpenCADFormat.Measures
+using MathAPI = OpenCAD.APIs.Math;
+using OpenCAD.APIs.Math;
+using System.Globalization;
+
+namespace OpenCAD.APIs.Measures
 {
     public struct Scalar : IComparable<Scalar>, IEquatable<Scalar>
     {
@@ -14,19 +16,19 @@ namespace OpenCAD.OpenCADFormat.Measures
 
         public static explicit operator Scalar(double value) => new Scalar(value);
 
-        public static Scalar operator +(Scalar a, Scalar b) => (Scalar)Math.Add(a, b);
+        public static Scalar operator +(Scalar a, Scalar b) => (Scalar)MathAPI::Math.Add(a, b);
 
-        public static Scalar operator -(Scalar a, Scalar b) => (Scalar)Math.Subtract(a, b);
+        public static Scalar operator -(Scalar a, Scalar b) => (Scalar)MathAPI::Math.Subtract(a, b);
 
-        public static Scalar operator -(Scalar a) => (Scalar)Math.Negate(a);
+        public static Scalar operator -(Scalar a) => (Scalar)MathAPI::Math.Negate(a);
 
-        public static Scalar operator *(Scalar a, Scalar b) => (Scalar)Math.Multiply(a, b);
+        public static Scalar operator *(Scalar a, Scalar b) => (Scalar)MathAPI::Math.Multiply(a, b);
 
-        public static Scalar operator /(Scalar a, Scalar b) => (Scalar)Math.Divide(a, b);
+        public static Scalar operator /(Scalar a, Scalar b) => (Scalar)MathAPI::Math.Divide(a, b);
 
-        public static Scalar operator ^(Scalar a, double b) => (Scalar)Math.Power(a, b);
+        public static Scalar operator ^(Scalar a, double b) => (Scalar)MathAPI::Math.Power(a, b);
 
-        public static Scalar operator !(Scalar a) => (Scalar)Math.Invert<Scalar, Scalar>(a);
+        public static Scalar operator !(Scalar a) => (Scalar)MathAPI::Math.Invert<Scalar, Scalar>(a);
 
         public static bool operator ==(Scalar a, Scalar b) => a.Equals(b);
 
@@ -47,17 +49,17 @@ namespace OpenCAD.OpenCADFormat.Measures
 
             //Multiplication Operator
             Func<Scalar, Scalar, Scalar> multiplyScalars = (a, b) =>
-                new Scalar(a.Amount * b.Amount, (Unit)Math.Multiply(a, b));
+                new Scalar(a.Amount * b.Amount, (Unit)MathAPI::Math.Multiply(a, b));
 
             //Exponentiation Operator
             Func<Scalar, double, Scalar> exponetiateScalar = (a, b) =>
-                new Scalar(System.Math.Pow(a.Amount, b), (Unit)Math.Power(a.Unit, b));
+                new Scalar(System.Math.Pow(a.Amount, b), (Unit)MathAPI::Math.Power(a.Unit, b));
 
             MathOperationManager.RegisterMany(new MathOperation[] {
-                new MathOperation<Scalar, Scalar, Scalar>(addScalars, MathOperationType.Addition),
-                new MathOperation<Scalar, Scalar>(negateScalar, MathOperationType.Negation),
-                new MathOperation<Scalar, Scalar, Scalar>(multiplyScalars, MathOperationType.Multiplication),
-                new MathOperation<Scalar, double, Scalar>(exponetiateScalar, MathOperationType.Exponentiation)
+                new Addition<Scalar, Scalar, Scalar>(addScalars),
+                new Negation<Scalar, Scalar>(negateScalar),
+                new Multiplication<Scalar, Scalar, Scalar>(multiplyScalars),
+                new Exponentiation<Scalar, double, Scalar>(exponetiateScalar)
             });
         }
 
@@ -114,8 +116,10 @@ namespace OpenCAD.OpenCADFormat.Measures
             Amount = amount;
         }
 
-        public override string ToString() => $"{Amount.ToString(Conventions.STANDARD_CULTURE)}{Unit?.Symbol}";
-        public string ToUIString() => $"{Amount.ToString(Conventions.STANDARD_CULTURE)}{Unit?.UISymbol ?? Unit?.Symbol}";
+        public override string ToString() => 
+            $"{Amount.ToString(CultureInfo.InvariantCulture)}{Unit?.Symbol}";
+        public string ToUIString() => 
+            $"{Amount.ToString(CultureInfo.InvariantCulture)}{Unit?.UISymbol ?? Unit?.Symbol}";
 
         public Scalar ConvertTo(Unit outUnit)
         {

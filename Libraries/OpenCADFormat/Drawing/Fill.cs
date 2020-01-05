@@ -1,5 +1,4 @@
-﻿using OpenCAD.OpenCADFormat.DataStrings;
-using OpenCAD.OpenCADFormat.Measures;
+﻿using OpenCAD.APIs.Measures;
 using System;
 using System.Linq;
 

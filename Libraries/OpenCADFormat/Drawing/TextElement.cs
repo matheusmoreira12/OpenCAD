@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using System.Xml;
 using System.Xml.Serialization;
-
-using OpenCAD.OpenCADFormat.Measures;
+using OpenCAD.APIs.Measures;
 
 namespace OpenCAD.OpenCADFormat.Drawing
 {

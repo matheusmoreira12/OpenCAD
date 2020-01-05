@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace OpenCAD.OpenCADFormat.Measures
+namespace OpenCAD.APIs.Measures
 {
     [Serializable]
     public class WrongUnitQuantityException : Exception

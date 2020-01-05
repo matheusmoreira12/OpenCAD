@@ -1,9 +1,6 @@
-﻿using OpenCAD.Utils;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System;
 
-namespace OpenCAD.OpenCADFormat.Measures
+namespace OpenCAD.APIs.Measures
 {
     public class DerivedQuantityDimension
     {

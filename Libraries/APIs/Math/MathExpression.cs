@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using OpenCAD.Utils;
+using OpenCAD.APIs.Tokens;
 
 namespace OpenCAD.APIs.Math
 {
@@ -20,7 +20,7 @@ namespace OpenCAD.APIs.Math
 
             var tokens = tokenifier.Tokenify().Cast<MathExpressionToken>();
 
-            return FromTokens(tokens.ToArray());
+            return FromTokens(tokens.Cast<StringToken>().ToArray());
         }
 
         public MathExpression(MathExpressionMember[] members) : base(members)

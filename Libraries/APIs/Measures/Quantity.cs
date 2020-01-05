@@ -1,15 +1,18 @@
 ﻿using System;
 using System.Linq;
 
-namespace OpenCAD.OpenCADFormat.Measures
+using MathAPI = OpenCAD.APIs.Math;
+using OpenCAD.APIs.Math;
+
+namespace OpenCAD.APIs.Measures
 {
     public abstract class Quantity
     {
-        public static Quantity operator *(Quantity a, Quantity b) => (Quantity)Math.Multiply(a, b);
+        public static Quantity operator *(Quantity a, Quantity b) => (Quantity)MathAPI::Math.Multiply(a, b);
 
-        public static Quantity operator /(Quantity a, Quantity b) => (Quantity)Math.Divide(a, b);
+        public static Quantity operator /(Quantity a, Quantity b) => (Quantity)MathAPI::Math.Divide(a, b);
 
-        public static Quantity operator !(Quantity a) => Math.Invert<Quantity, Quantity>(a);
+        public static Quantity operator !(Quantity a) => MathAPI::Math.Invert<Quantity, Quantity>(a);
 
         static Quantity()
         {
@@ -52,18 +55,12 @@ namespace OpenCAD.OpenCADFormat.Measures
             };
 
             MathOperationManager.RegisterMany(new MathOperation[] {
-                new MathOperation<BaseQuantity, BaseQuantity, DerivedQuantity>(multiplyBaseQuantities,
-                    MathOperationType.Multiplication),
-                new MathOperation<DerivedQuantity, DerivedQuantity, DerivedQuantity>(multiplyDerivedQuantities,
-                    MathOperationType.Multiplication),
-                new MathOperation<BaseQuantity, DerivedQuantity, DerivedQuantity>(multiplyBaseByDerivedQuantities,
-                    MathOperationType.Multiplication),
-                new MathOperation<DerivedQuantity, BaseQuantity, DerivedQuantity>(multiplyDerivedByBaseQuantities,
-                    MathOperationType.Multiplication),
-                new MathOperation<BaseQuantity, double, DerivedQuantity>(exponentiateBaseQuantity,
-                    MathOperationType.Exponentiation),
-                new MathOperation<DerivedQuantity, double, DerivedQuantity>(exponentiateDerivedQuantity,
-                    MathOperationType.Exponentiation)
+                new Multiplication<BaseQuantity, BaseQuantity, DerivedQuantity>(multiplyBaseQuantities),
+                new Multiplication<DerivedQuantity, DerivedQuantity, DerivedQuantity>(multiplyDerivedQuantities),
+                new Multiplication<BaseQuantity, DerivedQuantity, DerivedQuantity>(multiplyBaseByDerivedQuantities),
+                new Multiplication<DerivedQuantity, BaseQuantity, DerivedQuantity>(multiplyDerivedByBaseQuantities),
+                new Exponentiation<BaseQuantity, double, DerivedQuantity>(exponentiateBaseQuantity),
+                new Exponentiation<DerivedQuantity, double, DerivedQuantity>(exponentiateDerivedQuantity)
             });
         }
 

@@ -1,9 +1,4 @@
-﻿using OpenCAD.OpenCADFormat.Serialization;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using OpenCAD.APIs.Measures;
 using System.Xml.Serialization;
 
 namespace OpenCAD.OpenCADFormat.Measures.Serialization

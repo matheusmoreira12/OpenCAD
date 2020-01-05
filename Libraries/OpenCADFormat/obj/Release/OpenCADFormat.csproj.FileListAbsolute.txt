@@ -59,3 +59,9 @@ C:\Users\Matheus Moreira\source\repos\OpenCAD\Libraries\OpenCADFormat\obj\Releas
 C:\Users\Matheus Moreira\source\repos\OpenCAD\Libraries\OpenCADFormat\obj\Release\OpenCADFormat.csproj.CopyComplete
 C:\Users\Matheus Moreira\source\repos\OpenCAD\Libraries\OpenCADFormat\obj\Release\OpenCAD.OpenCADFormat.dll
 C:\Users\Matheus Moreira\source\repos\OpenCAD\Libraries\OpenCADFormat\obj\Release\OpenCAD.OpenCADFormat.pdb
+C:\Users\Matheus Moreira\source\repos\OpenCAD\Libraries\OpenCADFormat\bin\Release\Math.dll
+C:\Users\Matheus Moreira\source\repos\OpenCAD\Libraries\OpenCADFormat\bin\Release\Tokens.dll
+C:\Users\Matheus Moreira\source\repos\OpenCAD\Libraries\OpenCADFormat\bin\Release\Math.pdb
+C:\Users\Matheus Moreira\source\repos\OpenCAD\Libraries\OpenCADFormat\bin\Release\Tokens.pdb
+C:\Users\Matheus Moreira\source\repos\OpenCAD\Libraries\OpenCADFormat\bin\Release\Measures.dll
+C:\Users\Matheus Moreira\source\repos\OpenCAD\Libraries\OpenCADFormat\bin\Release\Measures.pdb

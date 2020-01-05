@@ -1,4 +1,4 @@
-﻿namespace OpenCAD.OpenCADFormat.Measures
+﻿namespace OpenCAD.APIs.Math
 {
     public static class Math
     {

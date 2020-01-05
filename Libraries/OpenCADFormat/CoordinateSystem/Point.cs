@@ -1,6 +1,6 @@
-﻿using System;
-using System.Xml.Serialization;
-using OpenCAD.OpenCADFormat.Measures;
+﻿using OpenCAD.APIs.Measures;
+
+using Framework = OpenCAD.APIs.Math;
 
 namespace OpenCAD.OpenCADFormat.CoordinateSystem
 {
@@ -36,9 +36,9 @@ namespace OpenCAD.OpenCADFormat.CoordinateSystem
         {
             Size difference = (a - b).ConvertTo(outUnit);
 
-            return Measures.Math.SquareRoot<Scalar, Scalar>(
-                Measures.Math.Square<Scalar, Scalar>(difference.Width) + 
-                Measures.Math.Square<Scalar, Scalar>(difference.Height));
+            return Framework::Math.SquareRoot<Scalar, Scalar>(
+                Framework::Math.Square<Scalar, Scalar>(difference.Width) +
+                Framework::Math.Square<Scalar, Scalar>(difference.Height));
         }
 
         public static Scalar Angle(Point a, Point b)

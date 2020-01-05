@@ -1,9 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace OpenCAD.OpenCADFormat.Measures
+using MathAPI = OpenCAD.APIs.Math;
+
+namespace OpenCAD.APIs.Measures
 {
     public sealed class DerivedUnit : Unit
     {
@@ -100,7 +101,7 @@ namespace OpenCAD.OpenCADFormat.Measures
         private string generateName() => null;
 
         public override Quantity Quantity => Expression.Members.Select(m => 
-            (Quantity)Math.Power(m.BaseUnit.Quantity, m.Exponent)).Aggregate((qa, q) => qa * q);
+            (Quantity)MathAPI::Math.Power(m.BaseUnit.Quantity, m.Exponent)).Aggregate((qa, q) => qa * q);
 
         public override string Symbol => _symbol ?? generateSymbol();
         private string _symbol;

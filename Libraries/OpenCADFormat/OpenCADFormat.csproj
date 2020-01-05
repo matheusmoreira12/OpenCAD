@@ -53,6 +53,12 @@
     <Reference Include="GeoAPI, Version=1.7.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\GeoAPI.1.7.2\lib\net403-client\GeoAPI.dll</HintPath>
     </Reference>
+    <Reference Include="Math">
+      <HintPath>..\APIs\Math\bin\Release\Math.dll</HintPath>
+    </Reference>
+    <Reference Include="Measures">
+      <HintPath>..\APIs\Measures\bin\Release\Measures.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="NetTopologySuite, Version=1.13.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\NetTopologySuite.1.13.2\lib\net403-client\NetTopologySuite.dll</HintPath>
@@ -111,22 +117,6 @@
     <Compile Include="Libraries\ComponentPinType.cs" />
     <Compile Include="Libraries\ComponentSymbol.cs" />
     <Compile Include="Libraries\Footprint.cs" />
-    <Compile Include="Measures\BaseQuantity.cs" />
-    <Compile Include="Measures\BaseUnit.cs" />
-    <Compile Include="Measures\Conversion\UnitConversionManager.cs" />
-    <Compile Include="Measures\DerivedQuantity.cs" />
-    <Compile Include="Measures\DerivedQuantityDimension.cs" />
-    <Compile Include="Measures\DerivedQuantityDimensionMember.cs" />
-    <Compile Include="Measures\DerivedUnit.cs" />
-    <Compile Include="Measures\DerivedUnitExpression.cs" />
-    <Compile Include="Measures\DerivedUnitExpressionMember.cs" />
-    <Compile Include="Measures\Math\Math.cs" />
-    <Compile Include="Measures\Math\MathOperation.cs" />
-    <Compile Include="Measures\Math\MathOperationManager.cs" />
-    <Compile Include="Measures\MetricSystem.cs" />
-    <Compile Include="Measures\MetricSystemImporter.cs" />
-    <Compile Include="Measures\MetricSystemManager.cs" />
-    <Compile Include="Measures\Scalar.cs" />
     <Compile Include="Measures\Serialization\BaseQuantityNode.cs" />
     <Compile Include="Measures\Serialization\BaseUnitNode.cs" />
     <Compile Include="Measures\Serialization\DerivedQuantityNode.cs" />
@@ -136,7 +126,6 @@
     <Compile Include="Measures\Serialization\MetricSystemNode.cs" />
     <Compile Include="Measures\Serialization\QuantityNode.cs" />
     <Compile Include="Measures\Serialization\UnitNode.cs" />
-    <Compile Include="Measures\Conversion\UnitConversion.cs" />
     <Compile Include="PCBLayout\AnnotationLayer.cs" />
     <Compile Include="PCBLayout\CopperThievingOptions.cs" />
     <Compile Include="PCBLayout\DefaultValues.cs" />
@@ -193,11 +182,6 @@
     <Compile Include="Libraries\Exceptions.cs" />
     <Compile Include="Libraries\FootprintLibrary.cs" />
     <Compile Include="Libraries\Library.cs" />
-    <Compile Include="Measures\Exceptions.cs" />
-    <Compile Include="Measures\MetricPrefix.cs" />
-    <Compile Include="Measures\Quantity.cs" />
-    <Compile Include="Measures\Unit.cs" />
-    <Compile Include="Measures\Utils.cs" />
     <Compile Include="MetaInformation\Exceptions.cs" />
     <Compile Include="PCBLayout\MechanicalLayer.cs" />
     <Compile Include="PCBLayout\OverlayLayer.cs" />

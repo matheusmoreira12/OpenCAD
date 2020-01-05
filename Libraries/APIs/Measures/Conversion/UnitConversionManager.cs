@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OpenCAD.OpenCADFormat.Measures.Conversion
+namespace OpenCAD.APIs.Measures.Conversion
 {
     class UnitConversionManager
     {

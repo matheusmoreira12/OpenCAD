@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace OpenCAD.OpenCADFormat.Measures
+namespace OpenCAD.APIs.Measures
 {
     public sealed class BaseQuantity : Quantity
     {

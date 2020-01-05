@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace OpenCAD.OpenCADFormat.Measures
+namespace OpenCAD.APIs.Measures
 {
     public sealed class DerivedQuantity : Quantity
     {

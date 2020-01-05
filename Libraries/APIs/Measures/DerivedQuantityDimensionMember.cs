@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace OpenCAD.OpenCADFormat.Measures
+namespace OpenCAD.APIs.Measures
 {
     public class DerivedQuantityDimensionMember
     {
