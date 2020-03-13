@@ -5,8 +5,10 @@ namespace OpenCAD.APIs.Measures.Conversion.Exceptions
 {
     class InvalidUnitConversionException : Exception
     {
-        public InvalidUnitConversionException(): base("The specified source unit is not convertible to " +
-            "the specified destination unit") { }
+        public InvalidUnitConversionException(Unit sourceUnit, Unit destUnit)
+            : base("The specified source unit is not convertible to the specified destination unit") {
+            setData(sourceUnit, destUnit);
+        }
 
         public InvalidUnitConversionException(Unit sourceUnit, Unit destUnit, string message) : base(message)
         {

@@ -6,6 +6,7 @@ using MathAPI = OpenCAD.APIs.Math;
 using OpenCAD.APIs.Math;
 using System.Globalization;
 using OpenCAD.APIs.Measures.UnitConversion;
+using OpenCAD.APIs.Measures.Conversion.Exceptions;
 
 namespace OpenCAD.APIs.Measures
 {
