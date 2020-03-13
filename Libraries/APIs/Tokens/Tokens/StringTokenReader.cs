@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OpenCAD.APIs.Tokens
 {
-    public class StringTokenReader : IDisposable
+    public class StringTokenReader<TToken> : IDisposable where TToken : StringToken
     {
-        private StringTokenReader(StringTokenReader parent, int offset)
+        private StringTokenReader(StringTokenReader<TToken> parent, int offset)
         {
             Tokens = parent.Tokens;
             Parent = parent ?? throw new ArgumentNullException(nameof(parent));
@@ -70,7 +67,8 @@ namespace OpenCAD.APIs.Tokens
         /// Branches out into a different reader.
         /// </summary>
         /// <returns></returns>
-        public StringTokenReader Derive(int offset = 0) => new StringTokenReader(this, offset);
+        public StringTokenReader<TToken> Derive(int offset = 0) => 
+            new StringTokenReader<TToken>(this, offset);
 
         private bool indexDiscarded = false;
 
@@ -82,7 +80,7 @@ namespace OpenCAD.APIs.Tokens
         /// <summary>
         /// Gets the parent of this reader.
         /// </summary>
-        public StringTokenReader Parent { get; }
+        public StringTokenReader<TToken> Parent { get; }
 
         /// <summary>
         /// Gets the start index for this reader.

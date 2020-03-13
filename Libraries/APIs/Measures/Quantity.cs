@@ -109,6 +109,8 @@ namespace OpenCAD.APIs.Measures
 
         public abstract string UISymbol { get; }
 
+        public Unit Unit { get; }
+
         public MetricSystem MetricSystem { get; internal set; } = null;
 
         public abstract Quantity Collapse();

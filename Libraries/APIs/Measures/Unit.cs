@@ -25,13 +25,13 @@ namespace OpenCAD.APIs.Measures
                 return multiplyDerivedUnits(derivedA, derivedB);
             };
 
-            Func<BaseUnit, DerivedUnit, DerivedUnit> multiplyBaseByDerivedUnits = (a, b) =>
+            Func<BaseUnit, DerivedUnit, DerivedUnit> multiplyBaseUnitByDerivedUnits = (a, b) =>
             {
                 var derivedA = new DerivedUnit(a, 1);
                 return multiplyDerivedUnits(derivedA, b);
             };
 
-            Func<DerivedUnit, BaseUnit, DerivedUnit> multiplyDerivedByBaseUnits = (a, b) =>
+            Func<DerivedUnit, BaseUnit, DerivedUnit> multiplyDerivedUnitByBaseUnits = (a, b) =>
             {
                 var derivedB = new DerivedUnit(b, 1);
                 return multiplyDerivedUnits(a, derivedB);
@@ -56,8 +56,8 @@ namespace OpenCAD.APIs.Measures
             MathOperationManager.RegisterMany(new MathOperation[] {
                 new Multiplication<BaseUnit, BaseUnit, DerivedUnit>(multiplyBaseUnits),
                 new Multiplication<DerivedUnit, DerivedUnit, DerivedUnit>(multiplyDerivedUnits),
-                new Multiplication<BaseUnit, DerivedUnit, DerivedUnit>(multiplyBaseByDerivedUnits),
-                new Multiplication<DerivedUnit, BaseUnit, DerivedUnit>(multiplyDerivedByBaseUnits),
+                new Multiplication<BaseUnit, DerivedUnit, DerivedUnit>(multiplyBaseUnitByDerivedUnits),
+                new Multiplication<DerivedUnit, BaseUnit, DerivedUnit>(multiplyDerivedUnitByBaseUnits),
                 new Multiplication<BaseUnit, MetricPrefix, DerivedUnit>(multiplyBaseUnitByPrefix),
                 new Multiplication<MetricPrefix, BaseUnit, DerivedUnit>(multiplyPrefixByBaseUnit),
                 new Exponentiation<BaseUnit, double, DerivedUnit>(exponentiateBaseUnit),
@@ -75,6 +75,12 @@ namespace OpenCAD.APIs.Measures
 
         public static Unit operator !(Unit a) => (Unit)MathAPI::Math.Invert<Unit, Unit>(a);
 
+        /// <summary>
+        /// Parses a unit by its name, symbol or ui symbol.
+        /// </summary>
+        /// <param name="value">The unit name, symbol or ui symbol.</param>
+        /// <returns>The matching unit.</returns>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
         public static Unit Parse(string value)
         {
             Unit result;
@@ -84,6 +90,12 @@ namespace OpenCAD.APIs.Measures
             throw new ArgumentOutOfRangeException(nameof(value));
         }
 
+        /// <summary>
+        /// Tries parsing a unit by its name, symbol or ui symbol.
+        /// </summary>
+        /// <param name="value">The unit name, symbol or ui symbol.</param>
+        /// <param name="result">The matching unit.</param>
+        /// <returns>True, if there is a match. False, if there is no match.</returns>
         public static bool TryParse(string value, out Unit result) =>
             tryParseBySymbol(value, out result) || tryParseByUISymbol(value, out result) || tryParseByName(value, out result);
 
@@ -92,6 +104,7 @@ namespace OpenCAD.APIs.Measures
             result = MetricSystemManager.GetAllUnits().FirstOrDefault(u => u.Symbol == symbol);
             if (result == default)
                 return false;
+
             return true;
         }
 
@@ -100,6 +113,7 @@ namespace OpenCAD.APIs.Measures
             result = MetricSystemManager.GetAllUnits().FirstOrDefault(u => u.UISymbol == uiSymbol);
             if (result == default)
                 return false;
+
             return true;
         }
 
@@ -108,19 +122,39 @@ namespace OpenCAD.APIs.Measures
             result = MetricSystemManager.GetAllUnits().FirstOrDefault(u => u.Name == name);
             if (result == default)
                 return false;
+
             return true;
         }
 
+        /// <summary>
+        /// Gets this unit in its collapsed form.
+        /// </summary>
+        /// <returns></returns>
         public abstract Unit Collapse();
 
+        /// <summary>
+        /// Gets the name of this unit.
+        /// </summary>
         public abstract string Name { get; }
 
+        /// <summary>
+        /// Gets the physical quantity measured by this unit.
+        /// </summary>
         public abstract Quantity Quantity { get; }
 
+        /// <summary>
+        /// Gets the symbol used internally by the application for representing this unit.
+        /// </summary>
         public abstract string Symbol { get; }
 
+        /// <summary>
+        /// Gets the symbol shown to the user by the UI for representing this unit.
+        /// </summary>
         public abstract string UISymbol { get; }
 
+        /// <summary>
+        /// Gets the metric system this unit belongs to.
+        /// </summary>
         public MetricSystem MetricSystem { get; internal set; }
     }
 }

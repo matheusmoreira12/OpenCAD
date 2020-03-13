@@ -1,16 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace OpenCAD.APIs.Measures
+namespace OpenCAD.APIs.Measures.UnitConversion
 {
     /// <summary>
     /// Defines a conversion between two units. 
-    /// The form is Y = A*X^B + C, where "A" is the multiplier, "B" is the exponent and "C" is a constant.
+    /// The form is Y = A*X + B, where "A" is the multiplier, "B" is a constant.
     /// </summary>
-    class UnitConversion
+    public class UnitConversion
     {
         /// <summary>
         /// Initializes an instance of the UnitConversion class.
@@ -18,15 +14,13 @@ namespace OpenCAD.APIs.Measures
         /// <param name="unitA">The source class.</param>
         /// <param name="unitB">The destination class.</param>
         /// <param name="a">The multiplier.</param>
-        /// <param name="b">The exponent.</param>
-        /// <param name="c">The constant.</param>
-        public UnitConversion(Unit unitA, Unit unitB, double a, double b, double c)
+        /// <param name="b">The constant.</param>
+        public UnitConversion(Unit unitA, Unit unitB, double a, double b)
         {
             UnitA = unitA ?? throw new ArgumentNullException(nameof(unitA));
             UnitB = unitB ?? throw new ArgumentNullException(nameof(unitB));
             A = a;
             B = b;
-            C = c;
         }
 
         /// <summary>
@@ -45,18 +39,13 @@ namespace OpenCAD.APIs.Measures
         public double A { get; }
 
         /// <summary>
-        /// Gets the exponent.
+        /// Gets the constant.
         /// </summary>
         public double B { get; }
 
-        /// <summary>
-        /// Gets the constant.
-        /// </summary>
-        public double C { get; }
-
         public UnitConversion Invert()
         {
-            throw new NotImplementedException();
+            return new UnitConversion(UnitB, UnitA, 1.0 / A, B / A);
         }
     }
 }

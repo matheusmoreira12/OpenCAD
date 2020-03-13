@@ -53,6 +53,8 @@
     <Compile Include="BaseUnit.cs" />
     <Compile Include="Conversion\UnitConversion.cs" />
     <Compile Include="Conversion\UnitConversionManager.cs" />
+    <Compile Include="Conversion\UnitEquivalence.cs" />
+    <Compile Include="Conversion\UnitScaleZero.cs" />
     <Compile Include="DerivedQuantity.cs" />
     <Compile Include="DerivedQuantityDimension.cs" />
     <Compile Include="DerivedQuantityDimensionMember.cs" />

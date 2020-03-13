@@ -2,13 +2,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OpenCAD.APIs.Tokens
 {
 
-    public abstract class StringTokenifier
+    public abstract class StringTokenifier<TToken> where TToken: StringToken
     {
         protected StringTokenifier(string content)
         {
@@ -17,17 +15,17 @@ namespace OpenCAD.APIs.Tokens
 
         public string Content { get; }
 
-        protected IEnumerable<StringToken> readAll(StringScanner scanner)
+        protected IEnumerable<TToken> readAll(StringScanner scanner)
         {
-            StringToken token;
+            TToken token;
 
             while (readToken(scanner, out token))
                 yield return token;
         }
 
-        protected abstract bool readToken(StringScanner scanner, out StringToken result);
+        protected abstract bool readToken(StringScanner scanner, out TToken result);
 
-        public StringToken[] Tokenify()
+        public TToken[] Tokenify()
         {
             StringScanner scanner = new StringScanner(Content);
 
