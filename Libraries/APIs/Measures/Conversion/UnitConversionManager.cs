@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace OpenCAD.APIs.Measures.UnitConversion
@@ -6,6 +7,8 @@ namespace OpenCAD.APIs.Measures.UnitConversion
     public class UnitConversionManager
     {
         public static List<UnitConversion> Conversions { get; } = new List<UnitConversion> { };
+
+        public static Dictionary<Unit, Scalar> ScaleZeroes { get; } = new Dictionary<Unit, Scalar> { };
 
         private static UnitConversion getForStrict(Unit unitA, Unit unitB) =>
             Conversions.FirstOrDefault(c => c.UnitA == unitA && c.UnitB == unitB);
@@ -40,6 +43,15 @@ namespace OpenCAD.APIs.Measures.UnitConversion
                 }
             }
             return null;
+        }
+
+        public static Scalar? GetScaleZero(Unit unit)
+        {
+            Scalar zero = Scalar.Zero;
+            if (ScaleZeroes.TryGetValue(unit, out zero))
+                return zero;
+            else
+                return null;
         }
     }
 }
