@@ -197,7 +197,7 @@ namespace OpenCAD.APIs.Measures
 
         public Scalar ConvertTo(Unit destUnit)
         {
-            var conversion = UnitConversionManager.GetFor(Unit, destUnit);
+            var conversion = UnitConversionManager.GetForRecursive(Unit, destUnit);
             if (conversion != null)
             {
                 double amount = Amount * conversion.Factor;

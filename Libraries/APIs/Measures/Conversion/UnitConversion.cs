@@ -14,7 +14,6 @@ namespace OpenCAD.APIs.Measures.UnitConversion
         /// <param name="unitA">The source class.</param>
         /// <param name="unitB">The destination class.</param>
         /// <param name="factor">The multiplier.</param>
-        /// <param name="b">The constant.</param>
         public UnitConversion(Unit unitA, Unit unitB, double factor)
         {
             UnitA = unitA ?? throw new ArgumentNullException(nameof(unitA));
