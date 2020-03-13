@@ -200,7 +200,7 @@ namespace OpenCAD.APIs.Measures
             var conversion = UnitConversionManager.GetFor(Unit, destUnit);
             if (conversion != null)
             {
-                double amount = Amount * conversion.A;
+                double amount = Amount * conversion.Factor;
                 return new Scalar(amount, destUnit);
             }
             throw new InvalidUnitConversionException(Unit, destUnit);
