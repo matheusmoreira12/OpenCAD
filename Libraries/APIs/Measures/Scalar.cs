@@ -55,29 +55,23 @@ namespace OpenCAD.APIs.Measures
 
         public static Scalar operator *(Scalar a, Scalar b) => (Scalar)MathAPI::Math.Multiply(a, b);
 
+        public static Scalar operator *(Scalar a, double b) => (Scalar)MathAPI::Math.Multiply(a, new Scalar(b));
+
         public static Scalar operator *(Scalar a, Unit b) => (Scalar)MathAPI::Math.Multiply(a, new Scalar(1, b));
 
         public static Scalar operator /(Scalar a, Scalar b) => (Scalar)MathAPI::Math.Divide(a, b);
 
         public static Scalar operator /(Scalar a, Unit b) => (Scalar)MathAPI::Math.Divide(a, new Scalar(1, b));
 
-        public static Scalar operator ^(Scalar a, int b) => (Scalar)MathAPI::Math.Power(a, Convert.ToDouble(b));
-
-        public static Scalar operator ^(Scalar a, short b) => (Scalar)MathAPI::Math.Power(a, Convert.ToDouble(b));
-
-        public static Scalar operator ^(Scalar a, long b) => (Scalar)MathAPI::Math.Power(a, Convert.ToDouble(b));
-
-        public static Scalar operator ^(Scalar a, float b) => (Scalar)MathAPI::Math.Power(a, Convert.ToDouble(b));
-
-        public static Scalar operator ^(Scalar a, double b) => (Scalar)MathAPI::Math.Power(a, b);
-
-        public static Scalar operator ^(Scalar a, decimal b) => (Scalar)MathAPI::Math.Power(a, Convert.ToDouble(b));
+        public static Scalar operator /(Scalar a, double b) => (Scalar)MathAPI::Math.Divide(a, new Scalar(b));
 
         public static Scalar operator !(Scalar a) => MathAPI::Math.Invert<Scalar, Scalar>(a);
         #endregion
 
         #region Comparison Operators
         public static bool operator ==(Scalar a, Scalar b) => a.Equals(b);
+
+        public static bool operator ==(Scalar a, double b) => a.Equals(new Scalar(b));
 
         public static bool operator ==(Scalar a, Unit b) => a.Unit.Equals(b);
 
@@ -86,6 +80,8 @@ namespace OpenCAD.APIs.Measures
         public static bool operator ==(Scalar a, MetricSystem b) => a.Unit.MetricSystem.Equals(b);
 
         public static bool operator !=(Scalar a, Scalar b) => !a.Equals(b);
+
+        public static bool operator !=(Scalar a, double b) => !a.Equals(new Scalar(b));
 
         public static bool operator !=(Scalar a, Unit b) => !a.Unit.Equals(b);
 
@@ -98,28 +94,45 @@ namespace OpenCAD.APIs.Measures
         public static bool operator <(Scalar a, Scalar b) => (a as IComparable<Scalar>).CompareTo(b) < 0;
         #endregion
 
+        #region Math API Integration
+        //Addition Operation
+        static Scalar addScalars(Scalar a, Scalar b) => new Scalar(a.Amount + b.ConvertTo(a.Unit).Amount, a.Unit);
+
+        //Negation Operation
+        static Scalar negateScalar(Scalar a) => new Scalar(-a.Amount, a.Unit);
+
+        //Multiplication Operation
+        static Scalar multiplyScalars(Scalar a, Scalar b)
+        {
+            Unit unit;
+            if (a.Unit is null)
+                unit = b.Unit;
+            else if (b.Unit is null)
+                unit = b.Unit;
+            else
+                unit = (Unit)MathAPI::Math.Multiply(a.Unit, b.Unit);
+            return new Scalar(a.Amount * b.Amount, unit);
+        }
+
+        //Exponentiation Operation
+        static Scalar exponentiateScalar(Scalar a, double b)
+        {
+            Unit unit;
+            if (a.Unit is null)
+                unit = null;
+            else
+                unit = (Unit)MathAPI::Math.Power(a.Unit, b);
+            return new Scalar(System.Math.Pow(a.Amount, b), unit);
+        }
+        #endregion
+
         static Scalar()
         {
-            //Addition Operator
-            Func<Scalar, Scalar, Scalar> addScalars = (a, b) =>
-                new Scalar(a.Amount + b.ConvertTo(a.Unit).Amount, a.Unit);
-
-            //Negation Operator
-            Func<Scalar, Scalar> negateScalar = (a) => new Scalar(-a.Amount, a.Unit);
-
-            //Multiplication Operator
-            Func<Scalar, Scalar, Scalar> multiplyScalars = (a, b) =>
-                new Scalar(a.Amount * b.Amount, (Unit)MathAPI::Math.Multiply(a, b));
-
-            //Exponentiation Operator
-            Func<Scalar, double, Scalar> exponetiateScalar = (a, b) =>
-                new Scalar(System.Math.Pow(a.Amount, b), (Unit)MathAPI::Math.Power(a.Unit, b));
-
             MathOperationManager.RegisterMany(new MathOperation[] {
                 new Addition<Scalar, Scalar, Scalar>(addScalars),
                 new Negation<Scalar, Scalar>(negateScalar),
                 new Multiplication<Scalar, Scalar, Scalar>(multiplyScalars),
-                new Exponentiation<Scalar, double, Scalar>(exponetiateScalar)
+                new Exponentiation<Scalar, double, Scalar>(exponentiateScalar)
             });
         }
 
@@ -190,10 +203,17 @@ namespace OpenCAD.APIs.Measures
             Amount = amount;
         }
 
-        public override string ToString() => 
+        public override string ToString() =>
             $"{Amount.ToString(CultureInfo.InvariantCulture)}{Unit?.Symbol}";
-        public string ToUIString() => 
-            $"{Amount.ToString(CultureInfo.InvariantCulture)}{Unit?.UISymbol ?? Unit?.Symbol}";
+        public string ToUIString()
+        {
+            if (Amount == double.PositiveInfinity)
+                return $"+∞{Unit?.UISymbol}";
+            else if (Amount == double.NegativeInfinity)
+                return $"-∞{Unit?.UISymbol}";
+            else
+                return $"{Amount.ToString(CultureInfo.InvariantCulture)}{Unit?.UISymbol ?? Unit?.Symbol}";
+        }
 
         public Scalar ConvertTo(Unit destUnit, bool fullScale = false)
         {

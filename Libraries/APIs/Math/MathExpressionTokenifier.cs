@@ -3,7 +3,7 @@ using OpenCAD.Utils;
 
 namespace OpenCAD.APIs.Math
 {
-    public class MathExpressionTokenifier : StringTokenifier
+    public class MathExpressionTokenifier : StringTokenifier<StringToken>
     {
         public MathExpressionTokenifier(string content) : base(content)
         {

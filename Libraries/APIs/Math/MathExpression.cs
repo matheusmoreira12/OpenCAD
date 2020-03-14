@@ -7,7 +7,7 @@ namespace OpenCAD.APIs.Math
     {
         internal static MathExpression FromTokens(StringToken[] tokens)
         {
-            var reader = new StringTokenReader(tokens);
+            var reader = new StringTokenReader<StringToken>(tokens);
 
             ///TODO: Read math formula here
 

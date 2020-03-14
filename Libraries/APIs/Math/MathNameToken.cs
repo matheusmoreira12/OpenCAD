@@ -7,10 +7,6 @@
             Value = value;
         }
 
-        protected MathNameToken()
-        {
-        }
-
         public string Value { get; }
     }
 }

@@ -14,7 +14,7 @@ namespace OpenCAD.APIs.Measures.UnitConversion
             Conversions.FirstOrDefault(c => c.SourceUnit == sourceUnit && c.TargetUnit == targetUnit);
 
         public static UnitConversion GetDirectConversion(Unit sourceUnit, Unit targetUnit)
-            => getForStrict(sourceUnit, targetUnit) ?? getForStrict(targetUnit, sourceUnit).Invert();
+            => getForStrict(sourceUnit, targetUnit) ?? getForStrict(targetUnit, sourceUnit)?.Invert();
 
         public static IEnumerable<UnitConversion> GetForSourceUnit(Unit sourceUnit)
         {
@@ -36,9 +36,7 @@ namespace OpenCAD.APIs.Measures.UnitConversion
             var sourceUnitConversions = GetForSourceUnit(sourceUnit);
             foreach (var sourceUnitConversion in sourceUnitConversions)
             {
-                if (recursion.Contains(sourceUnitConversion))
-                    yield break;
-                else
+                if (!recursion.Contains(sourceUnitConversion))
                 {
                     recursion.Add(sourceUnitConversion);
                     if (sourceUnitConversion.TargetUnit == targetUnit)
@@ -49,7 +47,6 @@ namespace OpenCAD.APIs.Measures.UnitConversion
                         foreach (var conversion in conversions)
                             yield return conversion;
                     }
-                    topRecursion.Add(sourceUnitConversion);
                 }
             }
         }
@@ -59,15 +56,11 @@ namespace OpenCAD.APIs.Measures.UnitConversion
             var directConversion = GetDirectConversion(sourceUnit, targetUnit);
             if (directConversion is null)
             {
-                var cascadedConversions = getCascade(sourceUnit, targetUnit, new List<UnitConversion> { });
-                var aggregateConversionFactor = 1.0;
-                bool hasConversion = false;
-                foreach (var conversion in cascadedConversions)
-                {
-                    aggregateConversionFactor *= conversion.Factor;
-                    hasConversion = true;
-                }
-                if (hasConversion)
+                var cascadedConversions = getCascade(sourceUnit, targetUnit, new List<UnitConversion> { }).ToArray();
+                var aggregateConversionFactor = cascadedConversions.Select(c => c.Factor)
+                    .Aggregate(1.0, (a, b) => a * b);
+                if (cascadedConversions.Length > 0 && 
+                    cascadedConversions.Last().TargetUnit == targetUnit)
                     return new UnitConversion(sourceUnit, targetUnit, aggregateConversionFactor);
                 else
                     return null;

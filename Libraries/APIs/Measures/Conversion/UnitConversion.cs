@@ -11,12 +11,13 @@ namespace OpenCAD.APIs.Measures.UnitConversion
         /// <summary>
         /// Initializes an instance of the UnitConversion class.
         /// </summary>
-        /// <param name="unitA">The source class.</param>
-        /// <param name="unitB">The destination class.</param>
+        /// <param name="sourceUnit">The source class.</param>
+        /// <param name="targetUnit">The destination class.</param>
         /// <param name="factor">The multiplier.</param>
-        public UnitConversion(Unit unitA, Unit unitB, double factor)
+        public UnitConversion(Unit sourceUnit, Unit targetUnit, double factor)
         {
-            SourceUnit = unitA ?? throw new ArgumentNullException(nameof(unitA));
+            SourceUnit = sourceUnit;
+            TargetUnit = targetUnit;
             Factor = factor;
         }
 
