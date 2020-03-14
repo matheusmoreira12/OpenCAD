@@ -60,8 +60,9 @@
     <Compile Include="DerivedQuantityDimension.cs" />
     <Compile Include="DerivedQuantityDimensionMember.cs" />
     <Compile Include="DerivedUnit.cs" />
-    <Compile Include="DerivedUnitExpression.cs" />
-    <Compile Include="DerivedUnitExpressionMember.cs" />
+    <Compile Include="DerivedUnitDimension.cs" />
+    <Compile Include="DerivedUnitDimensionMember.cs" />
+    <Compile Include="EquatableEqualityComparer.cs" />
     <Compile Include="Exceptions.cs" />
     <Compile Include="MetricPrefix.cs" />
     <Compile Include="MetricSystem.cs" />

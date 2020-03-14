@@ -127,8 +127,8 @@ namespace OpenCAD.APIs.Measures
 
         bool IEquatable<Quantity>.Equals(Quantity other)
         {
-            return Name == other.Name && (MetricSystem as IEquatable<MetricSystem>)
-                .Equals(other.MetricSystem);
+            return (Unit as IEquatable<Unit>).Equals(other.Unit)
+                && (MetricSystem as IEquatable<MetricSystem>).Equals(other.MetricSystem);
         }
     }
 }

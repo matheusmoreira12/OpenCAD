@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OpenCAD.APIs.Measures
 {
-    public sealed class MetricSystem
+    public sealed class MetricSystem: IEquatable<MetricSystem>
     {
         public MetricSystem(string name, IList<Quantity> quantities, IList<Unit> units, 
             IList<MetricPrefix> prefixes)
@@ -54,5 +52,18 @@ namespace OpenCAD.APIs.Measures
         public List<Unit> Units { get; }
 
         public List<MetricPrefix> Prefixes { get; }
+
+        bool IEquatable<MetricSystem>.Equals(MetricSystem other)
+        {
+            var this_OrderedQuantities = Quantities.OrderBy(q => q.Name);
+            var this_OrderedUnits = Units.OrderBy(u => u.Name);
+            var this_OrderedPrefixes = Prefixes.OrderBy(p => p.Name);
+            var other_OrderedQuantities = Quantities.OrderBy(q => q.Name).ThenBy(q => q.MetricSystem);
+            var other_OrderedUnits = Units.OrderBy(u => u.Name).ThenBy(u => u.MetricSystem);
+            var other_OrderedPrefixes = Prefixes.OrderBy(p => p.Name).ThenBy(p => p.MetricSystem);
+            return this_OrderedQuantities.SequenceEqual(other_OrderedQuantities, new IEquatableEqualityComparer<Quantity>())
+                && this_OrderedUnits.SequenceEqual(other_OrderedUnits, new IEquatableEqualityComparer<Unit>())
+                && other_OrderedPrefixes.SequenceEqual(other_OrderedPrefixes, new IEquatableEqualityComparer<MetricPrefix>());
+        }
     }
 }

@@ -13,7 +13,7 @@ namespace OpenCAD.APIs.Measures
             //Multiplication Operators
             Func<DerivedUnit, DerivedUnit, DerivedUnit> multiplyDerivedUnits = (a, b) =>
             {
-                var expression = new DerivedUnitExpression(a.Expression.Members
+                var expression = new DerivedUnitDimension(a.Expression.Members
                     .Concat(b.Expression.Members).ToArray());
                 return new DerivedUnit(expression);
             };
@@ -47,9 +47,9 @@ namespace OpenCAD.APIs.Measures
 
             Func<DerivedUnit, double, DerivedUnit> exponentiateDerivedUnit = (a, b) =>
             {
-                var members = a.Expression.Members.Select(m => new DerivedUnitExpressionMember(m.BaseUnit, m.Prefix,
+                var members = a.Expression.Members.Select(m => new DerivedUnitDimensionMember(m.BaseUnit, m.Prefix,
                     m.Exponent * b)).ToArray();
-                var expression = new DerivedUnitExpression(members);
+                var expression = new DerivedUnitDimension(members);
                 return new DerivedUnit(expression);
             };
 
@@ -159,8 +159,8 @@ namespace OpenCAD.APIs.Measures
 
         bool IEquatable<Unit>.Equals(Unit other)
         {
-            return Name == other.Name && (MetricSystem as IEquatable<MetricSystem>)
-                .Equals(other.MetricSystem) && (Quantity as IEquatable<Quantity>).Equals(other.Quantity);
+            return (Quantity as IEquatable<Quantity>).Equals(other.Quantity)
+                && (MetricSystem as IEquatable<MetricSystem>).Equals(other.MetricSystem);
         }
     }
 }

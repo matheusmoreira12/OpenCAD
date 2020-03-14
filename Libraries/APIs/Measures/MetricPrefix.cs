@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace OpenCAD.APIs.Measures
 {
-    public sealed class MetricPrefix
+    public sealed class MetricPrefix : IEquatable<MetricPrefix>
     {
         public static MetricPrefix Parse(string value)
         {
@@ -61,5 +61,10 @@ namespace OpenCAD.APIs.Measures
         public string UISymbol { get; }
 
         public MetricSystem MetricSystem { get; internal set; }
+
+        bool IEquatable<MetricPrefix>.Equals(MetricPrefix other)
+        {
+            return Multiplier == other.Multiplier;
+        }
     }
 }

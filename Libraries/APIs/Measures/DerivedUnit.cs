@@ -8,7 +8,7 @@ namespace OpenCAD.APIs.Measures
 {
     public sealed class DerivedUnit : Unit, IEquatable<DerivedUnit>
     {
-        public DerivedUnit(DerivedUnitExpression expression)
+        public DerivedUnit(DerivedUnitDimension expression)
         {
             _name = null;
             _symbol = null;
@@ -17,7 +17,7 @@ namespace OpenCAD.APIs.Measures
             IsNamed = false;
         }
 
-        public DerivedUnit(string name, string symbol, DerivedUnitExpression expression)
+        public DerivedUnit(string name, string symbol, DerivedUnitDimension expression)
         {
             _name = name ?? throw new ArgumentNullException(nameof(name));
             _symbol = symbol ?? throw new ArgumentNullException(nameof(symbol));
@@ -26,7 +26,7 @@ namespace OpenCAD.APIs.Measures
             IsNamed = true;
         }
 
-        public DerivedUnit(string name, string symbol, string uiSymbol, DerivedUnitExpression expression)
+        public DerivedUnit(string name, string symbol, string uiSymbol, DerivedUnitDimension expression)
         {
             _name = name ?? throw new ArgumentNullException(nameof(name));
             _symbol = symbol ?? throw new ArgumentNullException(nameof(symbol));
@@ -89,11 +89,11 @@ namespace OpenCAD.APIs.Measures
             IsNamed = true;
         }
 
-        private DerivedUnitExpression getExpression(BaseUnit baseUnit, MetricPrefix prefix, double exponent) =>
-            new DerivedUnitExpression(new DerivedUnitExpressionMember(baseUnit
+        private DerivedUnitDimension getExpression(BaseUnit baseUnit, MetricPrefix prefix, double exponent) =>
+            new DerivedUnitDimension(new DerivedUnitDimensionMember(baseUnit
                 ?? throw new ArgumentNullException(nameof(baseUnit)), prefix, exponent));
 
-        public DerivedUnitExpression Expression { get; }
+        public DerivedUnitDimension Expression { get; }
 
         public override string Name => _name ?? generateName();
         private string _name;
@@ -140,17 +140,17 @@ namespace OpenCAD.APIs.Measures
         {
             var members = Expression.Members
                 .GroupBy(m => (baseUnit: m.BaseUnit.Collapse(), prefix: m.Prefix))
-                .Select(g => new DerivedUnitExpressionMember(g.Key.baseUnit, g.Key.prefix, g.Sum(m => m.Exponent)))
+                .Select(g => new DerivedUnitDimensionMember(g.Key.baseUnit, g.Key.prefix, g.Sum(m => m.Exponent)))
                 .Where(m => m.Exponent != 0)
                 .ToArray();
-            var expression = new DerivedUnitExpression(members);
+            var expression = new DerivedUnitDimension(members);
             return new DerivedUnit(expression);
         }
 
         bool IEquatable<DerivedUnit>.Equals(DerivedUnit other)
         {
-            return (this as DerivedUnit).Equals(other)
-                && (Expression as IEquatable<DerivedUnitExpression>).Equals(other.Expression);
+            return (this as IEquatable<Unit>).Equals(other)
+                && (Expression as IEquatable<DerivedUnitDimension>).Equals(other.Expression);
         }
     }
 }

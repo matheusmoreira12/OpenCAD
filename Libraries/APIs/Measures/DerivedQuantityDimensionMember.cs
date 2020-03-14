@@ -2,7 +2,7 @@
 
 namespace OpenCAD.APIs.Measures
 {
-    public class DerivedQuantityDimensionMember
+    public class DerivedQuantityDimensionMember : IEquatable<DerivedQuantityDimensionMember>
     {
         public DerivedQuantityDimensionMember(Quantity baseQuantity, double exponent)
         {
@@ -13,5 +13,11 @@ namespace OpenCAD.APIs.Measures
         public Quantity BaseQuantity { get; }
 
         public double Exponent { get; }
+
+        bool IEquatable<DerivedQuantityDimensionMember>.Equals(DerivedQuantityDimensionMember other)
+        {
+            return (BaseQuantity as IEquatable<Quantity>).Equals(other.BaseQuantity)
+                && Exponent == other.Exponent;
+        }
     }
 }
