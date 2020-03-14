@@ -220,7 +220,7 @@ namespace OpenCAD.APIs.Measures
             if (destUnit == Unit)
                 return this;
             {
-                var conversion = UnitConversionManager.Get(Unit, destUnit);
+                var conversion = UnitConversionManager.GetBestConversion(Unit, destUnit);
                 if (conversion is null)
                     throw new UnitConversionNotSupportedException(Unit, destUnit);
                 else
@@ -253,28 +253,7 @@ namespace OpenCAD.APIs.Measures
 
         bool IEquatable<Scalar>.Equals(Scalar other)
         {
-            return Equals(other);
+            return Amount == other.Amount && (Unit as IEquatable<Unit>).Equals(other.Unit);
         }
-
-        public override bool Equals(object obj)
-        {
-            return obj is Scalar scalar &&
-                   Amount == scalar.Amount &&
-                   EqualityComparer<Unit>.Default.Equals(Unit, scalar.Unit);
-        }
-
-        public override int GetHashCode()
-        {
-            var hashCode = 1156833016;
-            hashCode = hashCode * -1521134295 + Amount.GetHashCode();
-            hashCode = hashCode * -1521134295 + EqualityComparer<Unit>.Default.GetHashCode(Unit);
-            return hashCode;
-        }
-
-        public TypeCode GetTypeCode()
-        {
-            return Type.GetTypeCode(this.GetType());
-        }
-
     }
 }

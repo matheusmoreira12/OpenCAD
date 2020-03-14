@@ -3,6 +3,6 @@ Quantity q = new BaseQuantity("Length", "l");
 Unit u1 = new BaseUnit("Meter", q, "m");
 Unit u2 = new BaseUnit("Inch", q, "in");
 Unit u3 = new BaseUnit("Foot", q, "ft");
-UnitConversionManager.Conversions.Add(new UnitConversion(u2, u1, .254));
+UnitConversionManager.Conversions.Add(new UnitConversion(u2, u1, .0254));
 UnitConversionManager.Conversions.Add(new UnitConversion(u1, u3, 3));
 new Scalar(1, u2).ConvertTo(u3)

@@ -6,7 +6,7 @@ using OpenCAD.APIs.Math;
 
 namespace OpenCAD.APIs.Measures
 {
-    public abstract class Unit
+    public abstract class Unit: IEquatable<Unit>
     {
         static Unit()
         {
@@ -156,5 +156,11 @@ namespace OpenCAD.APIs.Measures
         /// Gets the metric system this unit belongs to.
         /// </summary>
         public MetricSystem MetricSystem { get; internal set; }
+
+        bool IEquatable<Unit>.Equals(Unit other)
+        {
+            return Name == other.Name && (MetricSystem as IEquatable<MetricSystem>)
+                .Equals(other.MetricSystem) && (Quantity as IEquatable<Quantity>).Equals(other.Quantity);
+        }
     }
 }

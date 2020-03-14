@@ -6,7 +6,7 @@ using OpenCAD.APIs.Math;
 
 namespace OpenCAD.APIs.Measures
 {
-    public abstract class Quantity
+    public abstract class Quantity: IEquatable<Quantity>
     {
         public static Quantity operator *(Quantity a, Quantity b) => (Quantity)MathAPI::Math.Multiply(a, b);
 
@@ -123,6 +123,12 @@ namespace OpenCAD.APIs.Measures
                 return (DerivedQuantity)quantity;
 
             return null;
+        }
+
+        bool IEquatable<Quantity>.Equals(Quantity other)
+        {
+            return Name == other.Name && (MetricSystem as IEquatable<MetricSystem>)
+                .Equals(other.MetricSystem);
         }
     }
 }

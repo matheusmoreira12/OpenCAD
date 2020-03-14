@@ -6,7 +6,7 @@ namespace OpenCAD.APIs.Measures.UnitConversion
     /// Defines a conversion between two units. 
     /// The form is Y = A*X + B, where "A" is the multiplier, "B" is a constant.
     /// </summary>
-    public class UnitConversion
+    public class UnitConversion: IEquatable<UnitConversion>
     {
         /// <summary>
         /// Initializes an instance of the UnitConversion class.
@@ -35,7 +35,12 @@ namespace OpenCAD.APIs.Measures.UnitConversion
         /// Gets the multiplier.
         /// </summary>
         public double Factor { get; }
- 
+
+        public bool Equals(UnitConversion other)
+        {
+            return SourceUnit.Equals(other.SourceUnit) && TargetUnit.Equals(other.SourceUnit);
+        }
+
         public UnitConversion Invert()
         {
             return new UnitConversion(TargetUnit, SourceUnit, 1.0 / Factor);

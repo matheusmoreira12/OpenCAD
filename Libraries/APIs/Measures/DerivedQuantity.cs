@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace OpenCAD.APIs.Measures
 {
-    public sealed class DerivedQuantity : Quantity
+    public sealed class DerivedQuantity : Quantity, IEquatable<DerivedQuantity>
     {
         public DerivedQuantity(DerivedQuantityDimension dimension)
         {
@@ -89,6 +89,12 @@ namespace OpenCAD.APIs.Measures
 
             var dimension = new DerivedQuantityDimension(members);
             return new DerivedQuantity(dimension);
+        }
+
+        bool IEquatable<DerivedQuantity>.Equals(DerivedQuantity other)
+        {
+            return (this as IEquatable<Quantity>).Equals(other)
+                && (Dimension as IEquatable<DerivedQuantityDimension>).Equals(Dimension);
         }
     }
 }

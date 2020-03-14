@@ -6,7 +6,7 @@ using MathAPI = OpenCAD.APIs.Math;
 
 namespace OpenCAD.APIs.Measures
 {
-    public sealed class DerivedUnit : Unit
+    public sealed class DerivedUnit : Unit, IEquatable<DerivedUnit>
     {
         public DerivedUnit(DerivedUnitExpression expression)
         {
@@ -100,7 +100,7 @@ namespace OpenCAD.APIs.Measures
 
         private string generateName() => null;
 
-        public override Quantity Quantity => Expression.Members.Select(m => 
+        public override Quantity Quantity => Expression.Members.Select(m =>
             (Quantity)MathAPI::Math.Power(m.BaseUnit.Quantity, m.Exponent)).Aggregate((qa, q) => qa * q);
 
         public override string Symbol => _symbol ?? generateSymbol();
@@ -145,6 +145,12 @@ namespace OpenCAD.APIs.Measures
                 .ToArray();
             var expression = new DerivedUnitExpression(members);
             return new DerivedUnit(expression);
+        }
+
+        bool IEquatable<DerivedUnit>.Equals(DerivedUnit other)
+        {
+            return (this as DerivedUnit).Equals(other)
+                && (Expression as IEquatable<DerivedUnitExpression>).Equals(other.Expression);
         }
     }
 }
