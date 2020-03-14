@@ -195,16 +195,18 @@ namespace OpenCAD.APIs.Measures
         public string ToUIString() => 
             $"{Amount.ToString(CultureInfo.InvariantCulture)}{Unit?.UISymbol ?? Unit?.Symbol}";
 
-        public Scalar ConvertTo(Unit destUnit, bool scaleZero = false)
+        public Scalar ConvertTo(Unit destUnit, bool fullScale = false)
         {
             if (destUnit == Unit)
                 return this;
             {
-                var conversion = UnitConversionManager.GetForRecursive(Unit, destUnit);
-                if (conversion != null)
+                var conversion = UnitConversionManager.Get(Unit, destUnit);
+                if (conversion is null)
+                    throw new UnitConversionNotSupportedException(Unit, destUnit);
+                else
                 {
-                    double amount = 0;
-                    if (scaleZero)
+                    double amount;
+                    if (fullScale)
                     {
                         var sourceZero = UnitConversionManager.GetScaleZero(Unit)?.ConvertTo(destUnit).Amount ?? 0;
                         var destZero = UnitConversionManager.GetScaleZero(Unit)?.ConvertTo(destUnit).Amount ?? 0;
@@ -214,7 +216,6 @@ namespace OpenCAD.APIs.Measures
                         amount = Amount * conversion.Factor;
                     return new Scalar(amount, destUnit);
                 }
-                throw new UnitConversionNotSupportedException(Unit, destUnit);
             }
         }
 

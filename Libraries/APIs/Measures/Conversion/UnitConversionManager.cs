@@ -10,39 +10,70 @@ namespace OpenCAD.APIs.Measures.UnitConversion
 
         public static Dictionary<Unit, Scalar> ScaleZeroes { get; } = new Dictionary<Unit, Scalar> { };
 
-        private static UnitConversion getForStrict(Unit unitA, Unit unitB) =>
-            Conversions.FirstOrDefault(c => c.UnitA == unitA && c.UnitB == unitB);
+        private static UnitConversion getForStrict(Unit sourceUnit, Unit targetUnit) =>
+            Conversions.FirstOrDefault(c => c.SourceUnit == sourceUnit && c.TargetUnit == targetUnit);
 
-        /// <summary>
-        /// Gets an strict conversion from a unit to another unit;
-        /// </summary>
-        /// <param name="unitA">The unit to convert from.</param>
-        /// <param name="unitB">The unit to convert to.</param>
-        /// <returns></returns>
-        public static UnitConversion GetForStrict(Unit unitA, Unit unitB) => getForStrict(unitA, unitB);
+        public static UnitConversion GetDirectConversion(Unit sourceUnit, Unit targetUnit)
+            => getForStrict(sourceUnit, targetUnit) ?? getForStrict(targetUnit, sourceUnit).Invert();
 
-        public static UnitConversion GetFor(Unit unitA, Unit unitB) => getForStrict(unitA, unitB);
-
-        public static UnitConversion GetForRecursive(Unit unitA, Unit unitB)
+        public static IEnumerable<UnitConversion> GetForSourceUnit(Unit sourceUnit)
         {
-            foreach (var conversion in Conversions)
+            var directConversions = Conversions.FindAll(c => c.SourceUnit == sourceUnit);
+            var inverseConversions = Conversions.FindAll(c => c.TargetUnit == sourceUnit).Select(c => c.Invert());
+            return directConversions.Concat(inverseConversions);
+        }
+
+        public static IEnumerable<UnitConversion> GetForTargetUnit(Unit targetUnit)
+        {
+            var directConversions = Conversions.FindAll(c => c.TargetUnit == targetUnit);
+            var inverseConversions = Conversions.FindAll(c => c.SourceUnit == targetUnit).Select(c => c.Invert());
+            return directConversions.Concat(inverseConversions);
+        }
+
+        private static IEnumerable<UnitConversion> getCascade(Unit sourceUnit, Unit targetUnit, List<UnitConversion> topRecursion)
+        {
+            var recursion = new List<UnitConversion>(topRecursion);
+            var sourceUnitConversions = GetForSourceUnit(sourceUnit);
+            foreach (var sourceUnitConversion in sourceUnitConversions)
             {
-                if (conversion.UnitA == unitA)
+                if (recursion.Contains(sourceUnitConversion))
+                    yield break;
+                else
                 {
-                    if (conversion.UnitB == unitB)
-                        return conversion;
+                    recursion.Add(sourceUnitConversion);
+                    if (sourceUnitConversion.TargetUnit == targetUnit)
+                        yield return sourceUnitConversion;
                     else
-                        return GetForRecursive(conversion.UnitB, unitB);
-                }
-                else if (conversion.UnitB == unitA)
-                {
-                    if (conversion.UnitA == unitB)
-                        return conversion.Invert();
-                    else
-                        return GetForRecursive(conversion.UnitA, unitB);
+                    {
+                        var conversions = getCascade(sourceUnitConversion.TargetUnit, targetUnit, recursion);
+                        foreach (var conversion in conversions)
+                            yield return conversion;
+                    }
+                    topRecursion.Add(sourceUnitConversion);
                 }
             }
-            return null;
+        }
+
+        public static UnitConversion Get(Unit sourceUnit, Unit targetUnit)
+        {
+            var directConversion = GetDirectConversion(sourceUnit, targetUnit);
+            if (directConversion is null)
+            {
+                var cascadedConversions = getCascade(sourceUnit, targetUnit, new List<UnitConversion> { });
+                var aggregateConversionFactor = 1.0;
+                bool hasConversion = false;
+                foreach (var conversion in cascadedConversions)
+                {
+                    aggregateConversionFactor *= conversion.Factor;
+                    hasConversion = true;
+                }
+                if (hasConversion)
+                    return new UnitConversion(sourceUnit, targetUnit, aggregateConversionFactor);
+                else
+                    return null;
+            }
+            else
+                return directConversion;
         }
 
         public static Scalar? GetScaleZero(Unit unit)

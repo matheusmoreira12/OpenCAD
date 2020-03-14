@@ -16,19 +16,19 @@ namespace OpenCAD.APIs.Measures.UnitConversion
         /// <param name="factor">The multiplier.</param>
         public UnitConversion(Unit unitA, Unit unitB, double factor)
         {
-            UnitA = unitA ?? throw new ArgumentNullException(nameof(unitA));
+            SourceUnit = unitA ?? throw new ArgumentNullException(nameof(unitA));
             Factor = factor;
         }
 
         /// <summary>
         /// Gets the source class for this conversion.
         /// </summary>
-        public Unit UnitA { get; }
+        public Unit SourceUnit { get; }
 
         /// <summary>
         /// Gets the destination class for this conversion.
         /// </summary>
-        public Unit UnitB { get; }
+        public Unit TargetUnit { get; }
 
         /// <summary>
         /// Gets the multiplier.
@@ -37,7 +37,7 @@ namespace OpenCAD.APIs.Measures.UnitConversion
  
         public UnitConversion Invert()
         {
-            return new UnitConversion(UnitB, UnitA, 1.0 / Factor);
+            return new UnitConversion(TargetUnit, SourceUnit, 1.0 / Factor);
         }
     }
 }

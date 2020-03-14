@@ -1,0 +1,6 @@
+using OpenCAD.APIs.Measures.UnitConversion;
+Quantity q = new BaseQuantity("Length", "l");
+Unit u1 = new BaseUnit("Meter", q, "m");
+Unit u2 = new BaseUnit("Inch", q, "m");
+UnitConversionManager.Conversions.Add(new UnitConversion(u1, u2, .254));
+new Scalar(1, u1).ConvertTo(u2)
