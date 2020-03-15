@@ -23,6 +23,11 @@ namespace OpenCAD.APIs.Measures.UnitConversion
             Factor = factor;
         }
 
+        public override string ToString()
+        {
+            return $"{SourceUnit?.Name ?? "1"}→{TargetUnit?.Name ?? "1"}";
+        }
+
         /// <summary>
         /// Gets the source class for this conversion.
         /// </summary>

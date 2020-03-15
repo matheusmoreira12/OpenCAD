@@ -18,74 +18,48 @@ namespace OpenCAD.APIs.Measures.UnitConversion
             => getConversionStrict(sourceUnit, targetUnit)
             ?? getConversionStrict(targetUnit, sourceUnit)?.Invert();
 
-        public static IEnumerable<UnitConversion> GetFrom(Unit sourceUnit)
-        {
-            var directConversions = Conversions.FindAll(c => Utils.NullableEquals(c.SourceUnit, 
-                sourceUnit));
-            var inverseConversions = Conversions.FindAll(c => Utils.NullableEquals(c.TargetUnit, 
-                sourceUnit)).Select(c => c.Invert());
-            return directConversions.Concat(inverseConversions);
-        }
+        public static IEnumerable<UnitConversion> GetFrom(Unit sourceUnit) => Conversions
+            .FindAll(c => Utils.NullableEquals(c.SourceUnit, sourceUnit)).Concat(Conversions
+            .FindAll(c => Utils.NullableEquals(c.TargetUnit, sourceUnit)).Select(c => c.Invert()));
 
-        public static IEnumerable<UnitConversion> GetTo(Unit targetUnit)
-        {
-            var directConversions = Conversions.FindAll(c => Utils.NullableEquals(c.TargetUnit, 
-                targetUnit));
-            var inverseConversions = Conversions.FindAll(c => Utils.NullableEquals(c.SourceUnit, 
-                targetUnit)).Select(c => c.Invert());
-            return directConversions.Concat(inverseConversions);
-        }
+        public static IEnumerable<UnitConversion> GetTo(Unit targetUnit) => Conversions
+            .FindAll(c => Utils.NullableEquals(c.TargetUnit, targetUnit)).Concat(Conversions
+            .FindAll(c => Utils.NullableEquals(c.SourceUnit, targetUnit)).Select(c => c.Invert()));
 
         private static int maxRecursion => (int)System.Math.Pow(Conversions.Count, Conversions.Count);
 
-        public static UnitConversionTree getConversionTree(Unit sourceUnit, Unit targetUnit,
-            int recursionLevel = 0)
+        public static Tree<UnitConversion> getConversionTree(Unit sourceUnit,
+            Unit targetUnit, UnitConversion[] recursion = null)
         {
-            UnitConversionTree tree = new UnitConversionTree();
-            var sourceConversions = GetFrom(sourceUnit);
-            foreach (var sourceConversion in sourceConversions)
-            {
-                if (recursionLevel < 1000)
-                {
-                    var branch = new UnitConversionTreeItem(sourceConversion);
-                    tree.Children.Add(branch);
+            var tree = new Tree<UnitConversion>();
+            if (Utils.VerifyStackOverflow())
+                return tree;
 
-                    var cascadedTree = getConversionTree(sourceConversion.TargetUnit,
-                        targetUnit, recursionLevel);
-                    branch.Children.AddRange(cascadedTree.Children);
+            var sourceUnitConversions = GetFrom(sourceUnit);
+            foreach (var conversion in sourceUnitConversions)
+            {
+                TreeItem<UnitConversion> subItem;
+                if (conversion.TargetUnit == targetUnit)
+                {
+                    subItem = new TreeItem<UnitConversion>(conversion);
+                    tree.Children.Add(subItem);
+                    break;
                 }
+                else
+                {
+                    var subTree = getConversionTree(sourceUnit, targetUnit);
+                    subItem = subTree.ToTreeItem(conversion);
+                }
+                tree.Children.Add(subItem);
             }
             return tree;
         }
 
-        private static IEnumerable<UnitConversionTreeItem[]> getValidConversionBranches(UnitConversionTree conversionTree, Unit targetUnit)
-        {
-            foreach (var branch in conversionTree.Children)
-            {
-                var traversedBranches = branch.TraverseBranches().ToArray();
-                UnitConversion finalConversion = traversedBranches.Last().Value;
-                bool isBranchSuccessful = traversedBranches.Length > 0
-                    && Utils.NullableEquals(finalConversion.TargetUnit, targetUnit);
-                if (isBranchSuccessful)
-                    yield return traversedBranches;
-            }
-        }
-
         private static UnitConversion compileComplexConversion(Unit sourceUnit, Unit targetUnit)
         {
-            var conversionTree = getConversionTree(sourceUnit, targetUnit);
-            var validTraversions = getValidConversionBranches(conversionTree, targetUnit).ToArray();
-            var shortestTraversion = validTraversions.GetLowest(bt => bt.Length);
-            bool hasConversion = !(shortestTraversion is null);
-            if (hasConversion)
-            {
-                double conversionFactor = shortestTraversion
-                    .Select(b => b.Value.Factor)
-                    .Aggregate(1.0, (a, b) => a * b);
-                return new UnitConversion(sourceUnit, targetUnit, conversionFactor);
-            }
-            else
-                return null;
+            var conversionTree = mountConversionTree(sourceUnit, targetUnit);
+            double aggregateConversionFactor = 1;
+
         }
 
         public static UnitConversion Get(Unit sourceUnit, Unit targetUnit)

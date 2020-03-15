@@ -7,18 +7,20 @@ namespace OpenCAD.APIs.Measures
 {
     static class Utils
     {
+        private const int STACK_OVERFLOW_CHECK_THRESHOLD = 64;
+
         public static bool VerifyStackOverflow()
         {
-            var trace = new StackTrace();
-            var methods = trace.GetFrames().Select(f => f.GetMethod()).ToArray();
-            if (methods.Length < 2)
+            var trace = new StackTrace(1, false);
+            var traceFrames = trace.GetFrames();
+            if (traceFrames.Length < STACK_OVERFLOW_CHECK_THRESHOLD)
                 return false;
             else
             {
-                var lastMethod = methods[methods.Length - 2];
-                int ocurrenceCount = methods.Count(m => m == lastMethod);
-                bool isStackOverflowing = ocurrenceCount > 1;
-                return isStackOverflowing;
+                var traceMethods = traceFrames.Select(f => f.GetMethod());
+                var lastMethod = traceFrames.Last().GetMethod();
+                int lastMethodReocurrenceCount = traceMethods.Count(m => m.Equals(lastMethod));
+                return lastMethodReocurrenceCount >= STACK_OVERFLOW_CHECK_THRESHOLD;
             }
         }
 
@@ -27,12 +29,12 @@ namespace OpenCAD.APIs.Measures
             return a?.Equals(b) ?? a == b;
         }
 
-        public static TSource GetLowest<TSource, TKey>(this IEnumerable<TSource> enumerable, 
+        public static TSource GetLowestOrDefault<TSource, TKey>(this IEnumerable<TSource> enumerable, 
             Func<TSource, TKey> keySelector)
-            => enumerable.OrderBy(keySelector).First();
+            => enumerable.OrderBy(keySelector).FirstOrDefault();
 
-        public static TSource GetHighest<TSource, TKey>(this IEnumerable<TSource> enumerable,
+        public static TSource GetHighestOrDefault<TSource, TKey>(this IEnumerable<TSource> enumerable,
             Func<TSource, TKey> keySelector)
-            => enumerable.OrderByDescending(keySelector).First();
+            => enumerable.OrderByDescending(keySelector).FirstOrDefault();
     }
 }
