@@ -32,17 +32,17 @@ namespace OpenCAD.APIs.Measures.UnitConversion
             Unit targetUnit, UnitConversion[] recursion = null)
         {
             var tree = new Tree<UnitConversion>();
-            if (Utils.VerifyStackOverflow())
-                return tree;
-
             var sourceUnitConversions = GetFrom(sourceUnit);
             foreach (var conversion in sourceUnitConversions)
             {
+                if (Utils.VerifyStackOverflow())
+                    break;
+
                 TreeItem<UnitConversion> subItem;
                 if (conversion.TargetUnit == targetUnit)
                 {
                     subItem = new TreeItem<UnitConversion>(conversion);
-                    tree.Children.Add(subItem);
+                    tree.AddChild(subItem);
                     break;
                 }
                 else
@@ -50,16 +50,19 @@ namespace OpenCAD.APIs.Measures.UnitConversion
                     var subTree = getConversionTree(sourceUnit, targetUnit);
                     subItem = subTree.ToTreeItem(conversion);
                 }
-                tree.Children.Add(subItem);
+                tree.AddChild(subItem);
             }
             return tree;
         }
 
         private static UnitConversion compileComplexConversion(Unit sourceUnit, Unit targetUnit)
         {
-            var conversionTree = mountConversionTree(sourceUnit, targetUnit);
+            var conversionTree = getConversionTree(sourceUnit, targetUnit);
             double aggregateConversionFactor = 1;
 
+            Console.WriteLine(conversionTree.ToString());
+
+            return null;
         }
 
         public static UnitConversion Get(Unit sourceUnit, Unit targetUnit)

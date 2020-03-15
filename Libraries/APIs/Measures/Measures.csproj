@@ -52,9 +52,10 @@
     <Compile Include="BaseQuantity.cs" />
     <Compile Include="BaseUnit.cs" />
     <Compile Include="Conversion\Exceptions\InvalidUnitConversionException.cs" />
+    <Compile Include="Conversion\Tree.cs" />
+    <Compile Include="Conversion\TreeItem.cs" />
     <Compile Include="Conversion\UnitConversion.cs" />
     <Compile Include="Conversion\UnitConversionManager.cs" />
-    <Compile Include="Conversion\UnitConversionTree.cs" />
     <Compile Include="Conversion\UnitEquivalence.cs" />
     <Compile Include="DerivedQuantity.cs" />
     <Compile Include="DerivedQuantityDimension.cs" />

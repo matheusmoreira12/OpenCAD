@@ -17,9 +17,9 @@ namespace OpenCAD.APIs.Measures
                 return false;
             else
             {
-                var traceMethods = traceFrames.Select(f => f.GetMethod());
-                var lastMethod = traceFrames.Last().GetMethod();
-                int lastMethodReocurrenceCount = traceMethods.Count(m => m.Equals(lastMethod));
+                var lastMethod = traceFrames.First().GetMethod();
+                int lastMethodReocurrenceCount = traceFrames.Count(m => m.GetMethod()
+                    .Equals(lastMethod));
                 return lastMethodReocurrenceCount >= STACK_OVERFLOW_CHECK_THRESHOLD;
             }
         }
@@ -29,7 +29,7 @@ namespace OpenCAD.APIs.Measures
             return a?.Equals(b) ?? a == b;
         }
 
-        public static TSource GetLowestOrDefault<TSource, TKey>(this IEnumerable<TSource> enumerable, 
+        public static TSource GetLowestOrDefault<TSource, TKey>(this IEnumerable<TSource> enumerable,
             Func<TSource, TKey> keySelector)
             => enumerable.OrderBy(keySelector).FirstOrDefault();
 
