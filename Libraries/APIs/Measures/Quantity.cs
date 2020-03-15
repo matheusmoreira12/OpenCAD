@@ -6,7 +6,9 @@ using OpenCAD.APIs.Math;
 
 namespace OpenCAD.APIs.Measures
 {
-    public abstract class Quantity: IEquatable<Quantity>
+#pragma warning disable CS0659 // Type overrides Object.Equals(object o) but does not override Object.GetHashCode()
+    public abstract class Quantity : IEquatable<Quantity>
+#pragma warning restore CS0659 // Type overrides Object.Equals(object o) but does not override Object.GetHashCode()
     {
         public static Quantity operator *(Quantity a, Quantity b) => (Quantity)MathAPI::Math.Multiply(a, b);
 
@@ -135,9 +137,9 @@ namespace OpenCAD.APIs.Measures
 
         bool IEquatable<Quantity>.Equals(Quantity other)
         {
-            bool nameMatches = Name == other?.Name;
-            bool metricSystemMatches = MetricSystem?.Equals(other) ?? MetricSystem == other?.MetricSystem;
-            return nameMatches && metricSystemMatches;
+            Func<bool> metricSystemMatches = () => Utils.NullableEquals(MetricSystem,
+                other?.MetricSystem);
+            return Name == other?.Name && metricSystemMatches();
         }
     }
 }

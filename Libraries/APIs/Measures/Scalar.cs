@@ -10,7 +10,11 @@ using OpenCAD.APIs.Measures.Conversion.Exceptions;
 
 namespace OpenCAD.APIs.Measures
 {
+#pragma warning disable CS0659 // Type overrides Object.Equals(object o) but does not override Object.GetHashCode()
+#pragma warning disable CS0661 // Type defines operator == or operator != but does not override Object.GetHashCode()
     public struct Scalar : IComparable<Scalar>, IEquatable<Scalar>
+#pragma warning restore CS0661 // Type defines operator == or operator != but does not override Object.GetHashCode()
+#pragma warning restore CS0659 // Type overrides Object.Equals(object o) but does not override Object.GetHashCode()
     {
         /// <summary>
         /// Gets a dimensionless, unitless Scalar with an amount of 0.
@@ -222,7 +226,7 @@ namespace OpenCAD.APIs.Measures
             if (destUnit == Unit)
                 return this;
             {
-                var conversion = UnitConversionManager.GetBestConversion(Unit, destUnit);
+                var conversion = UnitConversionManager.Get(Unit, destUnit);
                 if (conversion is null)
                     throw new UnitConversionNotSupportedException(Unit, destUnit);
                 else
@@ -230,9 +234,11 @@ namespace OpenCAD.APIs.Measures
                     double amount;
                     if (fullScale)
                     {
-                        var sourceZero = UnitConversionManager.GetScaleZero(Unit)?.ConvertTo(destUnit).Amount ?? 0;
-                        var destZero = UnitConversionManager.GetScaleZero(Unit)?.ConvertTo(destUnit).Amount ?? 0;
-                        amount = (Amount - sourceZero) * conversion.Factor + destZero;
+                        var sourceZeroAmount = UnitConversionManager.GetScaleZero(Unit)
+                            .ConvertTo(destUnit).Amount;
+                        var destZeroAmount = UnitConversionManager.GetScaleZero(Unit)
+                            .ConvertTo(destUnit).Amount;
+                        amount = (Amount - sourceZeroAmount) * conversion.Factor + destZeroAmount;
                     }
                     else
                         amount = Amount * conversion.Factor;
@@ -263,8 +269,9 @@ namespace OpenCAD.APIs.Measures
 
         bool IEquatable<Scalar>.Equals(Scalar other)
         {
-            bool unitMatches = (Unit?.Equals(other.Unit) ?? Unit == other.Unit);
-            return Amount == other.Amount && unitMatches;
+            var _self = this;
+            Func<bool> unitMatches = () => Utils.NullableEquals(_self.Unit, other.Unit);
+            return Amount == other.Amount && unitMatches();
         }
     }
 }

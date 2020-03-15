@@ -6,7 +6,9 @@ using MathAPI = OpenCAD.APIs.Math;
 
 namespace OpenCAD.APIs.Measures
 {
+#pragma warning disable CS0659 // Type overrides Object.Equals(object o) but does not override Object.GetHashCode()
     public sealed class DerivedUnit : Unit, IEquatable<DerivedUnit>
+#pragma warning restore CS0659 // Type overrides Object.Equals(object o) but does not override Object.GetHashCode()
     {
         public DerivedUnit(DerivedUnitDimension expression)
         {
@@ -157,8 +159,8 @@ namespace OpenCAD.APIs.Measures
 
         bool IEquatable<DerivedUnit>.Equals(DerivedUnit other)
         {
-            bool dimensionMatches = Dimension.Equals(other.Dimension);
-            return (this as IEquatable<Unit>).Equals(other) && dimensionMatches;
+            Func<bool> dimensionMatches = () => Dimension.Equals(other.Dimension);
+            return (this as IEquatable<Unit>).Equals(other) && dimensionMatches();
         }
     }
 }

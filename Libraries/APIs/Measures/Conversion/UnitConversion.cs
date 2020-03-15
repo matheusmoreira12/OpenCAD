@@ -2,11 +2,13 @@
 
 namespace OpenCAD.APIs.Measures.UnitConversion
 {
+#pragma warning disable CS0659 // Type overrides Object.Equals(object o) but does not override Object.GetHashCode()
     /// <summary>
     /// Defines a conversion between two units. 
     /// The form is Y = A*X + B, where "A" is the multiplier, "B" is a constant.
     /// </summary>
-    public class UnitConversion: IEquatable<UnitConversion>
+    public class UnitConversion : IEquatable<UnitConversion>
+#pragma warning restore CS0659 // Type overrides Object.Equals(object o) but does not override Object.GetHashCode()
     {
         /// <summary>
         /// Initializes an instance of the UnitConversion class.
@@ -46,7 +48,9 @@ namespace OpenCAD.APIs.Measures.UnitConversion
 
         bool IEquatable<UnitConversion>.Equals(UnitConversion other)
         {
-            return SourceUnit.Equals(other.SourceUnit) && TargetUnit.Equals(other.SourceUnit);
+            bool sourceUnitMatches = SourceUnit?.Equals(other.SourceUnit) ?? SourceUnit == other.SourceUnit;
+            bool targetUnitMatches = TargetUnit?.Equals(other.TargetUnit) ?? TargetUnit == other.TargetUnit;
+            return sourceUnitMatches && targetUnitMatches;
         }
 
         public UnitConversion Invert()

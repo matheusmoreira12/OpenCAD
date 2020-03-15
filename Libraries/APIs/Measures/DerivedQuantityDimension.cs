@@ -19,7 +19,7 @@ namespace OpenCAD.APIs.Measures
 
         bool IEquatable<DerivedQuantityDimension>.Equals(DerivedQuantityDimension other)
         {
-            if (Utils.verifyStackOverflow())
+            if (Utils.VerifyStackOverflow())
                 return true;
             else
             {

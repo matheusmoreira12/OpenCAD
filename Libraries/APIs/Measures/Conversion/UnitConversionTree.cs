@@ -7,41 +7,42 @@ namespace OpenCAD.APIs.Measures.UnitConversion
     {
         public UnitConversionTree()
         {
-            Branches = new List<UnitConversionBranch> { };
+            Children = new List<UnitConversionTreeItem> { };
         }
 
-        public UnitConversionTree(IList<UnitConversionBranch> children)
+        public UnitConversionTree(IList<UnitConversionTreeItem> children)
         {
-            Branches = new List<UnitConversionBranch> (children);
+            Children = new List<UnitConversionTreeItem> (children);
         }
 
-        public List<UnitConversionBranch> Branches { get; }
+        public List<UnitConversionTreeItem> Children { get; }
 
-        public IEnumerable<UnitConversionBranch> TraverseBranches()
+        public IEnumerable<UnitConversionTreeItem> TraverseBranches()
         {
-            foreach (var branch in Branches)
+            if (this is UnitConversionTreeItem)
+                yield return (UnitConversionTreeItem)this;
+
+            foreach (var branch in Children)
             {
-                yield return branch;
-
-                var subBranches = branch.TraverseBranches();
-                foreach (var subBranch in subBranches)
+                var traversedBranches = branch.TraverseBranches();
+                foreach (var subBranch in traversedBranches)
                     yield return subBranch;
             }
         }
     }
 
-    public sealed class UnitConversionBranch: UnitConversionTree
+    public sealed class UnitConversionTreeItem: UnitConversionTree
     {
-        public UnitConversionBranch(UnitConversion item): base()
+        public UnitConversionTreeItem(UnitConversion item): base()
         {
-            Item = item ?? throw new ArgumentNullException(nameof(item));
+            Value = item ?? throw new ArgumentNullException(nameof(item));
         }
 
-        public UnitConversionBranch(UnitConversion item, IList<UnitConversionBranch> children): base(children)
+        public UnitConversionTreeItem(UnitConversion item, IList<UnitConversionTreeItem> children): base(children)
         {
-            Item = item ?? throw new ArgumentNullException(nameof(item));
+            Value = item ?? throw new ArgumentNullException(nameof(item));
         }
 
-        public UnitConversion Item { get; }
+        public UnitConversion Value { get; }
     }
 }

@@ -4,9 +4,11 @@ using System.Linq;
 
 namespace OpenCAD.APIs.Measures
 {
-    public sealed class MetricSystem: IEquatable<MetricSystem>
+#pragma warning disable CS0659 // Type overrides Object.Equals(object o) but does not override Object.GetHashCode()
+    public sealed class MetricSystem : IEquatable<MetricSystem>
+#pragma warning restore CS0659 // Type overrides Object.Equals(object o) but does not override Object.GetHashCode()
     {
-        public MetricSystem(string name, IList<Quantity> quantities, IList<Unit> units, 
+        public MetricSystem(string name, IList<Quantity> quantities, IList<Unit> units,
             IList<MetricPrefix> prefixes)
         {
             Name = name ?? throw new ArgumentNullException(nameof(name));
@@ -63,10 +65,8 @@ namespace OpenCAD.APIs.Measures
 
         bool IEquatable<MetricSystem>.Equals(MetricSystem other)
         {
-            if (other is null)
-                return false;
-            else if (Utils.verifyStackOverflow())
-                return true;
+            if (Utils.VerifyStackOverflow())
+                return Name == other.Name;
             else
             {
                 var this_OrderedQuantities = Quantities.OrderBy(q => q.Name);
@@ -76,9 +76,15 @@ namespace OpenCAD.APIs.Measures
                 var other_OrderedUnits = Units.OrderBy(u => u.Name);
                 var other_OrderedPrefixes = Prefixes.OrderBy(p => p.Name);
 
-                return this_OrderedQuantities.SequenceEqual(other_OrderedQuantities, new IEquatableEqualityComparer<Quantity>())
-                    && this_OrderedUnits.SequenceEqual(other_OrderedUnits, new IEquatableEqualityComparer<Unit>())
-                    && other_OrderedPrefixes.SequenceEqual(other_OrderedPrefixes, new IEquatableEqualityComparer<MetricPrefix>());
+                Func<bool> quantitiesMatch = () => this_OrderedQuantities.SequenceEqual(other_OrderedQuantities, 
+                    new IEquatableEqualityComparer<Quantity>());
+                Func<bool> unitsMatch = () => this_OrderedUnits.SequenceEqual(other_OrderedUnits, 
+                    new IEquatableEqualityComparer<Unit>());
+                Func<bool> metricPrefixesMatch = () => other_OrderedPrefixes.SequenceEqual(other_OrderedPrefixes, 
+                    new IEquatableEqualityComparer<MetricPrefix>());
+
+                return Name == other?.Name && quantitiesMatch() && unitsMatch()
+                    && metricPrefixesMatch();
             }
         }
     }

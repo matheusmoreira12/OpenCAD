@@ -2,7 +2,9 @@
 
 namespace OpenCAD.APIs.Measures
 {
+#pragma warning disable CS0659 // Type overrides Object.Equals(object o) but does not override Object.GetHashCode()
     public class DerivedQuantityDimensionMember : IEquatable<DerivedQuantityDimensionMember>
+#pragma warning restore CS0659 // Type overrides Object.Equals(object o) but does not override Object.GetHashCode()
     {
         public DerivedQuantityDimensionMember(Quantity baseQuantity, double exponent)
         {

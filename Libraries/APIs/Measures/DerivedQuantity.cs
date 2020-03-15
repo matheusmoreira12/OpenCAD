@@ -3,7 +3,9 @@ using System.Linq;
 
 namespace OpenCAD.APIs.Measures
 {
+#pragma warning disable CS0659 // Type overrides Object.Equals(object o) but does not override Object.GetHashCode()
     public sealed class DerivedQuantity : Quantity, IEquatable<DerivedQuantity>
+#pragma warning restore CS0659 // Type overrides Object.Equals(object o) but does not override Object.GetHashCode()
     {
         public DerivedQuantity(DerivedQuantityDimension dimension)
         {
@@ -101,8 +103,8 @@ namespace OpenCAD.APIs.Measures
 
         bool IEquatable<DerivedQuantity>.Equals(DerivedQuantity other)
         {
-            return (this as IEquatable<Quantity>).Equals(other)
-                && (Dimension as IEquatable<DerivedQuantityDimension>).Equals(other.Dimension);
+            Func<bool> dimensionMatches = () => Utils.NullableEquals(Dimension, other.Dimension);
+            return (this as IEquatable<Quantity>).Equals(other) && dimensionMatches();
         }
     }
 }

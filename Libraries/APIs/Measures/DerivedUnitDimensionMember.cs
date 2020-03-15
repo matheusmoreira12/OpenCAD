@@ -2,7 +2,9 @@
 
 namespace OpenCAD.APIs.Measures
 {
+#pragma warning disable CS0659 // Type overrides Object.Equals(object o) but does not override Object.GetHashCode()
     public sealed class DerivedUnitDimensionMember: IEquatable<DerivedUnitDimensionMember>
+#pragma warning restore CS0659 // Type overrides Object.Equals(object o) but does not override Object.GetHashCode()
     {
         public DerivedUnitDimensionMember(Unit baseUnit, double exponent)
         {
@@ -34,9 +36,9 @@ namespace OpenCAD.APIs.Measures
 
         bool IEquatable<DerivedUnitDimensionMember>.Equals(DerivedUnitDimensionMember other)
         {
-            bool prefixMatches = Prefix?.Equals(other.Prefix) ?? Prefix == other.Prefix;
-            bool baseUnitMatches = BaseUnit.Equals(other.BaseUnit);
-            return Exponent == other.Exponent && prefixMatches && baseUnitMatches;
+            Func<bool> prefixMatches = () => Prefix?.Equals(other.Prefix) ?? Prefix == other.Prefix;
+            Func<bool> baseUnitMatches = () => BaseUnit.Equals(other.BaseUnit);
+            return Exponent == other.Exponent && prefixMatches() && baseUnitMatches();
         }
     }
 }
