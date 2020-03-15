@@ -62,6 +62,14 @@ namespace OpenCAD.APIs.Measures
 
         public MetricSystem MetricSystem { get; internal set; }
 
+        public override bool Equals(object obj)
+        {
+            if (!(obj is MetricPrefix))
+                return false;
+            else
+                return ((IEquatable<MetricPrefix>)this).Equals((MetricPrefix)obj);
+        }
+
         bool IEquatable<MetricPrefix>.Equals(MetricPrefix other)
         {
             return Multiplier == other.Multiplier;

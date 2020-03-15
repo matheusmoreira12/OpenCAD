@@ -13,7 +13,7 @@ namespace OpenCAD.APIs.Measures
             _name = null;
             _symbol = null;
             _uiSymbol = null;
-            Expression = expression ?? throw new ArgumentNullException(nameof(expression));
+            Dimension = expression ?? throw new ArgumentNullException(nameof(expression));
             IsNamed = false;
         }
 
@@ -22,7 +22,7 @@ namespace OpenCAD.APIs.Measures
             _name = name ?? throw new ArgumentNullException(nameof(name));
             _symbol = symbol ?? throw new ArgumentNullException(nameof(symbol));
             _uiSymbol = null;
-            Expression = expression ?? throw new ArgumentNullException(nameof(expression));
+            Dimension = expression ?? throw new ArgumentNullException(nameof(expression));
             IsNamed = true;
         }
 
@@ -31,7 +31,7 @@ namespace OpenCAD.APIs.Measures
             _name = name ?? throw new ArgumentNullException(nameof(name));
             _symbol = symbol ?? throw new ArgumentNullException(nameof(symbol));
             _uiSymbol = uiSymbol;
-            Expression = expression ?? throw new ArgumentNullException(nameof(expression));
+            Dimension = expression ?? throw new ArgumentNullException(nameof(expression));
             IsNamed = true;
         }
 
@@ -40,7 +40,7 @@ namespace OpenCAD.APIs.Measures
             _name = null;
             _symbol = null;
             _uiSymbol = null;
-            Expression = getExpression(baseUnit, null, exponent);
+            Dimension = getExpression(baseUnit, null, exponent);
             IsNamed = false;
         }
 
@@ -49,7 +49,7 @@ namespace OpenCAD.APIs.Measures
             _name = name ?? throw new ArgumentNullException(nameof(name));
             _symbol = symbol ?? throw new ArgumentNullException(nameof(symbol));
             _uiSymbol = null;
-            Expression = getExpression(baseUnit, null, exponent);
+            Dimension = getExpression(baseUnit, null, exponent);
             IsNamed = true;
         }
 
@@ -58,7 +58,7 @@ namespace OpenCAD.APIs.Measures
             _name = name ?? throw new ArgumentNullException(nameof(name));
             _symbol = symbol ?? throw new ArgumentNullException(nameof(symbol));
             _uiSymbol = uiSymbol;
-            Expression = getExpression(baseUnit, null, exponent);
+            Dimension = getExpression(baseUnit, null, exponent);
             IsNamed = true;
         }
 
@@ -67,7 +67,7 @@ namespace OpenCAD.APIs.Measures
             _name = null;
             _symbol = null;
             _uiSymbol = null;
-            Expression = getExpression(baseUnit, prefix, exponent);
+            Dimension = getExpression(baseUnit, prefix, exponent);
             IsNamed = false;
         }
 
@@ -76,7 +76,7 @@ namespace OpenCAD.APIs.Measures
             _name = name ?? throw new ArgumentNullException(nameof(name));
             _symbol = symbol ?? throw new ArgumentNullException(nameof(symbol));
             _uiSymbol = null;
-            Expression = getExpression(baseUnit, prefix, exponent);
+            Dimension = getExpression(baseUnit, prefix, exponent);
             IsNamed = true;
         }
 
@@ -85,7 +85,7 @@ namespace OpenCAD.APIs.Measures
             _name = name ?? throw new ArgumentNullException(nameof(name));
             _symbol = symbol ?? throw new ArgumentNullException(nameof(symbol));
             _uiSymbol = uiSymbol;
-            Expression = getExpression(baseUnit, prefix, exponent);
+            Dimension = getExpression(baseUnit, prefix, exponent);
             IsNamed = true;
         }
 
@@ -93,14 +93,14 @@ namespace OpenCAD.APIs.Measures
             new DerivedUnitDimension(new DerivedUnitDimensionMember(baseUnit
                 ?? throw new ArgumentNullException(nameof(baseUnit)), prefix, exponent));
 
-        public DerivedUnitDimension Expression { get; }
+        public DerivedUnitDimension Dimension { get; }
 
         public override string Name => _name ?? generateName();
         private string _name;
 
         private string generateName() => null;
 
-        public override Quantity Quantity => Expression.Members.Select(m =>
+        public override Quantity Quantity => Dimension.Members.Select(m =>
             (Quantity)MathAPI::Math.Power(m.BaseUnit.Quantity, m.Exponent)).Aggregate((qa, q) => qa * q);
 
         public override string Symbol => _symbol ?? generateSymbol();
@@ -108,18 +108,18 @@ namespace OpenCAD.APIs.Measures
 
         private string generateSymbol()
         {
-            bool hasMultipleBases = Expression.Members.Length > 1;
+            bool hasMultipleBases = Dimension.Members.Length > 1;
             var builder = new StringBuilder();
 
             if (hasMultipleBases)
                 builder.Append("(");
 
-            for (int i = 0; i < Expression.Members.Length; i++)
+            for (int i = 0; i < Dimension.Members.Length; i++)
             {
                 if (i > 0)
                     builder.Append("*");
 
-                var member = Expression.Members[i];
+                var member = Dimension.Members[i];
                 builder.Append($"{member.Prefix?.Symbol}{member.BaseUnit.Symbol}^{member.Exponent}");
             }
 
@@ -138,7 +138,7 @@ namespace OpenCAD.APIs.Measures
 
         public override Unit Collapse()
         {
-            var members = Expression.Members
+            var members = Dimension.Members
                 .GroupBy(m => (baseUnit: m.BaseUnit.Collapse(), prefix: m.Prefix))
                 .Select(g => new DerivedUnitDimensionMember(g.Key.baseUnit, g.Key.prefix, g.Sum(m => m.Exponent)))
                 .Where(m => m.Exponent != 0)
@@ -147,10 +147,18 @@ namespace OpenCAD.APIs.Measures
             return new DerivedUnit(expression);
         }
 
+        public override bool Equals(object obj)
+        {
+            if (!(obj is DerivedUnit))
+                return false;
+            else
+                return ((IEquatable<DerivedUnit>)this).Equals((DerivedUnit)obj);
+        }
+
         bool IEquatable<DerivedUnit>.Equals(DerivedUnit other)
         {
-            return (this as IEquatable<Unit>).Equals(other)
-                && (Expression as IEquatable<DerivedUnitDimension>).Equals(other.Expression);
+            bool dimensionMatches = Dimension.Equals(other.Dimension);
+            return (this as IEquatable<Unit>).Equals(other) && dimensionMatches;
         }
     }
 }

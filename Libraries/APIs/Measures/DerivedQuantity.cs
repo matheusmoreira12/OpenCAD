@@ -91,6 +91,14 @@ namespace OpenCAD.APIs.Measures
             return new DerivedQuantity(dimension);
         }
 
+        public override bool Equals(object obj)
+        {
+            if (!(obj is DerivedQuantity))
+                return false;
+            else
+                return ((IEquatable<DerivedQuantity>)this).Equals((DerivedQuantity)obj);
+        }
+
         bool IEquatable<DerivedQuantity>.Equals(DerivedQuantity other)
         {
             return (this as IEquatable<Quantity>).Equals(other)

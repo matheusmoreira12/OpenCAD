@@ -14,12 +14,17 @@ namespace OpenCAD.APIs.Measures
 
         bool IEquatable<DerivedUnitDimension>.Equals(DerivedUnitDimension other)
         {
-            var this_OrderedMembers = Members.OrderBy(m => m.BaseUnit.Name).ThenBy(m => m.BaseUnit.MetricSystem)
-                .ThenBy(m => m.Prefix).ThenBy(m => m.Exponent);
-            var other_OrderedMembers = Members.OrderBy(m => m.BaseUnit.Name).ThenBy(m => m.BaseUnit.MetricSystem)
-                .ThenBy(m => m.Prefix).ThenBy(m => m.Exponent);
-            return Enumerable.SequenceEqual(this_OrderedMembers, other_OrderedMembers,
-                new IEquatableEqualityComparer<DerivedUnitDimensionMember>());
+            if (Utils.verifyStackOverflow())
+                return true;
+            else
+            {
+                var this_OrderedMembers = Members.OrderBy(m => m.BaseUnit.Name).ThenBy(m => m.BaseUnit.MetricSystem)
+                    .ThenBy(m => m.Prefix).ThenBy(m => m.Exponent);
+                var other_OrderedMembers = Members.OrderBy(m => m.BaseUnit.Name).ThenBy(m => m.BaseUnit.MetricSystem)
+                    .ThenBy(m => m.Prefix).ThenBy(m => m.Exponent);
+                return Enumerable.SequenceEqual(this_OrderedMembers, other_OrderedMembers,
+                    new IEquatableEqualityComparer<DerivedUnitDimensionMember>());
+            }
         }
     }
 }

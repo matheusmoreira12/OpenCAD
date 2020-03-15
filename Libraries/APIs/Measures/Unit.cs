@@ -13,8 +13,8 @@ namespace OpenCAD.APIs.Measures
             //Multiplication Operators
             Func<DerivedUnit, DerivedUnit, DerivedUnit> multiplyDerivedUnits = (a, b) =>
             {
-                var expression = new DerivedUnitDimension(a.Expression.Members
-                    .Concat(b.Expression.Members).ToArray());
+                var expression = new DerivedUnitDimension(a.Dimension.Members
+                    .Concat(b.Dimension.Members).ToArray());
                 return new DerivedUnit(expression);
             };
 
@@ -47,7 +47,7 @@ namespace OpenCAD.APIs.Measures
 
             Func<DerivedUnit, double, DerivedUnit> exponentiateDerivedUnit = (a, b) =>
             {
-                var members = a.Expression.Members.Select(m => new DerivedUnitDimensionMember(m.BaseUnit, m.Prefix,
+                var members = a.Dimension.Members.Select(m => new DerivedUnitDimensionMember(m.BaseUnit, m.Prefix,
                     m.Exponent * b)).ToArray();
                 var expression = new DerivedUnitDimension(members);
                 return new DerivedUnit(expression);
@@ -157,10 +157,20 @@ namespace OpenCAD.APIs.Measures
         /// </summary>
         public MetricSystem MetricSystem { get; internal set; }
 
+        public override bool Equals(object obj)
+        {
+            if (!(obj is Unit))
+                return false;
+            else
+                return ((IEquatable<Unit>)this).Equals((Unit)obj);
+        }
+
         bool IEquatable<Unit>.Equals(Unit other)
         {
-            return (Quantity as IEquatable<Quantity>).Equals(other.Quantity)
-                && (MetricSystem as IEquatable<MetricSystem>).Equals(other.MetricSystem);
+            bool quantityMatches = (Quantity?.Equals(other.Quantity) ?? Quantity == other.Quantity);
+            bool MetricSystemMatches = (MetricSystem?.Equals(other.MetricSystem)
+                ?? MetricSystem == other.MetricSystem);
+            return quantityMatches && MetricSystemMatches;
         }
     }
 }

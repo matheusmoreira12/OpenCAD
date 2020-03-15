@@ -11,7 +11,7 @@ namespace OpenCAD.APIs.Measures.UnitConversion
         public static Dictionary<Unit, Scalar> ScaleZeroes { get; } = new Dictionary<Unit, Scalar> { };
 
         private static UnitConversion getConversionStrict(Unit sourceUnit, Unit targetUnit) =>
-            Conversions.FirstOrDefault(c => c.SourceUnit == sourceUnit && c.TargetUnit == targetUnit);
+            Conversions.FirstOrDefault(c => c.SourceUnit.Equals(sourceUnit) && c.TargetUnit.Equals(targetUnit));
 
         public static UnitConversion GetDirectConversion(Unit sourceUnit, Unit targetUnit)
             => getConversionStrict(sourceUnit, targetUnit) ?? getConversionStrict(targetUnit, sourceUnit)?.Invert();

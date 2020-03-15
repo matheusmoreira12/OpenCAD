@@ -36,7 +36,15 @@ namespace OpenCAD.APIs.Measures.UnitConversion
         /// </summary>
         public double Factor { get; }
 
-        public bool Equals(UnitConversion other)
+        public override bool Equals(object obj)
+        {
+            if (!(obj is UnitConversion))
+                return false;
+            else
+                return ((IEquatable<UnitConversion>)this).Equals((UnitConversion)obj);
+        }
+
+        bool IEquatable<UnitConversion>.Equals(UnitConversion other)
         {
             return SourceUnit.Equals(other.SourceUnit) && TargetUnit.Equals(other.SourceUnit);
         }

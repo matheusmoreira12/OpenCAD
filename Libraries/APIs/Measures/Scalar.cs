@@ -211,6 +211,8 @@ namespace OpenCAD.APIs.Measures
                 return $"+∞{Unit?.UISymbol}";
             else if (Amount == double.NegativeInfinity)
                 return $"-∞{Unit?.UISymbol}";
+            else if (Amount == double.NaN)
+                return $"!!";
             else
                 return $"{Amount.ToString(CultureInfo.InvariantCulture)}{Unit?.UISymbol ?? Unit?.Symbol}";
         }
@@ -245,15 +247,24 @@ namespace OpenCAD.APIs.Measures
         int IComparable<Scalar>.CompareTo(Scalar other)
         {
             if (other.Unit.Quantity != Unit.Quantity)
-                throw new InvalidOperationException("Cannot compare measurements. Measured physical quantities " +
-                    "don't match.");
+                throw new InvalidOperationException("Cannot compare measurements. " +
+                    "Measured physical quantities don't match.");
 
             return Comparer<double>.Default.Compare(Amount, other.ConvertTo(Unit).Amount);
         }
 
+        public override bool Equals(object obj)
+        {
+            if (!(obj is Scalar))
+                return false;
+            else
+                return ((IEquatable<Scalar>)this).Equals((Scalar)obj);
+        }
+
         bool IEquatable<Scalar>.Equals(Scalar other)
         {
-            return Amount == other.Amount && (Unit as IEquatable<Unit>).Equals(other.Unit);
+            bool unitMatches = (Unit?.Equals(other.Unit) ?? Unit == other.Unit);
+            return Amount == other.Amount && unitMatches;
         }
     }
 }

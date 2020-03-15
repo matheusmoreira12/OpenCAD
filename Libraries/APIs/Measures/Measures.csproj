@@ -62,8 +62,7 @@
     <Compile Include="DerivedUnit.cs" />
     <Compile Include="DerivedUnitDimension.cs" />
     <Compile Include="DerivedUnitDimensionMember.cs" />
-    <Compile Include="EquatableEqualityComparer.cs" />
-    <Compile Include="Exceptions.cs" />
+    <Compile Include="IEquatableEqualityComparer.cs" />
     <Compile Include="MetricPrefix.cs" />
     <Compile Include="MetricSystem.cs" />
     <Compile Include="MetricSystemManager.cs" />
@@ -71,6 +70,7 @@
     <Compile Include="Quantity.cs" />
     <Compile Include="Scalar.cs" />
     <Compile Include="Unit.cs" />
+    <Compile Include="Utils.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

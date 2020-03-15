@@ -14,10 +14,19 @@ namespace OpenCAD.APIs.Measures
 
         public double Exponent { get; }
 
+        public override bool Equals(object obj)
+        {
+            if (!(obj is DerivedQuantityDimensionMember))
+                return false;
+            else
+                return ((IEquatable<DerivedQuantityDimensionMember>)this)
+                    .Equals((DerivedQuantityDimensionMember)obj);
+        }
+
         bool IEquatable<DerivedQuantityDimensionMember>.Equals(DerivedQuantityDimensionMember other)
         {
-            return (BaseQuantity as IEquatable<Quantity>).Equals(other.BaseQuantity)
-                && Exponent == other.Exponent;
+            bool baseQuantityMatches = BaseQuantity.Equals(other.BaseQuantity);
+            return baseQuantityMatches && Exponent == other.Exponent;
         }
     }
 }

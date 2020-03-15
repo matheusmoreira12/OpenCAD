@@ -53,17 +53,33 @@ namespace OpenCAD.APIs.Measures
 
         public List<MetricPrefix> Prefixes { get; }
 
+        public override bool Equals(object obj)
+        {
+            if (!(obj is MetricSystem))
+                return false;
+            else
+                return ((IEquatable<MetricSystem>)this).Equals((MetricSystem)obj);
+        }
+
         bool IEquatable<MetricSystem>.Equals(MetricSystem other)
         {
-            var this_OrderedQuantities = Quantities.OrderBy(q => q.Name);
-            var this_OrderedUnits = Units.OrderBy(u => u.Name);
-            var this_OrderedPrefixes = Prefixes.OrderBy(p => p.Name);
-            var other_OrderedQuantities = Quantities.OrderBy(q => q.Name).ThenBy(q => q.MetricSystem);
-            var other_OrderedUnits = Units.OrderBy(u => u.Name).ThenBy(u => u.MetricSystem);
-            var other_OrderedPrefixes = Prefixes.OrderBy(p => p.Name).ThenBy(p => p.MetricSystem);
-            return this_OrderedQuantities.SequenceEqual(other_OrderedQuantities, new IEquatableEqualityComparer<Quantity>())
-                && this_OrderedUnits.SequenceEqual(other_OrderedUnits, new IEquatableEqualityComparer<Unit>())
-                && other_OrderedPrefixes.SequenceEqual(other_OrderedPrefixes, new IEquatableEqualityComparer<MetricPrefix>());
+            if (other is null)
+                return false;
+            else if (Utils.verifyStackOverflow())
+                return true;
+            else
+            {
+                var this_OrderedQuantities = Quantities.OrderBy(q => q.Name);
+                var this_OrderedUnits = Units.OrderBy(u => u.Name);
+                var this_OrderedPrefixes = Prefixes.OrderBy(p => p.Name);
+                var other_OrderedQuantities = Quantities.OrderBy(q => q.Name);
+                var other_OrderedUnits = Units.OrderBy(u => u.Name);
+                var other_OrderedPrefixes = Prefixes.OrderBy(p => p.Name);
+
+                return this_OrderedQuantities.SequenceEqual(other_OrderedQuantities, new IEquatableEqualityComparer<Quantity>())
+                    && this_OrderedUnits.SequenceEqual(other_OrderedUnits, new IEquatableEqualityComparer<Unit>())
+                    && other_OrderedPrefixes.SequenceEqual(other_OrderedPrefixes, new IEquatableEqualityComparer<MetricPrefix>());
+            }
         }
     }
 }

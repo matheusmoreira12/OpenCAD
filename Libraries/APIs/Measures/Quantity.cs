@@ -125,10 +125,19 @@ namespace OpenCAD.APIs.Measures
             return null;
         }
 
+        public override bool Equals(object obj)
+        {
+            if (!(obj is Quantity))
+                return false;
+            else
+                return ((IEquatable<Quantity>)this).Equals((Quantity)obj);
+        }
+
         bool IEquatable<Quantity>.Equals(Quantity other)
         {
-            return (Unit as IEquatable<Unit>).Equals(other.Unit)
-                && (MetricSystem as IEquatable<MetricSystem>).Equals(other.MetricSystem);
+            bool nameMatches = Name == other?.Name;
+            bool metricSystemMatches = MetricSystem?.Equals(other) ?? MetricSystem == other?.MetricSystem;
+            return nameMatches && metricSystemMatches;
         }
     }
 }
