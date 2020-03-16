@@ -46,13 +46,34 @@ namespace OpenCAD.APIs.Measures
             return true;
         }
 
-        public MetricPrefix(string name, double multiplier, string symbol, string uiSymbol = null)
+        public MetricPrefix(MetricSystem metricSystem, double multiplier,
+            string name, string symbol, string uiSymbol)
         {
+            MetricSystem = metricSystem;
             Name = name;
-            Multiplier = multiplier;
             Symbol = symbol;
             UISymbol = uiSymbol ?? symbol;
+            Multiplier = multiplier;
+
+            MetricSystem?.AddPrefix(this);
         }
+
+        public MetricPrefix(MetricSystem metricSystem, double multiplier,
+            string name, string symbol) : this(metricSystem, multiplier, name,
+                symbol, null)
+        { }
+
+        public MetricPrefix(MetricSystem metricSystem, double multiplier, string name)
+            : this(metricSystem, multiplier, name, null, null) { }
+
+        public MetricPrefix(double multiplier, string name, string symbol,
+            string uiSymbol) : this(null, multiplier, name, symbol, uiSymbol) { }
+
+        public MetricPrefix(double multiplier,
+            string name, string symbol) : this(null, multiplier, name, symbol, null) { }
+
+        public MetricPrefix(double multiplier, string name)
+            : this(null, multiplier, name, null, null) { }
 
         public double Multiplier { get; }
 
@@ -62,7 +83,7 @@ namespace OpenCAD.APIs.Measures
 
         public string UISymbol { get; }
 
-        public MetricSystem MetricSystem { get; internal set; }
+        public MetricSystem MetricSystem { get; }
 
         public override bool Equals(object obj)
         {
@@ -70,6 +91,11 @@ namespace OpenCAD.APIs.Measures
                 return false;
             else
                 return ((IEquatable<MetricPrefix>)this).Equals((MetricPrefix)obj);
+        }
+
+        ~MetricPrefix()
+        {
+            MetricSystem?.RemovePrefix(this);
         }
 
         bool IEquatable<MetricPrefix>.Equals(MetricPrefix other)

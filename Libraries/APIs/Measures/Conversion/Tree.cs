@@ -24,15 +24,20 @@ namespace OpenCAD.APIs.Measures.UnitConversion
 
         public override string ToString()
         {
-            var writer = new StringBuilder();
+            /*var builder = new StringBuilder();
             if (this is TreeItem<T>)
             {
                 var treeItem = (TreeItem<T>)this;
-                writer.AppendLine($"{treeItem.Value}");
+                builder.AppendLine(treeItem.ToString() ?? "(empty)");
             }
             foreach (var child in Children)
-                writer.AppendLine(child.ToString());
-            return writer.ToString();
+            {
+                builder.AppendLine("\t");
+                builder.Append($"{child?.ToString() ?? "(empty)"} ");
+            }
+            return builder.ToString();
+            */
+            return null;
         }
 
         public TreeItem<T> ToTreeItem(UnitConversion value)
@@ -45,7 +50,7 @@ namespace OpenCAD.APIs.Measures.UnitConversion
 
         public void AddChild(TreeItem<T> child)
         {
-            _Children.Add(child);
+            _Children.Add(child ?? throw new ArgumentNullException(nameof(child)));
             StoredParents[child] = this;
         }
 
@@ -54,7 +59,7 @@ namespace OpenCAD.APIs.Measures.UnitConversion
             if (StoredParents.ContainsKey(child))
                 throw new InvalidOperationException("The specified tree item already " +
                     "has a parent.");
-            _Children.Remove(child);
+            _Children.Remove(child ?? throw new ArgumentNullException(nameof(child)));
             StoredParents[child] = null;
         }
 

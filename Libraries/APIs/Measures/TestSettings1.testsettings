@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<TestSettings name="MeasuresTestSettings" id="8360d1e1-aff6-41d7-aecf-796a8a143854" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Description>Estas são configurações padrão de teste para uma execução local de testes.</Description>
+  <Deployment enabled="false" />
+  <Execution hostProcessPlatform="MSIL">
+    <Hosts skipUnhostableTests="false" />
+    <TestTypeSpecific>
+      <UnitTestRunConfig testTypeId="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b">
+        <AssemblyResolution applicationBaseDirectory="%USERPROFILE%\source\repos\OpenCAD\Libraries\APIs\Measures\bin">
+          <TestDirectory useLoadContext="true" />
+        </AssemblyResolution>
+      </UnitTestRunConfig>
+    </TestTypeSpecific>
+    <AgentRule name="LocalMachineDefaultRole">
+      <DataCollectors>
+        <DataCollector uri="datacollector://microsoft/AspNetProfiler/1.0" assemblyQualifiedName="Microsoft.VisualStudio.PerformanceTools.DataCollection.AspNetProfileDataCollector, Microsoft.VisualStudio.PerformanceTools.DataCollection, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" friendlyName="Criador de Perfil do ASP.NET">
+        </DataCollector>
+        <DataCollector uri="datacollector://microsoft/TestImpact/1.0" assemblyQualifiedName="Microsoft.VisualStudio.TraceCollector.TestImpactDataCollector, Microsoft.VisualStudio.TraceCollector, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" friendlyName="Impacto de Teste">
+        </DataCollector>
+        <DataCollector uri="datacollector://microsoft/TraceDebugger/1.0" assemblyQualifiedName="Microsoft.VisualStudio.TraceCollector.TraceDebuggerDataCollector, Microsoft.VisualStudio.TraceCollector, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" friendlyName="IntelliTrace">
+        </DataCollector>
+        <DataCollector uri="datacollector://microsoft/HttpProxy/1.0" assemblyQualifiedName="Microsoft.VisualStudio.TraceCollector.HttpProxyCollector, Microsoft.VisualStudio.TraceCollector, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" friendlyName="Proxy de Cliente do ASP.NET para IntelliTrace e Impacto de Teste">
+        </DataCollector>
+      </DataCollectors>
+    </AgentRule>
+  </Execution>
+  <Properties />
+</TestSettings>

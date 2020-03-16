@@ -10,51 +10,54 @@ namespace OpenCAD.APIs.Measures
     public abstract class Unit : IEquatable<Unit>
 #pragma warning restore CS0659 // Type overrides Object.Equals(object o) but does not override Object.GetHashCode()
     {
+        #region Math API Integration
+        //Multiplication Operators
+        private static DerivedUnit multiplyDerivedUnits(DerivedUnit a, DerivedUnit b)
+        {
+            var expression = new DerivedUnitDimension(a.Dimension.Members
+                .Concat(b.Dimension.Members).ToArray());
+            return new DerivedUnit(expression);
+        }
+
+        private static DerivedUnit multiplyBaseUnits(BaseUnit a, BaseUnit b)
+        {
+            var derivedA = new DerivedUnit(a, 1);
+            var derivedB = new DerivedUnit(b, 1);
+            return multiplyDerivedUnits(derivedA, derivedB);
+        }
+
+        private static DerivedUnit multiplyBaseUnitByDerivedUnits(BaseUnit a, DerivedUnit b)
+        {
+            var derivedA = new DerivedUnit(a, 1);
+            return multiplyDerivedUnits(derivedA, b);
+        }
+
+        private static DerivedUnit multiplyDerivedUnitByBaseUnits(DerivedUnit a, BaseUnit b)
+        {
+            var derivedB = new DerivedUnit(b, 1);
+            return multiplyDerivedUnits(a, derivedB);
+        }
+
+        private static DerivedUnit multiplyBaseUnitByPrefix(BaseUnit a, MetricPrefix b)
+            => new DerivedUnit(a, b, 1);
+
+        private static DerivedUnit multiplyPrefixByBaseUnit(MetricPrefix a, BaseUnit b)
+            => multiplyBaseUnitByPrefix(b, a);
+
+        private static DerivedUnit exponentiateBaseUnit(BaseUnit a, double b)
+            => new DerivedUnit(a, b);
+
+        private static DerivedUnit exponentiateDerivedUnit(DerivedUnit a, double b)
+        {
+            var members = a.Dimension.Members.Select(m => new DerivedUnitDimensionMember(m.BaseUnit, m.Prefix,
+                m.Exponent * b)).ToArray();
+            var expression = new DerivedUnitDimension(members);
+            return new DerivedUnit(expression);
+        }
+        #endregion
+
         static Unit()
         {
-            //Multiplication Operators
-            Func<DerivedUnit, DerivedUnit, DerivedUnit> multiplyDerivedUnits = (a, b) =>
-            {
-                var expression = new DerivedUnitDimension(a.Dimension.Members
-                    .Concat(b.Dimension.Members).ToArray());
-                return new DerivedUnit(expression);
-            };
-
-            Func<BaseUnit, BaseUnit, DerivedUnit> multiplyBaseUnits = (a, b) =>
-            {
-                var derivedA = new DerivedUnit(a, 1);
-                var derivedB = new DerivedUnit(b, 1);
-                return multiplyDerivedUnits(derivedA, derivedB);
-            };
-
-            Func<BaseUnit, DerivedUnit, DerivedUnit> multiplyBaseUnitByDerivedUnits = (a, b) =>
-            {
-                var derivedA = new DerivedUnit(a, 1);
-                return multiplyDerivedUnits(derivedA, b);
-            };
-
-            Func<DerivedUnit, BaseUnit, DerivedUnit> multiplyDerivedUnitByBaseUnits = (a, b) =>
-            {
-                var derivedB = new DerivedUnit(b, 1);
-                return multiplyDerivedUnits(a, derivedB);
-            };
-
-            Func<BaseUnit, MetricPrefix, DerivedUnit> multiplyBaseUnitByPrefix = (a, b) => new DerivedUnit(a, b, 1);
-
-            Func<MetricPrefix, BaseUnit, DerivedUnit> multiplyPrefixByBaseUnit = (a, b) =>
-                multiplyBaseUnitByPrefix(b, a);
-
-            //Exponentiation Operators
-            Func<BaseUnit, double, DerivedUnit> exponentiateBaseUnit = (a, b) => new DerivedUnit(a, b);
-
-            Func<DerivedUnit, double, DerivedUnit> exponentiateDerivedUnit = (a, b) =>
-            {
-                var members = a.Dimension.Members.Select(m => new DerivedUnitDimensionMember(m.BaseUnit, m.Prefix,
-                    m.Exponent * b)).ToArray();
-                var expression = new DerivedUnitDimension(members);
-                return new DerivedUnit(expression);
-            };
-
             MathOperationManager.RegisterMany(new MathOperation[] {
                 new Multiplication<BaseUnit, BaseUnit, DerivedUnit>(multiplyBaseUnits),
                 new Multiplication<DerivedUnit, DerivedUnit, DerivedUnit>(multiplyDerivedUnits),
@@ -157,7 +160,7 @@ namespace OpenCAD.APIs.Measures
         /// <summary>
         /// Gets the metric system this unit belongs to.
         /// </summary>
-        public MetricSystem MetricSystem { get; internal set; }
+        public MetricSystem MetricSystem => Quantity.MetricSystem;
 
         public override bool Equals(object obj)
         {
