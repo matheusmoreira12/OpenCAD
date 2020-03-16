@@ -84,13 +84,19 @@ namespace OpenCAD.APIs.Measures
         public override Quantity Collapse()
         {
             var members = Dimension.Members
-                .GroupBy(m => m.BaseQuantity.Collapse())
-                .Select(g => new DerivedQuantityDimensionMember(g.Key, g.Sum(m => m.Exponent)))
+                .Select(m => (bu: m.BaseQuantity.Collapse(), e: m.Exponent))
+                .Where(mt => !(mt.bu is null))
+                .GroupBy(mt => mt.bu)
+                .Select(g => new DerivedQuantityDimensionMember(g.Key, g.Sum(m => m.e)))
                 .Where(m => m.Exponent != 0)
                 .ToArray();
-
-            var dimension = new DerivedQuantityDimension(members);
-            return new DerivedQuantity(dimension);
+            DerivedQuantityDimensionMember firstMember;
+            if (members.Length == 0)
+                return null;
+            else if (members.Length == 1 && (firstMember = members.First()).Exponent == 1)
+                return firstMember.BaseQuantity;
+            else
+                return new DerivedQuantity(new DerivedQuantityDimension(members));
         }
 
         public override bool Equals(object obj)

@@ -72,6 +72,9 @@ namespace OpenCAD.APIs.Measures.Tests
                 }
                 catch (Exception e)
                 {
+                    if (e is UnitTestAssertException)
+                        throw e;
+
                     Assert.Fail("Parsing should not fail internally.", e);
                 }
                 #endregion
@@ -100,14 +103,17 @@ namespace OpenCAD.APIs.Measures.Tests
                     var derivedUnit = unit * unit / unit;
                     #region For derived unit
                     {
-                        var collapedDerivedUnit = derivedUnit.Collapse();
-                        Assert.AreEqual(unit, collapedDerivedUnit, "A collapsed derived unit " +
+                        var collapsedDerivedUnit = derivedUnit.Collapse();
+                        Assert.AreEqual(unit, collapsedDerivedUnit, "A collapsed derived unit " +
                             "X*X/X should result in X.");
                     }
                     #endregion
                 }
                 catch (Exception e)
                 {
+                    if (e is UnitTestAssertException)
+                        throw e;
+
                     Assert.Fail("Collapsing should not fail internally.", e);
                 }
             }
@@ -129,14 +135,12 @@ namespace OpenCAD.APIs.Measures.Tests
                     {
                         #region For equal units
                         {
-                            Assert.IsTrue(baseUnitA.Equals(baseUnitB), "Equivalent units " +
-                                "should test equal.");
+                            Assert.AreEqual(baseUnitA, baseUnitA, "Equivalent units should test equal.");
                         }
                         #endregion
                         #region For different units
                         {
-                            Assert.IsTrue(baseUnitA.Equals(baseUnitB), "Equivalent units " +
-                                "should test equal.");
+                            Assert.AreNotEqual(baseUnitA, baseUnitB, "Equivalent units should test equal.");
                         }
                         #endregion
                     }
@@ -147,13 +151,13 @@ namespace OpenCAD.APIs.Measures.Tests
                         var derivedUnitB = baseUnitA * baseUnitB;
                         #region For equal units
                         {
-                            Assert.IsTrue(derivedUnitA.Equals(derivedUnitB), "Equivalent " +
+                            Assert.AreEqual(derivedUnitA, derivedUnitA, "Equivalent " +
                                 "derived units should test equal.");
                         }
                         #endregion
                         #region For different units
                         {
-                            Assert.IsTrue(derivedUnitA.Equals(derivedUnitB), "Equivalent " +
+                            Assert.AreNotEqual(derivedUnitA, derivedUnitB, "Equivalent " +
                                 "derived units should test equal.");
                         }
                         #endregion
@@ -162,7 +166,9 @@ namespace OpenCAD.APIs.Measures.Tests
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine(e);
+                    if (e is UnitTestAssertException)
+                        throw e;
+
                     Assert.Fail("Testing for equality should not fail internally.", e);
                 }
             }

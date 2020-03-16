@@ -141,12 +141,19 @@ namespace OpenCAD.APIs.Measures
         public override Unit Collapse()
         {
             var members = Dimension.Members
-                .GroupBy(m => (baseUnit: m.BaseUnit.Collapse(), prefix: m.Prefix))
-                .Select(g => new DerivedUnitDimensionMember(g.Key.baseUnit, g.Key.prefix, g.Sum(m => m.Exponent)))
+                .Select(m => (bu: m.BaseUnit.Collapse(), p: m.Prefix, e: m.Exponent))
+                .Where(mt => !(mt.bu is null))
+                .GroupBy(mt => (mt.bu, mt.p))
+                .Select(g => new DerivedUnitDimensionMember(g.Key.bu, g.Key.p, g.Sum(m => m.e)))
                 .Where(m => m.Exponent != 0)
                 .ToArray();
-            var expression = new DerivedUnitDimension(members);
-            return new DerivedUnit(expression);
+            DerivedUnitDimensionMember firstMember;
+            if (members.Length == 0)
+                return null;
+            else if (members.Length == 1 && (firstMember = members.First()).Exponent == 1)
+                return firstMember.BaseUnit;
+            else
+                return new DerivedUnit(new DerivedUnitDimension(members));
         }
 
         public override bool Equals(object obj)
