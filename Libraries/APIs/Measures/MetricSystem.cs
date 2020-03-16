@@ -14,6 +14,8 @@ namespace OpenCAD.APIs.Measures
             quantities = new HashSet<Quantity>();
             units = new HashSet<Unit>();
             prefixes = new HashSet<MetricPrefix>();
+
+            MetricSystemManager.AddMetricSystem(this);
         }
 
         public MetricSystem(string name, IList<Quantity> quantities)
@@ -106,6 +108,11 @@ namespace OpenCAD.APIs.Measures
                 return false;
             else
                 return ((IEquatable<MetricSystem>)this).Equals((MetricSystem)obj);
+        }
+
+        ~MetricSystem()
+        {
+            MetricSystemManager.RemoveMetricSystem(this);
         }
 
         bool IEquatable<MetricSystem>.Equals(MetricSystem other)

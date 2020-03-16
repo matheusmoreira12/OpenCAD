@@ -70,15 +70,20 @@ namespace OpenCAD.APIs.Measures
             });
         }
 
-        public static Unit operator *(Unit a, Unit b) => (Unit)MathAPI::Math.Multiply(a, b);
+        public static Unit operator *(Unit a, Unit b)
+            => MathAPI::Math.Multiply<Unit, Unit, Unit>(a, b);
 
-        public static Unit operator *(MetricPrefix a, Unit b) => (Unit)MathAPI::Math.Multiply(b, a);
+        public static Unit operator *(MetricPrefix a, Unit b)
+            => MathAPI::Math.Multiply<Unit, MetricPrefix, Unit>(b, a);
 
-        public static Unit operator *(Unit a, MetricPrefix b) => (Unit)MathAPI::Math.Multiply(a, b);
+        public static Unit operator *(Unit a, MetricPrefix b)
+            => MathAPI::Math.Multiply<Unit, MetricPrefix, Unit>(a, b);
 
-        public static Unit operator /(Unit a, Unit b) => (Unit)MathAPI::Math.Divide(a, b);
+        public static Unit operator /(Unit a, Unit b)
+            => MathAPI::Math.Divide<Unit, Unit, Unit>(a, b);
 
-        public static Unit operator !(Unit a) => (Unit)MathAPI::Math.Invert<Unit, Unit>(a);
+        public static Unit operator !(Unit a)
+            => MathAPI::Math.Invert<Unit, Unit>(a);
 
         /// <summary>
         /// Parses a unit by its name, symbol or ui symbol.

@@ -34,11 +34,9 @@ namespace OpenCAD.APIs.Measures.Tests
                     try
                     {
                         Unit.Parse("Z");
-                    }
-                    finally
-                    {
                         Assert.Fail("Invalid value parsing should fail.");
                     }
+                    catch (Exception) { }
                 }
                 #endregion
             }
@@ -58,11 +56,11 @@ namespace OpenCAD.APIs.Measures.Tests
                     #region Test valid parsing
                     {
                         Unit parsedUnit;
-                        if (!Unit.TryParse("X", out parsedUnit))
+                        if (Unit.TryParse("X", out parsedUnit))
+                            Assert.AreEqual(unit, parsedUnit, "Valid value should parse" +
+                                " into the correct unit.");
+                        else
                             Assert.Fail("Valid unit parsing should not fail.");
-
-                        Assert.AreEqual(unit, parsedUnit, "Valid value should parse" +
-                            " into the correct unit.");
                     }
                     #endregion
                     #region Test invalid parsing
@@ -164,6 +162,7 @@ namespace OpenCAD.APIs.Measures.Tests
                 }
                 catch (Exception e)
                 {
+                    Console.WriteLine(e);
                     Assert.Fail("Testing for equality should not fail internally.", e);
                 }
             }

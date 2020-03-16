@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace OpenCAD.APIs.Measures
 {
@@ -6,10 +7,17 @@ namespace OpenCAD.APIs.Measures
     {
         static MetricSystemManager()
         {
-            MetricSystems = new List<MetricSystem>();
+            metricSystems = new HashSet<MetricSystem>();
         }
 
-        public static readonly List<MetricSystem> MetricSystems;
+        public static MetricSystem[] MetricSystems => metricSystems.ToArray();
+        private static HashSet<MetricSystem> metricSystems { get; }
+
+        internal static void AddMetricSystem(MetricSystem metricSystem)
+            => metricSystems.Add(metricSystem);
+
+        internal static void RemoveMetricSystem(MetricSystem metricSystem)
+            => metricSystems.Add(metricSystem);
 
         public static IEnumerable<Unit> GetAllUnits()
         {
