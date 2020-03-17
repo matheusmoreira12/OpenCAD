@@ -24,5 +24,7 @@
       </DataCollectors>
     </AgentRule>
   </Execution>
-  <Properties />
+  <Properties>
+    <Property name="TestSettingsUIType" value="LoadTest" />
+  </Properties>
 </TestSettings>
