@@ -2,55 +2,62 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace OpenCAD.APIs.Measures.UnitConversion
+namespace OpenCAD.APIs.Measures.Conversion
 {
-    public class UnitConversionManager
+    internal static class UnitConversionManager
     {
-        public static List<UnitConversion> Conversions { get; } = new List<UnitConversion> { };
+        private static List<UnitConversion> allConversions { get; } = new List<UnitConversion> { };
 
-        public static Dictionary<Unit, Scalar> ScaleZeroes { get; } = new Dictionary<Unit, Scalar> { };
+        private static Dictionary<Unit, Scalar> allScaleZeroes { get; } = new Dictionary<Unit, Scalar> { };
 
         private static UnitConversion getConversionStrict(Unit sourceUnit, Unit targetUnit) =>
-            Conversions.FirstOrDefault(c => Utils.NullableEquals(c.SourceUnit, sourceUnit)
+            allConversions.FirstOrDefault(c => Utils.NullableEquals(c.SourceUnit, sourceUnit)
                 && Utils.NullableEquals(c.TargetUnit, targetUnit));
 
-        public static UnitConversion GetDirectOnly(Unit sourceUnit, Unit targetUnit)
+        public static void Add(UnitConversion conversion)
+        {
+            if (Get(conversion.SourceUnit, conversion.TargetUnit) == null)
+                allConversions.Add(conversion);
+        }
+
+        public static UnitConversion[] GetAll() => allConversions.ToArray();
+
+        public static UnitConversion GetDirect(Unit sourceUnit, Unit targetUnit)
             => getConversionStrict(sourceUnit, targetUnit)
             ?? getConversionStrict(targetUnit, sourceUnit)?.Invert();
 
-        public static IEnumerable<UnitConversion> GetFrom(Unit sourceUnit) => Conversions
-            .FindAll(c => Utils.NullableEquals(c.SourceUnit, sourceUnit)).Concat(Conversions
+        public static IEnumerable<UnitConversion> GetDirectFrom(Unit sourceUnit) => allConversions
+            .FindAll(c => Utils.NullableEquals(c.SourceUnit, sourceUnit)).Concat(allConversions
             .FindAll(c => Utils.NullableEquals(c.TargetUnit, sourceUnit)).Select(c => c.Invert()));
 
-        public static IEnumerable<UnitConversion> GetTo(Unit targetUnit) => Conversions
-            .FindAll(c => Utils.NullableEquals(c.TargetUnit, targetUnit)).Concat(Conversions
+        public static IEnumerable<UnitConversion> GetDirectTo(Unit targetUnit) => allConversions
+            .FindAll(c => Utils.NullableEquals(c.TargetUnit, targetUnit)).Concat(allConversions
             .FindAll(c => Utils.NullableEquals(c.SourceUnit, targetUnit)).Select(c => c.Invert()));
 
-        private static int maxRecursion => (int)System.Math.Pow(Conversions.Count, Conversions.Count);
-
         public static Tree<UnitConversion> getConversionTree(Unit sourceUnit,
-            Unit targetUnit, UnitConversion[] recursion = null)
+            Unit targetUnit, IEnumerable<Unit> recursion = null)
         {
+            if (recursion == null) recursion = new Unit[0];
+
             var tree = new Tree<UnitConversion>();
-            var sourceUnitConversions = GetFrom(sourceUnit);
+            var sourceUnitConversions = GetDirectFrom(sourceUnit);
             foreach (var conversion in sourceUnitConversions)
             {
-                if (Utils.VerifyStackOverflow())
-                    break;
-
-                TreeItem<UnitConversion> subItem;
+                TreeItem<UnitConversion> subItem = null;
                 if (conversion.TargetUnit == targetUnit)
                 {
                     subItem = new TreeItem<UnitConversion>(conversion);
                     tree.AddChild(subItem);
                     break;
                 }
-                else
+                else if (recursion.Contains(conversion.TargetUnit))
                 {
-                    var subTree = getConversionTree(sourceUnit, targetUnit);
+                    var newRecursion = recursion.Concat(new[] { conversion.TargetUnit });
+                    var subTree = getConversionTree(sourceUnit, targetUnit, newRecursion);
                     subItem = subTree.ToTreeItem(conversion);
                 }
-                tree.AddChild(subItem);
+
+                if (subItem != null) tree.AddChild(subItem);
             }
             return tree;
         }
@@ -67,7 +74,7 @@ namespace OpenCAD.APIs.Measures.UnitConversion
 
         public static UnitConversion Get(Unit sourceUnit, Unit targetUnit)
         {
-            var directConversion = GetDirectOnly(sourceUnit, targetUnit);
+            var directConversion = GetDirect(sourceUnit, targetUnit);
             if (directConversion is null)
                 return compileComplexConversion(sourceUnit, targetUnit);
             else
@@ -76,13 +83,23 @@ namespace OpenCAD.APIs.Measures.UnitConversion
 
         public static void DefineScaleZero(Unit unit, Scalar zero)
         {
-            ScaleZeroes[unit] = zero;
+            if (zero.Unit == unit)
+            {
+                if (allScaleZeroes.ContainsKey(unit))
+                    throw new InvalidOperationException("Cannot define scale zero. " +
+                        "Scale zero has already been defined.");
+                else
+                    allScaleZeroes[unit] = zero;
+            }
+            else
+                throw new InvalidOperationException("Cannot define scale zero." +
+                    "Units must match.");
         }
 
         public static Scalar GetScaleZero(Unit unit)
         {
-            Scalar zero = Scalar.Zero;
-            if (ScaleZeroes.TryGetValue(unit, out zero))
+            Scalar zero;
+            if (allScaleZeroes.TryGetValue(unit, out zero))
                 return zero;
             else
                 return Scalar.Zero;

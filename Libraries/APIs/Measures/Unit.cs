@@ -6,9 +6,7 @@ using OpenCAD.APIs.Math;
 
 namespace OpenCAD.APIs.Measures
 {
-#pragma warning disable CS0659 // Type overrides Object.Equals(object o) but does not override Object.GetHashCode()
-    public abstract class Unit : IEquatable<Unit>
-#pragma warning restore CS0659 // Type overrides Object.Equals(object o) but does not override Object.GetHashCode()
+    public abstract class Unit
     {
         #region Math API Integration
         //Multiplication Operators
@@ -166,20 +164,5 @@ namespace OpenCAD.APIs.Measures
         /// Gets the metric system this unit belongs to.
         /// </summary>
         public MetricSystem MetricSystem => Quantity.MetricSystem;
-
-        public override bool Equals(object obj)
-        {
-            if (!(obj is Unit))
-                return false;
-            else
-                return ((IEquatable<Unit>)this).Equals((Unit)obj);
-        }
-
-        bool IEquatable<Unit>.Equals(Unit other)
-        {
-            Func<bool> quantityMatches = () => Utils.NullableEquals(Quantity, other?.Quantity);
-            Func<bool> metricSystemMatches = () => Utils.NullableEquals(MetricSystem, other?.MetricSystem);
-            return Name == other.Name && quantityMatches() && metricSystemMatches();
-        }
     }
 }

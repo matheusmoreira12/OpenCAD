@@ -1,32 +1,81 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
-namespace OpenCAD.APIs.Measures.UnitConversion
+namespace OpenCAD.APIs.Measures.Conversion
 {
-#pragma warning disable CS0659 // Type overrides Object.Equals(object o) but does not override Object.GetHashCode()
-    /// <summary>
-    /// Defines a conversion between two units. 
-    /// The form is Y = A*X + B, where "A" is the multiplier, "B" is a constant.
-    /// </summary>
-    public class UnitConversion : IEquatable<UnitConversion>
-#pragma warning restore CS0659 // Type overrides Object.Equals(object o) but does not override Object.GetHashCode()
+    public class UnitConversion
     {
         /// <summary>
-        /// Initializes an instance of the UnitConversion class.
+        /// Defines a conversion factor between two units.
         /// </summary>
         /// <param name="sourceUnit">The source class.</param>
         /// <param name="targetUnit">The destination class.</param>
-        /// <param name="factor">The multiplier.</param>
-        public UnitConversion(Unit sourceUnit, Unit targetUnit, double factor)
+        /// <param name="factor">The conversion factor.</param>
+        public static UnitConversion Define(Unit sourceUnit, Unit targetUnit, double factor)
+        {
+            var conversion = new UnitConversion(sourceUnit, targetUnit, factor);
+            UnitConversionManager.Add(conversion);
+            return conversion;
+        }
+
+        /// <summary>
+        /// Defines the scale zero for the specified unit.
+        /// </summary>
+        /// <param name="unit">The unit.</param>
+        /// <param name="zero">The scale zero value.</param>
+        public static void DefineScaleZero(Unit unit, Scalar zero)
+            => UnitConversionManager.DefineScaleZero(unit, zero);
+
+        /// <summary>
+        /// Gets the scale zero for the specified unit.
+        /// </summary>
+        /// <param name="unit">The unit.</param>
+        public static Scalar GetScaleZero(Unit unit)
+            => UnitConversionManager.GetScaleZero(unit);
+
+        /// <summary>
+        /// Gets the easiest conversion between two units.
+        /// </summary>
+        /// <param name="sourceUnit">The conversion source unit.</param>
+        /// <param name="targetUnit">The conversion target unit.</param>
+        /// <returns></returns>
+        public static UnitConversion Get(Unit sourceUnit, Unit targetUnit)
+            => UnitConversionManager.Get(sourceUnit, targetUnit);
+
+        /// <summary>
+        /// Gets the direct conversion between two units.
+        /// </summary>
+        /// <param name="sourceUnit">The conversion source unit.</param>
+        /// <param name="targetUnit">The conversion target unit.</param>
+        /// <returns></returns>
+        public static UnitConversion GetDirect(Unit sourceUnit, Unit targetUnit)
+            => UnitConversionManager.GetDirect(sourceUnit, targetUnit);
+
+        /// <summary>
+        /// Gets all the possible direct conversions from the specified source unit.
+        /// </summary>
+        /// <param name="sourceUnit">The conversion source unit.</param>
+        /// <returns></returns>
+        public static IEnumerable<UnitConversion> GetDirectFrom(Unit sourceUnit)
+            => UnitConversionManager.GetDirectFrom(sourceUnit);
+
+        /// <summary>
+        /// Gets all the possible direct conversions to the specified target unit.
+        /// </summary>
+        /// <param name="targetUnit">The conversion target unit.</param>
+        /// <returns></returns>
+        public static IEnumerable<UnitConversion> GetDirectTo(Unit targetUnit)
+            => UnitConversionManager.GetDirectTo(targetUnit);
+
+        private UnitConversion(Unit sourceUnit, Unit targetUnit, double factor)
         {
             SourceUnit = sourceUnit;
             TargetUnit = targetUnit;
             Factor = factor;
         }
 
-        public override string ToString()
-        {
-            return $"{SourceUnit?.Name ?? "1"}→{TargetUnit?.Name ?? "1"}";
-        }
+        public override string ToString() => $"{SourceUnit?.UISymbol ?? SourceUnit.Symbol ?? "1"}→{TargetUnit?.UISymbol ?? TargetUnit.Symbol ?? "1"}";
 
         /// <summary>
         /// Gets the source class for this conversion.
@@ -42,21 +91,6 @@ namespace OpenCAD.APIs.Measures.UnitConversion
         /// Gets the multiplier.
         /// </summary>
         public double Factor { get; }
-
-        public override bool Equals(object obj)
-        {
-            if (!(obj is UnitConversion))
-                return false;
-            else
-                return ((IEquatable<UnitConversion>)this).Equals((UnitConversion)obj);
-        }
-
-        bool IEquatable<UnitConversion>.Equals(UnitConversion other)
-        {
-            bool sourceUnitMatches = SourceUnit?.Equals(other.SourceUnit) ?? SourceUnit == other.SourceUnit;
-            bool targetUnitMatches = TargetUnit?.Equals(other.TargetUnit) ?? TargetUnit == other.TargetUnit;
-            return sourceUnitMatches && targetUnitMatches;
-        }
 
         public UnitConversion Invert()
         {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace OpenCAD.APIs.Measures.UnitConversion
+namespace OpenCAD.APIs.Measures.Conversion
 {
 
     public sealed class TreeItem<T> : Tree<T>

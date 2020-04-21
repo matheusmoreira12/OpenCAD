@@ -5,7 +5,7 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Text;
 
-namespace OpenCAD.APIs.Measures.UnitConversion
+namespace OpenCAD.APIs.Measures.Conversion
 {
     public class Tree<T> : IEnumerable<TreeItem<T>>
     {

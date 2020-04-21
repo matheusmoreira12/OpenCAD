@@ -3,9 +3,7 @@ using System.Linq;
 
 namespace OpenCAD.APIs.Measures
 {
-#pragma warning disable CS0659 // Type overrides Object.Equals(object o) but does not override Object.GetHashCode()
-    public sealed class MetricPrefix : IEquatable<MetricPrefix>
-#pragma warning restore CS0659 // Type overrides Object.Equals(object o) but does not override Object.GetHashCode()
+    public sealed class MetricPrefix
     {
         public static MetricPrefix Parse(string value)
         {
@@ -85,28 +83,9 @@ namespace OpenCAD.APIs.Measures
 
         public MetricSystem MetricSystem { get; }
 
-        public override bool Equals(object obj)
-        {
-            if (!(obj is MetricPrefix))
-                return false;
-            else
-                return ((IEquatable<MetricPrefix>)this).Equals((MetricPrefix)obj);
-        }
-
         ~MetricPrefix()
         {
             MetricSystem?.RemovePrefix(this);
-        }
-
-        bool IEquatable<MetricPrefix>.Equals(MetricPrefix other)
-        {
-            if (Utils.VerifyStackOverflow())
-                return Name == other.Name;
-            else
-            {
-                bool metricSystemMatches = Utils.NullableEquals(MetricSystem, other?.MetricSystem);
-                return Name == other?.Name && metricSystemMatches && Multiplier == other.Multiplier;
-            }
         }
     }
 }

@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 using MathAPI = OpenCAD.APIs.Math;
 using OpenCAD.APIs.Math;
 using System.Globalization;
-using OpenCAD.APIs.Measures.UnitConversion;
+using OpenCAD.APIs.Measures.Conversion;
 using OpenCAD.APIs.Measures.Conversion.Exceptions;
 
 namespace OpenCAD.APIs.Measures
@@ -226,7 +226,7 @@ namespace OpenCAD.APIs.Measures
             if (destUnit == Unit)
                 return this;
             {
-                var conversion = UnitConversionManager.Get(Unit, destUnit);
+                var conversion = UnitConversion.Get(Unit, destUnit);
                 if (conversion is null)
                     throw new UnitConversionNotSupportedException(Unit, destUnit);
                 else
@@ -234,9 +234,9 @@ namespace OpenCAD.APIs.Measures
                     double amount;
                     if (fullScale)
                     {
-                        var sourceZeroAmount = UnitConversionManager.GetScaleZero(Unit)
+                        var sourceZeroAmount = UnitConversion.GetScaleZero(Unit)
                             .ConvertTo(destUnit).Amount;
-                        var destZeroAmount = UnitConversionManager.GetScaleZero(Unit)
+                        var destZeroAmount = UnitConversion.GetScaleZero(Unit)
                             .ConvertTo(destUnit).Amount;
                         amount = (Amount - sourceZeroAmount) * conversion.Factor + destZeroAmount;
                     }

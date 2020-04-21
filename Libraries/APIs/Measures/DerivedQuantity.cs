@@ -3,9 +3,7 @@ using System.Linq;
 
 namespace OpenCAD.APIs.Measures
 {
-#pragma warning disable CS0659 // Type overrides Object.Equals(object o) but does not override Object.GetHashCode()
-    public sealed class DerivedQuantity : Quantity, IEquatable<DerivedQuantity>
-#pragma warning restore CS0659 // Type overrides Object.Equals(object o) but does not override Object.GetHashCode()
+    public sealed class DerivedQuantity : Quantity
     {
         public DerivedQuantity(DerivedQuantityDimension dimension)
         {
@@ -85,7 +83,7 @@ namespace OpenCAD.APIs.Measures
         {
             var members = Dimension.Members
                 .Select(m => (bu: m.BaseQuantity.Collapse(), e: m.Exponent))
-                .Where(mt => !(mt.bu is null))
+                .Where(mt => mt.bu != null)
                 .GroupBy(mt => mt.bu)
                 .Select(g => new DerivedQuantityDimensionMember(g.Key, g.Sum(m => m.e)))
                 .Where(m => m.Exponent != 0)
@@ -97,20 +95,6 @@ namespace OpenCAD.APIs.Measures
                 return firstMember.BaseQuantity;
             else
                 return new DerivedQuantity(new DerivedQuantityDimension(members));
-        }
-
-        public override bool Equals(object obj)
-        {
-            if (!(obj is DerivedQuantity))
-                return false;
-            else
-                return ((IEquatable<DerivedQuantity>)this).Equals((DerivedQuantity)obj);
-        }
-
-        bool IEquatable<DerivedQuantity>.Equals(DerivedQuantity other)
-        {
-            Func<bool> dimensionMatches = () => Utils.NullableEquals(Dimension, other.Dimension);
-            return (this as IEquatable<Quantity>).Equals(other) && dimensionMatches();
         }
     }
 }

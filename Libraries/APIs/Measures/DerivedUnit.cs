@@ -6,9 +6,7 @@ using MathAPI = OpenCAD.APIs.Math;
 
 namespace OpenCAD.APIs.Measures
 {
-#pragma warning disable CS0659 // Type overrides Object.Equals(object o) but does not override Object.GetHashCode()
-    public sealed class DerivedUnit : Unit, IEquatable<DerivedUnit>
-#pragma warning restore CS0659 // Type overrides Object.Equals(object o) but does not override Object.GetHashCode()
+    public sealed class DerivedUnit : Unit
     {
         public DerivedUnit(DerivedUnitDimension expression)
         {
@@ -142,7 +140,7 @@ namespace OpenCAD.APIs.Measures
         {
             var members = Dimension.Members
                 .Select(m => (bu: m.BaseUnit.Collapse(), p: m.Prefix, e: m.Exponent))
-                .Where(mt => !(mt.bu is null))
+                .Where(mt => mt.bu != null)
                 .GroupBy(mt => (mt.bu, mt.p))
                 .Select(g => new DerivedUnitDimensionMember(g.Key.bu, g.Key.p, g.Sum(m => m.e)))
                 .Where(m => m.Exponent != 0)
@@ -154,20 +152,6 @@ namespace OpenCAD.APIs.Measures
                 return firstMember.BaseUnit;
             else
                 return new DerivedUnit(new DerivedUnitDimension(members));
-        }
-
-        public override bool Equals(object obj)
-        {
-            if (!(obj is DerivedUnit))
-                return false;
-            else
-                return ((IEquatable<DerivedUnit>)this).Equals((DerivedUnit)obj);
-        }
-
-        bool IEquatable<DerivedUnit>.Equals(DerivedUnit other)
-        {
-            Func<bool> dimensionMatches = () => Dimension.Equals(other.Dimension);
-            return (this as IEquatable<Unit>).Equals(other) && dimensionMatches();
         }
     }
 }

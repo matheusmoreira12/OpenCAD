@@ -5,23 +5,19 @@ namespace OpenCAD.APIs.Measures
 {
     static class MetricSystemManager
     {
-        static MetricSystemManager()
-        {
-            metricSystems = new HashSet<MetricSystem>();
-        }
+        private static HashSet<MetricSystem> allMetricSystems { get; } = new HashSet<MetricSystem>();
 
-        public static MetricSystem[] MetricSystems => metricSystems.ToArray();
-        private static HashSet<MetricSystem> metricSystems { get; }
+        public static MetricSystem[] GetAll() => allMetricSystems.ToArray();
 
         internal static void AddMetricSystem(MetricSystem metricSystem)
-            => metricSystems.Add(metricSystem);
+            => allMetricSystems.Add(metricSystem);
 
         internal static void RemoveMetricSystem(MetricSystem metricSystem)
-            => metricSystems.Add(metricSystem);
+            => allMetricSystems.Add(metricSystem);
 
         public static IEnumerable<Unit> GetAllUnits()
         {
-            foreach (var metricSystem in MetricSystems)
+            foreach (var metricSystem in GetAll())
             {
                 foreach (var unit in metricSystem.Units)
                     yield return unit;
@@ -30,7 +26,7 @@ namespace OpenCAD.APIs.Measures
 
         public static IEnumerable<Quantity> GetAllQuantities()
         {
-            foreach (var metricSystem in MetricSystems)
+            foreach (var metricSystem in GetAll())
             {
                 foreach (var quantity in metricSystem.Quantities)
                     yield return quantity;
@@ -39,7 +35,7 @@ namespace OpenCAD.APIs.Measures
 
         public static IEnumerable<MetricPrefix> GetAllMetricPrefixes()
         {
-            foreach (var metricSystem in MetricSystems)
+            foreach (var metricSystem in GetAll())
             {
                 foreach (var prefix in metricSystem.Prefixes)
                     yield return prefix;

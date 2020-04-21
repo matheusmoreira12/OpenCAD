@@ -1,4 +1,4 @@
-﻿namespace OpenCAD.APIs.Measures.UnitConversion
+﻿namespace OpenCAD.APIs.Measures.Conversion
 {
     public class UnitEquivalence
     {
