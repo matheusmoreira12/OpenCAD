@@ -38,7 +38,8 @@ namespace OpenCAD.APIs.Measures
 
         public override Quantity Collapse() => this;
 
-        ~BaseQuantity() {
+        public override void Dispose()
+        {
             MetricSystem?.RemoveQuantity(this);
         }
     }

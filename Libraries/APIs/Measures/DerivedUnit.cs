@@ -153,5 +153,7 @@ namespace OpenCAD.APIs.Measures
             else
                 return new DerivedUnit(new DerivedUnitDimension(members));
         }
+
+        public override void Dispose() { }
     }
 }

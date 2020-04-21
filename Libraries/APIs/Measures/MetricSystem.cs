@@ -4,8 +4,16 @@ using System.Linq;
 
 namespace OpenCAD.APIs.Measures
 {
-    public sealed class MetricSystem
+    public sealed class MetricSystem: IDisposable
     {
+        #region Metric System Management
+        /// <summary>
+        /// Gets all the available metric systems.
+        /// </summary>
+        /// <returns>The available metric systems.</returns>
+        public static IEnumerable<MetricSystem> GetAll() => MetricSystemManager.GetAllMetricSystems();
+        #endregion
+
         public MetricSystem(string name)
         {
             Name = name ?? throw new ArgumentNullException(nameof(name));
@@ -100,7 +108,7 @@ namespace OpenCAD.APIs.Measures
         public MetricPrefix[] Prefixes => prefixes.ToArray();
         private HashSet<MetricPrefix> prefixes { get; }
 
-        ~MetricSystem()
+        public void Dispose()
         {
             MetricSystemManager.RemoveMetricSystem(this);
         }

@@ -3,11 +3,13 @@ using System.Linq;
 
 namespace OpenCAD.APIs.Measures
 {
-    static class MetricSystemManager
+    internal static class MetricSystemManager
     {
-        private static HashSet<MetricSystem> allMetricSystems { get; } = new HashSet<MetricSystem>();
+        private static HashSet<MetricSystem> allMetricSystems { get; }
+            = new HashSet<MetricSystem>();
 
-        public static MetricSystem[] GetAll() => allMetricSystems.ToArray();
+        internal static MetricSystem[] GetAllMetricSystems()
+            => allMetricSystems.ToArray();
 
         internal static void AddMetricSystem(MetricSystem metricSystem)
             => allMetricSystems.Add(metricSystem);
@@ -15,27 +17,27 @@ namespace OpenCAD.APIs.Measures
         internal static void RemoveMetricSystem(MetricSystem metricSystem)
             => allMetricSystems.Add(metricSystem);
 
-        public static IEnumerable<Unit> GetAllUnits()
+        internal static IEnumerable<Unit> GetAllUnits()
         {
-            foreach (var metricSystem in GetAll())
+            foreach (var metricSystem in GetAllMetricSystems())
             {
                 foreach (var unit in metricSystem.Units)
                     yield return unit;
             }
         }
 
-        public static IEnumerable<Quantity> GetAllQuantities()
+        internal static IEnumerable<Quantity> GetAllQuantities()
         {
-            foreach (var metricSystem in GetAll())
+            foreach (var metricSystem in GetAllMetricSystems())
             {
                 foreach (var quantity in metricSystem.Quantities)
                     yield return quantity;
             }
         }
 
-        public static IEnumerable<MetricPrefix> GetAllMetricPrefixes()
+        internal static IEnumerable<MetricPrefix> GetAllMetricPrefixes()
         {
-            foreach (var metricSystem in GetAll())
+            foreach (var metricSystem in GetAllMetricSystems())
             {
                 foreach (var prefix in metricSystem.Prefixes)
                     yield return prefix;

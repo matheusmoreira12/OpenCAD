@@ -96,5 +96,7 @@ namespace OpenCAD.APIs.Measures
             else
                 return new DerivedQuantity(new DerivedQuantityDimension(members));
         }
+
+        public override void Dispose() { }
     }
 }

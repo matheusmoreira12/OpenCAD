@@ -3,57 +3,63 @@ using System.Linq;
 
 using MathAPI = OpenCAD.APIs.Math;
 using OpenCAD.APIs.Math;
+using System.Collections.Generic;
 
 namespace OpenCAD.APIs.Measures
 {
-    public abstract class Quantity
+    public abstract class Quantity: IDisposable
     {
-        public static Quantity operator *(Quantity a, Quantity b) => (Quantity)MathAPI::Math.Multiply(a, b);
+        #region Metric System Management
+        /// <summary>
+        /// Gets all the available quantitites.
+        /// </summary>
+        /// <returns>The available quantities.</returns>
+        public static IEnumerable<Quantity> GetAll() => MetricSystemManager.GetAllQuantities();
+        #endregion
 
-        public static Quantity operator /(Quantity a, Quantity b) => (Quantity)MathAPI::Math.Divide(a, b);
+        #region Math API Integration
+        //Multiplication Operators
+        private static DerivedQuantity multiplyDerivedQuantities(DerivedQuantity a, DerivedQuantity b)
+        {
+            var expression = new DerivedQuantityDimension(a.Dimension.Members
+                .Concat(b.Dimension.Members).ToArray());
+            return new DerivedQuantity(expression);
+        }
 
-        public static Quantity operator !(Quantity a) => MathAPI::Math.Invert<Quantity, Quantity>(a);
+        private static DerivedQuantity multiplyBaseQuantities(BaseQuantity a, BaseQuantity b)
+        {
+            var derivedA = new DerivedQuantity(a, 1);
+            var derivedB = new DerivedQuantity(b, 1);
+            return multiplyDerivedQuantities(derivedA, derivedB);
+        }
+
+        private static DerivedQuantity multiplyBaseByDerivedQuantities(BaseQuantity a, DerivedQuantity b)
+        {
+            var derivedA = new DerivedQuantity(a, 1);
+            return multiplyDerivedQuantities(derivedA, b);
+        }
+
+        private static DerivedQuantity multiplyDerivedByBaseQuantities(DerivedQuantity a, BaseQuantity b)
+        {
+            var derivedB = new DerivedQuantity(b, 1);
+            return multiplyDerivedQuantities(a, derivedB);
+        }
+
+        //Exponentiation Operators
+        private static DerivedQuantity exponentiateBaseQuantity(BaseQuantity a, double b)
+            => new DerivedQuantity(a, b);
+
+        private static DerivedQuantity exponentiateDerivedQuantity(DerivedQuantity a, double b)
+        {
+            var members = a.Dimension.Members.Select(m => new DerivedQuantityDimensionMember(m.BaseQuantity,
+                m.Exponent * b)).ToArray();
+            var expression = new DerivedQuantityDimension(members);
+            return new DerivedQuantity(expression);
+        }
+        #endregion
 
         static Quantity()
         {
-            //Multiplication Operators
-            Func<DerivedQuantity, DerivedQuantity, DerivedQuantity> multiplyDerivedQuantities = (a, b) =>
-            {
-                var expression = new DerivedQuantityDimension(a.Dimension.Members
-                    .Concat(b.Dimension.Members).ToArray());
-                return new DerivedQuantity(expression);
-            };
-
-            Func<BaseQuantity, BaseQuantity, DerivedQuantity> multiplyBaseQuantities = (a, b) =>
-            {
-                var derivedA = new DerivedQuantity(a, 1);
-                var derivedB = new DerivedQuantity(b, 1);
-                return multiplyDerivedQuantities(derivedA, derivedB);
-            };
-
-            Func<BaseQuantity, DerivedQuantity, DerivedQuantity> multiplyBaseByDerivedQuantities = (a, b) =>
-            {
-                var derivedA = new DerivedQuantity(a, 1);
-                return multiplyDerivedQuantities(derivedA, b);
-            };
-
-            Func<DerivedQuantity, BaseQuantity, DerivedQuantity> multiplyDerivedByBaseQuantities = (a, b) =>
-            {
-                var derivedB = new DerivedQuantity(b, 1);
-                return multiplyDerivedQuantities(a, derivedB);
-            };
-
-            //Exponentiation Operators
-            Func<BaseQuantity, double, DerivedQuantity> exponentiateBaseQuantity = (a, b) => new DerivedQuantity(a, b);
-
-            Func<DerivedQuantity, double, DerivedQuantity> exponentiateDerivedQuantity = (a, b) =>
-            {
-                var members = a.Dimension.Members.Select(m => new DerivedQuantityDimensionMember(m.BaseQuantity,
-                    m.Exponent * b)).ToArray();
-                var expression = new DerivedQuantityDimension(members);
-                return new DerivedQuantity(expression);
-            };
-
             MathOperationManager.RegisterMany(new MathOperation[] {
                 new Multiplication<BaseQuantity, BaseQuantity, DerivedQuantity>(multiplyBaseQuantities),
                 new Multiplication<DerivedQuantity, DerivedQuantity, DerivedQuantity>(multiplyDerivedQuantities),
@@ -64,6 +70,12 @@ namespace OpenCAD.APIs.Measures
             });
         }
 
+        public static Quantity operator *(Quantity a, Quantity b) => (Quantity)MathAPI::Math.Multiply(a, b);
+
+        public static Quantity operator /(Quantity a, Quantity b) => (Quantity)MathAPI::Math.Divide(a, b);
+
+        public static Quantity operator !(Quantity a) => MathAPI::Math.Invert<Quantity, Quantity>(a);
+
         public static Quantity Parse(string value)
         {
             Quantity result;
@@ -73,8 +85,9 @@ namespace OpenCAD.APIs.Measures
             throw new ArgumentOutOfRangeException(nameof(value));
         }
 
-        public static bool TryParse(string value, out Quantity result) =>
-            tryParseBySymbol(value, out result) || tryParseByUISymbol(value, out result) || tryParseByName(value, out result);
+        public static bool TryParse(string value, out Quantity result)
+            => tryParseBySymbol(value, out result) || tryParseByUISymbol(value, out result)
+            || tryParseByName(value, out result);
 
         private static bool tryParseBySymbol(string symbol, out Quantity result)
         {
@@ -114,5 +127,7 @@ namespace OpenCAD.APIs.Measures
         public MetricSystem MetricSystem { get; internal set; } = null;
 
         public abstract Quantity Collapse();
+
+        public abstract void Dispose();
     }
 }

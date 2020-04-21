@@ -3,11 +3,20 @@ using System.Linq;
 
 using MathAPI = OpenCAD.APIs.Math;
 using OpenCAD.APIs.Math;
+using System.Collections.Generic;
 
 namespace OpenCAD.APIs.Measures
 {
-    public abstract class Unit
+    public abstract class Unit : IDisposable
     {
+        #region Metric System Management
+        /// <summary>
+        /// Gets all the available units.
+        /// </summary>
+        /// <returns>The available units.</returns>
+        public static IEnumerable<Unit> GetAll() => MetricSystemManager.GetAllUnits();
+        #endregion
+
         #region Math API Integration
         //Multiplication Operators
         private static DerivedUnit multiplyDerivedUnits(DerivedUnit a, DerivedUnit b)
@@ -68,8 +77,7 @@ namespace OpenCAD.APIs.Measures
             });
         }
 
-        public static Unit operator *(Unit a, Unit b)
-            => MathAPI::Math.Multiply<Unit, Unit, Unit>(a, b);
+        public static Unit operator *(Unit a, Unit b) => MathAPI::Math.Multiply<Unit, Unit, Unit>(a, b);
 
         public static Unit operator *(MetricPrefix a, Unit b)
             => MathAPI::Math.Multiply<Unit, MetricPrefix, Unit>(b, a);
@@ -77,11 +85,9 @@ namespace OpenCAD.APIs.Measures
         public static Unit operator *(Unit a, MetricPrefix b)
             => MathAPI::Math.Multiply<Unit, MetricPrefix, Unit>(a, b);
 
-        public static Unit operator /(Unit a, Unit b)
-            => MathAPI::Math.Divide<Unit, Unit, Unit>(a, b);
+        public static Unit operator /(Unit a, Unit b) => MathAPI::Math.Divide<Unit, Unit, Unit>(a, b);
 
-        public static Unit operator !(Unit a)
-            => MathAPI::Math.Invert<Unit, Unit>(a);
+        public static Unit operator !(Unit a) => MathAPI::Math.Invert<Unit, Unit>(a);
 
         /// <summary>
         /// Parses a unit by its name, symbol or ui symbol.
@@ -104,8 +110,9 @@ namespace OpenCAD.APIs.Measures
         /// <param name="value">The unit name, symbol or ui symbol.</param>
         /// <param name="result">The matching unit.</param>
         /// <returns>True, if there is a match. False, if there is no match.</returns>
-        public static bool TryParse(string value, out Unit result) =>
-            tryParseBySymbol(value, out result) || tryParseByUISymbol(value, out result) || tryParseByName(value, out result);
+        public static bool TryParse(string value, out Unit result)
+            => tryParseBySymbol(value, out result) || tryParseByUISymbol(value, out result)
+            || tryParseByName(value, out result);
 
         private static bool tryParseBySymbol(string symbol, out Unit result)
         {
@@ -164,5 +171,7 @@ namespace OpenCAD.APIs.Measures
         /// Gets the metric system this unit belongs to.
         /// </summary>
         public MetricSystem MetricSystem => Quantity.MetricSystem;
+
+        public abstract void Dispose();
     }
 }

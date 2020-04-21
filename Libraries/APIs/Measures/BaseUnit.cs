@@ -10,13 +10,12 @@ namespace OpenCAD.APIs.Measures
             Name = name ?? throw new ArgumentNullException(nameof(name));
             Quantity = quantity ?? throw new ArgumentNullException(nameof(quantity));
             Symbol = symbol ?? throw new ArgumentNullException(nameof(symbol));
-            UISymbol = null;
+            UISymbol = uiSymbol;
 
             MetricSystem?.AddUnit(this);
         }
 
-        public BaseUnit(Quantity quantity, string name, string symbol)
-            : this(quantity, name, symbol, null) { }
+        public BaseUnit(Quantity quantity, string name, string symbol) : this(quantity, name, symbol, null) { }
 
         public override Unit Collapse() => this;
 
@@ -28,7 +27,7 @@ namespace OpenCAD.APIs.Measures
 
         public override string UISymbol { get; }
 
-        ~BaseUnit()
+        public override void Dispose()
         {
             MetricSystem?.RemoveUnit(this);
         }
