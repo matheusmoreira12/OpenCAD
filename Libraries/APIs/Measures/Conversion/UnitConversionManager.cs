@@ -81,17 +81,11 @@ namespace OpenCAD.APIs.Measures.Conversion
 
         public static void DefineScaleZero(Unit unit, Scalar zero)
         {
-            if (zero.Unit == unit)
-            {
-                if (allScaleZeroes.ContainsKey(unit))
-                    throw new InvalidOperationException("Cannot define scale zero. " +
-                        "Scale zero has already been defined.");
-                else
-                    allScaleZeroes[unit] = zero;
-            }
+            if (allScaleZeroes.ContainsKey(unit))
+                throw new InvalidOperationException("Cannot define scale zero. " +
+                    "Scale zero has already been defined.");
             else
-                throw new InvalidOperationException("Cannot define scale zero." +
-                    "Units must match.");
+                allScaleZeroes[unit] = zero;
         }
 
         public static Scalar GetScaleZero(Unit unit)
@@ -100,7 +94,7 @@ namespace OpenCAD.APIs.Measures.Conversion
             if (allScaleZeroes.TryGetValue(unit, out zero))
                 return zero;
             else
-                return Scalar.Zero;
+                return new Scalar(0, unit);
         }
     }
 }

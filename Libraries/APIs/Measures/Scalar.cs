@@ -227,17 +227,15 @@ namespace OpenCAD.APIs.Measures
                 return this;
             {
                 var conversion = UnitConversion.Get(Unit, destUnit);
-                if (conversion is null)
+                if (conversion == null)
                     throw new UnitConversionNotSupportedException(Unit, destUnit);
                 else
                 {
                     double amount;
                     if (fullScale)
                     {
-                        var sourceZeroAmount = UnitConversion.GetScaleZero(Unit)
-                            .ConvertTo(destUnit).Amount;
-                        var destZeroAmount = UnitConversion.GetScaleZero(Unit)
-                            .ConvertTo(destUnit).Amount;
+                        var sourceZeroAmount = UnitConversion.GetScaleZero(Unit).ConvertTo(Unit).Amount;
+                        var destZeroAmount = UnitConversion.GetScaleZero(destUnit).ConvertTo(destUnit).Amount;
                         amount = (Amount - sourceZeroAmount) * conversion.Factor + destZeroAmount;
                     }
                     else

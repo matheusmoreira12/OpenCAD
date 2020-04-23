@@ -21,7 +21,7 @@ namespace OpenCAD.APIs.Measures.Conversion
         /// Defines the scale zero for the specified unit.
         /// </summary>
         /// <param name="unit">The unit.</param>
-        /// <param name="zero">The scale zero value.</param>
+        /// <param name="zero">The scale zero amount.</param>
         public static void DefineScaleZero(Unit unit, Scalar zero)
             => UnitConversionManager.DefineScaleZero(unit, zero);
 
@@ -29,8 +29,8 @@ namespace OpenCAD.APIs.Measures.Conversion
         /// Gets the scale zero for the specified unit.
         /// </summary>
         /// <param name="unit">The unit.</param>
-        public static Scalar GetScaleZero(Unit unit)
-            => UnitConversionManager.GetScaleZero(unit);
+        /// <returns>The scale zero amount.</returns>
+        public static Scalar GetScaleZero(Unit unit) => UnitConversionManager.GetScaleZero(unit);
 
         /// <summary>
         /// Gets the easiest conversion between two units.
