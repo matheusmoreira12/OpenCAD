@@ -6,106 +6,74 @@ namespace OpenCAD.APIs.Measures.Conversion
 {
     internal static class UnitConversionManager
     {
-        private static List<UnitConversion> allConversions { get; } = new List<UnitConversion> { };
-
         private static Dictionary<Unit, Scalar> allScaleZeroes { get; } = new Dictionary<Unit, Scalar> { };
 
-        private static UnitConversion getStrict(Unit sourceUnit, Unit targetUnit) =>
-            allConversions.FirstOrDefault(c => Utils.NullableEquals(c.SourceUnit, sourceUnit)
-                && Utils.NullableEquals(c.TargetUnit, targetUnit));
+        #region User Conversions
+        private static HashSet<UnitConversion> userConversions { get; } = new HashSet<UnitConversion> { };
 
         public static void Add(UnitConversion conversion)
         {
             if (GetDirect(conversion.SourceUnit, conversion.TargetUnit) == null)
-                allConversions.Add(conversion);
+                userConversions.Add(conversion);
             else
                 throw new InvalidOperationException("Cannot add unit conversion. The specified unit" +
                     " conversion already exists.");
         }
 
-        public static UnitConversion[] GetAll() => allConversions.ToArray();
+        private static UnitConversion getStrict(Unit sourceUnit, Unit targetUnit) =>
+            userConversions.FirstOrDefault(c => c.SourceUnit == sourceUnit
+                && c.TargetUnit == targetUnit);
+
+        public static UnitConversion[] GetAll() => userConversions.ToArray();
 
         public static UnitConversion GetDirect(Unit sourceUnit, Unit targetUnit)
-            => getStrict(sourceUnit, targetUnit)
-            ?? getStrict(targetUnit, sourceUnit)?.Invert();
+            => getStrict(sourceUnit, targetUnit) ?? getStrict(targetUnit, sourceUnit)?.Invert();
 
-        public static IEnumerable<UnitConversion> GetDirectFrom(Unit sourceUnit) => allConversions
-            .FindAll(c => Utils.NullableEquals(c.SourceUnit, sourceUnit)).Concat(allConversions
-            .FindAll(c => Utils.NullableEquals(c.TargetUnit, sourceUnit)).Select(c => c.Invert()));
+        public static IEnumerable<UnitConversion> GetDirectFrom(Unit sourceUnit) => userConversions
+            .Where(c => c.SourceUnit == sourceUnit).Concat(userConversions
+            .Where(c => c.TargetUnit == sourceUnit).Select(c => c.Invert()));
 
-        public static IEnumerable<UnitConversion> GetDirectTo(Unit targetUnit) => allConversions
-            .FindAll(c => Utils.NullableEquals(c.TargetUnit, targetUnit)).Concat(allConversions
-            .FindAll(c => Utils.NullableEquals(c.SourceUnit, targetUnit)).Select(c => c.Invert()));
+        public static IEnumerable<UnitConversion> GetDirectTo(Unit targetUnit) => userConversions
+            .Where(c => c.TargetUnit == targetUnit).Concat(userConversions
+            .Where(c => c.SourceUnit == targetUnit).Select(c => c.Invert()));
+        #endregion
 
-        public static Tree<UnitConversion> getConversionTree(Unit sourceUnit,
-            Unit targetUnit, Recursion<Unit> recursion = null)
+        #region Cached Conversions
+        private static HashSet<UnitConversion> cachedConversions { get; } = new HashSet<UnitConversion> { };
+
+        private static void addCached(UnitConversion conversion)
         {
-            if (recursion == null) recursion = new Recursion<Unit>();
-
-            var tree = new Tree<UnitConversion>();
-            var sourceUnitConversions = GetDirectFrom(sourceUnit);
-            foreach (var conversion in sourceUnitConversions)
-            {
-                if (!recursion.Contains(conversion.TargetUnit))
-                {
-                    TreeItem<UnitConversion> subItem = null;
-                    if (Utils.NullableEquals(conversion.TargetUnit, targetUnit))
-                    {
-                        subItem = new TreeItem<UnitConversion>(conversion);
-                        tree.AddChild(subItem);
-                        break;
-                    }
-                    else
-                    {
-                        var newRecursion = recursion.Recurse(conversion.TargetUnit);
-                        var subTree = getConversionTree(conversion.TargetUnit, targetUnit, newRecursion);
-                        subItem = subTree.ToTreeItem(conversion);
-                    }
-                    tree.AddChild(subItem);
-                }
-            }
-            return tree;
-        }
-
-        private static bool compileConversionTreeRecursive(Tree<UnitConversion> conversionTree,
-            Unit targetUnit, out double aggregateFactor)
-        {
-            foreach (var child in conversionTree.Children)
-            {
-                var conversion = child.Value;
-                double _aggregateFactor;
-                if (conversion.TargetUnit == targetUnit)
-                {
-                    aggregateFactor = conversion.Factor;
-                    return true;
-                }
-                else if (compileConversionTreeRecursive(child, targetUnit, out _aggregateFactor))
-                {
-                    aggregateFactor = _aggregateFactor * conversion.Factor;
-                    return true;
-                }
-            }
-            aggregateFactor = default;
-            return false;
-        }
-
-        private static UnitConversion compileConversionTree(Tree<UnitConversion> conversionTree,
-            Unit sourceUnit, Unit targetUnit)
-        {
-            double aggregateFactor;
-            if (compileConversionTreeRecursive(conversionTree, targetUnit, out aggregateFactor))
-                return UnitConversion.Define(sourceUnit, targetUnit, aggregateFactor);
+            if (GetCachedDirect(conversion.SourceUnit, conversion.TargetUnit) == null)
+                cachedConversions.Add(conversion);
             else
-                return null;
+                throw new InvalidOperationException("Cannot add unit conversion to cache. The specified" +
+                    " unit conversion is already cached.");
         }
+
+        private static UnitConversion getCachedStrict(Unit sourceUnit, Unit targetUnit)
+            => cachedConversions.FirstOrDefault(c => sourceUnit == targetUnit);
+
+        public static UnitConversion GetCachedDirect(Unit sourceUnit, Unit targetUnit)
+            => getCachedStrict(sourceUnit, targetUnit) ?? getCachedStrict(targetUnit, sourceUnit)?.Invert();
+
+        public static void ClearCache() => cachedConversions.Clear();
+        #endregion
 
         public static UnitConversion Get(Unit sourceUnit, Unit targetUnit)
         {
             var directConversion = GetDirect(sourceUnit, targetUnit);
-            if (directConversion is null)
+            if (directConversion == null)
             {
-                var conversionTree = getConversionTree(sourceUnit, targetUnit);
-                return compileConversionTree(conversionTree, sourceUnit, targetUnit);
+                var cachedDirectConversion = GetCachedDirect(sourceUnit, targetUnit);
+                if (cachedDirectConversion == null)
+                {
+                    var aggregateConversion = UnitConversionFinder.Find(sourceUnit, targetUnit);
+                    if (aggregateConversion != null)
+                        addCached(aggregateConversion);
+                    return aggregateConversion;
+                }
+                else
+                    return cachedDirectConversion;
             }
             else
                 return directConversion;

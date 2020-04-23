@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 
 namespace OpenCAD.APIs.Measures.Conversion
 {
@@ -68,7 +66,7 @@ namespace OpenCAD.APIs.Measures.Conversion
         public static IEnumerable<UnitConversion> GetDirectTo(Unit targetUnit)
             => UnitConversionManager.GetDirectTo(targetUnit);
 
-        private UnitConversion(Unit sourceUnit, Unit targetUnit, double factor)
+        internal UnitConversion(Unit sourceUnit, Unit targetUnit, double factor)
         {
             SourceUnit = sourceUnit;
             TargetUnit = targetUnit;
