@@ -52,6 +52,7 @@
     <Compile Include="BaseQuantity.cs" />
     <Compile Include="BaseUnit.cs" />
     <Compile Include="Conversion\Exceptions\InvalidUnitConversionException.cs" />
+    <Compile Include="Conversion\Recursion.cs" />
     <Compile Include="Conversion\Tree.cs" />
     <Compile Include="Conversion\TreeItem.cs" />
     <Compile Include="Conversion\UnitConversion.cs" />

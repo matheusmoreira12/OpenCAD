@@ -10,21 +10,24 @@ namespace OpenCAD.APIs.Measures.Conversion
 
         private static Dictionary<Unit, Scalar> allScaleZeroes { get; } = new Dictionary<Unit, Scalar> { };
 
-        private static UnitConversion getConversionStrict(Unit sourceUnit, Unit targetUnit) =>
+        private static UnitConversion getStrict(Unit sourceUnit, Unit targetUnit) =>
             allConversions.FirstOrDefault(c => Utils.NullableEquals(c.SourceUnit, sourceUnit)
                 && Utils.NullableEquals(c.TargetUnit, targetUnit));
 
         public static void Add(UnitConversion conversion)
         {
-            if (Get(conversion.SourceUnit, conversion.TargetUnit) == null)
+            if (GetDirect(conversion.SourceUnit, conversion.TargetUnit) == null)
                 allConversions.Add(conversion);
+            else
+                throw new InvalidOperationException("Cannot add unit conversion. The specified unit" +
+                    " conversion already exists.");
         }
 
         public static UnitConversion[] GetAll() => allConversions.ToArray();
 
         public static UnitConversion GetDirect(Unit sourceUnit, Unit targetUnit)
-            => getConversionStrict(sourceUnit, targetUnit)
-            ?? getConversionStrict(targetUnit, sourceUnit)?.Invert();
+            => getStrict(sourceUnit, targetUnit)
+            ?? getStrict(targetUnit, sourceUnit)?.Invert();
 
         public static IEnumerable<UnitConversion> GetDirectFrom(Unit sourceUnit) => allConversions
             .FindAll(c => Utils.NullableEquals(c.SourceUnit, sourceUnit)).Concat(allConversions
@@ -35,48 +38,75 @@ namespace OpenCAD.APIs.Measures.Conversion
             .FindAll(c => Utils.NullableEquals(c.SourceUnit, targetUnit)).Select(c => c.Invert()));
 
         public static Tree<UnitConversion> getConversionTree(Unit sourceUnit,
-            Unit targetUnit, IEnumerable<Unit> recursion = null)
+            Unit targetUnit, Recursion<Unit> recursion = null)
         {
-            if (recursion == null) recursion = new Unit[0];
+            if (recursion == null) recursion = new Recursion<Unit>();
 
             var tree = new Tree<UnitConversion>();
             var sourceUnitConversions = GetDirectFrom(sourceUnit);
             foreach (var conversion in sourceUnitConversions)
             {
-                TreeItem<UnitConversion> subItem = null;
-                if (conversion.TargetUnit == targetUnit)
+                if (!recursion.Contains(conversion.TargetUnit))
                 {
-                    subItem = new TreeItem<UnitConversion>(conversion);
+                    TreeItem<UnitConversion> subItem = null;
+                    if (Utils.NullableEquals(conversion.TargetUnit, targetUnit))
+                    {
+                        subItem = new TreeItem<UnitConversion>(conversion);
+                        tree.AddChild(subItem);
+                        break;
+                    }
+                    else
+                    {
+                        var newRecursion = recursion.Recurse(conversion.TargetUnit);
+                        var subTree = getConversionTree(conversion.TargetUnit, targetUnit, newRecursion);
+                        subItem = subTree.ToTreeItem(conversion);
+                    }
                     tree.AddChild(subItem);
-                    break;
                 }
-                else if (recursion.Contains(conversion.TargetUnit))
-                {
-                    var newRecursion = recursion.Concat(new[] { conversion.TargetUnit });
-                    var subTree = getConversionTree(sourceUnit, targetUnit, newRecursion);
-                    subItem = subTree.ToTreeItem(conversion);
-                }
-
-                if (subItem != null) tree.AddChild(subItem);
             }
             return tree;
         }
 
-        private static UnitConversion compileComplexConversion(Unit sourceUnit, Unit targetUnit)
+        private static bool compileConversionTreeRecursive(Tree<UnitConversion> conversionTree,
+            Unit targetUnit, out double aggregateFactor)
         {
-            var conversionTree = getConversionTree(sourceUnit, targetUnit);
-            double aggregateConversionFactor = 1;
+            foreach (var child in conversionTree.Children)
+            {
+                var conversion = child.Value;
+                double _aggregateFactor;
+                if (conversion.TargetUnit == targetUnit)
+                {
+                    aggregateFactor = conversion.Factor;
+                    return true;
+                }
+                else if (compileConversionTreeRecursive(child, targetUnit, out _aggregateFactor))
+                {
+                    aggregateFactor = _aggregateFactor * conversion.Factor;
+                    return true;
+                }
+            }
+            aggregateFactor = default;
+            return false;
+        }
 
-            Console.WriteLine(conversionTree.ToString());
-
-            return null;
+        private static UnitConversion compileConversionTree(Tree<UnitConversion> conversionTree,
+            Unit sourceUnit, Unit targetUnit)
+        {
+            double aggregateFactor;
+            if (compileConversionTreeRecursive(conversionTree, targetUnit, out aggregateFactor))
+                return UnitConversion.Define(sourceUnit, targetUnit, aggregateFactor);
+            else
+                return null;
         }
 
         public static UnitConversion Get(Unit sourceUnit, Unit targetUnit)
         {
             var directConversion = GetDirect(sourceUnit, targetUnit);
             if (directConversion is null)
-                return compileComplexConversion(sourceUnit, targetUnit);
+            {
+                var conversionTree = getConversionTree(sourceUnit, targetUnit);
+                return compileConversionTree(conversionTree, sourceUnit, targetUnit);
+            }
             else
                 return directConversion;
         }

@@ -9,8 +9,8 @@ namespace OpenCAD.APIs.Measures.Conversion
         /// <summary>
         /// Defines a conversion factor between two units.
         /// </summary>
-        /// <param name="sourceUnit">The source class.</param>
-        /// <param name="targetUnit">The destination class.</param>
+        /// <param name="sourceUnit">The conversion source unit.</param>
+        /// <param name="targetUnit">The conversion destination unit.</param>
         /// <param name="factor">The conversion factor.</param>
         public static UnitConversion Define(Unit sourceUnit, Unit targetUnit, double factor)
         {
@@ -75,7 +75,8 @@ namespace OpenCAD.APIs.Measures.Conversion
             Factor = factor;
         }
 
-        public override string ToString() => $"{SourceUnit?.UISymbol ?? SourceUnit.Symbol ?? "1"}→{TargetUnit?.UISymbol ?? TargetUnit.Symbol ?? "1"}";
+        public override string ToString() => $"{SourceUnit?.UISymbol ?? SourceUnit.Symbol ?? "1"}→" +
+            $"{TargetUnit?.UISymbol ?? TargetUnit.Symbol ?? "1"}";
 
         /// <summary>
         /// Gets the source class for this conversion.
