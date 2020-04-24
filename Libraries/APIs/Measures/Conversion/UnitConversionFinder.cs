@@ -23,7 +23,7 @@ namespace OpenCAD.APIs.Measures.Conversion
                     if (Utils.NullableEquals(conversion.TargetUnit, targetUnit))
                     {
                         subItem = new TreeItem<UnitConversion>(conversion);
-                        tree.AddChild(subItem);
+                        tree.Children.Add(subItem);
                         break;
                     }
                     else
@@ -32,7 +32,7 @@ namespace OpenCAD.APIs.Measures.Conversion
                         var subTree = getConversionTree(conversion.TargetUnit, targetUnit, newRecursion);
                         subItem = subTree.ToTreeItem(conversion);
                     }
-                    tree.AddChild(subItem);
+                    tree.Children.Add(subItem);
                 }
             }
             return tree;

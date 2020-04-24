@@ -11,61 +11,55 @@ namespace OpenCAD.APIs.Measures
         /// Gets all the available metric systems.
         /// </summary>
         /// <returns>The available metric systems.</returns>
-        public static IEnumerable<MetricSystem> GetAll() => MetricSystemManager.GetAllMetricSystems();
+        public static IEnumerable<MetricSystem> GetAll()
+            => MetricSystemManager.GetAllMetricSystems();
         #endregion
+
+        public MetricSystem(string name, IList<Unit> units, IList<MetricPrefix> prefixes)
+        {
+            Name = name ?? throw new ArgumentNullException(nameof(name));
+            this.units = new HashSet<Unit>(units 
+                ?? throw new ArgumentNullException(nameof(units)));
+            this.prefixes = new HashSet<MetricPrefix>(prefixes 
+                ?? throw new ArgumentNullException(nameof(prefixes)));
+
+            MetricSystemManager.AddMetricSystem(this);
+        }
+
+        public MetricSystem(string name, IList<Unit> units)
+        {
+            Name = name ?? throw new ArgumentNullException(nameof(name));
+            this.units = new HashSet<Unit>(units 
+                ?? throw new ArgumentNullException(nameof(units)));
+            prefixes = new HashSet<MetricPrefix>();
+
+            MetricSystemManager.AddMetricSystem(this);
+        }
 
         public MetricSystem(string name)
         {
             Name = name ?? throw new ArgumentNullException(nameof(name));
-            quantities = new HashSet<Quantity>();
             units = new HashSet<Unit>();
             prefixes = new HashSet<MetricPrefix>();
 
             MetricSystemManager.AddMetricSystem(this);
         }
 
-        public MetricSystem(string name, IList<Quantity> quantities)
-        {
-            Name = name ?? throw new ArgumentNullException(nameof(name));
-            this.quantities = new HashSet<Quantity>(quantities
-                ?? throw new ArgumentNullException(nameof(quantities)));
-            units = new HashSet<Unit>();
-            prefixes = new HashSet<MetricPrefix>();
-        }
+        internal void AddQuantity(Quantity quantity)
+            => quantities.Add(quantity);
 
-        public MetricSystem(string name, IList<Quantity> quantities, IList<Unit> units)
-        {
-            Name = name ?? throw new ArgumentNullException(nameof(name));
-            this.quantities = new HashSet<Quantity>(quantities
-                ?? throw new ArgumentNullException(nameof(quantities)));
-            this.units = new HashSet<Unit>(units
-                ?? throw new ArgumentNullException(nameof(units)));
-            prefixes = new HashSet<MetricPrefix>();
-        }
-
-        public MetricSystem(string name, IList<Quantity> quantities, IList<Unit> units,
-            IList<MetricPrefix> prefixes)
-        {
-            Name = name ?? throw new ArgumentNullException(nameof(name));
-            this.quantities = new HashSet<Quantity>(quantities
-                ?? throw new ArgumentNullException(nameof(quantities)));
-            this.units = new HashSet<Unit>(units
-                ?? throw new ArgumentNullException(nameof(units)));
-            this.prefixes = new HashSet<MetricPrefix>(prefixes
-                ?? throw new ArgumentNullException(nameof(prefixes)));
-        }
-
-        internal void AddQuantity(Quantity quantity) => quantities.Add(quantity);
-
-        internal void RemoveQuantity(Quantity quantity) => quantities.Remove(quantity);
+        internal void RemoveQuantity(Quantity quantity)
+            => quantities.Remove(quantity);
 
         internal void AddUnit(Unit unit) => units.Add(unit);
 
         internal void RemoveUnit(Unit unit) => units.Remove(unit);
 
-        internal void AddPrefix(MetricPrefix metricPrefix) => prefixes.Add(metricPrefix);
+        internal void AddPrefix(MetricPrefix metricPrefix)
+            => prefixes.Add(metricPrefix);
 
-        internal void RemovePrefix(MetricPrefix metricPrefix) => prefixes.Remove(metricPrefix);
+        internal void RemovePrefix(MetricPrefix metricPrefix)
+            => prefixes.Remove(metricPrefix);
 
         public static MetricPrefix Parse(string value)
         {
@@ -76,12 +70,13 @@ namespace OpenCAD.APIs.Measures
             throw new ArgumentOutOfRangeException(nameof(value));
         }
 
-        public static bool TryParse(string value, out MetricPrefix result) => tryParseByName(value, out result)
-            || tryParseByFullName(value, out result);
+        public static bool TryParse(string value, out MetricPrefix result)
+            => tryParseByName(value, out result) || tryParseByFullName(value, out result);
 
         private static bool tryParseByName(string symbol, out MetricPrefix result)
         {
-            result = MetricSystemManager.GetAllMetricPrefixes().FirstOrDefault(u => u.Symbol == symbol);
+            result = MetricSystemManager.GetAllMetricPrefixes()
+                .FirstOrDefault(u => u.Symbol == symbol);
             if (result == default)
                 return false;
             return true;
@@ -89,7 +84,8 @@ namespace OpenCAD.APIs.Measures
 
         private static bool tryParseByFullName(string uiSymbol, out MetricPrefix result)
         {
-            result = MetricSystemManager.GetAllMetricPrefixes().FirstOrDefault(u => u.UISymbol == uiSymbol);
+            result = MetricSystemManager.GetAllMetricPrefixes()
+                .FirstOrDefault(u => u.UISymbol == uiSymbol);
             if (result == default)
                 return false;
             return true;

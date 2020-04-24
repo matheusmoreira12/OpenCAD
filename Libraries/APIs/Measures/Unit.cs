@@ -77,6 +77,7 @@ namespace OpenCAD.APIs.Measures
             });
         }
 
+        #region Arithmetic Operators
         public static Unit operator *(Unit a, Unit b) => MathAPI::Math.Multiply<Unit, Unit, Unit>(a, b);
 
         public static Unit operator *(MetricPrefix a, Unit b)
@@ -88,7 +89,9 @@ namespace OpenCAD.APIs.Measures
         public static Unit operator /(Unit a, Unit b) => MathAPI::Math.Divide<Unit, Unit, Unit>(a, b);
 
         public static Unit operator !(Unit a) => MathAPI::Math.Invert<Unit, Unit>(a);
+        #endregion
 
+        #region Parsing
         /// <summary>
         /// Parses a unit by its name, symbol or ui symbol.
         /// </summary>
@@ -140,6 +143,7 @@ namespace OpenCAD.APIs.Measures
 
             return true;
         }
+        #endregion
 
         /// <summary>
         /// Gets this unit in its collapsed form.

@@ -55,6 +55,7 @@
     <Compile Include="Conversion\Recursion.cs" />
     <Compile Include="Conversion\Tree.cs" />
     <Compile Include="Conversion\TreeItem.cs" />
+    <Compile Include="Conversion\TreeItemCollection.cs" />
     <Compile Include="Conversion\UnitConversion.cs" />
     <Compile Include="Conversion\UnitConversionFinder.cs" />
     <Compile Include="Conversion\UnitConversionManager.cs" />

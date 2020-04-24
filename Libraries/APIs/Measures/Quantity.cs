@@ -14,7 +14,8 @@ namespace OpenCAD.APIs.Measures
         /// Gets all the available quantitites.
         /// </summary>
         /// <returns>The available quantities.</returns>
-        public static IEnumerable<Quantity> GetAll() => MetricSystemManager.GetAllQuantities();
+        public static IEnumerable<Quantity> GetAll() 
+            => MetricSystemManager.GetAllQuantities();
         #endregion
 
         #region Math API Integration
@@ -70,12 +71,18 @@ namespace OpenCAD.APIs.Measures
             });
         }
 
-        public static Quantity operator *(Quantity a, Quantity b) => (Quantity)MathAPI::Math.Multiply(a, b);
+        #region Arithmetic Operators
+        public static Quantity operator *(Quantity a, Quantity b)
+            => (Quantity)MathAPI::Math.Multiply(a, b);
 
-        public static Quantity operator /(Quantity a, Quantity b) => (Quantity)MathAPI::Math.Divide(a, b);
+        public static Quantity operator /(Quantity a, Quantity b)
+            => (Quantity)MathAPI::Math.Divide(a, b);
 
-        public static Quantity operator !(Quantity a) => MathAPI::Math.Invert<Quantity, Quantity>(a);
+        public static Quantity operator !(Quantity a)
+            => MathAPI::Math.Invert<Quantity, Quantity>(a);
+        #endregion
 
+        #region Parsing
         public static Quantity Parse(string value)
         {
             Quantity result;
@@ -115,17 +122,37 @@ namespace OpenCAD.APIs.Measures
 
             return true;
         }
+        #endregion
 
+        /// <summary>
+        /// Gets the name of this quantity.
+        /// </summary>
         public abstract string Name { get; }
 
+        /// <summary>
+        /// Gets the symbol used internally by the application for representing this quantity.
+        /// </summary>
         public abstract string Symbol { get; }
 
+        /// <summary>
+        /// Gets the symbol shown to the user by the UI for representing this quantity.
+        /// </summary>
         public abstract string UISymbol { get; }
 
+        /// <summary>
+        /// Gets the unit of this quantity.
+        /// </summary>
         public Unit Unit { get; }
 
+        /// <summary>
+        /// Gets the metric system this quantity belongs to.
+        /// </summary>
         public MetricSystem MetricSystem { get; internal set; } = null;
 
+        /// <summary>
+        /// Gets this quantity in its collapsed form.
+        /// </summary>
+        /// <returns>This quantity in its collapsed form.</returns>
         public abstract Quantity Collapse();
 
         public abstract void Dispose();
