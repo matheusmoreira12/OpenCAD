@@ -12,8 +12,8 @@ namespace OpenCAD.APIs.Measures.Tests
             #region Test parsing 
             {
                 var metricSystem = new MetricSystem("metricSystemX");
-                var quantity = new BaseQuantity(metricSystem, "quantityX");
-                var unit = new BaseUnit(quantity, "unitX", "X");
+                var quantity = new BaseQuantity("quantityX");
+                var unit = new BaseUnit(metricSystem, quantity, "unitX", "X");
                 #region Test valid parsing
                 {
                     try
@@ -49,8 +49,8 @@ namespace OpenCAD.APIs.Measures.Tests
             #region Test Parsing 
             {
                 var metricSystem = new MetricSystem("metricSystemX");
-                var quantity = new BaseQuantity(metricSystem, "quantityX");
-                var unit = new BaseUnit(quantity, "unitX", "X");
+                var quantity = new BaseQuantity("quantityX");
+                var unit = new BaseUnit(metricSystem,quantity, "unitX", "X");
                 try
                 {
                     #region Test valid parsing
@@ -88,10 +88,10 @@ namespace OpenCAD.APIs.Measures.Tests
             #region Test unit collapsing
             {
                 var metricSystem = new MetricSystem("metricSystemX");
-                var quantity = new BaseQuantity(metricSystem, "quantityX");
+                var quantity = new BaseQuantity("quantityX");
                 try
                 {
-                    var unit = new BaseUnit(quantity, "unitX", "X");
+                    var unit = new BaseUnit(metricSystem, quantity, "unitX", "X");
                     #region For base unit
                     {
                         var collapsedUnit = unit.Collapse();
@@ -126,9 +126,9 @@ namespace OpenCAD.APIs.Measures.Tests
             #region Test equality comparison
             {
                 var metricSystem = new MetricSystem("metricSystemX");
-                var quantity = new BaseQuantity(metricSystem, "quantityX");
-                var baseUnitA = new BaseUnit(quantity, "unitX", "X");
-                var baseUnitB = new BaseUnit(quantity, "unitY", "Y");
+                var quantity = new BaseQuantity("quantityX");
+                var baseUnitA = new BaseUnit(metricSystem, quantity, "unitX", "X");
+                var baseUnitB = new BaseUnit(metricSystem, quantity, "unitY", "Y");
                 try
                 {
                     #region For base units 

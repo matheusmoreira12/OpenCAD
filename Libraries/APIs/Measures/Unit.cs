@@ -174,7 +174,7 @@ namespace OpenCAD.APIs.Measures
         /// <summary>
         /// Gets the metric system this unit belongs to.
         /// </summary>
-        public MetricSystem MetricSystem => Quantity.MetricSystem;
+        public abstract MetricSystem MetricSystem { get; }
 
         public abstract void Dispose();
     }

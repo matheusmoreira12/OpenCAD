@@ -11,24 +11,14 @@ namespace OpenCAD.APIs.Measures
 
         public override string UISymbol { get; }
 
-        public BaseQuantity(MetricSystem metricSystem, string name, string symbol,
+        public BaseQuantity(string name, string symbol,
             string uiSymbol) {
-            MetricSystem = metricSystem;
             Name = name ?? throw new ArgumentNullException(nameof(name));
             Symbol = symbol;
             UISymbol = uiSymbol;
 
-            MetricSystem?.AddQuantity(this);
+            MetricSystemManager.AddQuantity(this);
         }
-
-        public BaseQuantity(MetricSystem metricSystem, string name, string symbol)
-            : this(metricSystem, name, symbol, null) { }
-
-        public BaseQuantity(MetricSystem metricSystem, string name)
-            : this(metricSystem, name, null, null) { }
-
-        public BaseQuantity(string name, string symbol, string uiSymbol)
-            : this(null, name, symbol, uiSymbol) { }
 
         public BaseQuantity(string name, string symbol)
             : this(name, symbol, null) { }
@@ -40,7 +30,7 @@ namespace OpenCAD.APIs.Measures
 
         public override void Dispose()
         {
-            MetricSystem?.RemoveQuantity(this);
+            MetricSystemManager.RemoveQuantity(this);
         }
     }
 }

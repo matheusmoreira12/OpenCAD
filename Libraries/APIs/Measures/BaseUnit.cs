@@ -4,8 +4,9 @@ namespace OpenCAD.APIs.Measures
 {
     public sealed class BaseUnit : Unit
     {
-        public BaseUnit(Quantity quantity, string name, string symbol, string uiSymbol)
+        public BaseUnit(MetricSystem metricSystem, Quantity quantity, string name, string symbol, string uiSymbol)
         {
+            MetricSystem = metricSystem ?? throw new ArgumentNullException(nameof(metricSystem));
             Name = name ?? throw new ArgumentNullException(nameof(name));
             Quantity = quantity ?? throw new ArgumentNullException(nameof(quantity));
             Symbol = symbol ?? throw new ArgumentNullException(nameof(symbol));
@@ -14,13 +15,16 @@ namespace OpenCAD.APIs.Measures
             MetricSystem?.AddUnit(this);
         }
 
-        public BaseUnit(Quantity quantity, string name, string symbol) : this(quantity, name, symbol, null) { }
+        public BaseUnit(MetricSystem metricSystem, Quantity quantity, string name, string symbol)
+            : this(metricSystem, quantity, name, symbol, null) { }
 
         public override Unit Collapse() => this;
 
-        public override string Name { get; }
-
         public override Quantity Quantity { get; }
+
+        public override MetricSystem MetricSystem { get; }
+
+        public override string Name { get; }
 
         public override string Symbol { get; }
 

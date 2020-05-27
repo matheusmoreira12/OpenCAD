@@ -5,6 +5,14 @@ namespace OpenCAD.APIs.Measures
 {
     internal static class MetricSystemManager
     {
+        private static HashSet<Quantity> allQuantities { get; }
+
+        internal static Quantity[] GetAllQuantities() => allQuantities.ToArray();
+
+        internal static void AddQuantity(Quantity quantity) => allQuantities.Add(quantity);
+
+        internal static void RemoveQuantity(Quantity quantity) => allQuantities.Remove(quantity);
+
         private static HashSet<MetricSystem> allMetricSystems { get; }
             = new HashSet<MetricSystem>();
 
@@ -23,15 +31,6 @@ namespace OpenCAD.APIs.Measures
             {
                 foreach (var unit in metricSystem.Units)
                     yield return unit;
-            }
-        }
-
-        internal static IEnumerable<Quantity> GetAllQuantities()
-        {
-            foreach (var metricSystem in GetAllMetricSystems())
-            {
-                foreach (var quantity in metricSystem.Quantities)
-                    yield return quantity;
             }
         }
 
