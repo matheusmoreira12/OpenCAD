@@ -41,7 +41,7 @@ namespace OpenCAD.APIs.Measures.Conversion
         private static bool compileConversionTreeRecursive(Tree<UnitConversion> conversionTree,
             Unit targetUnit, out double aggregateFactor)
         {
-            foreach (var child in conversionTree.Children)
+            foreach (var child in conversionTree.Children.ToArray())
             {
                 var conversion = child.Value;
                 double _aggregateFactor;

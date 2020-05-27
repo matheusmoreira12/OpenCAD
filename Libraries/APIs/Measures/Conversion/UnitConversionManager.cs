@@ -29,13 +29,13 @@ namespace OpenCAD.APIs.Measures.Conversion
         public static UnitConversion GetDirect(Unit sourceUnit, Unit targetUnit)
             => getStrict(sourceUnit, targetUnit) ?? getStrict(targetUnit, sourceUnit)?.Invert();
 
-        public static IEnumerable<UnitConversion> GetDirectFrom(Unit sourceUnit) => userConversions
+        public static UnitConversion[] GetDirectFrom(Unit sourceUnit) => userConversions
             .Where(c => c.SourceUnit == sourceUnit).Concat(userConversions
-            .Where(c => c.TargetUnit == sourceUnit).Select(c => c.Invert()));
+            .Where(c => c.TargetUnit == sourceUnit).Select(c => c.Invert())).ToArray();
 
-        public static IEnumerable<UnitConversion> GetDirectTo(Unit targetUnit) => userConversions
+        public static UnitConversion[] GetDirectTo(Unit targetUnit) => userConversions
             .Where(c => c.TargetUnit == targetUnit).Concat(userConversions
-            .Where(c => c.SourceUnit == targetUnit).Select(c => c.Invert()));
+            .Where(c => c.SourceUnit == targetUnit).Select(c => c.Invert())).ToArray();
         #endregion
 
         #region Cached Conversions
@@ -49,6 +49,8 @@ namespace OpenCAD.APIs.Measures.Conversion
                 throw new InvalidOperationException("Cannot add unit conversion to cache. The specified" +
                     " unit conversion is already cached.");
         }
+
+        public static UnitConversion[] GetAllCached() => cachedConversions.ToArray();
 
         private static UnitConversion getCachedStrict(Unit sourceUnit, Unit targetUnit)
             => cachedConversions.FirstOrDefault(c => sourceUnit == targetUnit);

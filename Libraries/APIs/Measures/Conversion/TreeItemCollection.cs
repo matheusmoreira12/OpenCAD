@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace OpenCAD.APIs.Measures.Conversion
 {
@@ -55,7 +56,7 @@ namespace OpenCAD.APIs.Measures.Conversion
 
         public void AddRange(IList<TreeItem<T>> items)
         {
-            foreach (var item in items)
+            foreach (var item in items.ToList())
                 Add(item);
         }
     }

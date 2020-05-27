@@ -15,7 +15,7 @@ namespace OpenCAD.APIs.Measures
             => allMetricSystems.Add(metricSystem);
 
         internal static void RemoveMetricSystem(MetricSystem metricSystem)
-            => allMetricSystems.Add(metricSystem);
+            => allMetricSystems.Remove(metricSystem);
 
         internal static IEnumerable<Unit> GetAllUnits()
         {

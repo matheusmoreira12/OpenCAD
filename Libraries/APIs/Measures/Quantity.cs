@@ -145,11 +145,6 @@ namespace OpenCAD.APIs.Measures
         public Unit Unit { get; }
 
         /// <summary>
-        /// Gets the metric system this quantity belongs to.
-        /// </summary>
-        public MetricSystem MetricSystem { get; internal set; } = null;
-
-        /// <summary>
         /// Gets this quantity in its collapsed form.
         /// </summary>
         /// <returns>This quantity in its collapsed form.</returns>

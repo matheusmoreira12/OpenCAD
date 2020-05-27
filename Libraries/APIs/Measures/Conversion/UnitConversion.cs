@@ -55,7 +55,7 @@ namespace OpenCAD.APIs.Measures.Conversion
         /// </summary>
         /// <param name="sourceUnit">The conversion source unit.</param>
         /// <returns></returns>
-        public static IEnumerable<UnitConversion> GetDirectFrom(Unit sourceUnit)
+        public static UnitConversion[] GetDirectFrom(Unit sourceUnit)
             => UnitConversionManager.GetDirectFrom(sourceUnit);
 
         /// <summary>
@@ -63,7 +63,7 @@ namespace OpenCAD.APIs.Measures.Conversion
         /// </summary>
         /// <param name="targetUnit">The conversion target unit.</param>
         /// <returns></returns>
-        public static IEnumerable<UnitConversion> GetDirectTo(Unit targetUnit)
+        public static UnitConversion[] GetDirectTo(Unit targetUnit)
             => UnitConversionManager.GetDirectTo(targetUnit);
 
         internal UnitConversion(Unit sourceUnit, Unit targetUnit, double factor)
