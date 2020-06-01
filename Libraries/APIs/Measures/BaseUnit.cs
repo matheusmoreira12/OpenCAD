@@ -16,7 +16,15 @@ namespace OpenCAD.APIs.Measures
         }
 
         public BaseUnit(MetricSystem metricSystem, Quantity quantity, string name, string symbol)
-            : this(metricSystem, quantity, name, symbol, null) { }
+        {
+            MetricSystem = metricSystem ?? throw new ArgumentNullException(nameof(metricSystem));
+            Name = name ?? throw new ArgumentNullException(nameof(name));
+            Quantity = quantity ?? throw new ArgumentNullException(nameof(quantity));
+            Symbol = symbol ?? throw new ArgumentNullException(nameof(symbol));
+            UISymbol = null;
+
+            MetricSystem?.AddUnit(this);
+        }
 
         public override Unit Collapse() => this;
 

@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace OpenCAD.APIs.Measures
 {
-    public sealed class MetricSystem: IDisposable
+    public sealed class MetricSystem : IDisposable
     {
         #region Metric System Management
         /// <summary>
@@ -15,13 +15,32 @@ namespace OpenCAD.APIs.Measures
             => MetricSystemManager.GetAllMetricSystems();
         #endregion
 
+        public MetricSystem(string name, string fullName, IList<Unit> units, IList<MetricPrefix> prefixes)
+        {
+            Name = name ?? throw new ArgumentNullException(nameof(name));
+            FullName = fullName ?? throw new ArgumentNullException(nameof(fullName));
+            this.units = new HashSet<Unit>(units ?? throw new ArgumentNullException(nameof(units)));
+            this.prefixes = new HashSet<MetricPrefix>(prefixes ?? throw new ArgumentNullException(nameof(prefixes)));
+
+            MetricSystemManager.AddMetricSystem(this);
+        }
+
         public MetricSystem(string name, IList<Unit> units, IList<MetricPrefix> prefixes)
         {
             Name = name ?? throw new ArgumentNullException(nameof(name));
-            this.units = new HashSet<Unit>(units 
-                ?? throw new ArgumentNullException(nameof(units)));
-            this.prefixes = new HashSet<MetricPrefix>(prefixes 
-                ?? throw new ArgumentNullException(nameof(prefixes)));
+            FullName = null;
+            this.units = new HashSet<Unit>(units ?? throw new ArgumentNullException(nameof(units)));
+            this.prefixes = new HashSet<MetricPrefix>(prefixes ?? throw new ArgumentNullException(nameof(prefixes)));
+
+            MetricSystemManager.AddMetricSystem(this);
+        }
+
+        public MetricSystem(string name, string fullName, IList<Unit> units)
+        {
+            Name = name ?? throw new ArgumentNullException(nameof(name));
+            FullName = fullName;
+            this.units = new HashSet<Unit>(units ?? throw new ArgumentNullException(nameof(units)));
+            prefixes = new HashSet<MetricPrefix>();
 
             MetricSystemManager.AddMetricSystem(this);
         }
@@ -29,8 +48,18 @@ namespace OpenCAD.APIs.Measures
         public MetricSystem(string name, IList<Unit> units)
         {
             Name = name ?? throw new ArgumentNullException(nameof(name));
-            this.units = new HashSet<Unit>(units 
-                ?? throw new ArgumentNullException(nameof(units)));
+            FullName = null;
+            this.units = new HashSet<Unit>(units ?? throw new ArgumentNullException(nameof(units)));
+            prefixes = new HashSet<MetricPrefix>();
+
+            MetricSystemManager.AddMetricSystem(this);
+        }
+
+        public MetricSystem(string name, string fullName)
+        {
+            Name = name ?? throw new ArgumentNullException(nameof(name));
+            FullName = fullName ?? throw new ArgumentNullException(nameof(fullName));
+            units = new HashSet<Unit>();
             prefixes = new HashSet<MetricPrefix>();
 
             MetricSystemManager.AddMetricSystem(this);
@@ -39,6 +68,7 @@ namespace OpenCAD.APIs.Measures
         public MetricSystem(string name)
         {
             Name = name ?? throw new ArgumentNullException(nameof(name));
+            FullName = null;
             units = new HashSet<Unit>();
             prefixes = new HashSet<MetricPrefix>();
 
@@ -61,31 +91,31 @@ namespace OpenCAD.APIs.Measures
         internal void RemovePrefix(MetricPrefix metricPrefix)
             => prefixes.Remove(metricPrefix);
 
-        public static MetricPrefix Parse(string value)
+        public static MetricSystem Parse(string value)
         {
-            MetricPrefix result;
+            MetricSystem result;
             if (TryParse(value, out result))
                 return result;
 
             throw new ArgumentOutOfRangeException(nameof(value));
         }
 
-        public static bool TryParse(string value, out MetricPrefix result)
+        public static bool TryParse(string value, out MetricSystem result)
             => tryParseByName(value, out result) || tryParseByFullName(value, out result);
 
-        private static bool tryParseByName(string symbol, out MetricPrefix result)
+        private static bool tryParseByName(string symbol, out MetricSystem result)
         {
-            result = MetricSystemManager.GetAllMetricPrefixes()
-                .FirstOrDefault(u => u.Symbol == symbol);
+            result = MetricSystemManager.GetAllMetricSystems()
+                .FirstOrDefault(ms => ms.Name == symbol);
             if (result == default)
                 return false;
             return true;
         }
 
-        private static bool tryParseByFullName(string uiSymbol, out MetricPrefix result)
+        private static bool tryParseByFullName(string uiSymbol, out MetricSystem result)
         {
-            result = MetricSystemManager.GetAllMetricPrefixes()
-                .FirstOrDefault(u => u.UISymbol == uiSymbol);
+            result = MetricSystemManager.GetAllMetricSystems()
+                .FirstOrDefault(ms => ms.FullName == uiSymbol);
             if (result == default)
                 return false;
             return true;
