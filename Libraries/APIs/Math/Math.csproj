@@ -36,6 +36,7 @@
       <HintPath>..\..\Utils\bin\Release\OpenCAD.Utils.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -48,27 +49,34 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MathOperations\Multiplication.cs" />
-    <Compile Include="MathOperations\Exponentiation.cs" />
-    <Compile Include="MathOperations\Negation.cs" />
-    <Compile Include="MathOperations\Addition.cs" />
+    <Compile Include="Enumerations\Enumeration.cs" />
+    <Compile Include="Expressions\Solving\MathOperatorSolverNode.cs" />
+    <Compile Include="Expressions\Solving\MathSolverNode.cs" />
+    <Compile Include="Operations\MathOperationType.cs" />
+    <Compile Include="Operations\Multiplication.cs" />
+    <Compile Include="Operations\Exponentiation.cs" />
+    <Compile Include="Operations\Negation.cs" />
+    <Compile Include="Operations\Addition.cs" />
     <Compile Include="Math.cs" />
-    <Compile Include="MathExpression.cs" />
-    <Compile Include="MathExpressionGroup.cs" />
-    <Compile Include="MathExpressionMember.cs" />
-    <Compile Include="MathExpressionMonomial.cs" />
-    <Compile Include="MathExpressionPolinomial.cs" />
-    <Compile Include="MathExpressionToken.cs" />
-    <Compile Include="MathExpressionTokenifier.cs" />
-    <Compile Include="MathFormatToken.cs" />
-    <Compile Include="MathFormatTokenType.cs" />
-    <Compile Include="MathNameToken.cs" />
-    <Compile Include="MathNumberToken.cs" />
-    <Compile Include="MathOperation.cs" />
-    <Compile Include="MathOperationManager.cs" />
-    <Compile Include="MathOperatorToken.cs" />
-    <Compile Include="MathOperatorTokenType.cs" />
+    <Compile Include="Expressions\MathExpression.cs" />
+    <Compile Include="Expressions\MathExpressionGroup.cs" />
+    <Compile Include="Expressions\MathExpressionMember.cs" />
+    <Compile Include="Expressions\MathExpressionMonomial.cs" />
+    <Compile Include="Expressions\MathExpressionPolinomial.cs" />
+    <Compile Include="Expressions\Tokens\MathExpressionToken.cs" />
+    <Compile Include="Expressions\Tokens\MathExpressionTokenifier.cs" />
+    <Compile Include="Expressions\Tokens\MathFormatToken.cs" />
+    <Compile Include="Expressions\Tokens\MathFormatTokenType.cs" />
+    <Compile Include="Expressions\Tokens\MathNameToken.cs" />
+    <Compile Include="Expressions\Tokens\MathNumberToken.cs" />
+    <Compile Include="Operations\MathOperation.cs" />
+    <Compile Include="Operations\MathOperationManager.cs" />
+    <Compile Include="Expressions\Tokens\MathOperatorToken.cs" />
+    <Compile Include="Expressions\Tokens\MathOperatorTokenType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

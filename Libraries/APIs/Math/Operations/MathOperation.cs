@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Linq;
 
-namespace OpenCAD.APIs.Math
+namespace OpenCAD.APIs.Math.Operations
 {
-    public enum MathOperationType { Addition, Negation, Multiplication, Exponentiation }
-
     public abstract class MathOperation
     {
         public static Type[] GetOperandTypes(MathOperation operation)

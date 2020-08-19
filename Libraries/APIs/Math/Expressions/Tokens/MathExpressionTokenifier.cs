@@ -1,7 +1,8 @@
 ﻿using OpenCAD.APIs.Tokens;
 using OpenCAD.Utils;
+using System;
 
-namespace OpenCAD.APIs.Math
+namespace OpenCAD.APIs.Math.Expressions.Tokens
 {
     public class MathExpressionTokenifier : StringTokenifier<StringToken>
     {
@@ -176,11 +177,11 @@ namespace OpenCAD.APIs.Math
 
         private bool readEndOfString(StringScanner scanner, out StringToken result)
         {
-            if (scanner.EndReached)
-                result = new MathFormatToken(MathFormatTokenType.EndOfString);
-            else
-                result = default;
+            if (!scanner.EndReached)
+                throw new FormatException($"Unexpected token \"{scanner.CurrentChar}\" in " +
+                    $"input string at position {scanner.CurrentIndex}.");
 
+            result = default;
             return false;
         }
     }

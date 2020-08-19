@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace OpenCAD.APIs.Math
+namespace OpenCAD.APIs.Math.Operations
 {
     public static class MathOperationManager
     {

@@ -1,4 +1,4 @@
-﻿namespace OpenCAD.APIs.Math
+﻿namespace OpenCAD.APIs.Math.Expressions.Tokens
 {
     public sealed class MathOperatorToken : MathExpressionToken
     {

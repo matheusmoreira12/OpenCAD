@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace OpenCAD.APIs.Math
+namespace OpenCAD.APIs.Math.Expressions
 {
     public class MathExpressionMonomial : MathExpressionMember
     {

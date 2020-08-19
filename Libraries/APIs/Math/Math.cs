@@ -1,6 +1,8 @@
-﻿namespace OpenCAD.APIs.Math
+﻿using OpenCAD.APIs.Math.Operations;
+
+namespace OpenCAD.APIs.Math
 {
-    public static class Math
+    public static partial class Math
     {
         public static object Power(object a, object b) =>
             MathOperationManager.Get(MathOperationType.Exponentiation, a.GetType(), b.GetType())?.Execute(a, b);

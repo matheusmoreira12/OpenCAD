@@ -19,6 +19,12 @@ namespace OpenCAD.APIs.Measures
 
         #region Math API Integration
         //Multiplication Operators
+        private static Scalar multiplyDoubleByBaseUnit(double a, Unit b)
+            => new Scalar(a, b);
+
+        private static Scalar multiplyBaseUnitByDouble(Unit a, double b)
+            => new Scalar(b, a);
+
         private static DerivedUnit multiplyDerivedUnits(DerivedUnit a, DerivedUnit b)
         {
             var expression = new DerivedUnitDimension(a.Dimension.Members
@@ -33,13 +39,13 @@ namespace OpenCAD.APIs.Measures
             return multiplyDerivedUnits(derivedA, derivedB);
         }
 
-        private static DerivedUnit multiplyBaseUnitByDerivedUnits(BaseUnit a, DerivedUnit b)
+        private static DerivedUnit multiplyBaseUnitByDerivedUnit(BaseUnit a, DerivedUnit b)
         {
             var derivedA = new DerivedUnit(a, 1);
             return multiplyDerivedUnits(derivedA, b);
         }
 
-        private static DerivedUnit multiplyDerivedUnitByBaseUnits(DerivedUnit a, BaseUnit b)
+        private static DerivedUnit multiplyDerivedUnitByBaseUnit(DerivedUnit a, BaseUnit b)
         {
             var derivedB = new DerivedUnit(b, 1);
             return multiplyDerivedUnits(a, derivedB);
@@ -66,10 +72,12 @@ namespace OpenCAD.APIs.Measures
         static Unit()
         {
             MathOperationManager.RegisterMany(new MathOperation[] {
+                new Multiplication<double, Unit, Scalar>(multiplyDoubleByBaseUnit),
+                new Multiplication<Unit, double, Scalar>(multiplyBaseUnitByDouble),
                 new Multiplication<BaseUnit, BaseUnit, DerivedUnit>(multiplyBaseUnits),
                 new Multiplication<DerivedUnit, DerivedUnit, DerivedUnit>(multiplyDerivedUnits),
-                new Multiplication<BaseUnit, DerivedUnit, DerivedUnit>(multiplyBaseUnitByDerivedUnits),
-                new Multiplication<DerivedUnit, BaseUnit, DerivedUnit>(multiplyDerivedUnitByBaseUnits),
+                new Multiplication<BaseUnit, DerivedUnit, DerivedUnit>(multiplyBaseUnitByDerivedUnit),
+                new Multiplication<DerivedUnit, BaseUnit, DerivedUnit>(multiplyDerivedUnitByBaseUnit),
                 new Multiplication<BaseUnit, MetricPrefix, DerivedUnit>(multiplyBaseUnitByPrefix),
                 new Multiplication<MetricPrefix, BaseUnit, DerivedUnit>(multiplyPrefixByBaseUnit),
                 new Exponentiation<BaseUnit, double, DerivedUnit>(exponentiateBaseUnit),

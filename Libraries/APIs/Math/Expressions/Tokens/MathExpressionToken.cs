@@ -1,7 +1,6 @@
 ﻿using OpenCAD.APIs.Tokens;
-using OpenCAD.Utils;
 
-namespace OpenCAD.APIs.Math
+namespace OpenCAD.APIs.Math.Expressions.Tokens
 {
     public abstract class MathExpressionToken : StringToken
     {
