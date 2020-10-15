@@ -5,7 +5,7 @@ using System.Reflection;
 
 namespace OpenCAD.APIs.Math.Enumerations
 {
-    public abstract class ExpandableEnum<T> : IComparable, IConvertible, IFormattable where T : ExpandableEnum<T>
+    public abstract class ExpandableEnum<T> : IComparable, IConvertible, IFormattable where T : ExpandableEnum<T>, new()
     {
         private static string GetName(ExpandableEnum<T> flag)
         {
