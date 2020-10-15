@@ -3,7 +3,7 @@ using System;
 
 namespace OpenCAD.APIs.Math.Operations
 {
-    public partial class MathOperationType : Enumeration<MathOperationType>
+    public partial class MathOperationType : ExpandableEnum<MathOperationType>
     {
         public static MathOperationType Addition { get; } = new MathOperationType();
         public static MathOperationType Negation { get; } = new MathOperationType();

@@ -10,8 +10,8 @@ namespace OpenCAD.APIs.Math.Operations
 
         public static void Register(MathOperation operation)
         {
-            if (Has(operation.OperationType, MathOperation.GetOperandTypes(operation)))
-                throw new InvalidOperationException("");
+            if (IsRegistered(operation.OperationType, MathOperation.GetOperandTypes(operation)))
+                throw new InvalidOperationException("An operation with the same OperationType and OperandTypes is already registered.");
 
             registeredOperations.Add(operation);
         }
@@ -39,7 +39,7 @@ namespace OpenCAD.APIs.Math.Operations
         public static MathOperation Get(MathOperationType operationType, params Type[] operandTypes) =>
             GetAll(operandTypes).Find(o => o.OperationType == operationType);
 
-        public static bool Has(MathOperationType operationType, params Type[] operandTypes) =>
-            !(Get(operationType, operandTypes) is null);
+        public static bool IsRegistered(MathOperationType operationType, params Type[] operandTypes) =>
+            !(Get(operationType, operandTypes) == null);
     }
 }
