@@ -3,9 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace OpenCAD.APIs.Math.Enumerations
+namespace OpenCAD.DataTypes
 {
-    public abstract class ExpandableEnum<T> : IComparable, IConvertible, IFormattable where T : ExpandableEnum<T>, new()
+    /// <summary>
+    /// An expandable enumeration class made to be as compatible as possible with the existing Enum type.
+    /// </summary>
+    /// <typeparam name="T">The type of the created enumeration class.</typeparam>
+    public abstract class ExpandableEnum<T> : IComparable, IConvertible, IFormattable where T : ExpandableEnum<T>
     {
         private static string GetName(ExpandableEnum<T> flag)
         {
@@ -40,8 +44,6 @@ namespace OpenCAD.APIs.Math.Enumerations
                 return exactMatchFlag;
         }
 
-        public static explicit operator bool(ExpandableEnum<T> value) => Convert.ToBoolean(value);
-
         public static explicit operator char(ExpandableEnum<T> value) => Convert.ToChar(value);
 
         public static explicit operator sbyte(ExpandableEnum<T> value) => Convert.ToSByte(value);
@@ -66,10 +68,6 @@ namespace OpenCAD.APIs.Math.Enumerations
 
         public static explicit operator decimal(ExpandableEnum<T> value) => Convert.ToDecimal(value);
 
-        public static explicit operator DateTime(ExpandableEnum<T> value) => Convert.ToDateTime(value);
-
-        public static explicit operator ExpandableEnum<T> (bool value) => FromInt32(Convert.ToInt32(value));
-
         public static explicit operator ExpandableEnum<T> (char value) => FromInt32(Convert.ToInt32(value));
 
         public static explicit operator ExpandableEnum<T> (sbyte value) => FromInt32(Convert.ToInt32(value));
@@ -93,8 +91,6 @@ namespace OpenCAD.APIs.Math.Enumerations
         public static explicit operator ExpandableEnum<T> (double value) => FromInt32(Convert.ToInt32(value));
 
         public static explicit operator ExpandableEnum<T> (decimal value) => FromInt32(Convert.ToInt32(value));
-
-        public static explicit operator ExpandableEnum<T> (DateTime value) => FromInt32(Convert.ToInt32(value));
 
         public static ExpandableEnum<T> operator ~(ExpandableEnum<T> value) => (ExpandableEnum<T>)(~(int)value);
 

@@ -32,6 +32,9 @@
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DataTypes">
+      <HintPath>..\..\DataTypes\bin\Release\netstandard2.0\DataTypes.dll</HintPath>
+    </Reference>
     <Reference Include="OpenCAD.Utils">
       <HintPath>..\..\Utils\bin\Release\OpenCAD.Utils.dll</HintPath>
     </Reference>
@@ -49,8 +52,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Enumerations\ExpandableEnum.cs" />
-    <Compile Include="Enumerations\ExpandableEnumUnknown.cs" />
     <Compile Include="Expressions\Solving\MathOperatorSolverNode.cs" />
     <Compile Include="Expressions\Solving\MathSolverNode.cs" />
     <Compile Include="Operations\MathOperationType.cs" />

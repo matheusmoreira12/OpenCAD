@@ -1,5 +1,4 @@
-﻿using OpenCAD.APIs.Math.Enumerations;
-using System;
+﻿using OpenCAD.DataTypes;
 
 namespace OpenCAD.APIs.Math.Operations
 {
