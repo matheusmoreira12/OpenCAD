@@ -31,7 +31,7 @@ namespace OpenCAD.DataTypes
         {
             var allFlags = GetAll();
             var lastFlagOrNull = allFlags.LastOrDefault();
-            return lastFlagOrNull?.Id + 1 ?? 1;
+            return lastFlagOrNull?.Id + 1 ?? 0;
         }
 
         private static ExpandableEnum<T> FromInt32(int value)
@@ -112,18 +112,12 @@ namespace OpenCAD.DataTypes
         /// Creates a flag with an explicit Id.
         /// </summary>
         /// <param name="id">The explicit Id.</param>
-        public ExpandableEnum(int id)
-        {
-            Id = id;
-        }
+        public ExpandableEnum(int id) => Id = id;
 
         /// <summary>
         /// Creates a flag with an implicit Id.
         /// </summary>
-        public ExpandableEnum()
-        {
-            Id = GenerateId();
-        }
+        public ExpandableEnum() => Id = GenerateId();
 
         public override string ToString() => GetName(this);
 
@@ -171,6 +165,10 @@ namespace OpenCAD.DataTypes
         public object ToType(Type conversionType, IFormatProvider provider) => ToString();
 
         public string ToString(string format, IFormatProvider formatProvider) => ToString();
+
+        public override bool Equals(object obj) => obj.GetHashCode() == GetHashCode();
+
+        public override int GetHashCode() => 2108858624 + Id.GetHashCode();
 
         /// <summary>
         /// Gets the ID of this flag.
