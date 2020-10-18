@@ -54,10 +54,11 @@
   <ItemGroup>
     <Compile Include="Expressions\Solving\MathOperatorSolverNode.cs" />
     <Compile Include="Expressions\Solving\MathSolverNode.cs" />
+    <Compile Include="Helpers.cs" />
     <Compile Include="Operations\MathOperationType.cs" />
     <Compile Include="Operations\Multiplication.cs" />
-    <Compile Include="Operations\Exponentiation.cs" />
-    <Compile Include="Operations\Negation.cs" />
+    <Compile Include="Operations\Division.cs" />
+    <Compile Include="Operations\Subtraction.cs" />
     <Compile Include="Operations\Addition.cs" />
     <Compile Include="Math.cs" />
     <Compile Include="Expressions\MathExpression.cs" />

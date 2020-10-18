@@ -15,10 +15,10 @@ namespace OpenCAD.APIs.Math
         public static object Add(object a, object b) =>
             MathOperationManager.Get(MathOperationType.Addition, a.GetType(), b.GetType())?.Execute(a, b);
 
-        public static object Negate(object a) =>
-            MathOperationManager.Get(MathOperationType.Negation, a.GetType())?.Execute(a);
+        public static object Negate(object a) => Subtract(0.0, a);
 
-        public static object Subtract(object a, object b) => Add(a, Negate(b));
+        public static object Subtract(object a, object b) =>
+            MathOperationManager.Get(MathOperationType.Subtraction, a.GetType(), b.GetType()).Execute(a, b);
 
         public static TResult Power<TOperandA, TOperandB, TResult>(TOperandA a, TOperandB b) =>
             (TResult)Power(a, b);
