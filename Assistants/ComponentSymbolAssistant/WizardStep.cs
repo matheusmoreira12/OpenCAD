@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace ComponentSymbolAssistant
@@ -12,15 +13,15 @@ namespace ComponentSymbolAssistant
         }
 
         public static readonly DependencyProperty TitleProperty =
-            DependencyProperty.Register("Title", typeof(string), typeof(WizardStep), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(Title), typeof(string), typeof(WizardStep), new PropertyMetadata(null));
 
-        public Page Page
+        public Uri PageSource
         {
-            get { return (Page)GetValue(PageProperty); }
-            set { SetValue(PageProperty, value); }
+            get { return (Uri)GetValue(PageSourceProperty); }
+            set { SetValue(PageSourceProperty, value); }
         }
 
-        public static readonly DependencyProperty PageProperty =
-            DependencyProperty.Register("Page", typeof(Page), typeof(WizardStep), new PropertyMetadata(null));
+        public static readonly DependencyProperty PageSourceProperty =
+            DependencyProperty.Register(nameof(PageSource), typeof(Uri), typeof(WizardStep), new PropertyMetadata(null));
     }
 }

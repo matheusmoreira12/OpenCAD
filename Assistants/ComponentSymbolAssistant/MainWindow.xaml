@@ -14,44 +14,55 @@
     ResizeMode="CanMinimize"
     WindowStartupLocation="CenterScreen"
     >
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+    </Window.Resources>
     <local:CustomWindowGrid x:Name="WindowGrid">
         <Frame
             x:Name="PageFrame"
-            Source="{Binding ElementName=Window, Path=WizardController.CurrentPage}"
+            Grid.Row="1"
+            Grid.Column="1"
+            Source="{Binding ElementName=Window, Path=WizardController.CurrentPageSource}"
+            NavigationUIVisibility="Hidden"
             />
         <StackPanel
+            Name="ButtonBar"
             Grid.Row="2"
             Grid.Column="1"
-            Name="ButtonBar"
             Orientation="Horizontal"
             HorizontalAlignment="Right"
             VerticalAlignment="Center"
             >
             <local:Button
                 x:Name="StartButton"
+                Click="StartButton_Click"
                 IsDefault="True"
+                Visibility="{Binding ElementName=Window, Path=WizardController.CanStart, Converter={StaticResource BooleanToVisibilityConverter}}"
                 >
                 Start
             </local:Button>
             <local:Button
                 x:Name="PreviousButton"
-                Visibility="Collapsed"
+                Click="PreviousButton_Click"
+                Visibility="{Binding ElementName=Window, Path=WizardController.CanGoBackward, Converter={StaticResource BooleanToVisibilityConverter}}"
                 >
                 Previous
             </local:Button>
             <local:Button
                 x:Name="NextButton"
-                Visibility="Collapsed"
+                Click="NextButton_Click"
                 IsDefault="True"
+                Visibility="{Binding ElementName=Window, Path=WizardController.CanGoForward, Converter={StaticResource BooleanToVisibilityConverter}}"
                 >
                 Next
             </local:Button>
             <local:Button
                 x:Name="FinishButton"
+                Click="FinishButton_Click"
                 IsDefault="True"
-                Visibility="Collapsed"
+                Visibility="{Binding ElementName=Window, Path=WizardController.CanFinish, Converter={StaticResource BooleanToVisibilityConverter}}"
                 >
-                Next
+                Finish
             </local:Button>
         </StackPanel>
     </local:CustomWindowGrid>

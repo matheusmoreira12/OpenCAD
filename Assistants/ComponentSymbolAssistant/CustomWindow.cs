@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
+using System.Windows.Data;
 using System.Windows.Shell;
 
 namespace ComponentSymbolAssistant
@@ -17,7 +19,7 @@ namespace ComponentSymbolAssistant
         }
 
         public static readonly DependencyProperty UseAeroCaptionButtonsProperty =
-            DependencyProperty.Register("UseAeroCaptionButtons", typeof(bool), typeof(CustomWindow));
+            DependencyProperty.Register(nameof(UseAeroCaptionButtons), typeof(bool), typeof(CustomWindow));
 
         public int CaptionHeight
         {
@@ -26,7 +28,7 @@ namespace ComponentSymbolAssistant
         }
 
         public static readonly DependencyProperty CaptionHeightProperty =
-            DependencyProperty.Register("CaptionHeight", typeof(int), typeof(CustomWindow), new PropertyMetadata(0));
+            DependencyProperty.Register(nameof(CaptionHeight), typeof(int), typeof(CustomWindow), new PropertyMetadata(0));
 
         public Thickness GlassFrameThickness
         {
@@ -35,7 +37,7 @@ namespace ComponentSymbolAssistant
         }
 
         public static readonly DependencyProperty GlassFrameThicknessProperty =
-            DependencyProperty.Register("GlassFrameThickness", typeof(Thickness), typeof(CustomWindow), new PropertyMetadata(new Thickness()));
+            DependencyProperty.Register(nameof(GlassFrameThickness), typeof(Thickness), typeof(CustomWindow), new PropertyMetadata(new Thickness()));
 
         public Thickness ResizeBorderThickness
         {
@@ -44,7 +46,7 @@ namespace ComponentSymbolAssistant
         }
 
         public static readonly DependencyProperty ResizeBorderThicknessProperty =
-            DependencyProperty.Register("ResizeBorderThickness", typeof(Thickness), typeof(CustomWindow), new PropertyMetadata(new Thickness()));
+            DependencyProperty.Register(nameof(ResizeBorderThickness), typeof(Thickness), typeof(CustomWindow), new PropertyMetadata(new Thickness()));
 
         public CornerRadius CornerRadius
         {
@@ -53,28 +55,13 @@ namespace ComponentSymbolAssistant
         }
 
         public static readonly DependencyProperty CornerRadiusProperty =
-            DependencyProperty.Register("CornerRadius", typeof(CornerRadius), typeof(CustomWindow), new PropertyMetadata(new CornerRadius()));
+            DependencyProperty.Register(nameof(CornerRadius), typeof(CornerRadius), typeof(CustomWindow), new PropertyMetadata(new CornerRadius()));
 
-        public override void OnApplyTemplate()
+        protected override void OnInitialized(EventArgs e)
         {
-            base.OnApplyTemplate();
+            base.OnInitialized(e);
 
             CreateWindowChrome();
-        }
-
-        protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
-        {
-            base.OnPropertyChanged(e);
-
-            if (e.Property == UseAeroCaptionButtonsProperty ||
-                e.Property == CaptionHeightProperty ||
-                e.Property == GlassFrameThicknessProperty ||
-                e.Property == ResizeBorderThicknessProperty ||
-                e.Property == CornerRadiusProperty)
-            {
-                UpdateWindowChrome();
-                InvalidateVisual();
-            }
         }
 
         private void CreateWindowChrome()
@@ -82,23 +69,57 @@ namespace ComponentSymbolAssistant
             if (WindowChrome != null)
                 return;
 
-            WindowChrome windowChrome = new WindowChrome();
-            SetValue(WindowChrome.WindowChromeProperty, windowChrome);
-            WindowChrome = windowChrome;
+            WindowChrome = new WindowChrome();
+            SetValue(WindowChrome.WindowChromeProperty, WindowChrome);
 
-            UpdateWindowChrome();
+            BindWindowChrome();
         }
 
-        private void UpdateWindowChrome()
+        private void BindWindowChrome()
         {
             if (WindowChrome == null)
                 return;
 
-            WindowChrome.UseAeroCaptionButtons = UseAeroCaptionButtons;
-            WindowChrome.CaptionHeight = CaptionHeight;
-            WindowChrome.GlassFrameThickness = GlassFrameThickness;
-            WindowChrome.ResizeBorderThickness = ResizeBorderThickness;
-            WindowChrome.CornerRadius = CornerRadius;
+            BindingOperations.ClearBinding(WindowChrome, WindowChrome.UseAeroCaptionButtonsProperty);
+            BindingOperations.ClearBinding(WindowChrome, WindowChrome.CaptionHeightProperty);
+            BindingOperations.ClearBinding(WindowChrome, WindowChrome.GlassFrameThicknessProperty);
+            BindingOperations.ClearBinding(WindowChrome, WindowChrome.ResizeBorderThicknessProperty);
+            BindingOperations.ClearBinding(WindowChrome, WindowChrome.CornerRadiusProperty);
+
+            Binding useAeroCaptionButtonsBinding = new Binding()
+            {
+                Path = new PropertyPath(UseAeroCaptionButtonsProperty),
+                Source = this,
+            };
+            BindingOperations.SetBinding(WindowChrome, WindowChrome.UseAeroCaptionButtonsProperty, useAeroCaptionButtonsBinding);
+
+            Binding captionHeightBinding = new Binding()
+            {
+                Path = new PropertyPath(CaptionHeightProperty),
+                Source = this,
+            };
+            BindingOperations.SetBinding(WindowChrome, WindowChrome.CaptionHeightProperty, captionHeightBinding);
+
+            Binding glassFrameThicknessBinding = new Binding()
+            {
+                Path = new PropertyPath(GlassFrameThicknessProperty),
+                Source = this,
+            };
+            BindingOperations.SetBinding(WindowChrome, WindowChrome.GlassFrameThicknessProperty, glassFrameThicknessBinding);
+
+            Binding resizeBorderThicknessBinding = new Binding()
+            {
+                Path = new PropertyPath(ResizeBorderThicknessProperty),
+                Source = this,
+            };
+            BindingOperations.SetBinding(WindowChrome, WindowChrome.ResizeBorderThicknessProperty, resizeBorderThicknessBinding);
+
+            Binding cornerRadiusBinding = new Binding()
+            {
+                Path = new PropertyPath(CornerRadiusProperty),
+                Source = this,
+            };
+            BindingOperations.SetBinding(WindowChrome, WindowChrome.CornerRadiusProperty, cornerRadiusBinding);
         }
 
         protected WindowChrome WindowChrome { get; private set; } = null;

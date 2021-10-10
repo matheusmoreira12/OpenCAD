@@ -42,76 +42,65 @@ namespace ComponentSymbolAssistant
         private void Setup()
         {
             MakeHitTestVisibleInChrome();
-            CreateRowAndColumnDefinitions();
-            BindRowAndColumnDefinitions();
+            CreateAndBindRowAndColumnDefinitions();
             BindMargin();
         }
 
         private void MakeHitTestVisibleInChrome() =>
             SetValue(WindowChrome.IsHitTestVisibleInChromeProperty, true);
 
-        private void CreateRowAndColumnDefinitions()
+        private void CreateAndBindRowAndColumnDefinitions()
         {
             if (ParentWindow == null)
                 return;
 
             RowDefinitions.Clear();
 
-            row0 = new RowDefinition();
+            var row0 = new RowDefinition();
             RowDefinitions.Add(row0);
 
-            row1 = new RowDefinition();
-            row1.Height = new GridLength(1, GridUnitType.Star);
+            var row1 = new RowDefinition() { Height = new GridLength(1, GridUnitType.Star) };
             RowDefinitions.Add(row1);
 
-            row2 = new RowDefinition();
+            var row2 = new RowDefinition();
             RowDefinitions.Add(row2);
 
-            column0 = new ColumnDefinition();
+            var column0 = new ColumnDefinition();
             ColumnDefinitions.Add(column0);
 
-            column1 = new ColumnDefinition();
-            column1.Width = new GridLength(1, GridUnitType.Star);
+            var column1 = new ColumnDefinition() { Width = new GridLength(1, GridUnitType.Star) };
             ColumnDefinitions.Add(column1);
 
-            column2 = new ColumnDefinition();
+            var column2 = new ColumnDefinition();
             ColumnDefinitions.Add(column2);
-        }
 
-        private void BindRowAndColumnDefinitions()
-        {
-            if (row0 == null ||
-                row1 == null ||
-                row2 == null ||
-                column0 == null ||
-                column1 == null ||
-                column2 == null)
-                return;
+            row0.SetBinding(RowDefinition.HeightProperty, new Binding()
+                {
+                    Path = new PropertyPath("GlassFrameThickness.Top"),
+                    Source = ParentWindow,
+                }
+            );
 
-            BindingOperations.ClearBinding(row0, RowDefinition.HeightProperty);
-            BindingOperations.ClearBinding(row2, RowDefinition.HeightProperty);
-            BindingOperations.ClearBinding(column0, ColumnDefinition.WidthProperty);
-            BindingOperations.ClearBinding(column2, ColumnDefinition.WidthProperty);
+            row2.SetBinding(RowDefinition.HeightProperty, new Binding()
+                {
+                    Path = new PropertyPath("GlassFrameThickness.Bottom"),
+                    Source = ParentWindow,
+                }
+            );
 
-            row0HeightBinding = new Binding();
-            row0HeightBinding.Path = new PropertyPath("GlassFrameThickness.Top");
-            row0HeightBinding.Source = ParentWindow;
-            row0.SetBinding(RowDefinition.HeightProperty, row0HeightBinding);
+            column0.SetBinding(ColumnDefinition.WidthProperty, new Binding()
+                {
+                    Path = new PropertyPath("GlassFrameThickness.Left"),
+                    Source = ParentWindow,
+                }
+            );
 
-            row2HeightBinding = new Binding();
-            row2HeightBinding.Path = new PropertyPath("GlassFrameThickness.Bottom");
-            row2HeightBinding.Source = ParentWindow;
-            row2.SetBinding(RowDefinition.HeightProperty, row2HeightBinding);
-
-            column0WidthBinding = new Binding();
-            column0WidthBinding.Path = new PropertyPath("GlassFrameThickness.Left");
-            column0WidthBinding.Source = ParentWindow;
-            column0.SetBinding(ColumnDefinition.WidthProperty, column0WidthBinding);
-
-            column2WidthBinding = new Binding();
-            column2WidthBinding.Path = new PropertyPath("GlassFrameThickness.Right");
-            column2WidthBinding.Source = ParentWindow;
-            column2.SetBinding(ColumnDefinition.WidthProperty, column2WidthBinding);
+            column2.SetBinding(ColumnDefinition.WidthProperty, new Binding()
+                {
+                    Path = new PropertyPath("GlassFrameThickness.Right"),
+                    Source = ParentWindow,
+                }
+            );
         }
 
         private void BindMargin()
@@ -121,24 +110,14 @@ namespace ComponentSymbolAssistant
 
             BindingOperations.ClearBinding(this, MarginProperty);
 
-            marginBinding = new Binding();
-            marginBinding.Path = new PropertyPath("GlassFrameThickness");
-            marginBinding.Converter = new ComputeMarginGlassFrameThickness();
-            marginBinding.Source = ParentWindow;
-            SetBinding(MarginProperty, marginBinding);
+            SetBinding(MarginProperty, new Binding()
+            {
+                Path = new PropertyPath("GlassFrameThickness"),
+                Converter = new ComputeMarginGlassFrameThickness(),
+                Source = ParentWindow,
+            });
         }
 
-        private RowDefinition row0;
-        private RowDefinition row1;
-        private RowDefinition row2;
-        private ColumnDefinition column0;
-        private ColumnDefinition column1;
-        private ColumnDefinition column2;
-        private Binding row0HeightBinding;
-        private Binding row2HeightBinding;
-        private Binding column0WidthBinding;
-        private Binding column2WidthBinding;
-        private Binding marginBinding;
         private CustomWindow ParentWindow;
     }
 }

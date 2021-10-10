@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -6,23 +7,134 @@ namespace ComponentSymbolAssistant
 {
     public class WizardController : DependencyObject
     {
+        public WizardController()
+        {
+            SetCurrentStepIndex(-1);
+        }
+
+        protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
+        {
+            base.OnPropertyChanged(e);
+
+            if (e.Property == StepsProperty ||
+                e.Property == StartPageSourceProperty ||
+                e.Property == EndPageSourceProperty)
+            {
+                UpdateCurrentPage();
+                UpdateNavigationStatus();
+            }
+        }
+
+        public void Previous() => SetCurrentStepIndex(CurrentStepIndex - 1);
+
+        public void Next() => SetCurrentStepIndex(CurrentStepIndex + 1);
+
+        private void SetCurrentStepIndex(int newIndex)
+        {
+            if (newIndex < -1 || newIndex > Steps.Count)
+                return;
+
+            CurrentStepIndex = newIndex;
+            UpdateCurrentPage();
+            UpdateNavigationStatus();
+        }
+
+        private void UpdateCurrentPage()
+        {
+            CurrentPageSource = getCurrentPage();
+
+            Uri getCurrentPage()
+            {
+                int currentStepIndex = CurrentStepIndex;
+                if (currentStepIndex < 0)
+                    return StartPageSource;
+                if (currentStepIndex >= Steps.Count)
+                    return EndPageSource;
+
+                WizardStep currentStep = Steps[currentStepIndex];
+                return currentStep.PageSource;
+            }
+        }
+
+        private void UpdateNavigationStatus()
+        {
+            int currentStepIndex = CurrentStepIndex;
+            int stepCount = Steps.Count;
+            CanFinish = currentStepIndex == stepCount;
+            CanStart = currentStepIndex == -1;
+            CanGoForward = currentStepIndex >= 0 && currentStepIndex < stepCount;
+            CanGoBackward = currentStepIndex >= 0;
+        }
+
         public int CurrentStepIndex { get; private set; }
 
         public static readonly DependencyProperty CurrentStepIndexProperty =
-            DependencyProperty.Register("CurrentStepIndex", typeof(int), typeof(WizardController), new PropertyMetadata(-1));
+            DependencyProperty.Register(nameof(CurrentStepIndex), typeof(int), typeof(WizardController), new PropertyMetadata(-1));
 
-        public Page CurrentPage
+        public Uri CurrentPageSource
         {
-            get { return (Page)GetValue(CurrentPageProperty); }
-            protected set { SetValue(CurrentPagePropertyKey, value); }
+            get { return (Uri)GetValue(CurrentPageSourceProperty); }
+            protected set { SetValue(CurrentPageSourcePropertyKey, value); }
         }
 
-        private static readonly DependencyPropertyKey CurrentPagePropertyKey =
-            DependencyProperty.RegisterReadOnly("CurrentPage", typeof(Page), typeof(WizardController),
-                new FrameworkPropertyMetadata(default(Page), FrameworkPropertyMetadataOptions.None));
+        private static readonly DependencyPropertyKey CurrentPageSourcePropertyKey =
+             DependencyProperty.RegisterReadOnly(nameof(CurrentPageSource), typeof(Uri), typeof(WizardController),
+                new FrameworkPropertyMetadata(default(Uri), FrameworkPropertyMetadataOptions.None));
 
-        public static readonly DependencyProperty CurrentPageProperty
-            = CurrentPagePropertyKey.DependencyProperty;
+        public static readonly DependencyProperty CurrentPageSourceProperty
+            = CurrentPageSourcePropertyKey.DependencyProperty;
+
+        public bool CanGoForward
+        {
+            get { return (bool)GetValue(CanGoForwardProperty); }
+            protected set { SetValue(CanGoForwardPropertyKey, value); }
+        }
+
+        private static readonly DependencyPropertyKey CanGoForwardPropertyKey =
+             DependencyProperty.RegisterReadOnly(nameof(CanGoForward), typeof(bool), typeof(WizardController),
+                new FrameworkPropertyMetadata(default(bool), FrameworkPropertyMetadataOptions.None));
+
+        public static readonly DependencyProperty CanGoForwardProperty
+            = CanGoForwardPropertyKey.DependencyProperty;
+
+        public bool CanGoBackward
+        {
+            get { return (bool)GetValue(CanGoBackwardProperty); }
+            protected set { SetValue(CanGoBackwardPropertyKey, value); }
+        }
+
+        private static readonly DependencyPropertyKey CanGoBackwardPropertyKey =
+             DependencyProperty.RegisterReadOnly(nameof(CanGoBackward), typeof(bool), typeof(WizardController),
+                new FrameworkPropertyMetadata(default(bool), FrameworkPropertyMetadataOptions.None));
+
+        public static readonly DependencyProperty CanGoBackwardProperty
+            = CanGoBackwardPropertyKey.DependencyProperty;
+
+        public bool CanStart
+        {
+            get { return (bool)GetValue(CanStartProperty); }
+            protected set { SetValue(CanStartPropertyKey, value); }
+        }
+
+        private static readonly DependencyPropertyKey CanStartPropertyKey =
+             DependencyProperty.RegisterReadOnly(nameof(CanStart), typeof(bool), typeof(WizardController),
+                new FrameworkPropertyMetadata(default(bool), FrameworkPropertyMetadataOptions.None));
+
+        public static readonly DependencyProperty CanStartProperty
+            = CanStartPropertyKey.DependencyProperty;
+
+        public bool CanFinish
+        {
+            get { return (bool)GetValue(CanFinishProperty); }
+            protected set { SetValue(CanFinishPropertyKey, value); }
+        }
+
+        private static readonly DependencyPropertyKey CanFinishPropertyKey =
+             DependencyProperty.RegisterReadOnly(nameof(CanFinish), typeof(bool), typeof(WizardController),
+                new FrameworkPropertyMetadata(default(bool), FrameworkPropertyMetadataOptions.None));
+
+        public static readonly DependencyProperty CanFinishProperty
+            = CanFinishPropertyKey.DependencyProperty;
 
         public List<WizardStep> Steps
         {
@@ -31,48 +143,24 @@ namespace ComponentSymbolAssistant
         }
 
         public static readonly DependencyProperty StepsProperty =
-            DependencyProperty.Register("Steps", typeof(List<WizardStep>), typeof(WizardController), new PropertyMetadata(new List<WizardStep> { }));
+            DependencyProperty.Register(nameof(Steps), typeof(List<WizardStep>), typeof(WizardController), new PropertyMetadata(new List<WizardStep> { }));
 
-        public Page StartPage
+        public Uri StartPageSource
         {
-            get { return (Page)GetValue(StartPageProperty); }
-            set { SetValue(StartPageProperty, value); }
+            get { return (Uri)GetValue(StartPageSourceProperty); }
+            set { SetValue(StartPageSourceProperty, value); }
         }
 
-        public static readonly DependencyProperty StartPageProperty =
-            DependencyProperty.Register("StartPage", typeof(Page), typeof(WizardController), new PropertyMetadata(null));
+        public static readonly DependencyProperty StartPageSourceProperty =
+            DependencyProperty.Register(nameof(StartPageSource), typeof(Uri), typeof(WizardController), new PropertyMetadata(null));
 
-        public Page EndPage
+        public Uri EndPageSource
         {
-            get { return (Page)GetValue(EndPageProperty); }
-            set { SetValue(EndPageProperty, value); }
+            get { return (Uri)GetValue(EndPageSourceProperty); }
+            set { SetValue(EndPageSourceProperty, value); }
         }
 
-        public static readonly DependencyProperty EndPageProperty =
-            DependencyProperty.Register("EndPage", typeof(Page), typeof(WizardController), new PropertyMetadata(null));
-
-        protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
-        {
-            base.OnPropertyChanged(e);
-
-            if (e.Property == CurrentStepIndexProperty)
-                UpdateCurrentStep();
-        }
-
-        private void UpdateCurrentStep()
-        {
-            int currentStepIndex = CurrentStepIndex;
-            Page page;
-            if (currentStepIndex < 0)
-                page = StartPage;
-            else if (currentStepIndex >= Steps.Count)
-                page = EndPage;
-            else
-            {
-                WizardStep step = Steps[currentStepIndex];
-                page = step.Page;
-            }
-            CurrentPage = page;
-        }
+        public static readonly DependencyProperty EndPageSourceProperty =
+            DependencyProperty.Register(nameof(EndPageSource), typeof(Uri), typeof(WizardController), new PropertyMetadata(null));
     }
 }
