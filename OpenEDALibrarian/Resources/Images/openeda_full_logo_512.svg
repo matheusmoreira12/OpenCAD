@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+     width="2048"
+     height="512"
+     viewBox="0 0 2048 512"
+     version="1.1"
+     id="svg5"
+     sodipodi:docname="open_eda_icon_full_logo_512.svg"
+     inkscape:version="1.1 (c68e22c387, 2021-05-23)"
+     inkscape:export-filename="C:\Users\Matheus Moreira\Pictures\OpenCAD\open_eda_icon.png"
+     inkscape:export-xdpi="96"
+     inkscape:export-ydpi="96"
+     xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+     xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+     xmlns="http://www.w3.org/2000/svg"
+     xmlns:svg="http://www.w3.org/2000/svg">
+    <sodipodi:namedview
+         id="namedview7"
+         pagecolor="#505050"
+         bordercolor="white"
+         borderopacity="1"
+         inkscape:pageshadow="0"
+         inkscape:pageopacity="0"
+         inkscape:pagecheckerboard="1"
+         inkscape:document-units="px"
+         showgrid="true"
+         inkscape:zoom="0.14814815"
+         inkscape:cx="1201.5"
+         inkscape:cy="286.875"
+         inkscape:window-width="1366"
+         inkscape:window-height="705"
+         inkscape:window-x="-8"
+         inkscape:window-y="-8"
+         inkscape:window-maximized="1"
+         inkscape:current-layer="layer1"
+         width="2048px"
+         scale-x="0.26458">
+        <inkscape:grid
+             type="xygrid"
+             id="grid824" />
+    </sodipodi:namedview>
+    <defs
+         id="defs2" />
+    <g
+         inkscape:label="Camada 1"
+         inkscape:groupmode="layer"
+         id="layer1">
+        <path
+             id="rect844"
+             style="fill:#1a1a1a;stroke-width:1.16159;stroke-linejoin:round"
+             transform="matrix(1.3666667,0,0,1.3666667,-70.333332,-44.000006)"
+             d="M 106.34146,87.073173 H 373.41462 V 354.14634 H 120.97561 L 106.34146,339.51219 Z"
+             sodipodi:nodetypes="cccccc" />
+        <rect
+             style="fill:#b3b3b3;stroke-width:1.00596;stroke-linejoin:round"
+             id="rect1394"
+             width="32.92683"
+             height="14.634148"
+             x="77.073174"
+             y="110"
+             transform="matrix(0,-1.8222223,1.3666665,0,-50.333315,215.44446)" />
+        <path
+             id="path1901"
+             style="fill:none;stroke:white;stroke-width:5.46957;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none"
+             d="M 260,180 A 70,70 0 0 0 190,250 70,70 0 0 0 232.43945,314.30664 L 248.19922,277.53516 A 30,30 0 0 1 230,250 30,30 0 0 1 260,220 30,30 0 0 1 290,250 30,30 0 0 1 271.80078,277.53516 L 287.56055,314.30664 A 70,70 0 0 0 330,250 70,70 0 0 0 260,180 Z"
+             transform="matrix(1.8282969,0,0,1.8282969,-215.35719,-199.09344)" />
+        <rect
+             style="fill:#b3b3b3;stroke-width:1.00596;stroke-linejoin:round"
+             id="rect3065"
+             width="32.92683"
+             height="14.634148"
+             x="77.073174"
+             y="110"
+             transform="matrix(0,-1.8222223,1.3666665,0,9.666685,215.44445)" />
+        <rect
+             style="fill:#b3b3b3;stroke-width:1.00596;stroke-linejoin:round"
+             id="rect3067"
+             width="32.92683"
+             height="14.634148"
+             x="77.073174"
+             y="110"
+             transform="matrix(0,-1.8222223,1.3666665,0,69.666685,215.44445)" />
+        <rect
+             style="fill:#b3b3b3;stroke-width:1.00596;stroke-linejoin:round"
+             id="rect3069"
+             width="32.92683"
+             height="14.634148"
+             x="77.073174"
+             y="110"
+             transform="matrix(0,-1.8222223,1.3666665,0,129.66669,215.44445)" />
+        <rect
+             style="fill:#b3b3b3;stroke-width:1.00596;stroke-linejoin:round"
+             id="rect3071"
+             width="32.92683"
+             height="14.634148"
+             x="77.073174"
+             y="110"
+             transform="matrix(0,-1.8222223,1.3666665,0,189.66669,215.44445)" />
+        <rect
+             style="fill:#b3b3b3;stroke-width:1.00596;stroke-linejoin:round"
+             id="rect3073"
+             width="32.92683"
+             height="14.634148"
+             x="77.073174"
+             y="110"
+             transform="matrix(0,-1.8222223,1.3666665,0,249.66669,215.44445)" />
+        <rect
+             style="fill:#b3b3b3;stroke-width:1.00596;stroke-linejoin:round"
+             id="rect3588"
+             width="32.92683"
+             height="14.634148"
+             x="77.073174"
+             y="110"
+             transform="matrix(-1.8222223,0,0,-1.3666665,215.44447,565.33331)" />
+        <rect
+             style="fill:#b3b3b3;stroke-width:1.00596;stroke-linejoin:round"
+             id="rect3590"
+             width="32.92683"
+             height="14.634148"
+             x="77.073174"
+             y="110"
+             transform="matrix(-1.8222223,0,0,-1.3666665,215.44446,505.33331)" />
+        <rect
+             style="fill:#b3b3b3;stroke-width:1.00596;stroke-linejoin:round"
+             id="rect3592"
+             width="32.92683"
+             height="14.634148"
+             x="77.073174"
+             y="110"
+             transform="matrix(-1.8222223,0,0,-1.3666665,215.44446,445.33331)" />
+        <rect
+             style="fill:#b3b3b3;stroke-width:1.00596;stroke-linejoin:round"
+             id="rect3594"
+             width="32.92683"
+             height="14.634148"
+             x="77.073174"
+             y="110"
+             transform="matrix(-1.8222223,0,0,-1.3666665,215.44446,385.33331)" />
+        <rect
+             style="fill:#b3b3b3;stroke-width:1.00596;stroke-linejoin:round"
+             id="rect3596"
+             width="32.92683"
+             height="14.634148"
+             x="77.073174"
+             y="110"
+             transform="matrix(-1.8222223,0,0,-1.3666665,215.44446,325.33331)" />
+        <rect
+             style="fill:#b3b3b3;stroke-width:1.00596;stroke-linejoin:round"
+             id="rect3598"
+             width="32.92683"
+             height="14.634148"
+             x="77.073174"
+             y="110"
+             transform="matrix(-1.8222223,0,0,-1.3666665,215.44446,265.33331)" />
+        <rect
+             style="fill:#b3b3b3;stroke-width:1.00596;stroke-linejoin:round"
+             id="rect3608"
+             width="32.92683"
+             height="14.634148"
+             x="77.073174"
+             y="110"
+             transform="matrix(-1.8222223,0,0,-1.3666665,640.44447,565.33331)" />
+        <rect
+             style="fill:#b3b3b3;stroke-width:1.00596;stroke-linejoin:round"
+             id="rect3610"
+             width="32.92683"
+             height="14.634148"
+             x="77.073174"
+             y="110"
+             transform="matrix(-1.8222223,0,0,-1.3666665,640.44446,505.33332)" />
+        <rect
+             style="fill:#b3b3b3;stroke-width:1.00596;stroke-linejoin:round"
+             id="rect3612"
+             width="32.92683"
+             height="14.634148"
+             x="77.073174"
+             y="110"
+             transform="matrix(-1.8222223,0,0,-1.3666665,640.44446,445.33331)" />
+        <rect
+             style="fill:#b3b3b3;stroke-width:1.00596;stroke-linejoin:round"
+             id="rect3614"
+             width="32.92683"
+             height="14.634148"
+             x="77.073174"
+             y="110"
+             transform="matrix(-1.8222223,0,0,-1.3666665,640.44446,385.33331)" />
+        <rect
+             style="fill:#b3b3b3;stroke-width:1.00596;stroke-linejoin:round"
+             id="rect3616"
+             width="32.92683"
+             height="14.634148"
+             x="77.073174"
+             y="110"
+             transform="matrix(-1.8222223,0,0,-1.3666665,640.44446,325.33331)" />
+        <rect
+             style="fill:#b3b3b3;stroke-width:1.00596;stroke-linejoin:round"
+             id="rect3618"
+             width="32.92683"
+             height="14.634148"
+             x="77.073174"
+             y="110"
+             transform="matrix(-1.8222223,0,0,-1.3666665,640.44446,265.33331)" />
+        <rect
+             style="fill:#b3b3b3;stroke-width:1.00596;stroke-linejoin:round"
+             id="rect3622"
+             width="32.92683"
+             height="14.634148"
+             x="77.073174"
+             y="110"
+             transform="matrix(0,-1.8222223,1.3666665,0,-50.333318,640.44447)" />
+        <rect
+             style="fill:#b3b3b3;stroke-width:1.00596;stroke-linejoin:round"
+             id="rect3624"
+             width="32.92683"
+             height="14.634148"
+             x="77.073174"
+             y="110"
+             transform="matrix(0,-1.8222223,1.3666665,0,9.6666814,640.44446)" />
+        <rect
+             style="fill:#b3b3b3;stroke-width:1.00596;stroke-linejoin:round"
+             id="rect3626"
+             width="32.92683"
+             height="14.634148"
+             x="77.073174"
+             y="110"
+             transform="matrix(0,-1.8222223,1.3666665,0,69.666682,640.44446)" />
+        <rect
+             style="fill:#b3b3b3;stroke-width:1.00596;stroke-linejoin:round"
+             id="rect3628"
+             width="32.92683"
+             height="14.634148"
+             x="77.073174"
+             y="110"
+             transform="matrix(0,-1.8222223,1.3666665,0,129.66669,640.44446)" />
+        <rect
+             style="fill:#b3b3b3;stroke-width:1.00596;stroke-linejoin:round"
+             id="rect3630"
+             width="32.92683"
+             height="14.634148"
+             x="77.073174"
+             y="110"
+             transform="matrix(0,-1.8222223,1.3666665,0,189.66669,640.44446)" />
+        <rect
+             style="fill:#b3b3b3;stroke-width:1.00596;stroke-linejoin:round"
+             id="rect3632"
+             width="32.92683"
+             height="14.634148"
+             x="77.073174"
+             y="110"
+             transform="matrix(0,-1.8222223,1.3666665,0,249.66669,640.44446)" />
+        <text
+             xml:space="preserve"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:320px;line-height:1.25;font-family:Spantaran;-inkscape-font-specification:Spantaran;text-align:center;text-anchor:middle;fill:white;stroke-width:10;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none"
+             x="640"
+             y="480"
+             id="text7185"
+             transform="translate(625.72282,-119.21875)"><tspan
+                 sodipodi:role="line"
+                 id="tspan7183"
+                 x="640"
+                 y="480">OpenEDA</tspan></text>
+    </g>
+</svg>
