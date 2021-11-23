@@ -19,7 +19,16 @@
                             >
                             <Setter
                                 Property="Background"
-                                Value="#0af"
+                                Value="#07d"
+                                />
+                        </Trigger>
+                        <Trigger
+                            Property="IsCancel"
+                            Value="True"
+                            >
+                            <Setter
+                                Property="Background"
+                                Value="#d70"
                                 />
                         </Trigger>
                     </ControlTemplate.Triggers>

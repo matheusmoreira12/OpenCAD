@@ -8,7 +8,7 @@
      version="1.1"
      id="svg5"
      inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
-     sodipodi:docname="wizard_step_tick_32x32.svg"
+     sodipodi:docname="left_triangle_arrow_16x16.svg"
      xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
      xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
      xmlns="http://www.w3.org/2000/svg"
@@ -24,13 +24,13 @@
          inkscape:document-units="px"
          showgrid="true"
          inkscape:zoom="17.085938"
-         inkscape:cx="7.1989026"
-         inkscape:cy="0.46822131"
-         inkscape:window-width="1350"
-         inkscape:window-height="728"
-         inkscape:window-x="0"
-         inkscape:window-y="0"
-         inkscape:window-maximized="0"
+         inkscape:cx="7.433013"
+         inkscape:cy="12.027434"
+         inkscape:window-width="1366"
+         inkscape:window-height="705"
+         inkscape:window-x="-8"
+         inkscape:window-y="-8"
+         inkscape:window-maximized="1"
          inkscape:current-layer="layer1">
         <inkscape:grid
              type="xygrid"
@@ -43,11 +43,17 @@
          inkscape:label="Camada 1"
          inkscape:groupmode="layer"
          id="layer1">
+        <circle
+             style="display:none;fill:red;stroke:none"
+             id="path933"
+             cx="8"
+             cy="8"
+             r="7" />
         <path
-             style="fill:none;stroke:white;stroke-width:1;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none"
-             d="M 1,8 5,12 15,3"
-             id="path1162"
+             style="fill:none;stroke:white"
+             d="M 5,2 11,8 5,14"
+             id="path2185"
              sodipodi:nodetypes="ccc"
-             transform="translate(0,0.5)" />
+             transform="matrix(-1,0,0,1,16,0)" />
     </g>
 </svg>

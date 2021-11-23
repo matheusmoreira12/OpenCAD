@@ -5,6 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:local="clr-namespace:ComponentSymbolAssistant"
+    xmlns:svgc="http://sharpvectors.codeplex.com/svgc/"
     x:Name="Window"
     mc:Ignorable="d"
     Height="450"
@@ -19,7 +20,7 @@
     </Window.Resources>
     <local:CustomWindowGrid x:Name="WindowGrid">
         <Frame
-            x:Name="PageFrame"
+            Name="Frame"
             Grid.Row="1"
             Grid.Column="1"
             Source="{Binding ElementName=Window, Path=WizardController.CurrentPageSource}"
@@ -39,14 +40,30 @@
                 IsDefault="True"
                 Visibility="{Binding ElementName=Window, Path=WizardController.CanStart, Converter={StaticResource BooleanToVisibilityConverter}}"
                 >
-                Start
+                <WrapPanel>
+                    <Image
+                        Source="{ svgc:SvgImage /Themes/Icons/right_triangle_arrow_16x16.svg }"
+                        Width="16"
+                        Height="16"
+                        Margin="0 0 5 0"
+                        />
+                    <TextBlock>Start</TextBlock>
+                </WrapPanel>
             </local:Button>
             <local:Button
                 x:Name="PreviousButton"
                 Click="PreviousButton_Click"
                 Visibility="{Binding ElementName=Window, Path=WizardController.CanGoBackward, Converter={StaticResource BooleanToVisibilityConverter}}"
                 >
-                Previous
+                <WrapPanel>
+                    <Image
+                        Source="{ svgc:SvgImage /Themes/Icons/left_triangle_arrow_16x16.svg }"
+                        Width="16"
+                        Height="16"
+                        Margin="0 0 5 0"
+                        />
+                    <TextBlock>Previous</TextBlock>
+                </WrapPanel>
             </local:Button>
             <local:Button
                 x:Name="NextButton"
@@ -54,7 +71,15 @@
                 IsDefault="True"
                 Visibility="{Binding ElementName=Window, Path=WizardController.CanGoForward, Converter={StaticResource BooleanToVisibilityConverter}}"
                 >
-                Next
+                <WrapPanel>
+                    <Image
+                        Source="{ svgc:SvgImage /Themes/Icons/right_triangle_arrow_16x16.svg }"
+                        Width="16"
+                        Height="16"
+                        Margin="0 0 5 0"
+                        />
+                    <TextBlock>Next</TextBlock>
+                </WrapPanel>
             </local:Button>
             <local:Button
                 x:Name="FinishButton"
@@ -62,7 +87,29 @@
                 IsDefault="True"
                 Visibility="{Binding ElementName=Window, Path=WizardController.CanFinish, Converter={StaticResource BooleanToVisibilityConverter}}"
                 >
-                Finish
+                <WrapPanel>
+                    <Image
+                        Source="{ svgc:SvgImage /Themes/Icons/tick_16x16.svg }"
+                        Width="16"
+                        Height="16"
+                        Margin="0 0 5 0"
+                        />
+                    <TextBlock>Finish</TextBlock>
+                </WrapPanel>
+            </local:Button>
+            <local:Button
+                x:Name="CancelButton"
+                IsCancel="True"
+                >
+                <WrapPanel>
+                    <Image
+                        Source="{ svgc:SvgImage /Themes/Icons/x_mark_16x16.svg }"
+                        Width="16"
+                        Height="16"
+                        Margin="0 0 5 0"
+                        />
+                    <TextBlock>Cancel</TextBlock>
+                </WrapPanel>
             </local:Button>
         </StackPanel>
     </local:CustomWindowGrid>

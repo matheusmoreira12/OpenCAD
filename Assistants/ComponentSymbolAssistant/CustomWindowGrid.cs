@@ -26,6 +26,16 @@ namespace ComponentSymbolAssistant
                 throw new NotImplementedException();
         }
 
+        protected override void OnInitialized(EventArgs e)
+        {
+            base.OnInitialized(e);
+
+            MakeHitTestVisibleInChrome();
+        }
+
+        private void MakeHitTestVisibleInChrome() =>
+            SetValue(WindowChrome.IsHitTestVisibleInChromeProperty, true);
+
         protected override void OnVisualParentChanged(DependencyObject oldParent)
         {
             base.OnVisualParentChanged(oldParent);
@@ -36,18 +46,8 @@ namespace ComponentSymbolAssistant
         private void UpdateParentAndSetup()
         {
             ParentWindow = Parent as CustomWindow;
-            Setup();
-        }
-
-        private void Setup()
-        {
-            MakeHitTestVisibleInChrome();
             CreateAndBindRowAndColumnDefinitions();
-            BindMargin();
         }
-
-        private void MakeHitTestVisibleInChrome() =>
-            SetValue(WindowChrome.IsHitTestVisibleInChromeProperty, true);
 
         private void CreateAndBindRowAndColumnDefinitions()
         {
@@ -101,21 +101,6 @@ namespace ComponentSymbolAssistant
                     Source = ParentWindow,
                 }
             );
-        }
-
-        private void BindMargin()
-        {
-            if (ParentWindow == null)
-                return;
-
-            BindingOperations.ClearBinding(this, MarginProperty);
-
-            SetBinding(MarginProperty, new Binding()
-            {
-                Path = new PropertyPath("GlassFrameThickness"),
-                Converter = new ComputeMarginGlassFrameThickness(),
-                Source = ParentWindow,
-            });
         }
 
         private CustomWindow ParentWindow;

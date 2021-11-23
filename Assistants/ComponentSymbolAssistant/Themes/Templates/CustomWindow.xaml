@@ -13,13 +13,13 @@
                     <Grid Name="ContentGrid">
                         <Border
                             Name="Border"
+                            IsHitTestVisible="False"
                             Margin="{TemplateBinding GlassFrameThickness}"
                             Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}"
-                            >
-                            <ContentPresenter Name="Content"/>
-                        </Border>
+                            />
+                        <ContentPresenter Name="Content"/>
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>

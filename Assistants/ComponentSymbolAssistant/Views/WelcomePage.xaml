@@ -4,11 +4,61 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:ComponentSymbolAssistant"
+      xmlns:svgc="http://sharpvectors.codeplex.com/svgc/"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="WelcomePage">
-
+    <Page.Resources>
+        <ResourceDictionary Source="/Themes/TextStyles.xaml"/>
+    </Page.Resources>
     <Grid>
-        <TextBlock>Hello!</TextBlock>
+        <Image
+            Name="BackgroundArt"
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
+            Source="/Themes/splash_background.jpg"
+            Stretch="UniformToFill"
+            />
+        <Border
+            Name="FrameBackground"
+            >
+            <Border.Background>
+                <LinearGradientBrush
+                    StartPoint="0 0"
+                    EndPoint="1 0"
+                    >
+                    <GradientStop Offset="0" Color="#0222"/>
+                    <GradientStop Offset=".25" Color="#e222"/>
+                    <GradientStop Offset="1" Color="#e222"/>
+                </LinearGradientBrush>
+            </Border.Background>
+            <Grid
+                Name="LayoutGrid"
+                Grid.Row="1"
+                Grid.Column="1"
+                >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width=".25*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Image
+                    Name="WizardArt"
+                    Grid.Column="0"
+                    Source="{svgc:SvgImage /Themes/Icons/wizard_180x180(color).svg}"
+                    />
+                <TextBlock
+                    Grid.Column="1"
+                    Name="Content"
+                    Style="{StaticResource Text}"
+                    Padding="10"
+                    >
+                    <TextBlock Style="{StaticResource Text.Title1}">Welcome to the Component Symbol Wizard!</TextBlock>
+                    <LineBreak/>
+                    <TextBlock Style="{StaticResource Text.Title2}">This Wizard will guide you through the process of creating a symbol for your new component.</TextBlock>
+                    <LineBreak/>
+                    Click "Start" to begin.
+                </TextBlock>
+            </Grid>
+        </Border>
     </Grid>
 </Page>
