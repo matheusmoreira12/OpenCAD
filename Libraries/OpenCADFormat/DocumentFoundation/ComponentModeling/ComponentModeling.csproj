@@ -32,6 +32,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Annotations, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.ComponentModel.Annotations.5.0.0\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -41,8 +45,33 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CircuitSimulation\Circuit.cs" />
+    <Compile Include="CircuitSimulation\Elements\Ideal\BehavioralElement.cs" />
+    <Compile Include="CircuitSimulation\Elements\Component.cs" />
+    <Compile Include="CircuitSimulation\Elements\Ideal\IdealElement.cs" />
+    <Compile Include="CircuitSimulation\Elements\Ideal\Behavioral\BehavioralResistor.cs" />
+    <Compile Include="CircuitSimulation\Elements\Ideal\IdealCurrentSource.cs" />
+    <Compile Include="CircuitSimulation\Elements\Ideal\IdealCapacitor.cs" />
+    <Compile Include="CircuitSimulation\Elements\Element.cs" />
+    <Compile Include="CircuitSimulation\Elements\Ideal\IdealInductor.cs" />
+    <Compile Include="CircuitSimulation\Elements\Ideal\IdealResistor.cs" />
+    <Compile Include="CircuitSimulation\Elements\Ideal\Behavioral\BehavioralCurrentSource.cs" />
+    <Compile Include="CircuitSimulation\Elements\Ideal\Behavioral\BehavioralVoltageSource.cs" />
+    <Compile Include="CircuitSimulation\Elements\Ideal\IdealVoltageSource.cs" />
+    <Compile Include="CircuitSimulation\Netting\NetTerminalConnection.cs" />
     <Compile Include="ComponentModel.cs" />
+    <Compile Include="CircuitSimulation\Netting\GlobalNet.cs" />
+    <Compile Include="CircuitSimulation\Parameters\CurrentParameter.cs" />
+    <Compile Include="CircuitSimulation\Parameters\VoltageParameter.cs" />
+    <Compile Include="CircuitSimulation\Probing\TerminalProbe.cs" />
+    <Compile Include="CircuitSimulation\Netting\Net.cs" />
+    <Compile Include="CircuitSimulation\Probing\NetProbe.cs" />
+    <Compile Include="CircuitSimulation\Probing\Probe.cs" />
+    <Compile Include="CircuitSimulation\Parameters\Parameter.cs" />
+    <Compile Include="CircuitSimulation\Elements\Terminal.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="CircuitSimulation\SubCircuit.cs" />
+    <Compile Include="CircuitSimulation\Netting\SubCircuitNet.cs" />
     <Compile Include="ThermalEquivalentCircuit.cs" />
     <Compile Include="ThermalEquivalentCircuit.HeatSource.cs" />
     <Compile Include="ThermalEquivalentCircuit.Net.cs" />
@@ -53,6 +82,9 @@
   <ItemGroup>
     <Folder Include="Resources\TestFiles\" />
     <Folder Include="Templating\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -4,7 +4,7 @@ namespace OpenEDA.OpenEDAFormat.ComponentModeling
 {
     static class Utils
     {
-        readonly static char SEPARATOR = ';';
+        static readonly char SEPARATOR = ';';
 
         public static string[] SplitConenctedNetsAttribute(string attribute)
         {
