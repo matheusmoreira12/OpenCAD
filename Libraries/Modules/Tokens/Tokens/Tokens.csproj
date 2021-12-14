@@ -7,7 +7,7 @@
     <ProjectGuid>{B2A4046D-4DD7-4D5F-A5F1-63A22E4F5A98}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Tokens</RootNamespace>
+    <RootNamespace>OpenCAD.Modules.Tokens</RootNamespace>
     <AssemblyName>Tokens</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

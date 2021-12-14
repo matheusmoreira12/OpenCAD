@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace OpenCAD.APIs.Tokens
+namespace OpenCAD.Modules.Tokens
 {
 
     public abstract class StringTokenifier<TToken> where TToken: StringToken
