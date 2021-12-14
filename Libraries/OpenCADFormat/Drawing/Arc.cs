@@ -1,67 +1,45 @@
-﻿using OpenCAD.OpenCADFormat.CoordinateSystem;
-using System;
-using System.Xml.Serialization;
-using OpenCAD.APIs.Measures;
+﻿using OpenCAD.APIs.Measures;
+using OpenCAD.OpenCADFormat.CoordinateSystem;
 
 namespace OpenCAD.OpenCADFormat.Drawing
 {
-    public enum ArcType { Centered, ThreePoint, CenteredStartSweep }
-
-    [Serializable]
-    public class Arc : Shape
+    /// <summary>
+    /// Represents a drawing arc
+    /// </summary>
+    public abstract class Arc : Shape
     {
-        public static Arc CreateCentered(Point center, Point start, Point end) => new Arc
+        public Arc(Point? centerPoint = null, Point? startPoint = null, Point? controlPoint = null, Point? endPoint = null, Scalar? sweepAngle = null, Scalar? startAngle = null, Scalar? endAngle = null, Scalar? radius = null, Scalar? diameter = null, Scalar? cordLength = null)
         {
-            Type = ArcType.Centered,
-            Center = center,
-            Start = start,
-            End = end
-        };
-
-        public static Arc CreateThreePoint(Point start, Point end, Point control) => new Arc
-        {
-            Type = ArcType.ThreePoint,
-            Start = start,
-            End = end,
-            Control = control
-        };
-
-        public static Arc CreateCenteredStartSweep(Point center, Size radius, Scalar rotation,
-            Scalar startAngle, Scalar sweepAngle)
-        {
-            return new Arc
-            {
-                Type = ArcType.CenteredStartSweep,
-                Center = center,
-                Radius = radius,
-            };
+            CenterPoint = centerPoint;
+            StartPoint = startPoint;
+            ControlPoint = controlPoint;
+            EndPoint = endPoint;
+            SweepAngle = sweepAngle;
+            StartAngle = startAngle;
+            EndAngle = endAngle;
+            Radius = radius;
+            Diameter = diameter;
+            CordLength = cordLength;
         }
 
-        private Arc() { }
+        public readonly Point? CenterPoint;
 
-        [XmlAttribute]
-        [XmlEnum]
-        public ArcType Type;
+        public readonly Point? StartPoint;
 
-        [XmlAttribute]
-        public Point Start;
-        public bool ShouldSerializeStart => Type == ArcType.Centered || Type == ArcType.ThreePoint;
+        public readonly Point? ControlPoint;
 
-        [XmlAttribute]
-        public Point End;
-        public bool ShouldSerializeEnd => Type == ArcType.Centered || Type == ArcType.ThreePoint;
+        public readonly Point? EndPoint;
 
-        [XmlAttribute]
-        public Point Control;
-        public bool ShouldSerializeControl => Type == ArcType.ThreePoint;
+        public readonly Scalar? SweepAngle;
 
-        [XmlAttribute]
-        public Point Center;
-        public bool ShouldSerializeCenter => Type == ArcType.Centered || 
-            Type == ArcType.CenteredStartSweep;
+        public readonly Scalar? StartAngle;
 
-        [XmlAttribute]
-        public Size Radius;
-        public bool ShouldSerializeRadius => Type == ArcType.CenteredStartSweep;
+        public readonly Scalar? EndAngle;
+
+        public readonly Scalar? Radius;
+
+        public readonly Scalar? Diameter;
+
+        public readonly Scalar? CordLength;
     }
 }
