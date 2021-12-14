@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace OpenCAD.APIs.Math.Operations
+namespace OpenCAD.Modules.Math.Operations.Binary
 {
     public class Multiplication<T1, T2, TR> : MathOperation<T1, T2, TR>
     {

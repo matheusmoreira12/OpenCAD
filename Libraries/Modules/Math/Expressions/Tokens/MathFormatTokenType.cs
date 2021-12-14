@@ -1,4 +1,4 @@
-﻿namespace OpenCAD.APIs.Math.Expressions.Tokens
+﻿namespace OpenCAD.Modules.Math.Expressions.Tokens
 {
     public enum MathFormatTokenType
     {

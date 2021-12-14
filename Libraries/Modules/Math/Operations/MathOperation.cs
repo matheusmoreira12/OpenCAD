@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace OpenCAD.APIs.Math.Operations
+namespace OpenCAD.Modules.Math.Operations
 {
     public abstract class MathOperation
     {

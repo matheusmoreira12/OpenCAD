@@ -1,8 +1,8 @@
-﻿using OpenCAD.APIs.Tokens;
+﻿using OpenCAD.Modules.Tokens;
 using OpenCAD.Utils;
 using System;
 
-namespace OpenCAD.APIs.Math.Expressions.Tokens
+namespace OpenCAD.Modules.Math.Expressions.Tokens
 {
     public class MathExpressionTokenifier : StringTokenifier<StringToken>
     {

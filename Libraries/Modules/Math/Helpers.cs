@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace OpenCAD.APIs.Math
+namespace OpenCAD.Modules.Math
 {
     public static class Helpers
     {

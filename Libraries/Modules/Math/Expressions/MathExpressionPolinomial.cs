@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace OpenCAD.APIs.Math.Expressions
+namespace OpenCAD.Modules.Math.Expressions
 {
     public class MathExpressionPolinomial : MathExpressionMember
     {

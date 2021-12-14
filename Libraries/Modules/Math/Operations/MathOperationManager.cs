@@ -1,34 +1,46 @@
-﻿using System;
+﻿using OpenCAD.Modules.Math.Operations.Binary;
+using OpenCAD.Modules.Math.Operations.Unary;
+using System;
 using System.Collections.Generic;
-using System.Linq;
 
-namespace OpenCAD.APIs.Math.Operations
+namespace OpenCAD.Modules.Math.Operations
 {
     public static class MathOperationManager
     {
         static MathOperationManager()
         {
-            //Register default operations
+            registerDefaultOperations();
+        }
+
+        static void registerDefaultOperations()
+        {
             RegisterMany(new MathOperation[] {
+                new Positivation<double, double>(positivateDouble),
+                new Negation<double, double>(negateDouble),
                 new Addition<double, double, double>(sumDoubles),
                 new Subtraction<double, double, double>(subtractDoubles),
                 new Multiplication<double, double, double>(multiplyDoubles),
-                new Division<double, double, double>(exponentiateDouble)
+                new Division<double, double, double>(divideDoubles),
+                new Exponentiation<double, double, double>(exponentiateDouble),
             });
         }
 
+        #region Default Double Operators
+        private static double positivateDouble(double a) => a;
+        private static double negateDouble(double a) => -a;
         private static double sumDoubles(double a, double b) => a + b;
         private static double subtractDoubles(double a, double b) => a - b;
         private static double multiplyDoubles(double a, double b) => a * b;
         private static double divideDoubles(double a, double b) => a / b;
         private static double exponentiateDouble(double a, double b) => System.Math.Pow(a, b);
+        #endregion
 
         private static List<MathOperation> registeredOperations { get; } = new List<MathOperation> { };
 
         public static void Register(MathOperation operation)
         {
             if (IsRegistered(operation.OperationType, operation.OperandTypes))
-                throw new InvalidOperationException("An operation with the same OperationType and OperandTypes is already registered.");
+                throw new InvalidOperationException("An operation of the same type and with the same operand types is already registered.");
 
             registeredOperations.Add(operation);
         }

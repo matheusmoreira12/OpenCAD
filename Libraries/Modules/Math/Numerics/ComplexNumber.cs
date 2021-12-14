@@ -1,15 +1,15 @@
-﻿namespace OpenCAD.APIs.Math.Numerics
+﻿namespace OpenCAD.Modules.Math.Numerics
 {
-    public struct ComplexNumber
+    public struct ComplexNumber : IComplexNumber
     {
-        public readonly RealNumber RealPart;
-
-        public readonly RealNumber ImaginaryPart;
-
-        public ComplexNumber(RealNumber realPart, RealNumber imaginaryPart)
+        public ComplexNumber(RealNumber realPart, ImaginaryNumber imaginaryPart)
         {
             RealPart = realPart;
             ImaginaryPart = imaginaryPart;
         }
+
+        public RealNumber RealPart { get; }
+
+        public ImaginaryNumber ImaginaryPart { get; }
     }
 }

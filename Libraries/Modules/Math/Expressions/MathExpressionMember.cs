@@ -1,4 +1,4 @@
-﻿namespace OpenCAD.APIs.Math.Expressions
+﻿namespace OpenCAD.Modules.Math.Expressions
 {
     public abstract class MathExpressionMember
     {

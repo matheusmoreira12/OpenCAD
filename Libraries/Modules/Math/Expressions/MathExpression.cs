@@ -1,8 +1,8 @@
 ﻿using System.Linq;
-using OpenCAD.APIs.Math.Expressions.Tokens;
-using OpenCAD.APIs.Tokens;
+using OpenCAD.Modules.Math.Expressions.Tokens;
+using OpenCAD.Modules.Tokens;
 
-namespace OpenCAD.APIs.Math.Expressions
+namespace OpenCAD.Modules.Math.Expressions
 {
     public class MathExpression : MathExpressionGroup
     {

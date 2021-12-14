@@ -1,11 +1,7 @@
-﻿using OpenCAD.APIs.Math.Operations;
+﻿using OpenCAD.Modules.Math.Operations;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace OpenCAD.APIs.Math.Expressions.Solving
+namespace OpenCAD.Modules.Math.Expressions.Solving
 {
     public abstract class MathOperatorSolverNode : MathSolverNode
     {
