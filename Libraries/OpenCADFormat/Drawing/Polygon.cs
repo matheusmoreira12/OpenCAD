@@ -1,15 +1,26 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using OpenCAD.APIs.Measures;
 using OpenCAD.OpenCADFormat.CoordinateSystem;
 
 namespace OpenCAD.OpenCADFormat.Drawing
 {
     public class Polygon : Shape
     {
-        public List<Point> Points;
+        public readonly Point? CenterPoint;
 
-        protected Polygon()
+        public readonly Scalar? RotationAngle;
+
+        public readonly int? SideCount;
+
+        public readonly Point[] Points;
+
+        public Polygon(Point? centerPoint = null, Scalar? rotationAngle = null, int? sideCount = null, Point[] points = null)
         {
-            Points = new List<Point>();
+            CenterPoint = centerPoint;
+            RotationAngle = rotationAngle;
+            SideCount = sideCount;
+            Points = points;
         }
     }
 }

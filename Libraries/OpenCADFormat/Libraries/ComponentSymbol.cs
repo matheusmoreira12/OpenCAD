@@ -16,7 +16,7 @@ namespace OpenCAD.OpenCADFormat.Libraries
 
         public ComponentSymbol()
         {
-            Drawing = new DrawingGroup();
+            ///Drawing = new DrawingGroup();
 
             Pins = new ComponentPinCollection();
         }

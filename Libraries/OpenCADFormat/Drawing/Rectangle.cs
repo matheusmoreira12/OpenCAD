@@ -1,4 +1,5 @@
-﻿using OpenCAD.OpenCADFormat.CoordinateSystem;
+﻿using OpenCAD.APIs.Measures;
+using OpenCAD.OpenCADFormat.CoordinateSystem;
 
 namespace OpenCAD.OpenCADFormat.Drawing
 {
@@ -6,30 +7,29 @@ namespace OpenCAD.OpenCADFormat.Drawing
 
     public class Rectangle : Shape
     {
-        public static Rectangle CreateTwoPoint(Point start, Point end) => new Rectangle()
+        public readonly Point? CenterPoint;
+
+        public readonly Point? StartCorner;
+
+        public readonly Point? EndCorner;
+
+        public readonly Scalar? Width;
+
+        public readonly Scalar? Height;
+
+        public readonly Scalar? Area;
+
+        public readonly Scalar? Rotation;
+
+        public Rectangle(Point? centerPoint = null, Point? startCorner = null, Point? endCorner = null, Scalar? width = null, Scalar? height = null, Scalar? area = null, Scalar? rotation = null)
         {
-            Start = start,
-            End = end
-        };
-
-        public static Rectangle CreateThreePoint(Point start, Point end, Point control) => new Rectangle()
-        {
-            Start = start,
-            End = end,
-            Control = control
-        };
-
-        public static Rectangle CreateCentered(Point center, Point end) => new Rectangle()
-        {
-            Center = center,
-            End = end
-        };
-
-        private Rectangle() { }
-
-        public Point Start { get; private set; }
-        public Point End { get; private set; }
-        public Point Control { get; private set; }
-        public Point Center { get; private set; }
+            CenterPoint = centerPoint;
+            StartCorner = startCorner;
+            EndCorner = endCorner;
+            Width = width;
+            Height = height;
+            Area = area;
+            Rotation = rotation;
+        }
     }
 }

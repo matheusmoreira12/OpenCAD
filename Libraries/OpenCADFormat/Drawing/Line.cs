@@ -1,10 +1,24 @@
-﻿using OpenCAD.OpenCADFormat.CoordinateSystem;
+﻿using OpenCAD.APIs.Measures;
+using OpenCAD.OpenCADFormat.CoordinateSystem;
 
 namespace OpenCAD.OpenCADFormat.Drawing
 {
     public class Line : Shape
     {
-        public Point Start { get; private set; }
-        public Point End { get; private set; }
+        public readonly Point? StartPoint;
+
+        public readonly Scalar? Length;
+
+        public readonly Scalar? RotationAngle;
+
+        public readonly Point? EndPoint;
+
+        public Line(Point? start = null, Scalar? length = null, Scalar? angle = null, Point? end = null)
+        {
+            StartPoint = start;
+            Length = length;
+            RotationAngle = angle;
+            EndPoint = end;
+        }
     }
 }
