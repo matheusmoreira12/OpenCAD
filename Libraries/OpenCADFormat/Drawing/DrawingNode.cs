@@ -3,7 +3,7 @@
     /// <summary>
     /// Represents a drawing element.
     /// </summary>
-    public abstract class DrawingElement
+    public abstract class DrawingNode
     {
     }
 }

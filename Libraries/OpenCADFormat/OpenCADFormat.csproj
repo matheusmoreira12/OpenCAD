@@ -227,7 +227,7 @@
     <Compile Include="SchematicCapture\Net.cs" />
     <Compile Include="SchematicCapture\RatsNest.cs" />
     <Compile Include="SchematicCapture\SchematicCapture.cs" />
-    <Compile Include="Drawing\DrawingElement.cs" />
+    <Compile Include="Drawing\DrawingNode.cs" />
     <Compile Include="SchematicCapture\Trace.cs" />
     <Compile Include="Serialization\IResolvable.cs" />
   </ItemGroup>

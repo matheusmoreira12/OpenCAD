@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace OpenCAD.OpenCADFormat.Drawing
 {
-    public abstract class TextNode : DrawingElement
+    public abstract class TextNode : DrawingNode
     {
         public TextNode(IList<TextNode> children)
         {

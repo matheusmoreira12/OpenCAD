@@ -12,9 +12,9 @@ namespace OpenCAD.OpenCADFormat.Drawing
         /// <summary>
         /// Gets the drawing elements contained within this drawing group.
         /// </summary>
-        public readonly DrawingElement[] Elements;
+        public readonly DrawingNode[] Elements;
 
-        public DrawingGroup(IReadOnlyList<DrawingElement> elements)
+        public DrawingGroup(IReadOnlyList<DrawingNode> elements)
         {
             Elements = elements?.ToArray() ?? throw new ArgumentNullException(nameof(elements));
         }
