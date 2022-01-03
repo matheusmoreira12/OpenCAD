@@ -41,18 +41,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ComponentModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ThermalEquivalentCircuit.cs" />
-    <Compile Include="ThermalEquivalentCircuit.HeatSource.cs" />
-    <Compile Include="ThermalEquivalentCircuit.Net.cs" />
-    <Compile Include="ThermalEquivalentCircuit.Resistance.cs" />
-    <Compile Include="ThermalEquivalentCircuit.TemperatureSource.cs" />
-    <Compile Include="Utils.cs" />
+    <Compile Include="VisualRepresentation\ComponentSymbol.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\TestFiles\" />
-    <Folder Include="Templating\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
