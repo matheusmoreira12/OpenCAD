@@ -4,7 +4,7 @@ namespace OpenCAD.OpenCADFormat.Drawing
 {
     //Represents a geometric shape.
     [Serializable]
-    public abstract class Shape : DrawingElement
+    public abstract class Shape : DrawingNode
     {
         /// <summary>
         /// Gets or sets the stroke properties of this drawing element.

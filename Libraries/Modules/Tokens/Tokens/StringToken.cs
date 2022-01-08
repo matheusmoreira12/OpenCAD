@@ -1,4 +1,4 @@
-﻿namespace OpenCAD.APIs.Tokens
+﻿namespace OpenCAD.Modules.Tokens
 {
     public abstract class StringToken
     {

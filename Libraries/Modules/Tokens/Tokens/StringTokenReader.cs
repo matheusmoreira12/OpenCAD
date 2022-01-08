@@ -1,17 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace OpenCAD.APIs.Tokens
+namespace OpenCAD.Modules.Tokens
 {
     public class StringTokenReader<TToken> : IDisposable where TToken : StringToken
     {
-        private StringTokenReader(StringTokenReader<TToken> parent, int offset)
-        {
-            Tokens = parent.Tokens;
-            Parent = parent ?? throw new ArgumentNullException(nameof(parent));
-            CurrentIndex = StartIndex = (parent.CurrentIndex + offset);
-        }
-
         /// <summary>
         /// Creates a token reader from the specified tokens.
         /// </summary>
@@ -20,18 +13,13 @@ namespace OpenCAD.APIs.Tokens
         public StringTokenReader(IReadOnlyList<StringToken> tokens, int startIndex = 0)
         {
             Tokens = tokens ?? throw new ArgumentNullException(nameof(tokens));
-            CurrentIndex = StartIndex = 0;
+            CurrentIndex = StartIndex = startIndex;
             Parent = null;
         }
 
-        private void saveIndexToParent()
-        {
-            if (indexDiscarded) return;
+        private void saveIndexToParent() => Parent.CurrentIndex = CurrentIndex;
 
-            if (Parent is null) return;
-
-            Parent.CurrentIndex = CurrentIndex;
-        }
+        private bool shouldSaveIndexToParent => !indexDiscarded && !(Parent is null);
 
         /// <summary>
         /// Discards the resulting index;
@@ -67,45 +55,35 @@ namespace OpenCAD.APIs.Tokens
         /// Branches out into a different reader.
         /// </summary>
         /// <returns></returns>
-        public StringTokenReader<TToken> Derive(int offset = 0) => 
-            new StringTokenReader<TToken>(this, offset);
+        public StringTokenReader<TToken> Derive(int offset = 0)
+            => new StringTokenReader<TToken>(Tokens, CurrentIndex + offset) { Parent = this };
 
         private bool indexDiscarded = false;
 
         /// <summary>
         /// Gets all the tokens being read.
         /// </summary>
-        public IReadOnlyList<StringToken> Tokens { get; }
+        public readonly IReadOnlyList<StringToken> Tokens;
 
         /// <summary>
         /// Gets the parent of this reader.
         /// </summary>
-        public StringTokenReader<TToken> Parent { get; }
+        public StringTokenReader<TToken> Parent { get; private set; }
 
         /// <summary>
         /// Gets the start index for this reader.
         /// </summary>
-        public int StartIndex { get; }
+        public readonly int StartIndex;
 
         /// <summary>
         /// Gets or sets the current index for this reader.
         /// </summary>
-        public int CurrentIndex;
+        public int CurrentIndex { get; private set; }
 
         /// <summary>
         /// Gets the current token being read.
         /// </summary>
-        public StringToken CurrentToken
-        {
-            get
-            {
-                if (CurrentIndex < 0) return null;
-
-                if (CurrentIndex >= Tokens.Count) return null;
-
-                return Tokens[CurrentIndex];
-            }
-        }
+        public StringToken CurrentToken => CurrentIndex > 0 && CurrentIndex < Tokens.Count - 1 ? Tokens[CurrentIndex] : null;
 
         #region IDisposable Support
         private bool disposedValue = false;
@@ -116,7 +94,8 @@ namespace OpenCAD.APIs.Tokens
             {
                 if (disposing)
                 {
-                    saveIndexToParent();
+                    if (shouldSaveIndexToParent)
+                        saveIndexToParent();
                 }
 
                 disposedValue = true;

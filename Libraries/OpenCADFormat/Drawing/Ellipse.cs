@@ -3,56 +3,34 @@ using OpenCAD.APIs.Measures;
 
 namespace OpenCAD.OpenCADFormat.Drawing
 {
-    public enum EllipseType { Centered, TwoPoint, ThreePoint }
-
     public class Ellipse : Shape
     {
-        public static Ellipse CreateCentered(Point center, Size radius, Scalar rotation)
+        public Point? MajorAxisStartPoint;
+
+        public Point? MajorAxisEndPoint;
+
+        public Point? MinorAxisPoint;
+
+        public Point? Center;
+
+        public Size? Radius;
+
+        public Scalar? CircleRadius;
+
+        public double? Excentricity;
+
+        public Scalar? Rotation;
+
+        public Ellipse(Point? majorAxisStartPoint = null, Point? majorAxisEndPoint = null, Point? minorAxisPoint = null, Point? center = null, Size? radius = null, Scalar? circleRadius = null, double? excentricity = null, Scalar? rotation = null)
         {
-            return new Ellipse
-            {
-                Type = EllipseType.Centered,
-                Center = center,
-                Radius = radius,
-                Rotation = rotation
-            };
+            MajorAxisStartPoint = majorAxisStartPoint;
+            MajorAxisEndPoint = majorAxisEndPoint;
+            MinorAxisPoint = minorAxisPoint;
+            Center = center;
+            Radius = radius;
+            CircleRadius = circleRadius;
+            Excentricity = excentricity;
+            Rotation = rotation;
         }
-
-        public static Ellipse CreateTwoPoint(Point start, Point end) => new Ellipse
-        {
-            Type = EllipseType.TwoPoint,
-            Start = start,
-            End = end
-        };
-
-        public static Ellipse CreateThreePoint(Point start, Point end, Point control) => new Ellipse
-        {
-            Type = EllipseType.ThreePoint,
-            Start = start,
-            End = end,
-            Control = control
-        };
-
-        private Ellipse() { }
-
-        public EllipseType Type;
-
-        public Point Start;
-        public bool ShouldSerializeStart => Type == EllipseType.ThreePoint;
-
-        public Point End;
-        public bool ShouldSerializeEnd => Type == EllipseType.ThreePoint;
-
-        public Point Control;
-        public bool ShouldSerializeControl => Type == EllipseType.ThreePoint;
-
-        public Point Center;
-        public bool ShouldSerializeCenter => Type == EllipseType.ThreePoint;
-
-        public Size Radius;
-        public bool ShouldSerializeRadius => Type == EllipseType.ThreePoint;
-
-        public Scalar Rotation;
-        public bool ShouldSerializeRotation => Type == EllipseType.ThreePoint;
     }
 }
