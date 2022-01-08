@@ -9,39 +9,55 @@ namespace OpenCAD.DataTypes
     /// An expandable enumeration class made to be as compatible as possible with the existing Enum type.
     /// </summary>
     /// <typeparam name="T">The type of the created enumeration class.</typeparam>
-    public abstract class ExpandableEnum<T> : IComparable, IConvertible, IFormattable where T : ExpandableEnum<T>
+    public abstract class ExpandableEnum<T> : IComparable, IConvertible, IFormattable where T : ExpandableEnum<T>, new()
     {
-        private static string GetName(ExpandableEnum<T> flag)
-        {
-            var flagProp = GetFlagProps().FirstOrDefault(prop => prop.GetValue(null) == flag);
-            if (flagProp == null)
-                throw new InvalidOperationException();
-            else
-                return flagProp.Name;
+        private static T FromInt32(int value) {
+            var allFlags = EnumerateAll();
+            var matchingFlag = allFlags.FirstOrDefault(flag => flag.Id == value);
+            if (matchingFlag == null)
+                return new T() { _Id = value };
+            return matchingFlag;
         }
 
-        private static IEnumerable<PropertyInfo> GetFlagProps()
+        private static void AssignAllIds()
         {
-            Type enumType = typeof(T);
-            var publicStaticGetProps = enumType.GetProperties(BindingFlags.Public | BindingFlags.Static | BindingFlags.GetProperty);
-            return publicStaticGetProps.Where(prop => prop.PropertyType == enumType);
+            var allFlags = EnumerateAll();
+            int lastId = -1;
+            foreach (var flag in allFlags)
+            {
+                if (flag._Id != null)
+                {
+                    lastId = (int)flag._Id;
+                    continue;
+                }
+                flag._Id = lastId++;
+            }
         }
 
-        private static int GenerateId()
+        private static void AssignAllNames()
         {
-            var allFlags = GetAll();
-            var lastFlagOrNull = allFlags.LastOrDefault();
-            return lastFlagOrNull?.Id + 1 ?? 0;
+            var flagFields = EnumerateFlagFields();
+            foreach (var flagField in flagFields)
+            {
+                var flagName = flagField.Name;
+                var flag = (T)flagField.GetValue(null);
+                flag._Name = flagName;
+            }
         }
 
-        private static ExpandableEnum<T> FromInt32(int value)
+        private static IEnumerable<T> EnumerateAll()
         {
-            var allFlags = GetAll();
-            var exactMatchFlag = allFlags.FirstOrDefault(flag => flag.Id == value);
-            if (exactMatchFlag == null)
-                return new ExpandableEnumUnknown<T>(value);
-            else
-                return exactMatchFlag;
+            var flagFields = EnumerateFlagFields();
+            var flags = flagFields.Select(field => (T)field.GetValue(null));
+            return flags;
+        }
+
+        private static IEnumerable<FieldInfo> EnumerateFlagFields()
+        {
+            var enumType = typeof(T);
+            var publicStaticFields = ReflectionUtils.GetPublicStaticFields(enumType);
+            var flagFields = publicStaticFields.Where(field => field.FieldType == enumType);
+            return flagFields;
         }
 
         public static explicit operator char(ExpandableEnum<T> value) => Convert.ToChar(value);
@@ -68,58 +84,48 @@ namespace OpenCAD.DataTypes
 
         public static explicit operator decimal(ExpandableEnum<T> value) => Convert.ToDecimal(value);
 
-        public static explicit operator ExpandableEnum<T> (char value) => FromInt32(Convert.ToInt32(value));
+        public static explicit operator ExpandableEnum<T>(char value) => FromInt32(Convert.ToInt32(value));
 
-        public static explicit operator ExpandableEnum<T> (sbyte value) => FromInt32(Convert.ToInt32(value));
+        public static explicit operator ExpandableEnum<T>(sbyte value) => FromInt32(Convert.ToInt32(value));
 
-        public static explicit operator ExpandableEnum<T> (byte value) => FromInt32(Convert.ToInt32(value));
+        public static explicit operator ExpandableEnum<T>(byte value) => FromInt32(Convert.ToInt32(value));
 
-        public static explicit operator ExpandableEnum<T> (short value) => FromInt32(Convert.ToInt32(value));
+        public static explicit operator ExpandableEnum<T>(short value) => FromInt32(Convert.ToInt32(value));
 
-        public static explicit operator ExpandableEnum<T> (ushort value) => FromInt32(Convert.ToInt32(value));
+        public static explicit operator ExpandableEnum<T>(ushort value) => FromInt32(Convert.ToInt32(value));
 
-        public static explicit operator ExpandableEnum<T> (int value) => FromInt32(Convert.ToInt32(value));
+        public static explicit operator ExpandableEnum<T>(int value) => FromInt32(Convert.ToInt32(value));
 
-        public static explicit operator ExpandableEnum<T> (uint value) => FromInt32(Convert.ToInt32(value));
+        public static explicit operator ExpandableEnum<T>(uint value) => FromInt32(Convert.ToInt32(value));
 
-        public static explicit operator ExpandableEnum<T> (long value) => FromInt32(Convert.ToInt32(value));
+        public static explicit operator ExpandableEnum<T>(long value) => FromInt32(Convert.ToInt32(value));
 
-        public static explicit operator ExpandableEnum<T> (ulong value) => FromInt32(Convert.ToInt32(value));
+        public static explicit operator ExpandableEnum<T>(ulong value) => FromInt32(Convert.ToInt32(value));
 
-        public static explicit operator ExpandableEnum<T> (float value) => FromInt32(Convert.ToInt32(value));
+        public static explicit operator ExpandableEnum<T>(float value) => FromInt32(Convert.ToInt32(value));
 
-        public static explicit operator ExpandableEnum<T> (double value) => FromInt32(Convert.ToInt32(value));
+        public static explicit operator ExpandableEnum<T>(double value) => FromInt32(Convert.ToInt32(value));
 
-        public static explicit operator ExpandableEnum<T> (decimal value) => FromInt32(Convert.ToInt32(value));
+        public static explicit operator ExpandableEnum<T>(decimal value) => FromInt32(Convert.ToInt32(value));
 
-        public static ExpandableEnum<T> operator ~(ExpandableEnum<T> value) => (ExpandableEnum<T>)(~(int)value);
+        public static ExpandableEnum<T> operator ~(ExpandableEnum<T> value) => (ExpandableEnum<T>)(~value.Id);
 
         public static ExpandableEnum<T> operator &(ExpandableEnum<T> a, ExpandableEnum<T> b) => (ExpandableEnum<T>)((int)a & (int)b);
 
         public static ExpandableEnum<T> operator |(ExpandableEnum<T> a, ExpandableEnum<T> b) => (ExpandableEnum<T>)((int)a | (int)b);
 
         /// <summary>
-        /// Gets all the available flags.
-        /// </summary>
-        /// <returns>All the flags.</returns>
-        public static T[] GetAll()
-        {
-            var flags = GetFlagProps().Select(prop => (T)prop.GetValue(null));
-            return flags.ToArray();
-        }
-
-        /// <summary>
         /// Creates a flag with an explicit Id.
         /// </summary>
         /// <param name="id">The explicit Id.</param>
-        public ExpandableEnum(int id) => Id = id;
+        public ExpandableEnum(int id) => _Id = id;
 
         /// <summary>
         /// Creates a flag with an implicit Id.
         /// </summary>
-        public ExpandableEnum() => Id = GenerateId();
+        public ExpandableEnum() { }
 
-        public override string ToString() => GetName(this);
+        public override string ToString() => Name ?? Id.ToString();
 
         /// <summary>
         /// Returns a value indicating if the current value contains the specified flag.
@@ -170,9 +176,29 @@ namespace OpenCAD.DataTypes
 
         public override int GetHashCode() => 2108858624 + Id.GetHashCode();
 
-        /// <summary>
-        /// Gets the ID of this flag.
-        /// </summary>
-        protected int Id { get; }
+        private int Id
+        {
+            get
+            {
+                if (_Id == null)
+                    AssignAllIds();
+                return _Id ?? 0;
+            }
+        }
+
+        private int? _Id = null;
+
+        private string Name
+        {
+            get
+            {
+                if (_Name == null)
+                    AssignAllNames();
+
+                return _Name;
+            }
+        }
+
+        private string _Name = null;
     }
 }
