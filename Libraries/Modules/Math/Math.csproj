@@ -62,9 +62,11 @@
     <Compile Include="Operations\Binary\Exponentiation.cs" />
     <Compile Include="Operations\Binary\Multiplication.cs" />
     <Compile Include="Operations\Binary\Division.cs" />
+    <Compile Include="Operations\Binary\NthRoot.cs" />
     <Compile Include="Operations\OperationType.cs" />
+    <Compile Include="Operations\Unary\Modulus.cs" />
     <Compile Include="Operations\Unary\Negation.cs" />
-    <Compile Include="Operations\Unary\Positivation.cs" />
+    <Compile Include="Operations\Unary\SquareRoot.cs" />
     <Compile Include="Operations\Binary\Subtraction.cs" />
     <Compile Include="Operations\Binary\Addition.cs" />
     <Compile Include="Math.cs" />
