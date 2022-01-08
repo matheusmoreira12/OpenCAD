@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace OpenCAD.Modules.Math.Operations
 {
-    public abstract class MathOperation
+    public abstract class NAryOperation
     {
         public Type[] OperandTypes
         {
@@ -58,61 +58,61 @@ namespace OpenCAD.Modules.Math.Operations
         public bool AppliesToResultType(Type targetResultType) =>
             ResultType.IsCastableTo(targetResultType);
 
-        public abstract MathOperationType OperationType { get; }
-
         public abstract object Execute(params object[] operands);
+
+        public abstract OperationType OperationType { get; }
     }
 
-    public abstract class MathOperation<TOperand1, TResult> : MathOperation
+    public abstract class NAryOperation<T1, TR> : NAryOperation
     {
-        protected MathOperation(Func<TOperand1, TResult> func)
+        protected NAryOperation(Func<T1, TR> func)
         {
             this.func = func ?? throw new ArgumentNullException(nameof(func));
         }
 
-        private Func<TOperand1, TResult> func { get; }
+        private Func<T1, TR> func { get; }
 
-        public override object Execute(params object[] operands) => func((TOperand1)operands[0]);
+        public override object Execute(params object[] operands) => func((T1)operands[0]);
     }
 
-    public abstract class MathOperation<TOperand1, TOperand2, TResult> : MathOperation
+    public abstract class NAryOperation<T1, T2, TR> : NAryOperation
     {
-        protected MathOperation(Func<TOperand1, TOperand2, TResult> func)
+        protected NAryOperation(Func<T1, T2, TR> func)
         {
             this.func = func ?? throw new ArgumentNullException(nameof(func));
         }
 
-        private Func<TOperand1, TOperand2, TResult> func { get; }
+        private Func<T1, T2, TR> func { get; }
 
         public override object Execute(params object[] operands)
         {
-            return func((TOperand1)(dynamic)operands[0], (TOperand2)(dynamic)operands[1]);
+            return func((T1)(dynamic)operands[0], (T2)(dynamic)operands[1]);
         }
     }
 
-    public abstract class MathOperation<TOperand1, TOperand2, TOperand3, TResult> : MathOperation
+    public abstract class NAryOperation<T1, T2, T3, TR> : NAryOperation
     {
-        protected MathOperation(Func<TOperand1, TOperand2, TOperand3, TResult> func)
+        protected NAryOperation(Func<T1, T2, T3, TR> func)
         {
             this.func = func ?? throw new ArgumentNullException(nameof(func));
         }
 
-        private Func<TOperand1, TOperand2, TOperand3, TResult> func { get; }
+        private Func<T1, T2, T3, TR> func { get; }
 
-        public override object Execute(params object[] operands) => func((TOperand1)(dynamic)operands[0],
-            (TOperand2)(dynamic)operands[1], (TOperand3)(dynamic)operands[2]);
+        public override object Execute(params object[] operands) => func((T1)(dynamic)operands[0],
+            (T2)(dynamic)operands[1], (T3)(dynamic)operands[2]);
     }
 
-    public abstract class MathOperation<TOperand1, TOperand2, TOperand3, TOperand4, TResult> : MathOperation
+    public abstract class NAryOperation<T1, T2, T3, T4, TR> : NAryOperation
     {
-        protected MathOperation(Func<TOperand1, TOperand2, TOperand3, TOperand4, TResult> func)
+        protected NAryOperation(Func<T1, T2, T3, T4, TR> func)
         {
             this.func = func ?? throw new ArgumentNullException(nameof(func));
         }
 
-        private Func<TOperand1, TOperand2, TOperand3, TOperand4, TResult> func { get; }
+        private Func<T1, T2, T3, T4, TR> func { get; }
 
-        public override object Execute(params object[] operands) => func((TOperand1)(dynamic)operands[0],
-            (TOperand2)(dynamic)operands[1], (TOperand3)(dynamic)operands[2], (TOperand4)(dynamic)operands[3]);
+        public override object Execute(params object[] operands) => func((T1)(dynamic)operands[0],
+            (T2)(dynamic)operands[1], (T3)(dynamic)operands[2], (T4)(dynamic)operands[3]);
     }
 }

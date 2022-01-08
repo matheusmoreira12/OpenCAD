@@ -2,10 +2,10 @@
 
 namespace OpenCAD.Modules.Math.Operations.Binary
 {
-    public class Addition<T1, T2, TR> : MathOperation<T1, T2, TR>
+    public sealed class Addition<T1, T2, TR> : NAryOperation<T1, T2, TR>
     {
         public Addition(Func<T1, T2, TR> func) : base(func) { }
 
-        public override MathOperationType OperationType => MathOperationType.Addition;
+        public override OperationType OperationType => OperationType.Addition;
     }
 }
