@@ -1,43 +1,41 @@
 using System.Linq;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System;
 
 namespace OpenCAD.Modules.Math.Operations
 {
     public static class MathOperationManager
     {
-        private static WarningException GetAlreadyRegisteredWarning(NAryOperation operation)
-        {
-            var operationType = operation.OperationType;
-            var operandTypes = operation.OperandTypes;
-            var operandTypeNames = operandTypes.Select(type => type.Name);
-            string operandTypesStr = $"{string.Join(", ", operandTypeNames)}";
-            string message = $"Refused to register Math operation. The {operation.OperationType} operation has already been registered with operand type(s) {operandTypesStr}.";
-            return new WarningException(message);
-        }
-
+        /// <summary>
+        /// Registers an operation.
+        /// </summary>
+        /// <param name="operation">The operation to be registerd.</param>
         public static void Register(NAryOperation operation)
         {
             if (IsRegistered(operation.OperationType, operation.OperandTypes))
-                throw GetAlreadyRegisteredWarning(operation);
-
+                return;
             RegisteredOperations.Add(operation);
         }
 
+        /// <summary>
+        /// Registers many operations at once.
+        /// </summary>
+        /// <param name="operations">The operations to be registered.</param>
         public static void RegisterMany(IList<NAryOperation> operations)
-        {
-            foreach (var operation in operations)
-                Register(operation);
-        }
+            => operations.AsParallel().ForAll(operation => Register(operation));
 
+        /// <summary>
+        /// Unregisters an operation.
+        /// </summary>
+        /// <param name="operation">The operation to be unregistered.</param>
         public static void Unregister(NAryOperation operation) => RegisteredOperations.Remove(operation);
 
+        /// <summary>
+        /// Unregisters many operations at once.
+        /// </summary>
+        /// <param name="operations">The operations to be unregistered.</param>
         public static void UnregisterMany(IList<NAryOperation> operations)
-        {
-            foreach (var operation in operations)
-                Unregister(operation);
-        }
+            => operations.AsParallel().ForAll(operation => Unregister(operation));
 
         private static List<NAryOperation> RegisteredOperations { get; } = new List<NAryOperation> { };
 
@@ -56,13 +54,8 @@ namespace OpenCAD.Modules.Math.Operations
         /// <returns>All registered operations compatible with the specified criteria.</returns>
         public static IEnumerable<NAryOperation> GetAll(OperationType operationType = null, Type[] operandTypes = null, Type resultType = null) =>
             RegisteredOperations.AsParallel().Where(o => (operationType == null || o.OperationType == operationType)
-                && (resultType == null || o.AppliesToResultType(resultType))
-                    && (operandTypes == null || o.AppliesToOperandTypes(operandTypes)));
-
-        //TODO: Implement an optimizer for finding suitable operations
-        public static NAryOperation Get(OperationType operationType, Type[] operandTypes, Type resultType = null)
-            => GetExact(operationType, operandTypes, resultType)
-                ?? GetAll(operationType, operandTypes, resultType).FirstOrDefault();
+                && (resultType == null || o.ResultType == resultType)
+                    && (operandTypes == null || o.OperandTypes.SequenceEqual(operandTypes)));
 
         /// <summary>
         /// Gets the registered operation that matches exactly the specified criteria, or null if no match is found.
