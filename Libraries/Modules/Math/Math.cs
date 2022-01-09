@@ -19,6 +19,7 @@ namespace OpenCAD.Modules.Math
                 #region Arithmetic Unary Operators
                 new Negation<double, double>(d => -d),
                 new Modulus<double, double>(d => d >= 0 ? d : -d),
+                new SquareRoot<double, double>(d => System.Math.Sqrt(d)),
                 #endregion
                 
                 #region Trigonometric Unary Operators
@@ -36,7 +37,7 @@ namespace OpenCAD.Modules.Math
                 new Multiplication<double, double, double>((d, e) => d * e),
                 new Division<double, double, double>((d, e) => d / e),
                 new Exponentiation<double, double, double>((d, e) => System.Math.Pow(d, e)),
-                new NthRoot<double, double, double>((d, e) => System.Math.Pow(d, 1/ e)),
+                new NthRoot<double, double, double>((d, e) => System.Math.Pow(d, 1 / e)),
                 #endregion
             });
         }
