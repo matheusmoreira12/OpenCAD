@@ -74,10 +74,9 @@ namespace OpenCAD.Modules.Math.Operations
         /// <param name="operandTypes">The desired operand types.</param>
         /// <param name="resultType">The desired result type, or null for matching any result type.</param>
         /// <returns>The registered operation that matches exactly the specified criteria.</returns>
-        public static NAryOperation GetExact(OperationType operationType, Type[] operandTypes, Type resultType = null)
+        public static NAryOperation GetExact(OperationType operationType, Type[] operandTypes)
             => RegisteredOperations.AsParallel().FirstOrDefault(o => o.OperationType == operationType
-                && o.OperandTypes.SequenceEqual(operandTypes)
-                    && (resultType == null || o.ResultType == resultType));
+                && o.OperandTypes.SequenceEqual(operandTypes));
 
         /// <summary>
         /// Checks if there is an operation registered which matches exactly the specified criteria.
