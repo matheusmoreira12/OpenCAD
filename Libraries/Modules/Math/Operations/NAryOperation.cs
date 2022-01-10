@@ -1,47 +1,18 @@
 ﻿using System;
-using System.Linq;
 
 namespace OpenCAD.Modules.Math.Operations
 {
     public abstract class NAryOperation
     {
-        private Type[] _OperandTypes = null;
-        private Type _ResultType = null;
-
         /// <summary>
         /// Gets the operand types for this operation.
         /// </summary>
-        public Type[] OperandTypes
-        {
-            get
-            {
-                if (_OperandTypes == null)
-                {
-                    Type[] typeArgs = GetType().GenericTypeArguments;
-                    Type[] operandTypes = typeArgs.Take(typeArgs.Length - 1).ToArray();
-                    return _OperandTypes = operandTypes;
-                }
-                else
-                    return _OperandTypes;
-            }
-        }
+        public abstract Type[] OperandTypes { get; }
 
         /// <summary>
         /// Gets the result type of this operation. 
         /// </summary>
-        public Type ResultType
-        {
-            get
-            {
-                if (_ResultType == null)
-                {
-                    var typeArgs = GetType().GenericTypeArguments;
-                    return typeArgs.Last();
-                }
-                else
-                    return _ResultType;
-            }
-        }
+        public abstract Type ResultType { get; }
 
         /// <summary>
         /// Executes this operation on the specified parameters
@@ -67,49 +38,82 @@ namespace OpenCAD.Modules.Math.Operations
             this.executor = executor ?? throw new ArgumentNullException(nameof(executor));
         }
 
-        private readonly Func<T1, TR> executor;
-
         public override object Execute(params object[] operands) => executor((T1)operands[0]);
+
+        public TR Execute(T1 op1) => executor(op1);
+
+        public override Type[] OperandTypes => new[] { typeof(T1) };
+
+        public override Type ResultType => typeof(TR);
+
+        private readonly Func<T1, TR> executor;
     }
 
     public abstract class NAryOperation<T1, T2, TR> : NAryOperation
     {
+        /// <summary>
+        /// Creates a new n-ary operator.
+        /// </summary>
+        /// <param name="executor">The executor of the new n-ary operator.</param>
         protected NAryOperation(Func<T1, T2, TR> executor)
         {
             this.executor = executor ?? throw new ArgumentNullException(nameof(executor));
         }
 
-        private readonly Func<T1, T2, TR> executor;
+        public override object Execute(params object[] operands) => executor((T1)operands[0], (T2)operands[1]);
 
-        public override object Execute(params object[] operands)
-        {
-            return executor((T1)(dynamic)operands[0], (T2)(dynamic)operands[1]);
-        }
+        public TR Execute(T1 op1, T2 op2) => executor(op1, op2);
+
+        public override Type[] OperandTypes => new[] { typeof(T1), typeof(T2) };
+
+        public override Type ResultType => typeof(TR);
+
+        private readonly Func<T1, T2, TR> executor;
     }
 
     public abstract class NAryOperation<T1, T2, T3, TR> : NAryOperation
     {
+        /// <summary>
+        /// Creates a new n-ary operator.
+        /// </summary>
+        /// <param name="executor">The executor of the new n-ary operator.</param>
         protected NAryOperation(Func<T1, T2, T3, TR> executor)
         {
             this.executor = executor ?? throw new ArgumentNullException(nameof(executor));
         }
 
-        private readonly Func<T1, T2, T3, TR> executor;
+        public override object Execute(params object[] operands)
+            => executor((T1)operands[0], (T2)operands[1], (T3)operands[2]);
 
-        public override object Execute(params object[] operands) => executor((T1)(dynamic)operands[0],
-            (T2)(dynamic)operands[1], (T3)(dynamic)operands[2]);
+        public TR Execute(T1 op1, T2 op2, T3 op3) => executor(op1, op2, op3);
+
+        public override Type[] OperandTypes => new[] { typeof(T1), typeof(T2), typeof(T3) };
+
+        public override Type ResultType => typeof(TR);
+
+        private readonly Func<T1, T2, T3, TR> executor;
     }
 
     public abstract class NAryOperation<T1, T2, T3, T4, TR> : NAryOperation
     {
+        /// <summary>
+        /// Creates a new n-ary operator.
+        /// </summary>
+        /// <param name="executor">The executor of the new n-ary operator.</param>
         protected NAryOperation(Func<T1, T2, T3, T4, TR> executor)
         {
             this.executor = executor ?? throw new ArgumentNullException(nameof(executor));
         }
 
-        private readonly Func<T1, T2, T3, T4, TR> executor;
+        public override object Execute(params object[] operands)
+            => executor((T1)operands[0], (T2)operands[1], (T3)operands[2], (T4)operands[3]);
 
-        public override object Execute(params object[] operands) => executor((T1)(dynamic)operands[0],
-            (T2)(dynamic)operands[1], (T3)(dynamic)operands[2], (T4)(dynamic)operands[3]);
+        public TR Execute(T1 op1, T2 op2, T3 op3, T4 op4) => executor(op1, op2, op3, op4);
+
+        public override Type[] OperandTypes => new[] { typeof(T1), typeof(T2), typeof(T3), typeof(T4) };
+
+        public override Type ResultType => typeof(TR);
+
+        private readonly Func<T1, T2, T3, T4, TR> executor;
     }
 }

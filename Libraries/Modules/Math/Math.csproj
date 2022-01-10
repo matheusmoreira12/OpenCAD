@@ -54,11 +54,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Helpers.cs" />
+    <Compile Include="ValueConversionManager.cs" />
     <Compile Include="Numerics\ComplexNumber.cs" />
     <Compile Include="Numerics\IComplexNumber.cs" />
     <Compile Include="Numerics\ImaginaryNumber.cs" />
     <Compile Include="Numerics\RealNumber.cs" />
+    <Compile Include="Exceptions\OperationNotFoundException.cs" />
     <Compile Include="Operations\Binary\Exponentiation.cs" />
     <Compile Include="Operations\Binary\Multiplication.cs" />
     <Compile Include="Operations\Binary\Division.cs" />
@@ -71,7 +72,7 @@
     <Compile Include="Operations\Binary\Addition.cs" />
     <Compile Include="Math.cs" />
     <Compile Include="Operations\NAryOperation.cs" />
-    <Compile Include="Operations\MathOperationManager.cs" />
+    <Compile Include="Operations\OperationManager.cs" />
     <Compile Include="Operations\Unary\TrigonometricFunctions\Cosecant.cs" />
     <Compile Include="Operations\Unary\TrigonometricFunctions\Tangent.cs" />
     <Compile Include="Operations\Unary\TrigonometricFunctions\Cotangent.cs" />
@@ -80,6 +81,7 @@
     <Compile Include="Operations\Unary\TrigonometricFunctions\Sine.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Solving\SolverVariable.cs" />
+    <Compile Include="ValueConversion.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
