@@ -11,6 +11,7 @@ namespace OpenCAD.Modules.Math
         static Math()
         {
             registerDefaultOperations();
+            registerDefaultValueConversions();
         }
 
         #region Default Double Operations
@@ -40,6 +41,32 @@ namespace OpenCAD.Modules.Math
                 new Exponentiation<double, double, double>((d, e) => System.Math.Pow(d, e)),
                 new NthRoot<double, double, double>((d, e) => System.Math.Pow(d, 1 / e))
             #endregion
+            );
+        }
+        #endregion
+
+        #region Default Conversions
+        static void registerDefaultValueConversions()
+        {
+            ValueConversionManager.RegisterMany(
+                new ValueConversion<decimal, double>(i => (double)i),
+                new ValueConversion<ulong, double>(i => i),
+                new ValueConversion<long, double>(i => i),
+                new ValueConversion<int, double>(i => i),
+                new ValueConversion<ushort, double>(i => i),
+                new ValueConversion<short, double>(i => i),
+                new ValueConversion<char, double>(i => i),
+                new ValueConversion<byte, double>(i => i),
+                new ValueConversion<float, double>(i => i),
+                new ValueConversion<double, decimal>(d => (decimal)d),
+                new ValueConversion<double, ulong>(d => (ulong)d),
+                new ValueConversion<double, long>(d => (long)d),
+                new ValueConversion<double, int>(d => (int)d),
+                new ValueConversion<double, ushort>(d => (ushort)d),
+                new ValueConversion<double, short>(d => (short)d),
+                new ValueConversion<double, char>(d => (char)d),
+                new ValueConversion<double, byte>(d => (byte)d),
+                new ValueConversion<double, float>(d => (float)d)
             );
         }
         #endregion
