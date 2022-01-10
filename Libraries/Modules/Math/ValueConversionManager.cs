@@ -15,15 +15,11 @@ namespace OpenCAD.Modules.Math
             RegisteredConversions.Add(conversion);
         }
 
-        public static void RegisterMany(params ValueConversion[] conversions) => RegisterMany(conversions);
-
-        public static void RegisterMany(IList<ValueConversion> conversions) => conversions.AsParallel().ForAll(conversion => Register(conversion));
+        public static void RegisterMany(params ValueConversion[] conversions) => conversions.AsParallel().ForAll(conversion => Register(conversion));
 
         public static void Unregister(ValueConversion conversion) => RegisteredConversions.Remove(conversion);
 
-        public static void UnregisterMany(params ValueConversion[] conversions) => UnregisterMany(conversions);
-
-        public static void UnregisterMany(IList<ValueConversion> conversions) => conversions.AsParallel().ForAll(conversion => Unregister(conversion));
+        public static void UnregisterMany(params ValueConversion[] conversions) => conversions.AsParallel().ForAll(conversion => Unregister(conversion));
 
         public static bool IsRegistered(ValueConversion conversion) => GetExact(conversion.InputType, conversion.OutputType) != null;
 
