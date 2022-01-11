@@ -1,9 +1,68 @@
-﻿using System;
+﻿using OpenCAD.Modules.Math.Exceptions;
+using System;
+using System.Linq;
 
 namespace OpenCAD.Modules.Math.Operations
 {
     public abstract class NAryOperation
     {
+        public static object GetAndExecute(OperationType operationType, params object[] operands)
+        {
+            var operandTypes = operands.Select(operand => operand.GetType()).ToArray();
+            return executeExact() ?? executeInexact() ?? throw new OperationNotFoundException();
+
+            object executeExact()
+            {
+                var exactOperation = OperationManager.GetExact(operationType, operandTypes);
+                return exactOperation?.Execute(operands);
+            }
+
+            object executeInexact()
+            {
+                NAryOperation operation;
+                ValueConversion[] operandConversions;
+                if (tryFindOperationAndParameterConversions(out operation, out operandConversions))
+                {
+                    var convertedOperands = convertOperands(operands, operandConversions);
+                    return operation.Execute(convertedOperands);
+                }
+                return null;
+            }
+
+            bool tryFindOperationAndParameterConversions(out NAryOperation operation, out ValueConversion[] conversions)
+            {
+                (operation, conversions) = OperationManager.GetAll(operationType)
+                    .AsParallel()
+                    .Select((operation) =>
+                        {
+                            ValueConversion[] conversions;
+                            if (tryGetOperandConversions(operation.OperandTypes, out conversions))
+                                return (operation, conversions);
+                            return default;
+                        })
+                    .FirstOrDefault(t => t.operation != null);
+                return operation != null;
+            }
+
+            bool tryGetOperandConversions(Type[] destOperandTypes, out ValueConversion[] conversions)
+            {
+                conversions = operandTypes
+                    .Zip(destOperandTypes, (sourceType, destType) => (sourceType, destType))
+                    .Select(t => t.sourceType == t.destType ? ValueConversion.CreateCircular<object>()
+                        : ValueConversionManager.GetExact(t.sourceType, t.destType))
+                    .TakeWhile(conversion => conversion != null)
+                    .ToArray();
+
+                return conversions.Length == destOperandTypes.Length;
+            }
+
+            object[] convertOperands(object[] operands, ValueConversion[] operandConversions)
+                => operands
+                    .Zip(operandConversions, (value, conversion) => (value, conversion))
+                    .Select(p => p.conversion.Convert(p.value))
+                    .ToArray();
+        }
+
         /// <summary>
         /// Gets the operand types for this operation.
         /// </summary>
