@@ -1,5 +1,4 @@
-﻿using OpenCAD.Modules.Math.Exceptions;
-using OpenCAD.Modules.Math.Operations;
+﻿using OpenCAD.Modules.Math.Operations;
 using OpenCAD.Modules.Math.Operations.Binary;
 using OpenCAD.Modules.Math.Operations.Unary;
 using OpenCAD.Modules.Math.Operations.Unary.TrigonometricFunctions;
@@ -71,64 +70,34 @@ namespace OpenCAD.Modules.Math
         }
         #endregion
 
-        public static object Negate<T1>(T1 a)
-            => OperationManager.GetExact(OperationType.Negation, new[] { typeof(T1) })?.Execute(a)
-                ?? throw new OperationNotFoundException();
+        public static object Negate(object a) => NAryOperation.GetAndExecute(OperationType.Negation, a);
 
-        public static object Modulus<T1>(T1 a)
-            => OperationManager.GetExact(OperationType.Modulus, new[] { typeof(T1) })?.Execute(a)
-                ?? throw new OperationNotFoundException();
+        public static object Modulus(object a) => NAryOperation.GetAndExecute(OperationType.Modulus, a);
 
-        public static object SquareRoot<T1>(T1 a)
-            => OperationManager.GetExact(OperationType.SquareRoot, new[] { typeof(T1) })?.Execute(a)
-                ?? throw new OperationNotFoundException();
+        public static object SquareRoot(object a) => NAryOperation.GetAndExecute(OperationType.SquareRoot, a);
 
-        public static object Add<T1, T2>(T1 a, T2 b)
-            => OperationManager.GetExact(OperationType.Addition, new[] { typeof(T1), typeof(T2) })?.Execute(a, b)
-                ?? throw new OperationNotFoundException();
+        public static object Add(object a, object b) => NAryOperation.GetAndExecute(OperationType.Addition, a, b);
 
-        public static object Subtract<T1, T2>(T1 a, T2 b) =>
-            OperationManager.GetExact(OperationType.Subtraction, new[] { typeof(T1), typeof(T2) }).Execute(a, b)
-                ?? throw new OperationNotFoundException();
+        public static object Subtract(object a, object b) => NAryOperation.GetAndExecute(OperationType.Subtraction, a, b);
 
-        public static object Multiply<T1, T2>(T1 a, T2 b)
-            => OperationManager.GetExact(OperationType.Multiplication, new[] { typeof(T1), typeof(T2) })?.Execute(a, b)
-                ?? throw new OperationNotFoundException();
+        public static object Multiply(object a, object b) => NAryOperation.GetAndExecute(OperationType.Multiplication, a, b);
 
-        public static object Divide<T1, T2>(T1 a, T2 b)
-            => OperationManager.GetExact(OperationType.Division, new[] { typeof(T1), typeof(T2) })?.Execute(a, b)
-                ?? throw new OperationNotFoundException();
+        public static object Divide(object a, object b) => NAryOperation.GetAndExecute(OperationType.Division, a, b);
 
-        public static object Exponentiate<T1, T2>(T1 a, T2 b)
-            => OperationManager.GetExact(OperationType.Exponentiation, new[] { typeof(T1), typeof(T2) })?.Execute(a, b)
-                ?? throw new OperationNotFoundException();
+        public static object Exponentiate(object a, object b) => NAryOperation.GetAndExecute(OperationType.Exponentiation, a, b);
 
-        public static object NthRoot<T1, T2>(T1 a, T2 b)
-            => OperationManager.GetExact(OperationType.NthRoot, new[] { typeof(T1), typeof(T2) })?.Execute(a, b)
-                ?? throw new OperationNotFoundException();
+        public static object NthRoot(object a, object b) => NAryOperation.GetAndExecute(OperationType.NthRoot, a, b);
 
-        public static object Sine<T1>(T1 a)
-            => OperationManager.GetExact(OperationType.Sine, new[] { typeof(T1) })?.Execute(a)
-                ?? throw new OperationNotFoundException();
+        public static object Sine(object a) => NAryOperation.GetAndExecute(OperationType.Sine, a);
 
-        public static object Cosine<T1>(T1 a)
-            => OperationManager.GetExact(OperationType.Cosine, new[] { typeof(T1) })?.Execute(a)
-                ?? throw new OperationNotFoundException();
+        public static object Cosine(object a) => NAryOperation.GetAndExecute(OperationType.Cosine, a);
 
-        public static object Tangent<T1>(T1 a)
-            => OperationManager.GetExact(OperationType.Tangent, new[] { typeof(T1) })?.Execute(a)
-                ?? throw new OperationNotFoundException();
+        public static object Tangent(object a) => NAryOperation.GetAndExecute(OperationType.Tangent, a);
 
-        public static object Cosecant<T1>(T1 a)
-            => OperationManager.GetExact(OperationType.Cosecant, new[] { typeof(T1) })?.Execute(a)
-                ?? throw new OperationNotFoundException();
+        public static object Cosecant(object a) => NAryOperation.GetAndExecute(OperationType.Cosecant, a);
 
-        public static object Secant<T1>(T1 a)
-            => OperationManager.GetExact(OperationType.Secant, new[] { typeof(T1) })?.Execute(a)
-                ?? throw new OperationNotFoundException();
+        public static object Secant(object a) => NAryOperation.GetAndExecute(OperationType.Secant, a);
 
-        public static object Cotangent<T1>(T1 a)
-            => OperationManager.GetExact(OperationType.Cotangent, new[] { typeof(T1) })?.Execute(a)
-                ?? throw new OperationNotFoundException();
+        public static object Cotangent(object a) => NAryOperation.GetAndExecute(OperationType.Cotangent, a);
     }
 }
