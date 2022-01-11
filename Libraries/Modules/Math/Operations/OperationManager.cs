@@ -1,13 +1,17 @@
 using System.Linq;
 using System.Collections.Generic;
 using System;
-using System.Threading.Tasks;
-using OpenCAD.Modules.Math.Exceptions;
+using System.Runtime.CompilerServices;
 
 namespace OpenCAD.Modules.Math.Operations
 {
     public static class OperationManager
     {
+        static OperationManager()
+        {
+            RuntimeHelpers.RunClassConstructor(typeof(Math).TypeHandle);
+        }
+
         /// <summary>
         /// Registers many operations at once.
         /// </summary>
@@ -67,54 +71,6 @@ namespace OpenCAD.Modules.Math.Operations
         public static NAryOperation GetExact(OperationType operationType, Type[] operandTypes)
             => RegisteredOperations.AsParallel().FirstOrDefault(o => o.OperationType == operationType
                 && o.OperandTypes.SequenceEqual(operandTypes));
-
-        public static object Execute(OperationType operationType, params object[] operands)
-        {
-            var operandTypes = operands.Select(operand => operand.GetType()).ToArray();
-            return operateExact() ?? operateInexact() ?? throw new OperationNotFoundException();
-
-            object operateExact()
-            {
-                var exactOperation = GetExact(operationType, operandTypes);
-                return exactOperation?.Execute(operands);
-            }
-
-            object operateInexact()
-            {
-                NAryOperation operation;
-                ValueConversion[] operandConversions;
-                if (tryFindOperationAndParameterConversions(out operation, out operandConversions))
-                {
-                    var convertedOperands = convertOperands(operands, operandConversions);
-                    return operation.Execute(convertedOperands);
-                }
-                return null;
-            }
-
-            bool tryFindOperationAndParameterConversions(out NAryOperation operation, out ValueConversion[] operandConversions)
-            {
-                bool foundMatch = false;
-                (operation, operandConversions, foundMatch) = GetAll(operationType)
-                    .Select((operation) =>
-                        {
-                            var conversions = operandTypes
-                                .Zip(operation.OperandTypes, (sourceType, destType) => (sourceType, destType))
-                                .Select(t => ValueConversionManager.GetExact(t.sourceType, t.destType))
-                                .ToArray();
-                            bool allParametersAreConvertible = conversions.All(conversion => conversion != null);
-                            if (allParametersAreConvertible)
-                                return (operation, conversions, true);
-                            return default;
-                        })
-                    .FirstOrDefault(match => match.Item3);
-                return foundMatch;
-            }
-
-            object[] convertOperands(object[] operands, ValueConversion[] operandConversions) => operands
-                .Zip(operandConversions, (value, conversion) => (value, conversion))
-                .Select(p => p.conversion.Convert(p.value))
-                .ToArray();
-        }
 
         /// <summary>
         /// Checks if there is an operation registered which matches exactly the specified criteria.
