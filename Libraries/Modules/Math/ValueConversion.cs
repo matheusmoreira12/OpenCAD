@@ -4,6 +4,8 @@ namespace OpenCAD.Modules.Math
 {
     public abstract class ValueConversion
     {
+        public static readonly ValueConversion<object, object> Circular = new ValueConversion<object, object>(x => x);
+
         public abstract Type InputType { get; }
 
         public abstract Type OutputType { get; }

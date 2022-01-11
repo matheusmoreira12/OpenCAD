@@ -48,7 +48,7 @@ namespace OpenCAD.Modules.Math.Operations
             {
                 conversions = operandTypes
                     .Zip(destOperandTypes, (sourceType, destType) => (sourceType, destType))
-                    .Select(t => t.sourceType == t.destType ? ValueConversion.CreateCircular<object>()
+                    .Select(t => t.sourceType == t.destType ? ValueConversion.Circular
                         : ValueConversionManager.GetExact(t.sourceType, t.destType))
                     .TakeWhile(conversion => conversion != null)
                     .ToArray();
