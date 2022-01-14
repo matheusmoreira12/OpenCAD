@@ -1,4 +1,5 @@
 ﻿using OpenCAD.Modules.Math.Exceptions;
+using OpenCAD.Modules.Math.ValueConversion;
 using System;
 using System.Linq;
 
@@ -9,58 +10,65 @@ namespace OpenCAD.Modules.Math.Operations
         public static object GetAndExecute(OperationType operationType, params object[] operands)
         {
             var operandTypes = operands.Select(operand => operand.GetType()).ToArray();
-            return executeExact() ?? executeInexact() ?? throw new OperationNotFoundException();
+            return getAndExecuteExact() ?? getAndExecuteInexact() ?? throw new OperationNotFoundException();
 
-            object executeExact()
+            object getAndExecuteExact()
             {
                 var exactOperation = OperationManager.GetExact(operationType, operandTypes);
                 return exactOperation?.Execute(operands);
             }
 
-            object executeInexact()
+            object getAndExecuteInexact()
             {
                 NAryOperation operation;
-                ValueConversion[] operandConversions;
+                Func<object, object>[] operandConversions;
                 if (tryFindOperationAndParameterConversions(out operation, out operandConversions))
                 {
-                    var convertedOperands = convertOperands(operands, operandConversions);
+                    var convertedOperands = convertOperands(operandConversions);
                     return operation.Execute(convertedOperands);
                 }
                 return null;
-            }
 
-            bool tryFindOperationAndParameterConversions(out NAryOperation operation, out ValueConversion[] conversions)
-            {
-                (operation, conversions) = OperationManager.GetAll(operationType)
-                    .AsParallel()
-                    .Select((operation) =>
+                bool tryFindOperationAndParameterConversions(out NAryOperation operation, out Func<object, object>[] conversions)
+                {
+                    (operation, conversions) = OperationManager.GetAll(operationType)
+                        .AsParallel()
+                        .Select((operation) => (operation, conversions: getOperandConversionsOrNull(operation.OperandTypes)))
+                        .FirstOrDefault(t => t.conversions != null);
+                    return operation != null;
+
+                    Func<object, object>[] getOperandConversionsOrNull(Type[] destOperandTypes)
+                    {
+                        var conversions = operandTypes
+                            .Zip(destOperandTypes, (source, dest) => (source, dest))
+                            .Select(types => getConversionOrNull(types.source, types.dest))
+                            .TakeWhile(conversion => conversion != null)
+                            .ToArray();
+
+                        if (conversions.Length == destOperandTypes.Length)
+                            return conversions;
+                        return null;
+
+                        Func<object, object> getConversionOrNull(Type sourceType, Type destType)
                         {
-                            ValueConversion[] conversions;
-                            if (tryGetOperandConversions(operation.OperandTypes, out conversions))
-                                return (operation, conversions);
-                            return default;
-                        })
-                    .FirstOrDefault(t => t.operation != null);
-                return operation != null;
+                            if (sourceType == destType)
+                                return o => o;
+                            ValueConverter converter;
+                            if (ValueConverterManager.TryGetExact(sourceType, destType, out converter))
+                                return converter.Convert;
+                            if (ValueConverterManager.TryGetExact(destType, sourceType, out converter))
+                                return converter.ConvertBack;
+                            return null;
+                        }
+                    }
+                }
+
+                object[] convertOperands(Func<object, object>[] operandConversions)
+                    => operands
+                        .Zip(operandConversions, (value, conversion) => (value, conversion))
+                        .Select(pair => pair.conversion(pair.value))
+                        .ToArray();
             }
-
-            bool tryGetOperandConversions(Type[] destOperandTypes, out ValueConversion[] conversions)
-            {
-                conversions = operandTypes
-                    .Zip(destOperandTypes, (sourceType, destType) => (sourceType, destType))
-                    .Select(t => t.sourceType == t.destType ? ValueConversion.Circular
-                        : ValueConversionManager.GetExact(t.sourceType, t.destType))
-                    .TakeWhile(conversion => conversion != null)
-                    .ToArray();
-
-                return conversions.Length == destOperandTypes.Length;
-            }
-
-            object[] convertOperands(object[] operands, ValueConversion[] operandConversions)
-                => operands
-                    .Zip(operandConversions, (value, conversion) => (value, conversion))
-                    .Select(p => p.conversion.Convert(p.value))
-                    .ToArray();
         }
 
         /// <summary>

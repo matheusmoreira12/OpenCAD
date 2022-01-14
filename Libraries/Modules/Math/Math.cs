@@ -2,6 +2,8 @@
 using OpenCAD.Modules.Math.Operations.Binary;
 using OpenCAD.Modules.Math.Operations.Unary;
 using OpenCAD.Modules.Math.Operations.Unary.TrigonometricFunctions;
+using OpenCAD.Modules.Math.ValueConversion;
+using OpenCAD.Modules.Math.ValueConversion.DefaultConverters;
 
 namespace OpenCAD.Modules.Math
 {
@@ -47,25 +49,15 @@ namespace OpenCAD.Modules.Math
         #region Default Conversions
         static void registerDefaultValueConversions()
         {
-            ValueConversionManager.RegisterMany(
-                new ValueConversion<decimal, double>(i => (double)i),
-                new ValueConversion<ulong, double>(i => i),
-                new ValueConversion<long, double>(i => i),
-                new ValueConversion<int, double>(i => i),
-                new ValueConversion<ushort, double>(i => i),
-                new ValueConversion<short, double>(i => i),
-                new ValueConversion<char, double>(i => i),
-                new ValueConversion<byte, double>(i => i),
-                new ValueConversion<float, double>(i => i),
-                new ValueConversion<double, decimal>(d => (decimal)d),
-                new ValueConversion<double, ulong>(d => (ulong)d),
-                new ValueConversion<double, long>(d => (long)d),
-                new ValueConversion<double, int>(d => (int)d),
-                new ValueConversion<double, ushort>(d => (ushort)d),
-                new ValueConversion<double, short>(d => (short)d),
-                new ValueConversion<double, char>(d => (char)d),
-                new ValueConversion<double, byte>(d => (byte)d),
-                new ValueConversion<double, float>(d => (float)d)
+            ValueConverterManager.RegisterMany(
+                new DecimalToDoubleConverter(),
+                new ULongToDoubleConverter(),
+                new LongToDoubleConverter(),
+                new IntToDoubleConverter(),
+                new UShortToDoubleConverter(),
+                new ShortToDoubleConverter(),
+                new ByteToDoubleConverter(),
+                new FloatToDoubleConverter()
             );
         }
         #endregion

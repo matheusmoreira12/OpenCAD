@@ -54,7 +54,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ValueConversionManager.cs" />
+    <Compile Include="ValueConversion\CircularValueConverter.cs" />
+    <Compile Include="ValueConversion\DefaultConverters\DecimalToDoubleConverter.cs" />
+    <Compile Include="ValueConversion\DefaultConverters\ByteToDoubleConverter.cs" />
+    <Compile Include="ValueConversion\DefaultConverters\FloatToDoubleConverter.cs" />
+    <Compile Include="ValueConversion\DefaultConverters\IntToDoubleConverter.cs" />
+    <Compile Include="ValueConversion\DefaultConverters\ShortToDoubleConverter.cs" />
+    <Compile Include="ValueConversion\DefaultConverters\UShortToDoubleConverter.cs" />
+    <Compile Include="ValueConversion\DefaultConverters\ULongToDoubleConverter.cs" />
+    <Compile Include="ValueConversion\DefaultConverters\LongToDoubleConverter.cs" />
+    <Compile Include="ValueConversion\ValueConverterManager.cs" />
     <Compile Include="Numerics\ComplexNumber.cs" />
     <Compile Include="Numerics\IComplexNumber.cs" />
     <Compile Include="Numerics\ImaginaryNumber.cs" />
@@ -81,7 +90,7 @@
     <Compile Include="Operations\Unary\TrigonometricFunctions\Sine.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Solving\SolverVariable.cs" />
-    <Compile Include="ValueConversion.cs" />
+    <Compile Include="ValueConversion\ValueConverter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -171,5 +180,6 @@
     <Content Include="packages\System.Runtime.4.3.1\ref\netstandard1.5\zh-hant\System.Runtime.xml" />
     <Content Include="packages\System.Runtime.4.3.1\ThirdPartyNotices.txt" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
