@@ -54,7 +54,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ValueConversion\CircularValueConverter.cs" />
     <Compile Include="ValueConversion\DefaultConverters\DecimalToDoubleConverter.cs" />
     <Compile Include="ValueConversion\DefaultConverters\ByteToDoubleConverter.cs" />
     <Compile Include="ValueConversion\DefaultConverters\FloatToDoubleConverter.cs" />
