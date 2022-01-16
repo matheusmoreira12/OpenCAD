@@ -1,6 +1,6 @@
 ﻿namespace OpenCAD.OpenCADFormat.SchematicCapture
 {
-    class RatsNest
+    public class SchematicElement
     {
     }
 }

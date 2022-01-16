@@ -1,19 +1,40 @@
 ﻿using System;
 using System.Xml.Serialization;
 using OpenCAD.APIs.Measures;
+using OpenCAD.OpenCADFormat.MetaAnnotation;
 
 namespace OpenCAD.OpenCADFormat.PCBLayout
 {
-    [Serializable]
-    public class RoutingLayer: Layer
+    public sealed class RoutingLayer: Layer
     {
-        [XmlAttribute]
-        public Scalar CopperPullBack;
+        public RoutingLayer(string name)
+        {
+            Name = name ?? throw new ArgumentNullException(nameof(name));
+            CopperPullBack = DefaultValues.COPPER_PULLBACK;
+            ThermalRelief = new ThermalReliefOptions();
+            CopperTheeving = new CopperThievingOptions();
+            Metadata = new Metadata(new MetadataField("Notes", ""));
+        }
 
-        [XmlElement]
-        public ThermalReliefOptions ThermalRelief;
+        public RoutingLayer(
+            string name, Scalar copperPullback, ThermalReliefOptions thermalRelief, CopperThievingOptions copperTheeving,
+            Metadata metadata)
+        {
+            Name = name ?? throw new ArgumentNullException(nameof(name));
+            CopperPullBack = copperPullback;
+            ThermalRelief = thermalRelief ?? throw new ArgumentNullException(nameof(thermalRelief));
+            CopperTheeving = copperTheeving ?? throw new ArgumentNullException(nameof(thermalRelief));
+            Metadata = metadata ?? throw new ArgumentNullException(nameof(metadata));
+        }
 
-        [XmlElement]
-        public CopperThievingOptions CopperTheeving;
+        public override string Name { get; }
+
+        public override Metadata Metadata { get; }
+
+        public readonly Scalar CopperPullBack;
+
+        public readonly ThermalReliefOptions ThermalRelief;
+
+        public readonly CopperThievingOptions CopperTheeving;
     }
 }

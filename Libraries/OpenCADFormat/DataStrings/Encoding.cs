@@ -5,7 +5,6 @@ using System.Reflection;
 using System.Collections;
 
 using OpenCAD.OpenCADFormat.DataConversion;
-using OpenCAD.OpenCADFormat.DataStrings.Exceptions;
 
 namespace OpenCAD.OpenCADFormat.DataStrings.Encoding
 {

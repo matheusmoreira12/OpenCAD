@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using OpenCAD.APIs.Measures;
+﻿using OpenCAD.APIs.Measures;
 using OpenCAD.OpenCADFormat.CoordinateSystem;
 
 namespace OpenCAD.OpenCADFormat.Drawing

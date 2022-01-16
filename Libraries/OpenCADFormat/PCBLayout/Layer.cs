@@ -1,20 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Media;
-using System.Xml.Serialization;
+﻿using OpenCAD.OpenCADFormat.MetaAnnotation;
 
 namespace OpenCAD.OpenCADFormat.PCBLayout
 {
-    [Serializable]
     public abstract class Layer
     {
-        [XmlAttribute]
-        public string Name;
+        public abstract string Name { get; }
 
-        [XmlAttribute]
-        public Color UIColor;
+        public abstract Metadata Metadata { get; }
     }
 }

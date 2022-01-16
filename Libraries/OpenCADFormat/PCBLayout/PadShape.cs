@@ -1,6 +1,7 @@
 ﻿namespace OpenCAD.OpenCADFormat.PCBLayout
 {
-    public class Via: PCBElement
+    public abstract class PadShape
     {
+
     }
 }

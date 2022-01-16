@@ -108,7 +108,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ArbitraryValueContainer.cs" />
+    <Compile Include="ComponentLibraries\ComponentPartCollection.cs" />
     <Compile Include="DocumentFoundation\Document.cs" />
     <Compile Include="Drawing\FillStyle.cs" />
     <Compile Include="Drawing\FillStyles.cs" />
@@ -137,29 +137,32 @@
     <Compile Include="Drawing\TextNodes\SubscriptNode.cs" />
     <Compile Include="Drawing\TextNodes\SuperscriptNode.cs" />
     <Compile Include="Drawing\TextNodes\UnderlineNode.cs" />
-    <Compile Include="Libraries\ComponentPart.cs" />
-    <Compile Include="Libraries\ComponentPin.cs" />
-    <Compile Include="Libraries\ComponentPinCollection.cs" />
-    <Compile Include="Libraries\ComponentPinPolarity.cs" />
-    <Compile Include="Libraries\ComponentPinType.cs" />
-    <Compile Include="Libraries\ComponentSymbol.cs" />
-    <Compile Include="Libraries\Footprint.cs" />
-    <Compile Include="Measures\Serialization\BaseQuantityNode.cs" />
-    <Compile Include="Measures\Serialization\BaseUnitNode.cs" />
-    <Compile Include="Measures\Serialization\DerivedQuantityNode.cs" />
-    <Compile Include="Measures\Serialization\DerivedUnitNode.cs" />
-    <Compile Include="Measures\Serialization\MetricPrefixNode.cs" />
-    <Compile Include="Measures\Serialization\MetricSystemLibrary.cs" />
-    <Compile Include="Measures\Serialization\MetricSystemNode.cs" />
-    <Compile Include="Measures\Serialization\QuantityNode.cs" />
-    <Compile Include="Measures\Serialization\UnitNode.cs" />
+    <Compile Include="ComponentLibraries\ComponentPart.cs" />
+    <Compile Include="ComponentLibraries\ComponentPin.cs" />
+    <Compile Include="ComponentLibraries\ComponentPinCollection.cs" />
+    <Compile Include="ComponentLibraries\ComponentPinPolarity.cs" />
+    <Compile Include="ComponentLibraries\ComponentPinType.cs" />
+    <Compile Include="ComponentLibraries\ComponentSymbol.cs" />
+    <Compile Include="FootprintLibraries\Footprint.cs" />
+    <Compile Include="FootprintLibraries\FootprintLayout.cs" />
+    <Compile Include="MetaAnnotation\Metadata.cs" />
     <Compile Include="PCBLayout\AnnotationLayer.cs" />
+    <Compile Include="PCBLayout\CopperThievingPatternType.cs" />
+    <Compile Include="PCBLayout\KeepoutLayer.cs" />
+    <Compile Include="PCBLayout\MechanicalLayer.cs" />
+    <Compile Include="PCBLayout\OverlayLayer.cs" />
+    <Compile Include="PCBLayout\PadShape.cs" />
+    <Compile Include="PCBLayout\RoutingLayer.cs" />
+    <Compile Include="PCBLayout\SolderMaskLayer.cs" />
+    <Compile Include="PCBLayout\SolderPasteLayer.cs" />
+    <Compile Include="Referencing\Reference.cs" />
+    <Compile Include="MetaAnnotation\MetadataField.cs" />
+    <Compile Include="MetaAnnotation\MetadataFieldCollection.cs" />
     <Compile Include="PCBLayout\CopperThievingOptions.cs" />
     <Compile Include="PCBLayout\DefaultValues.cs" />
-    <Compile Include="PCBLayout\KeepoutLayer.cs" />
     <Compile Include="PCBLayout\Layer.cs" />
     <Compile Include="PCBLayout\LayerStackup.cs" />
-    <Compile Include="PCBLayout\PCBLayout.cs" />
+    <Compile Include="PCBLayout\PCB.cs" />
     <Compile Include="PCBLayout\ThermalReliefOptions.cs" />
     <Compile Include="Conventions\Conventions.cs" />
     <Compile Include="CoordinateSystem\Point.cs" />
@@ -168,15 +171,6 @@
     <Compile Include="CoordinateSystem\Transform.cs" />
     <Compile Include="CoordinateSystem\TransformList.cs" />
     <Compile Include="CoordinateSystem\TranslateTransform.cs" />
-    <Compile Include="DataConversion\DataConversion.cs" />
-    <Compile Include="DataStrings\Attributes.cs" />
-    <Compile Include="DataStrings\DataStringGenerator.cs" />
-    <Compile Include="DataStrings\DataStringItem.cs" />
-    <Compile Include="DataStrings\Encoding.cs" />
-    <Compile Include="DataStrings\Exceptions.cs" />
-    <Compile Include="DataStrings\ExtensionMethods.cs" />
-    <Compile Include="DataStrings\GlobalConsts.cs" />
-    <Compile Include="DataStrings\Utils.cs" />
     <Compile Include="Drawing\Arc.cs" />
     <Compile Include="Drawing\DrawingGroup.cs" />
     <Compile Include="Drawing\Ellipse.cs" />
@@ -198,45 +192,34 @@
     <Compile Include="Drawing\Utils.cs" />
     <Compile Include="Drawing\Fonts\Font.cs" />
     <Compile Include="Drawing\TextNode.cs" />
-    <Compile Include="Fonts\DocumentFoundation\Document.cs" />
-    <Compile Include="Fonts\DocumentFoundation\FileConversion\FileConversion.cs" />
-    <Compile Include="Fonts\Font.cs" />
-    <Compile Include="Fonts\FontVariant.cs" />
-    <Compile Include="Fonts\Glyph.cs" />
-    <Compile Include="Libraries\Component.cs" />
-    <Compile Include="Libraries\ComponentLibrary.cs" />
-    <Compile Include="Libraries\Exceptions.cs" />
-    <Compile Include="Libraries\FootprintLibrary.cs" />
-    <Compile Include="Libraries\Library.cs" />
-    <Compile Include="MetaInformation\Exceptions.cs" />
-    <Compile Include="PCBLayout\MechanicalLayer.cs" />
-    <Compile Include="PCBLayout\OverlayLayer.cs" />
+    <Compile Include="ComponentLibraries\Component.cs" />
+    <Compile Include="ComponentLibraries\ComponentLibrary.cs" />
+    <Compile Include="FootprintLibraries\FootprintLibrary.cs" />
     <Compile Include="PCBLayout\Pad.cs" />
     <Compile Include="PCBLayout\PCBElement.cs" />
-    <Compile Include="PCBLayout\RoutingLayer.cs" />
-    <Compile Include="PCBLayout\SolderMaskLayer.cs" />
-    <Compile Include="PCBLayout\SolderPasteLayer.cs" />
-    <Compile Include="MetaInformation\MetadataField.cs" />
-    <Compile Include="MetaInformation\MetadataFieldCollection.cs" />
     <Compile Include="PCBLayout\Via.cs" />
     <Compile Include="Resource1.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resource1.resx</DependentUpon>
     </Compile>
+    <Compile Include="SchematicCapture\HierarchicalSheet.cs" />
     <Compile Include="SchematicCapture\Net.cs" />
     <Compile Include="SchematicCapture\RatsNest.cs" />
-    <Compile Include="SchematicCapture\SchematicCapture.cs" />
+    <Compile Include="SchematicCapture\Schematic.cs" />
     <Compile Include="Drawing\DrawingNode.cs" />
+    <Compile Include="SchematicCapture\SchematicElement.cs" />
+    <Compile Include="SchematicCapture\Sheet.cs" />
     <Compile Include="SchematicCapture\Trace.cs" />
-    <Compile Include="Serialization\IResolvable.cs" />
+    <Compile Include="SchematicCapture\TraceMode.cs" />
+    <Compile Include="SchematicCapture\TracePoint.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="ReferencingSystem\" />
     <Folder Include="Resources\Shared\MetricSystems\" />
+    <Folder Include="SchematicCapture\SchematicElements\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resource1.resx">

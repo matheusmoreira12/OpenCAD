@@ -1,5 +1,4 @@
 ﻿using OpenCAD.APIs.Measures;
-using System;
 
 namespace OpenCAD.OpenCADFormat.Drawing.Fonts
 {

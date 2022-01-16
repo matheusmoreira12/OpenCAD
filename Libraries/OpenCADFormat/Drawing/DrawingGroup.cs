@@ -14,7 +14,12 @@ namespace OpenCAD.OpenCADFormat.Drawing
         /// </summary>
         public readonly DrawingNode[] Elements;
 
-        public DrawingGroup(IReadOnlyList<DrawingNode> elements)
+        public DrawingGroup(params DrawingNode[] elements)
+        {
+            Elements = elements;
+        }
+
+        public DrawingGroup(IList<DrawingNode> elements)
         {
             Elements = elements?.ToArray() ?? throw new ArgumentNullException(nameof(elements));
         }

@@ -1,21 +1,27 @@
-﻿using System;
-using System.Xml.Serialization;
-using OpenCAD.APIs.Measures;
+﻿using OpenCAD.APIs.Measures;
 
 namespace OpenCAD.OpenCADFormat.PCBLayout
 {
-    [Serializable]
     public class CopperThievingOptions
     {
-        [XmlAttribute]
-        public CopperThievingPatternType PatternType = DefaultValues.COPPER_THIEVING_PATTERN_TYPE;
+        public readonly CopperThievingPatternType PatternType;
 
-        [XmlAttribute]
-        public Scalar PatternSize = DefaultValues.COPPER_THIEVING_PATTERN_SIZE;
+        public readonly Scalar PatternSize;
 
-        [XmlAttribute]
-        public double PatternDensity = DefaultValues.COPPER_THIEVING_PATTERN_DENSITY;
+        public readonly double PatternDensity;
+
+        public CopperThievingOptions()
+        {
+            PatternType = DefaultValues.COPPER_THIEVING_PATTERN_TYPE;
+            PatternSize = DefaultValues.COPPER_THIEVING_PATTERN_SIZE;
+            PatternDensity = DefaultValues.COPPER_THIEVING_PATTERN_DENSITY;
+        }
+
+        public CopperThievingOptions(CopperThievingPatternType patternType, Scalar patternSize, double patternDensity)
+        {
+            PatternType = patternType;
+            PatternSize = patternSize;
+            PatternDensity = patternDensity;
+        }
     }
-
-    public enum CopperThievingPatternType { Round, Square }
 }

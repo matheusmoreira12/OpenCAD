@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using OpenCAD.OpenCADFormat.DataStrings;
 
 namespace OpenCAD.OpenCADFormat.CoordinateSystem
 {

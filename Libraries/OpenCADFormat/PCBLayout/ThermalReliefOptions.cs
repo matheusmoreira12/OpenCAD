@@ -1,19 +1,27 @@
-﻿using System;
-using System.Xml.Serialization;
-using OpenCAD.APIs.Measures;
+﻿using OpenCAD.APIs.Measures;
 
 namespace OpenCAD.OpenCADFormat.PCBLayout
 {
-    [Serializable]
     public class ThermalReliefOptions
     {
-        [XmlAttribute]
-        public Scalar Angle = DefaultValues.THERMAL_RELIEF_SPOKE_ANGLE;
+        public ThermalReliefOptions()
+        {
+            Angle = DefaultValues.THERMAL_RELIEF_SPOKE_ANGLE;
+            SpokeCount = DefaultValues.THERMAL_RELIEF_SPOKE_COUNT;
+            SpokeWidth = DefaultValues.THERMAL_RELIEF_SPOKE_WIDTH;
+        }
 
-        [XmlAttribute]
-        public int SpokeCount = DefaultValues.THERMAL_RELIEF_SPOKE_COUNT;
+        public ThermalReliefOptions(Scalar angle, int spokeCount, Scalar spokeWidth)
+        {
+            Angle = angle;
+            SpokeCount = spokeCount;
+            SpokeWidth = spokeWidth;
+        }
 
-        [XmlAttribute]
-        public Scalar SpokeWidth = DefaultValues.THERMAL_RELIEF_SPOKE_WIDTH;
+        public readonly Scalar Angle;
+
+        public readonly int SpokeCount;
+
+        public readonly Scalar SpokeWidth;
     }
 }
