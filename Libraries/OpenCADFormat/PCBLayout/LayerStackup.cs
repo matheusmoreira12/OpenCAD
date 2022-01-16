@@ -1,28 +1,20 @@
-﻿using System.Collections.Generic;
-using System.Xml;
-using System.Xml.Schema;
-using System.Xml.Serialization;
+﻿using System;
+using System.Collections.Generic;
 
 namespace OpenCAD.OpenCADFormat.PCBLayout
 {
-    public sealed class LayerStackup: SortedList<int, Layer>, IXmlSerializable
+    public sealed class LayerStackup
     {
-        [XmlIgnore]
-        public List<Layer> Layers;
-
-        XmlSchema IXmlSerializable.GetSchema()
+        public LayerStackup(params Layer[] layers)
         {
-            return null;
+            Layers = new LayerCollection(layers ?? throw new ArgumentNullException(nameof(layers)));
         }
 
-        void IXmlSerializable.ReadXml(XmlReader reader)
+        public LayerStackup(IList<Layer> layers)
         {
-            throw new System.NotImplementedException();
+            Layers = new LayerCollection(layers ?? throw new ArgumentNullException(nameof(layers)));
         }
 
-        void IXmlSerializable.WriteXml(XmlWriter writer)
-        {
-            throw new System.NotImplementedException();
-        }
+        public readonly LayerCollection Layers;
     }
 }

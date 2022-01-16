@@ -149,6 +149,7 @@
     <Compile Include="PCBLayout\AnnotationLayer.cs" />
     <Compile Include="PCBLayout\CopperThievingPatternType.cs" />
     <Compile Include="PCBLayout\KeepoutLayer.cs" />
+    <Compile Include="PCBLayout\LayerCollection.cs" />
     <Compile Include="PCBLayout\MechanicalLayer.cs" />
     <Compile Include="PCBLayout\OverlayLayer.cs" />
     <Compile Include="PCBLayout\PadShape.cs" />

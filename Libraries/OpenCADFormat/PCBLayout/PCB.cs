@@ -24,19 +24,18 @@ namespace OpenCAD.OpenCADFormat.PCBLayout
         public PCB()
         {
             Origin = Point.Zero;
-            LayerStackup = new LayerStackup {
-                /*{ 1, new Layer("Fabrication Notes", LayerType.Annotation) },
-                { 2, new Layer("Mechanical", LayerType.Mechanical) },
-                { 3, new Layer("Keepout", LayerType.Keepout) },
-                { 4, new Layer("Top Overlay", LayerType.Overlay) },
-                { 5, new Layer("Top Solder Mask", LayerType.SolderMask) },
-                { 6, new Layer("Top Solder Paste", LayerType.SolderPaste) },
-                { 7, new Layer("Top Copper", LayerType.Routing) },
-                { 8, new Layer("Bottom Copper", LayerType.Routing) },
-                { 9, new Layer("Bottom Solder Paste", LayerType.SolderPaste) },
-                { 10, new Layer("Bottom Solder Mask", LayerType.SolderMask) },
-                { 11, new Layer("Bottom Overlay", LayerType.Overlay) },*/
-            };
+            LayerStackup = new LayerStackup(
+                new AnnotationLayer("Fabrication Notes"),
+                new MechanicalLayer("Mechanical"),
+                new KeepoutLayer("Keepout"),
+                new OverlayLayer("Top Overlay"),
+                new SolderMaskLayer("Top Solder Mask"),
+                new SolderPasteLayer("Top Solder Paste"),
+                new RoutingLayer("Top Copper"),
+                new RoutingLayer("Bottom Copper"),
+                new SolderPasteLayer("Bottom Solder Paste"),
+                new SolderMaskLayer("Bottom Solder Mask"),
+                new OverlayLayer("Bottom Overlay"));
             Elements = new List<PCBElement>();
         }
     }
