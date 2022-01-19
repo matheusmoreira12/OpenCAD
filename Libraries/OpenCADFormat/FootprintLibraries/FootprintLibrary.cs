@@ -9,18 +9,16 @@ namespace OpenCAD.OpenCADFormat.FootprintLibraries
     {
         public readonly string Name;
 
-        public readonly List<Footprint> Footprints;
+        public readonly FootprintCollection Footprints;
 
-        public FootprintLibrary()
+        public FootprintLibrary(
+            DateTime created,
+            DateTime modified,
+            Version sourceVersion,
+            Metadata metadata,
+            IList<Footprint> footprints) : base(created, modified, sourceVersion, metadata)
         {
-            Name = "*";
-            Footprints = new List<Footprint>();
-        }
-
-        public FootprintLibrary(string name, IList<Footprint> footprints, Metadata metadata): base(metadata)
-        {
-            Name = name ?? throw new ArgumentNullException(nameof(name));
-            Footprints = new List<Footprint>(footprints ?? throw new ArgumentNullException(nameof(footprints)));
+            Footprints = new FootprintCollection(footprints ?? throw new ArgumentNullException(nameof(footprints)));
         }
     }
 }

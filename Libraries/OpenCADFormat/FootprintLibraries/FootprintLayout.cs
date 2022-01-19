@@ -8,14 +8,12 @@ namespace OpenCAD.OpenCADFormat.FootprintLibraries
     {
         public readonly List<PCBElement> Elements;
 
-        public FootprintLayout()
-        {
-            Elements = new List<PCBElement>();
-        }
+        public readonly LayerStackup LayerStackup;
 
-        public FootprintLayout(IList<PCBElement> elements)
+        public FootprintLayout(IList<PCBElement> elements, LayerStackup layerStackup)
         {
             Elements = new List<PCBElement>(elements ?? throw new ArgumentNullException(nameof(elements)));
+            LayerStackup = layerStackup ?? throw new ArgumentNullException(nameof(layerStackup));
         }
     }
 }

@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<PCBTemplate Extends="Document_Template.xml">
+  <FillerTemplates>
+    <AnnotationLayerTemplate>
+      <Name>*</Name>
+      <Metadata>
+        <MetadataField Name="Notes">
+          <![CDATA[]]>
+        </MetadataField>
+      </Metadata>
+    </AnnotationLayerTemplate>
+    <KeepoutLayerTemplate>
+      <Name>*</Name>
+      <Metadata>
+        <MetadataField Name="Notes">
+          <![CDATA[]]>
+        </MetadataField>
+      </Metadata>
+    </KeepoutLayerTemplate>
+    <MechanicalLayerTemplate>
+      <Name>*</Name>
+      <Metadata>
+        <MetadataField Name="Notes">
+          <![CDATA[]]>
+        </MetadataField>
+      </Metadata>
+    </MechanicalLayerTemplate>
+    <OverlayLayerTemplate>
+      <Name>*</Name>
+      <Metadata>
+        <MetadataField Name="Notes">
+          <![CDATA[]]>
+        </MetadataField>
+      </Metadata>
+    </OverlayLayerTemplate>
+    <RoutingLayerTemplateTemplate>
+      <Name>*</Name>
+      <CopperPullBack>50mil</CopperPullBack>
+      <ThermalRelief>
+        <SpokeAngle>0deg</SpokeAngle>
+        <SpokeCount>4</SpokeCount>
+        <SpokeThickness>10mil</SpokeThickness>
+      </ThermalRelief>
+      <CopperBalancing>
+        <PatternType>Round</PatternType>
+        <PatternSize>50mil</PatternSize>
+        <PatternDensity>.25</PatternDensity>
+      </CopperBalancing>
+      <Metadata>
+        <MetadataField Name="Notes">
+          <![CDATA[]]>
+        </MetadataField>
+      </Metadata>
+    </RoutingLayerTemplateTemplate>
+    <SolderMaskLayerTemplate>
+      <Name>*</Name>
+      <Metadata>
+        <MetadataField Name="Notes">
+          <![CDATA[]]>
+        </MetadataField>
+      </Metadata>
+    </SolderMaskLayerTemplate>
+    <SolderPasteLayerTemplate>
+      <Name>*</Name>
+      <Metadata>
+        <MetadataField Name="Notes">
+          <![CDATA[]]>
+        </MetadataField>
+      </Metadata>
+    </SolderPasteLayerTemplate>
+  </FillerTemplates>
+  <LayerStackup>
+    <AnnotationLayer Name="Fabrication Notes"/>
+    <MechanicalLayer Name="Mechanical"/>
+    <KeepoutLayer Name="Keepout"/>
+    <OverlayLayer Name="Top Overlay"/>
+    <SolderMaskLayer Name="Top Solder Mask"/>
+    <SolderPasteLayer Name="Top Solder Paste"/>
+    <RoutingLayer Name="Top Copper"/>
+    <RoutingLayer Name="Bottom Copper"/>
+    <SolderPasteLayer Name="Bottom Solder Paste"/>
+    <SolderMaskLayer Name="Bottom Solder Mask"/>
+    <OverlayLayer Name="Bottom Overlay"/>
+    <OverlayLayer Name="Bottom Overlay"/>
+  </LayerStackup>
+  <Metadata>
+    <MetadataField Name="Revision" IsRequired="Yes">
+      <![CDATA[1.0]]>
+    </MetadataField>
+    <MetadataField Name="Revised By" IsRequired="Yes">
+      <![CDATA[]]>
+    </MetadataField>
+    <MetadataField Name="Revision Date" IsRequired="Yes">
+      <![CDATA[]]>
+    </MetadataField>
+  </Metadata>
+</PCBTemplate>

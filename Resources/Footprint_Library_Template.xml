@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FootprintLibraryTemplate Extends="Document_Template.xml">
+  <FillerTemplates>
+    <FootprintTemplate>
+      <Name>*</Name>
+      <Layout></Layout>
+      <Metadata>
+        <MetadataField Name="Manufacturer Designation" IsRequired="Yes">
+          <![CDATA[]]>
+        </MetadataField>
+        <MetadataField Name="IEC Designation" IsRequired="Yes">
+          <![CDATA[]]>
+        </MetadataField>
+        <MetadataField Name="DIN Designation" IsRequired="Yes">
+          <![CDATA[]]>
+        </MetadataField>
+        <MetadataField Name="EIAJ/JEITA Designation" IsRequired="Yes">
+          <![CDATA[]]>
+        </MetadataField>
+        <MetadataField Name="Gosstandart Designation" IsRequired="Yes">
+          <![CDATA[]]>
+        </MetadataField>
+        <MetadataField Name="Rosstandart Designation" IsRequired="Yes">
+          <![CDATA[]]>
+        </MetadataField>
+        <MetadataField Name="Kombinat Mikroelektronik Erfurt Designation" IsRequired="Yes">
+          <![CDATA[]]>
+        </MetadataField>
+        <MetadataField Name="Manufacturer" IsRequired="Yes">
+          <![CDATA[]]>
+        </MetadataField>
+        <MetadataField Name="Datasheet" IsRequired="Yes">
+          <![CDATA[]]>
+        </MetadataField>
+        <MetadataField Name="Notes">
+          <![CDATA[]]>
+        </MetadataField>
+      </Metadata>
+    </FootprintTemplate>
+    <FootprintLayoutTemplate>
+      <Elements></Elements>
+      <LayerStackup>
+      </LayerStackup>
+    </FootprintLayoutTemplate>
+  </FillerTemplates>
+  <Name>*</Name>
+</FootprintLibraryTemplate>

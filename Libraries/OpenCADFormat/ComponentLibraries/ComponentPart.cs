@@ -5,13 +5,6 @@ namespace OpenCAD.OpenCADFormat.ComponentLibraries
 {
     public sealed class ComponentPart
     {
-        public ComponentPart()
-        {
-            Name = "*";
-            Symbol = new ComponentSymbol();
-            Metadata = new Metadata(new MetadataField("Notes", ""));
-        }
-
         public ComponentPart(string name, ComponentSymbol symbol, Metadata metadata)
         {
             Name = name ?? throw new ArgumentNullException(nameof(name));

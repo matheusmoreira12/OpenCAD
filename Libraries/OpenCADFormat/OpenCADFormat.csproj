@@ -108,6 +108,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ComponentLibraries\ComponentCollection.cs" />
     <Compile Include="ComponentLibraries\ComponentPartCollection.cs" />
     <Compile Include="DocumentFoundation\Document.cs" />
     <Compile Include="Drawing\FillStyle.cs" />
@@ -144,10 +145,11 @@
     <Compile Include="ComponentLibraries\ComponentPinType.cs" />
     <Compile Include="ComponentLibraries\ComponentSymbol.cs" />
     <Compile Include="FootprintLibraries\Footprint.cs" />
+    <Compile Include="FootprintLibraries\FootprintCollection.cs" />
     <Compile Include="FootprintLibraries\FootprintLayout.cs" />
     <Compile Include="MetaAnnotation\Metadata.cs" />
     <Compile Include="PCBLayout\AnnotationLayer.cs" />
-    <Compile Include="PCBLayout\CopperThievingPatternType.cs" />
+    <Compile Include="PCBLayout\CopperBalancingPatternType.cs" />
     <Compile Include="PCBLayout\KeepoutLayer.cs" />
     <Compile Include="PCBLayout\LayerCollection.cs" />
     <Compile Include="PCBLayout\MechanicalLayer.cs" />
@@ -159,8 +161,7 @@
     <Compile Include="Referencing\Reference.cs" />
     <Compile Include="MetaAnnotation\MetadataField.cs" />
     <Compile Include="MetaAnnotation\MetadataFieldCollection.cs" />
-    <Compile Include="PCBLayout\CopperThievingOptions.cs" />
-    <Compile Include="PCBLayout\DefaultValues.cs" />
+    <Compile Include="PCBLayout\CopperBalancingOptions.cs" />
     <Compile Include="PCBLayout\Layer.cs" />
     <Compile Include="PCBLayout\LayerStackup.cs" />
     <Compile Include="PCBLayout\PCB.cs" />

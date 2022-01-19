@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ComponentLibraryTemplate Extends="Document_Template.xml">
+  <FillerTemplates>
+    <ComponentTemplate>
+      <Name>*</Name>
+      <ReferenceDesignator>U?</ReferenceDesignator>;
+      <Parts>
+        <ComponentPart>
+        </ComponentPart>
+      </Parts>
+      <Footprint>*</Footprint>
+      <Metadata>
+        <MetadataField Name="Part Number" IsRequired="Yes">
+          <![CDATA[]]>
+        </MetadataField>
+        <MetadataField Name="Manufacturer" IsRequired="Yes">
+          <![CDATA[]]>
+        </MetadataField>
+        <MetadataField Name="Datasheet" IsRequired="Yes">
+          <![CDATA[]]>
+        </MetadataField>
+        <MetadataField Name="Notes">
+          <![CDATA[]]>
+        </MetadataField>
+      </Metadata>
+    </ComponentTemplate>
+    <ComponentSymbolTemplate>
+      <Drawing></Drawing>
+      <Pins></Pins>
+    </ComponentSymbolTemplate>
+    <ComponentPartTemplate>
+      <Name>*</Name>
+      <Symbol>
+      </Symbol>
+      <MetadataField Name="Notes">
+        <![CDATA[]]>
+      </MetadataField>
+    </ComponentPartTemplate>
+    <ComponentPinTemplate>
+      <Name>*</Name>
+      <Type>NotSpecified</Type>;
+      <Polarity>NotSpecified</Polarity>
+      <MetadataField Name="Notes">
+        <![CDATA[]]>
+      </MetadataField>
+    </ComponentPinTemplate>
+  </FillerTemplates>
+  <Components>
+    <Component/>
+  </Components>
+</ComponentLibraryTemplate>

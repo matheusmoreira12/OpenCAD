@@ -4,21 +4,19 @@ namespace OpenCAD.OpenCADFormat.PCBLayout
 {
     public class ThermalReliefOptions
     {
-        public ThermalReliefOptions()
-        {
-            Angle = DefaultValues.THERMAL_RELIEF_SPOKE_ANGLE;
-            SpokeCount = DefaultValues.THERMAL_RELIEF_SPOKE_COUNT;
-            SpokeWidth = DefaultValues.THERMAL_RELIEF_SPOKE_WIDTH;
-        }
+        public static readonly ThermalReliefOptions Default = new ThermalReliefOptions(
+            Scalar.Parse("0deg"),
+            4,
+            Scalar.Parse("10mil"));
 
-        public ThermalReliefOptions(Scalar angle, int spokeCount, Scalar spokeWidth)
+        public ThermalReliefOptions(Scalar spokeAngle, int spokeCount, Scalar spokeWidth)
         {
-            Angle = angle;
+            SpokeAngle = spokeAngle;
             SpokeCount = spokeCount;
             SpokeWidth = spokeWidth;
         }
 
-        public readonly Scalar Angle;
+        public readonly Scalar SpokeAngle;
 
         public readonly int SpokeCount;
 

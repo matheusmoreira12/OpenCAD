@@ -1,11 +1,18 @@
 ﻿using OpenCAD.OpenCADFormat.MetaAnnotation;
+using System;
 
 namespace OpenCAD.OpenCADFormat.PCBLayout
 {
     public abstract class Layer
     {
-        public abstract string Name { get; }
+        protected Layer(string name, Metadata metadata)
+        {
+            Name = name ?? throw new ArgumentNullException(nameof(name));
+            Metadata = metadata ?? throw new ArgumentNullException(nameof(metadata));
+        }
 
-        public abstract Metadata Metadata { get; }
+        public readonly string Name;
+
+        public readonly Metadata Metadata;
     }
 }

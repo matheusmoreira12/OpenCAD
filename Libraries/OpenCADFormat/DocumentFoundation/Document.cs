@@ -5,23 +5,20 @@ namespace OpenCAD.OpenCADFormat.DocumentFoundation
 {
     public abstract class Document
     {
+        public DateTime Created;
+
+        public DateTime Modified;
+
+        public Version SourceVersion;
+
         public Metadata Metadata;
 
-        protected Document(Metadata metadata)
+        protected Document(DateTime created, DateTime modified, Version sourceVersion, Metadata metadata)
         {
+            Created = created;
+            Modified = modified;
+            SourceVersion = sourceVersion ?? throw new ArgumentNullException(nameof(sourceVersion));
             Metadata = metadata ?? throw new ArgumentNullException(nameof(metadata));
-        }
-
-        public Document()
-        {
-            Metadata = new Metadata(
-                new MetadataField("Title", "Untitled", isRequired: true),
-                new MetadataField("Description", "", isRequired: true),
-                new MetadataField("Author", "", isRequired: true),
-                new MetadataField("Creation Date", DateTime.Now.ToLongDateString(), isRequired: true),
-                new MetadataField("Modification Date", DateTime.Now.ToLongDateString(), isRequired: true),
-                new MetadataField("Notes", "", isRequired: true)
-            );
         }
     }
 }

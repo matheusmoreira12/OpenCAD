@@ -14,29 +14,18 @@ namespace OpenCAD.OpenCADFormat.PCBLayout
 
         public readonly List<PCBElement> Elements;
 
-        public PCB(Point origin, LayerStackup layerStackup, IList<PCBElement> elements, Metadata metadata) : base(metadata)
+        public PCB(
+            Point origin,
+            LayerStackup layerStackup,
+            IList<PCBElement> elements,
+            DateTime created,
+            DateTime modified,
+            Version sourceVersion,
+            Metadata metadata) : base(created, modified, sourceVersion, metadata)
         {
             Origin = origin;
             LayerStackup = layerStackup ?? throw new ArgumentNullException(nameof(layerStackup));
             Elements = new List<PCBElement>(elements ?? throw new ArgumentNullException(nameof(elements)));
-        }
-
-        public PCB()
-        {
-            Origin = Point.Zero;
-            LayerStackup = new LayerStackup(
-                new AnnotationLayer("Fabrication Notes"),
-                new MechanicalLayer("Mechanical"),
-                new KeepoutLayer("Keepout"),
-                new OverlayLayer("Top Overlay"),
-                new SolderMaskLayer("Top Solder Mask"),
-                new SolderPasteLayer("Top Solder Paste"),
-                new RoutingLayer("Top Copper"),
-                new RoutingLayer("Bottom Copper"),
-                new SolderPasteLayer("Bottom Solder Paste"),
-                new SolderMaskLayer("Bottom Solder Mask"),
-                new OverlayLayer("Bottom Overlay"));
-            Elements = new List<PCBElement>();
         }
     }
 }

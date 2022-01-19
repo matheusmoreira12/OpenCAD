@@ -1,8 +1,5 @@
-﻿using System;
-
-namespace OpenCAD.OpenCADFormat.ComponentLibraries
+﻿namespace OpenCAD.OpenCADFormat.ComponentLibraries
 {
-    [Serializable]
     public enum ComponentPinPolarity
     {
         NotSpecified,

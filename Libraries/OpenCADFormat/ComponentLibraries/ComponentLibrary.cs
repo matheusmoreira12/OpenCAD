@@ -1,20 +1,22 @@
 ﻿using OpenCAD.OpenCADFormat.DocumentFoundation;
 using OpenCAD.OpenCADFormat.MetaAnnotation;
+using System;
 using System.Collections.Generic;
 
 namespace OpenCAD.OpenCADFormat.ComponentLibraries
 {
     public sealed class ComponentLibrary : Document
     {
-        public ComponentLibrary()
+        public ComponentLibrary(
+            DateTime created,
+            DateTime modified,
+            Version sourceVersion,
+            Metadata metadata,
+            IList<Component> components) : base(created, modified, sourceVersion, metadata)
         {
-            Components = new List<Component>();
+            Components = new ComponentCollection(components ?? throw new ArgumentNullException(nameof(components)));
         }
 
-        public ComponentLibrary(Metadata metadata) : base(metadata)
-        {
-        }
-
-        public readonly List<Component> Components;
+        public readonly ComponentCollection Components;
     }
 }
