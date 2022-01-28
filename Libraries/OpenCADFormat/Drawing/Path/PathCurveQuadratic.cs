@@ -3,7 +3,7 @@ using OpenCAD.OpenCADFormat.CoordinateSystem;
 
 namespace OpenCAD.OpenCADFormat.Drawing
 {
-    public class PathCurveQuadratic : PathSegment
+    public sealed class PathCurveQuadratic : PathSegment
     {
         public List<Point> ControlPoints;
     }

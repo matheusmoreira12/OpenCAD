@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace OpenCAD.OpenCADFormat.Drawing.TextNodes
 {
-    public class StrikeThroughNode : TextNode
+    public sealed class StrikeThroughNode : TextNode
     {
         public StrikeThroughNode(IList<TextNode> children) : base(children) { }
 

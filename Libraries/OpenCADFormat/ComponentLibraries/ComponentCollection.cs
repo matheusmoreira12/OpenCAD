@@ -3,7 +3,7 @@ using System.Collections.ObjectModel;
 
 namespace OpenCAD.OpenCADFormat.ComponentLibraries
 {
-    public class ComponentCollection : Collection<Component>
+    public sealed class ComponentCollection : Collection<Component>
     {
         public ComponentCollection()
         {

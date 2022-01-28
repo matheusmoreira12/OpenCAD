@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace OpenCAD.OpenCADFormat.Drawing.TextNodes
 {
-    public class ObliqueNode : TextNode
+    public sealed class ObliqueNode : TextNode
     {
         public ObliqueNode(IList<TextNode> children) : base(children) { }
 

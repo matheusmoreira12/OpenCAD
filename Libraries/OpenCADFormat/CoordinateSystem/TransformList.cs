@@ -2,7 +2,7 @@
 
 namespace OpenCAD.OpenCADFormat.CoordinateSystem
 {
-    public class TransformList : List<Transform>
+    public sealed class TransformList : List<Transform>
     {
 
     }

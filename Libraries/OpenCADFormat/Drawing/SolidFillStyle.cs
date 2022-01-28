@@ -1,6 +1,6 @@
 ﻿namespace OpenCAD.OpenCADFormat.Drawing
 {
-    public class SolidFillStyle : FillStyle
+    public sealed class SolidFillStyle : FillStyle
     {
     }
 }

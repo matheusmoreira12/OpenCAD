@@ -3,7 +3,7 @@ using OpenCAD.OpenCADFormat.CoordinateSystem;
 
 namespace OpenCAD.OpenCADFormat.Drawing
 {
-    public class Polyline : Shape
+    public sealed class Polyline : Shape
     {
         public List<Point> Points;
 

@@ -3,7 +3,7 @@ using OpenCAD.OpenCADFormat.CoordinateSystem;
 
 namespace OpenCAD.OpenCADFormat.Drawing
 {
-    public class Line : Shape
+    public sealed class Line : Shape
     {
         public readonly Point? StartPoint;
 

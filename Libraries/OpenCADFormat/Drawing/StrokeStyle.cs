@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace OpenCAD.OpenCADFormat.Drawing
 {
-    public class StrokeStyle
+    public sealed class StrokeStyle
     {
         public StrokeStyle(int[] dashArray)
         {

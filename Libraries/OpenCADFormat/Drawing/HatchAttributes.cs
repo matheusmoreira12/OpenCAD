@@ -2,7 +2,7 @@
 
 namespace OpenCAD.OpenCADFormat.Drawing
 {
-    public class HatchAttributes
+    public sealed class HatchAttributes
     {
         public HatchAttributes(HatchStyle style, Scalar thickness, Scalar angle, int[] hatchArray)
         {

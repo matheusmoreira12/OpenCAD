@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace OpenCAD.OpenCADFormat.SchematicCapture
 {
-    public class Trace
+    public sealed class Trace
     {
         public Trace(IList<TracePoint> points)
         {

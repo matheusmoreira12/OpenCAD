@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace OpenCAD.OpenCADFormat.Drawing.TextNodes
 {
-    public class BlackNode : TextNode
+    public sealed class BlackNode : TextNode
     {
         public BlackNode(IList<TextNode> children) : base(children) { }
 

@@ -3,7 +3,7 @@ using System.Collections.ObjectModel;
 
 namespace OpenCAD.OpenCADFormat.PCBLayout
 {
-    public class LayerCollection : Collection<Layer>
+    public sealed class LayerCollection : Collection<Layer>
     {
         public LayerCollection()
         {

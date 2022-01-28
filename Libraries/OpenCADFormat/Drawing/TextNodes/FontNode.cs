@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace OpenCAD.OpenCADFormat.Drawing.TextNodes
 {
-    public class FontNode : TextNode
+    public sealed class FontNode : TextNode
     {
         public FontNode(IList<TextNode> children, string family = null, Scalar? height = null, FontWeight? weight = null, FontStyle? style = null) : base(children)
         {

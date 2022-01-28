@@ -3,7 +3,7 @@ using System.Collections.ObjectModel;
 
 namespace OpenCAD.OpenCADFormat.FootprintLibraries
 {
-    public class FootprintCollection : Collection<Footprint>
+    public sealed class FootprintCollection : Collection<Footprint>
     {
         public FootprintCollection()
         {

@@ -3,7 +3,7 @@ using System;
 
 namespace OpenCAD.OpenCADFormat.PCBLayout
 {
-    public class Pad: PCBElement
+    public sealed class Pad: PCBElement
     {
         public Pad(PadShape shape, Reference<Layer> layer): base(layer)
         {

@@ -2,7 +2,7 @@
 
 namespace OpenCAD.OpenCADFormat.PCBLayout
 {
-    public class ThermalReliefOptions
+    public sealed class ThermalReliefOptions
     {
         public static readonly ThermalReliefOptions Default = new ThermalReliefOptions(
             Scalar.Parse("0deg"),

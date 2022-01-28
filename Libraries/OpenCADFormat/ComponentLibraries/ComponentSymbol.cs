@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace OpenCAD.OpenCADFormat.ComponentLibraries
 {
-    public class ComponentSymbol
+    public sealed class ComponentSymbol
     {
         public ComponentSymbol(DrawingGroup drawing, IList<ComponentPin> pins)
         {

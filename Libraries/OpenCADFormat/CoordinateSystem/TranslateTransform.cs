@@ -1,6 +1,6 @@
 ﻿namespace OpenCAD.OpenCADFormat.CoordinateSystem
 {
-    public class TranslateTransform : Transform
+    public sealed class TranslateTransform : Transform
     {
         public Point Offset { get; }
 

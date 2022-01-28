@@ -3,7 +3,7 @@ using OpenCAD.APIs.Measures;
 
 namespace OpenCAD.OpenCADFormat.CoordinateSystem
 {
-    public class RotateTransform : Transform
+    public sealed class RotateTransform : Transform
     {
         public Point Center { get; }
         public Scalar Angle { get; }

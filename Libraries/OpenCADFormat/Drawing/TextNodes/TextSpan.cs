@@ -1,6 +1,6 @@
 ﻿namespace OpenCAD.OpenCADFormat.Drawing.TextNodes
 {
-    public class TextSpan : TextNode
+    public sealed class TextSpan : TextNode
     {
         public static implicit operator TextSpan(string value) => new TextSpan(value);
 

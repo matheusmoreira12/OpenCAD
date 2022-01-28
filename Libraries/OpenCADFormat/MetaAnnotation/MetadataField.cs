@@ -2,7 +2,7 @@
 
 namespace OpenCAD.OpenCADFormat.MetaAnnotation
 {
-    public class MetadataField
+    public sealed class MetadataField
     {
         public MetadataField(string name, string value, bool acceptsEmptyValue = true, bool isRequired = false, bool isReadonly = false)
         {

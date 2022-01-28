@@ -3,7 +3,7 @@ using OpenCAD.OpenCADFormat.CoordinateSystem;
 
 namespace OpenCAD.OpenCADFormat.Drawing
 {
-    public class Polygon : Shape
+    public sealed class Polygon : Shape
     {
         public readonly Point? CenterPoint;
 

@@ -2,7 +2,7 @@
 
 namespace OpenCAD.OpenCADFormat.Drawing
 {
-    public class HatchStyle
+    public sealed class HatchStyle
     {
         public HatchStyle(StrokeStyle[] strokeStyles)
         {

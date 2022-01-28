@@ -3,7 +3,7 @@ using OpenCAD.APIs.Measures;
 
 namespace OpenCAD.OpenCADFormat.Drawing
 {
-    public class PathArc : PathSegment
+    public sealed class PathArc : PathSegment
     {
         public static PathArc Create(Size radius, Scalar rotation, bool largeArcFlag, bool sweepFlag)
         {

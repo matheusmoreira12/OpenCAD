@@ -5,7 +5,7 @@ using System.Collections.Generic;
 namespace OpenCAD.OpenCADFormat.Drawing.TextNodes
 {
     [Serializable]
-    public class BoldNode : TextNode
+    public sealed class BoldNode : TextNode
     {
         public BoldNode(IList<TextNode> children) : base(children) { }
 

@@ -2,7 +2,7 @@
 
 namespace OpenCAD.OpenCADFormat.Drawing.Fonts
 {
-    public class Font
+    public sealed class Font
     {
         public static readonly Font Default = new Font("Arial, Verdana, sans-serif", Scalar.Parse("200mil"));
 

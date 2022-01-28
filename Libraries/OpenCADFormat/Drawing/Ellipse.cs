@@ -3,7 +3,7 @@ using OpenCAD.APIs.Measures;
 
 namespace OpenCAD.OpenCADFormat.Drawing
 {
-    public class Ellipse : Shape
+    public sealed class Ellipse : Shape
     {
         public Point? MajorAxisStartPoint;
 

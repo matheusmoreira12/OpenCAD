@@ -2,7 +2,7 @@
 
 namespace OpenCAD.OpenCADFormat.PCBLayout
 {
-    public class CopperBalancingOptions
+    public sealed class CopperBalancingOptions
     {
         public readonly CopperBalancingPatternType PatternType;
 

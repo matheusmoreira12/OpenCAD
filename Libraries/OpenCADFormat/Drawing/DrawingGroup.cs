@@ -7,7 +7,7 @@ namespace OpenCAD.OpenCADFormat.Drawing
     /// <summary>
     /// Represents a group of drawing elements.
     /// </summary>
-    public class DrawingGroup
+    public sealed class DrawingGroup
     {
         /// <summary>
         /// Gets the drawing elements contained within this drawing group.

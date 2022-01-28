@@ -1,6 +1,6 @@
 ﻿namespace OpenCAD.OpenCADFormat.Drawing
 {
-    public class PathPoint : PathSegment
+    public sealed class PathPoint : PathSegment
     {
     }
 }

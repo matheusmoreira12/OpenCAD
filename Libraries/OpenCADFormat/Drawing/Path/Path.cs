@@ -2,7 +2,7 @@
 
 namespace OpenCAD.OpenCADFormat.Drawing
 {
-    public class Path : Shape
+    public sealed class Path : Shape
     {
         public List<PathSegment> PathSegments { get; private set; }
     }

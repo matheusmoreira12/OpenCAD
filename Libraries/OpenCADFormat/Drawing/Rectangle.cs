@@ -5,7 +5,7 @@ namespace OpenCAD.OpenCADFormat.Drawing
 {
     public enum RectangleType { TwoPoint, ThreePoint, Centered }
 
-    public class Rectangle : Shape
+    public sealed class Rectangle : Shape
     {
         public readonly Point? CenterPoint;
 

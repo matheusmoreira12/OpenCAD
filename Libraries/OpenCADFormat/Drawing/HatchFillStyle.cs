@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace OpenCAD.OpenCADFormat.Drawing
 {
-    public class HatchFillStyle : FillStyle
+    public sealed class HatchFillStyle : FillStyle
     {
         public static HatchFillStyle Combine(params HatchFillStyle[] values)
         {

@@ -2,7 +2,7 @@
 
 namespace OpenCAD.OpenCADFormat.Drawing
 {
-    public class Text : TextNode
+    public sealed class Text : TextNode
     {
         public Text(IList<TextNode> children) : base(children) { }
 

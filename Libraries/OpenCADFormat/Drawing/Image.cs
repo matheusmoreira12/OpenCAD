@@ -2,7 +2,7 @@
 
 namespace OpenCAD.OpenCADFormat.Drawing
 {
-    public class Image : DrawingNode
+    public sealed class Image : DrawingNode
     {
         public string EmbeddedResourceID { get; private set; }
         public Point TopLeft { get; private set; }

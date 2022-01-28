@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace OpenCAD.OpenCADFormat.MetaAnnotation
 {
-    public class Metadata
+    public sealed class Metadata
     {
         public readonly MetadataFieldCollection Fields;
 

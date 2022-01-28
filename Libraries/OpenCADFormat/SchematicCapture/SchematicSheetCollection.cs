@@ -3,7 +3,7 @@ using System.Collections.ObjectModel;
 
 namespace OpenCAD.OpenCADFormat.SchematicCapture
 {
-    public class SchematicSheetCollection : Collection<SchematicSheet>
+    public sealed class SchematicSheetCollection : Collection<SchematicSheet>
     {
         public SchematicSheetCollection()
         {

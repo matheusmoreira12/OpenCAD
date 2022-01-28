@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace OpenCAD.OpenCADFormat.Drawing.TextNodes
 {
-    public class SemiBoldNode : TextNode
+    public sealed class SemiBoldNode : TextNode
     {
         public SemiBoldNode(IList<TextNode> children) : base(children) { }
 

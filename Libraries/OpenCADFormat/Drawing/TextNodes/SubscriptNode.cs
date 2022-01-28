@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace OpenCAD.OpenCADFormat.Drawing.TextNodes
 {
-    public class SubscriptNode : TextNode
+    public sealed class SubscriptNode : TextNode
     {
         public SubscriptNode(IList<TextNode> children) : base(children) { }
 
