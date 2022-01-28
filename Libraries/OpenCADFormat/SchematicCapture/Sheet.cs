@@ -5,7 +5,7 @@ namespace OpenCAD.OpenCADFormat.SchematicCapture
 {
     public abstract class Sheet
     {
-        internal Sheet(IList<HierarchicalSheet> hierarchicalSheets)
+        internal protected Sheet(IList<HierarchicalSheet> hierarchicalSheets)
         {
             HierarchicalSheets = new HierarchicalSheetCollection(hierarchicalSheets ?? throw new ArgumentNullException(nameof(hierarchicalSheets)));
         }

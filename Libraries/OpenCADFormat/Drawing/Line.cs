@@ -13,7 +13,15 @@ namespace OpenCAD.OpenCADFormat.Drawing
 
         public readonly Point? EndPoint;
 
-        public Line(Point? start = null, Scalar? length = null, Scalar? angle = null, Point? end = null)
+        public Line(
+            Point? start,
+            Scalar? length,
+            Scalar? angle,
+            Point? end,
+            StrokeAttributes stroke,
+            FillStyle fill) : base(
+                stroke,
+                fill)
         {
             StartPoint = start;
             Length = length;

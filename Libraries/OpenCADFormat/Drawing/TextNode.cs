@@ -8,7 +8,7 @@ namespace OpenCAD.OpenCADFormat.Drawing
 {
     public abstract class TextNode : DrawingNode
     {
-        public TextNode(IList<TextNode> children)
+        internal protected TextNode(IList<TextNode> children)
         {
             Children = children.ToArray();
         }

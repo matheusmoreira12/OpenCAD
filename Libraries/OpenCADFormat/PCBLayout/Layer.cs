@@ -5,7 +5,7 @@ namespace OpenCAD.OpenCADFormat.PCBLayout
 {
     public abstract class Layer
     {
-        protected Layer(string name, Metadata metadata)
+        internal protected Layer(string name, Metadata metadata)
         {
             Name = name ?? throw new ArgumentNullException(nameof(name));
             Metadata = metadata ?? throw new ArgumentNullException(nameof(metadata));

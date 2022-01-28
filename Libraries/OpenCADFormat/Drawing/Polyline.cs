@@ -1,15 +1,21 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using OpenCAD.OpenCADFormat.CoordinateSystem;
 
 namespace OpenCAD.OpenCADFormat.Drawing
 {
     public sealed class Polyline : Shape
     {
-        public List<Point> Points;
+        public readonly List<Point> Points;
 
-        protected Polyline()
+        public Polyline(
+            List<Point> points,
+            StrokeAttributes stroke,
+            FillStyle fill) : base(
+                stroke,
+                fill)
         {
-            Points = new List<Point>();
+            Points = points ?? throw new ArgumentNullException(nameof(points));
         }
     }
 }

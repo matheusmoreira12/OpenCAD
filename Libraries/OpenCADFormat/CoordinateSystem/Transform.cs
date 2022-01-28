@@ -2,6 +2,8 @@
 {
     public abstract class Transform
     {
-
+        internal protected Transform()
+        {
+        }
     }
 }

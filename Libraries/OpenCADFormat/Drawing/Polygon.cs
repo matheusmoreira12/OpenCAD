@@ -13,7 +13,15 @@ namespace OpenCAD.OpenCADFormat.Drawing
 
         public readonly Point[] Points;
 
-        public Polygon(Point? centerPoint = null, Scalar? rotationAngle = null, int? sideCount = null, Point[] points = null)
+        public Polygon(
+            Point? centerPoint,
+            Scalar? rotationAngle,
+            int? sideCount,
+            Point[] points,
+            StrokeAttributes stroke,
+            FillStyle fill) : base(
+                stroke,
+                fill)
         {
             CenterPoint = centerPoint;
             RotationAngle = rotationAngle;

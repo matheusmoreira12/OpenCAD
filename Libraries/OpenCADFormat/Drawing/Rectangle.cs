@@ -21,7 +21,18 @@ namespace OpenCAD.OpenCADFormat.Drawing
 
         public readonly Scalar? Rotation;
 
-        public Rectangle(Point? centerPoint = null, Point? startCorner = null, Point? endCorner = null, Scalar? width = null, Scalar? height = null, Scalar? area = null, Scalar? rotation = null)
+        public Rectangle(
+            Point? centerPoint,
+            Point? startCorner,
+            Point? endCorner,
+            Scalar? width,
+            Scalar? height,
+            Scalar? area,
+            Scalar? rotation,
+            StrokeAttributes stroke,
+            FillStyle fill) : base(
+                stroke,
+                fill)
         {
             CenterPoint = centerPoint;
             StartCorner = startCorner;

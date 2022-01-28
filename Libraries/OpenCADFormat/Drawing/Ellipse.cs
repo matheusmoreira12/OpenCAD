@@ -21,7 +21,19 @@ namespace OpenCAD.OpenCADFormat.Drawing
 
         public Scalar? Rotation;
 
-        public Ellipse(Point? majorAxisStartPoint = null, Point? majorAxisEndPoint = null, Point? minorAxisPoint = null, Point? center = null, Size? radius = null, Scalar? circleRadius = null, double? excentricity = null, Scalar? rotation = null)
+        public Ellipse(
+            Point? majorAxisStartPoint,
+            Point? majorAxisEndPoint,
+            Point? minorAxisPoint,
+            Point? center,
+            Size? radius,
+            Scalar? circleRadius,
+            double? excentricity,
+            Scalar? rotation,
+            StrokeAttributes stroke,
+            FillStyle fill) : base(
+                stroke,
+                fill)
         {
             MajorAxisStartPoint = majorAxisStartPoint;
             MajorAxisEndPoint = majorAxisEndPoint;

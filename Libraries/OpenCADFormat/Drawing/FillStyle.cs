@@ -2,5 +2,8 @@
 {
     public abstract class FillStyle
     {
+        internal protected FillStyle()
+        {
+        }
     }
 }

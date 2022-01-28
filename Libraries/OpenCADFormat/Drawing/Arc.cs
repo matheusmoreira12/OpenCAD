@@ -8,7 +8,21 @@ namespace OpenCAD.OpenCADFormat.Drawing
     /// </summary>
     public abstract class Arc : Shape
     {
-        public Arc(Point? centerPoint = null, Point? startPoint = null, Point? controlPoint = null, Point? endPoint = null, Scalar? sweepAngle = null, Scalar? startAngle = null, Scalar? endAngle = null, Scalar? radius = null, Scalar? diameter = null, Scalar? cordLength = null)
+        internal protected Arc(
+            Point? centerPoint,
+            Point? startPoint,
+            Point? controlPoint,
+            Point? endPoint,
+            Scalar? sweepAngle,
+            Scalar? startAngle,
+            Scalar? endAngle,
+            Scalar? radius,
+            Scalar? diameter,
+            Scalar? cordLength,
+            StrokeAttributes stroke,
+            FillStyle fill): base(
+                stroke,
+                fill)
         {
             CenterPoint = centerPoint;
             StartPoint = startPoint;
