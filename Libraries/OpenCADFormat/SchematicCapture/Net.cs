@@ -1,6 +1,6 @@
 ﻿namespace OpenCAD.OpenCADFormat.SchematicCapture
 {
-    class Net
+    public sealed class Net
     {
     }
 }

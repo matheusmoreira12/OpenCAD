@@ -1,6 +1,9 @@
 ﻿namespace OpenCAD.OpenCADFormat.SchematicCapture
 {
-    public class SchematicElement
+    public abstract class SchematicElement
     {
+        internal SchematicElement()
+        {
+        }
     }
 }

@@ -206,15 +206,19 @@
       <DependentUpon>Resource1.resx</DependentUpon>
     </Compile>
     <Compile Include="SchematicCapture\HierarchicalSheet.cs" />
+    <Compile Include="SchematicCapture\HierarchicalSheetCollection.cs" />
     <Compile Include="SchematicCapture\Net.cs" />
-    <Compile Include="SchematicCapture\RatsNest.cs" />
+    <Compile Include="SchematicCapture\NetCollection.cs" />
     <Compile Include="SchematicCapture\Schematic.cs" />
     <Compile Include="Drawing\DrawingNode.cs" />
     <Compile Include="SchematicCapture\SchematicElement.cs" />
+    <Compile Include="SchematicCapture\SchematicSheet.cs" />
     <Compile Include="SchematicCapture\Sheet.cs" />
+    <Compile Include="SchematicCapture\SchematicSheetCollection.cs" />
     <Compile Include="SchematicCapture\Trace.cs" />
     <Compile Include="SchematicCapture\TraceMode.cs" />
     <Compile Include="SchematicCapture\TracePoint.cs" />
+    <Compile Include="SchematicCapture\TracePointCollection.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

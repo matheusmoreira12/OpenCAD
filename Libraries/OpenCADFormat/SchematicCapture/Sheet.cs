@@ -1,19 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace OpenCAD.OpenCADFormat.SchematicCapture
 {
-    public class Sheet
+    public abstract class Sheet
     {
-        public Sheet()
+        internal Sheet(IList<HierarchicalSheet> hierarchicalSheets)
         {
-            HierarchicalSheets = new HierarchicalSheet[0];
+            HierarchicalSheets = new HierarchicalSheetCollection(hierarchicalSheets ?? throw new ArgumentNullException(nameof(hierarchicalSheets)));
         }
 
-        public Sheet(HierarchicalSheet[] hierarchicalSheets)
-        {
-            HierarchicalSheets = hierarchicalSheets ?? throw new ArgumentNullException(nameof(hierarchicalSheets));
-        }
-
-        public readonly HierarchicalSheet[] HierarchicalSheets;
+        public readonly HierarchicalSheetCollection HierarchicalSheets;
     }
 }

@@ -1,17 +1,17 @@
-﻿using System;
-using System.Xml.Serialization;
-
-using OpenCAD.OpenCADFormat.CoordinateSystem;
+﻿using OpenCAD.OpenCADFormat.CoordinateSystem;
 
 namespace OpenCAD.OpenCADFormat.SchematicCapture
 {
-    [Serializable]
-    public struct TracePoint
+    public sealed class TracePoint
     {
-        [XmlAttribute]
+        public TracePoint(Point point, TraceMode mode)
+        {
+            Point = point;
+            Mode = mode;
+        }
+
         public Point Point;
 
-        [XmlAttribute]
         public TraceMode Mode;
     }
 }

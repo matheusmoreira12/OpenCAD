@@ -1,4 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <SchematicTemplate Extends="Document_Template.xml">
-  
+  <FillerTemplates>
+    <SheetTemplate>
+      <Name>*</Name>
+      <HierarchichalSheets>
+      </HierarchichalSheets>
+    </SheetTemplate>
+    <HierarchichalSheetTemplate>
+      <Symbol></Symbol>
+    </HierarchichalSheetTemplate>
+  </FillerTemplates>
 </SchematicTemplate>

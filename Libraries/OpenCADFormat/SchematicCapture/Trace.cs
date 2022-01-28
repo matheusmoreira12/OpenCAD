@@ -1,14 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace OpenCAD.OpenCADFormat.SchematicCapture
 {
     public class Trace
     {
-        public Trace(TracePoint[] points)
+        public Trace(IList<TracePoint> points)
         {
-            this.points = points ?? throw new ArgumentNullException(nameof(points));
+            Points = new TracePointCollection(points ?? throw new ArgumentNullException(nameof(points)));
         }
 
-        public readonly TracePoint[] points;
+        public readonly TracePointCollection Points;
     }
 }

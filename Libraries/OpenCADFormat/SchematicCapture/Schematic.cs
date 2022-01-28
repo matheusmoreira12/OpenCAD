@@ -1,19 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace OpenCAD.OpenCADFormat.SchematicCapture
 {
-    public class Schematic
+    public sealed class Schematic
     {
-        public Schematic()
+        public Schematic(IList<SchematicSheet> sheets)
         {
-            Sheets = new[] { new Sheet() };
+            Sheets = new SchematicSheetCollection(sheets ?? throw new ArgumentNullException(nameof(sheets)));
         }
 
-        public Schematic(Sheet[] sheets)
-        {
-            Sheets = sheets ?? throw new ArgumentNullException(nameof(sheets));
-        }
-
-        public readonly Sheet[] Sheets;
+        public readonly SchematicSheetCollection Sheets;
     }
 }
