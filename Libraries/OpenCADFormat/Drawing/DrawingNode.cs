@@ -5,7 +5,7 @@
     /// </summary>
     public abstract class DrawingNode
     {
-        internal protected DrawingNode()
+        protected internal DrawingNode()
         {
         }
     }

@@ -5,7 +5,7 @@ namespace OpenCAD.OpenCADFormat.DocumentFoundation
 {
     public abstract class Document
     {
-        internal protected Document(DateTime created, DateTime modified, Version sourceVersion, Metadata metadata)
+        protected internal Document(DateTime created, DateTime modified, Version sourceVersion, Metadata metadata)
         {
             Created = created;
             Modified = modified;

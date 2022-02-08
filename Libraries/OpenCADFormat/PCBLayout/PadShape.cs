@@ -2,7 +2,7 @@
 {
     public abstract class PadShape
     {
-        internal protected PadShape()
+        protected internal PadShape()
         {
         }
     }

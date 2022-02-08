@@ -2,7 +2,7 @@
 {
     public abstract class SchematicElement
     {
-        internal protected SchematicElement()
+        protected internal SchematicElement()
         {
         }
     }

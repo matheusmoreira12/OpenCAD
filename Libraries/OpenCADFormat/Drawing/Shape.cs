@@ -5,7 +5,7 @@ namespace OpenCAD.OpenCADFormat.Drawing
     //Represents a geometric shape.
     public abstract class Shape : DrawingNode
     {
-        internal protected Shape(StrokeAttributes stroke, FillStyle fill)
+        protected internal Shape(StrokeAttributes stroke, FillStyle fill)
         {
             Stroke = stroke;
             Fill = fill ?? throw new ArgumentNullException(nameof(fill));

@@ -8,7 +8,7 @@ namespace OpenCAD.OpenCADFormat.Drawing
     /// </summary>
     public abstract class Arc : Shape
     {
-        internal protected Arc(
+        protected internal Arc(
             Point? centerPoint,
             Point? startPoint,
             Point? controlPoint,

@@ -2,7 +2,7 @@
 {
     public abstract class Transform
     {
-        internal protected Transform()
+        protected internal Transform()
         {
         }
     }

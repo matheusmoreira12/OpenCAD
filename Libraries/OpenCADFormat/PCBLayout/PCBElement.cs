@@ -5,7 +5,7 @@ namespace OpenCAD.OpenCADFormat.PCBLayout
 {
     public abstract class PCBElement
     {
-        internal protected PCBElement(Reference<Layer> layer)
+        protected internal PCBElement(Reference<Layer> layer)
         {
             Layer = layer ?? throw new ArgumentNullException(nameof(layer));
         }

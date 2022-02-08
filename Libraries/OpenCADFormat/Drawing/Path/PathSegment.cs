@@ -4,7 +4,7 @@ namespace OpenCAD.OpenCADFormat.Drawing
 {
     public abstract class PathSegment
     {
-        internal protected PathSegment()
+        protected internal PathSegment()
         {
         }
 
