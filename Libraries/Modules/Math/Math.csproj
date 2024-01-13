@@ -54,6 +54,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Exceptions\ValueConversionNotFoundException.cs" />
+    <Compile Include="Exceptions\ValueConverterNotFoundException.cs" />
     <Compile Include="ValueConversion\DefaultConverters\DecimalToDoubleConverter.cs" />
     <Compile Include="ValueConversion\DefaultConverters\ByteToDoubleConverter.cs" />
     <Compile Include="ValueConversion\DefaultConverters\FloatToDoubleConverter.cs" />
@@ -62,6 +64,7 @@
     <Compile Include="ValueConversion\DefaultConverters\UShortToDoubleConverter.cs" />
     <Compile Include="ValueConversion\DefaultConverters\ULongToDoubleConverter.cs" />
     <Compile Include="ValueConversion\DefaultConverters\LongToDoubleConverter.cs" />
+    <Compile Include="ValueConversion\ValueConverterDirection.cs" />
     <Compile Include="ValueConversion\ValueConverterManager.cs" />
     <Compile Include="Numerics\ComplexNumber.cs" />
     <Compile Include="Numerics\IComplexNumber.cs" />

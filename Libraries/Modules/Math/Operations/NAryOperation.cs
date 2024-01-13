@@ -21,52 +21,38 @@ namespace OpenCAD.Modules.Math.Operations
             object getAndExecuteInexact()
             {
                 NAryOperation operation;
-                Func<object, object>[] operandConversions;
-                if (tryFindOperationAndParameterConversions(out operation, out operandConversions))
+                Func<object, object>[] operandConversionPredicates;
+                if (tryFindOperationAndParameterConversionPredicates(out operation, out operandConversionPredicates))
                 {
-                    var convertedOperands = convertOperands(operandConversions);
+                    var convertedOperands = convertOperands(operandConversionPredicates);
                     return operation.Execute(convertedOperands);
                 }
                 return null;
 
-                bool tryFindOperationAndParameterConversions(out NAryOperation operation, out Func<object, object>[] conversions)
+                bool tryFindOperationAndParameterConversionPredicates(out NAryOperation operation, out Func<object, object>[] predicates)
                 {
-                    (operation, conversions) = OperationManager.GetAll(operationType)
+                    (operation, predicates) = OperationManager.GetAll(operationType)
                         .AsParallel()
-                        .Select((operation) => (operation, conversions: getOperandConversionsOrNull(operation.OperandTypes)))
+                        .Select((operation) => (operation, conversions: getOperandConversionPredicatesOrNull(operation.OperandTypes)))
                         .FirstOrDefault(t => t.conversions != null);
                     return operation != null;
 
-                    Func<object, object>[] getOperandConversionsOrNull(Type[] destOperandTypes)
+					Func<object, object>[] getOperandConversionPredicatesOrNull(Type[] destOperandTypes)
                     {
-                        var conversions = operandTypes
-                            .Zip(destOperandTypes, (source, dest) => (source, dest))
-                            .Select(types => getConversionOrNull(types.source, types.dest))
+                        var converters = operandTypes
+                            .Zip(destOperandTypes, (input, output) => (input, output))
+                            .Select(types => ValueConverter.TryGetConversionPredicate(types.input, types.output, out var predicate) ? predicate : null)
                             .TakeWhile(conversion => conversion != null)
                             .ToArray();
 
-                        if (conversions.Length == destOperandTypes.Length)
-                            return conversions;
-                        return null;
-
-                        Func<object, object> getConversionOrNull(Type sourceType, Type destType)
-                        {
-                            if (sourceType == destType)
-                                return o => o;
-                            ValueConverter converter;
-                            if (ValueConverterManager.TryGetExact(sourceType, destType, out converter))
-                                return converter.Convert;
-                            if (ValueConverterManager.TryGetExact(destType, sourceType, out converter))
-                                return converter.ConvertBack;
-                            return null;
-                        }
+                        return converters.Length == destOperandTypes.Length ? converters : null;
                     }
                 }
 
                 object[] convertOperands(Func<object, object>[] operandConversions)
                     => operands
-                        .Zip(operandConversions, (value, conversion) => (value, conversion))
-                        .Select(pair => pair.conversion(pair.value))
+                        .Zip(operandConversions, (value, conversionPredicate) => (value, conversionPredicate))
+                        .Select(pair => pair.conversionPredicate(pair.value))
                         .ToArray();
             }
         }
@@ -82,25 +68,30 @@ namespace OpenCAD.Modules.Math.Operations
         public abstract Type ResultType { get; }
 
         /// <summary>
-        /// Executes this operation on the specified parameters
-        /// </summary>
-        /// <param name="operands"></param>
-        /// <returns>The result of the operation.</returns>
-        public abstract object Execute(params object[] operands);
-
-        /// <summary>
         /// Gets the type of this operation.
         /// </summary>
         public abstract OperationType OperationType { get; }
-    }
 
-    public abstract class NAryOperation<T1, TR> : NAryOperation
-    {
         /// <summary>
-        /// Creates a new n-ary operator.
+        /// Gets the arity of this operation.
         /// </summary>
-        /// <param name="executor">The executor of the new n-ary operator.</param>
-        protected NAryOperation(Func<T1, TR> executor)
+        public abstract int Arity { get; }
+
+		/// <summary>
+		/// Executes this operation on the specified parameters
+		/// </summary>
+		/// <param name="operands"></param>
+		/// <returns>The result of the operation.</returns>
+		public abstract object Execute(params object[] operands);
+	}
+
+	public abstract class NAryOperation<T1, TR> : NAryOperation
+    {
+		/// <summary>
+		/// Creates a new n-ary operation.
+		/// </summary>
+		/// <param name="executor">The executor of the new n-ary operation.</param>
+		protected NAryOperation(Func<T1, TR> executor)
         {
             this.executor = executor ?? throw new ArgumentNullException(nameof(executor));
         }
@@ -113,16 +104,18 @@ namespace OpenCAD.Modules.Math.Operations
 
         public override Type ResultType => typeof(TR);
 
-        private readonly Func<T1, TR> executor;
+		public override int Arity => 1;
+
+		private readonly Func<T1, TR> executor;
     }
 
     public abstract class NAryOperation<T1, T2, TR> : NAryOperation
     {
-        /// <summary>
-        /// Creates a new n-ary operator.
-        /// </summary>
-        /// <param name="executor">The executor of the new n-ary operator.</param>
-        protected NAryOperation(Func<T1, T2, TR> executor)
+		/// <summary>
+		/// Creates a new n-ary operation.
+		/// </summary>
+		/// <param name="executor">The executor of the new n-ary operation.</param>
+		protected NAryOperation(Func<T1, T2, TR> executor)
         {
             this.executor = executor ?? throw new ArgumentNullException(nameof(executor));
         }
@@ -135,16 +128,18 @@ namespace OpenCAD.Modules.Math.Operations
 
         public override Type ResultType => typeof(TR);
 
-        private readonly Func<T1, T2, TR> executor;
+		public override int Arity => 2;
+
+		private readonly Func<T1, T2, TR> executor;
     }
 
     public abstract class NAryOperation<T1, T2, T3, TR> : NAryOperation
     {
-        /// <summary>
-        /// Creates a new n-ary operator.
-        /// </summary>
-        /// <param name="executor">The executor of the new n-ary operator.</param>
-        protected NAryOperation(Func<T1, T2, T3, TR> executor)
+		/// <summary>
+		/// Creates a new n-ary operation.
+		/// </summary>
+		/// <param name="executor">The executor of the new n-ary operation.</param>
+		protected NAryOperation(Func<T1, T2, T3, TR> executor)
         {
             this.executor = executor ?? throw new ArgumentNullException(nameof(executor));
         }
@@ -158,16 +153,18 @@ namespace OpenCAD.Modules.Math.Operations
 
         public override Type ResultType => typeof(TR);
 
-        private readonly Func<T1, T2, T3, TR> executor;
+		public override int Arity => 3;
+
+		private readonly Func<T1, T2, T3, TR> executor;
     }
 
     public abstract class NAryOperation<T1, T2, T3, T4, TR> : NAryOperation
     {
-        /// <summary>
-        /// Creates a new n-ary operator.
-        /// </summary>
-        /// <param name="executor">The executor of the new n-ary operator.</param>
-        protected NAryOperation(Func<T1, T2, T3, T4, TR> executor)
+		/// <summary>
+		/// Creates a new n-ary operation.
+		/// </summary>
+		/// <param name="executor">The executor of the new n-ary operation.</param>
+		protected NAryOperation(Func<T1, T2, T3, T4, TR> executor)
         {
             this.executor = executor ?? throw new ArgumentNullException(nameof(executor));
         }
@@ -181,6 +178,8 @@ namespace OpenCAD.Modules.Math.Operations
 
         public override Type ResultType => typeof(TR);
 
-        private readonly Func<T1, T2, T3, T4, TR> executor;
+		public override int Arity => 4;
+
+		private readonly Func<T1, T2, T3, T4, TR> executor;
     }
 }

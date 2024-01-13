@@ -5,5 +5,7 @@
         public override double Convert(ulong value) => value;
 
         public override ulong ConvertBack(double value) => (ulong)value;
-    }
+
+		public override ValueConverterDirection AllowedDirections => ValueConverterDirection.Both;
+	}
 }

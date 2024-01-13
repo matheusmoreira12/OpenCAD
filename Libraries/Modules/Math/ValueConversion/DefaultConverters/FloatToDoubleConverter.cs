@@ -5,5 +5,7 @@
         public override double Convert(float value) => value;
 
         public override float ConvertBack(double value) => (float)value;
-    }
+
+		public override ValueConverterDirection AllowedDirections => ValueConverterDirection.Both;
+	}
 }

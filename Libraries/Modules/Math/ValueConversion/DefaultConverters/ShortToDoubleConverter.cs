@@ -5,5 +5,7 @@
         public override double Convert(short value) => value;
 
         public override short ConvertBack(double value) => (short)value;
-    }
+
+		public override ValueConverterDirection AllowedDirections => ValueConverterDirection.Both;
+	}
 }

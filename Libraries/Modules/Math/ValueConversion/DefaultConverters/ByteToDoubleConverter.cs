@@ -5,5 +5,7 @@
         public override double Convert(byte value) => value;
 
         public override byte ConvertBack(double value) => (byte)value;
-    }
+
+		public override ValueConverterDirection AllowedDirections => ValueConverterDirection.Both;
+	}
 }

@@ -5,5 +5,7 @@
         public override double Convert(decimal value) => (double)value;
 
         public override decimal ConvertBack(double value) => (decimal)value;
-    }
+
+		public override ValueConverterDirection AllowedDirections => ValueConverterDirection.Both;
+	}
 }
